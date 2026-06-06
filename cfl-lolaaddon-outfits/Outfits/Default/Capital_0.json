@@ -1,0 +1,46 @@
+{
+	"formList": {
+		"1": [
+			"0x86a|[Caenarvon] Pharaoh Slave.esp",
+			"0x86b|[Caenarvon] Pharaoh Slave.esp",
+			"0x86c|[Caenarvon] Pharaoh Slave.esp",
+			"0x86d|[Caenarvon] Pharaoh Slave.esp",
+			"0x86e|[Caenarvon] Pharaoh Slave.esp",
+			"0x870|[Caenarvon] Pharaoh Slave.esp",
+			"0x871|[Caenarvon] Pharaoh Slave.esp",
+			"0x874|[Caenarvon] Pharaoh Slave.esp",
+			"0x875|[Caenarvon] Pharaoh Slave.esp",
+			"0x876|[Caenarvon] Pharaoh Slave.esp",
+			"0x877|[Caenarvon] Pharaoh Slave.esp"
+		],
+		"2": [
+			"0x869|[COCO] Mulan.esp",
+			"0x86b|[COCO] Mulan.esp",
+			"0x84b|[COCO] Mulan.esp"
+		],
+		"3": [
+			"0x860|[COCO] 2B Wedding Outfit.esp",
+			"0x862|[COCO] 2B Wedding Outfit.esp",
+			"0x863|[COCO] 2B Wedding Outfit.esp",
+			"0x86e|[COCO] 2B Wedding Outfit.esp",
+			"0x875|[COCO] 2B Wedding Outfit.esp",
+			"0x877|[COCO] 2B Wedding Outfit.esp",
+			"0x87f|[COCO] 2B Wedding Outfit.esp"
+		]
+	},
+	"int": {
+		"next": 4
+	},
+	"intList": {
+		"ids": [
+			1,
+			2,
+			3
+		]
+	},
+	"string": {
+		"1": "pharaoh general",
+		"2": "mulan dress",
+		"3": "wedding black"
+	}
+}

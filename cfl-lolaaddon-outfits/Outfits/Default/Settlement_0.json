@@ -1,0 +1,38 @@
+{
+	"formList": {
+		"1": [
+			"0x869|[COCO] Mulan.esp",
+			"0x86b|[COCO] Mulan.esp",
+			"0x84b|[COCO] Mulan.esp"
+		],
+		"2": [
+			"0x89f|[COCO] RONIN.esp",
+			"0x89e|[COCO] RONIN.esp",
+			"0x899|[COCO] RONIN.esp",
+			"0x8c4|[COCO] RONIN.esp"
+		],
+		"3": [
+			"0x829|[COCO] 2B Wedding Outfit.esp",
+			"0x82b|[COCO] 2B Wedding Outfit.esp",
+			"0x836|[COCO] 2B Wedding Outfit.esp",
+			"0x83d|[COCO] 2B Wedding Outfit.esp",
+			"0x83f|[COCO] 2B Wedding Outfit.esp",
+			"0x880|[COCO] 2B Wedding Outfit.esp"
+		]
+	},
+	"int": {
+		"next": 4
+	},
+	"intList": {
+		"ids": [
+			1,
+			2,
+			3
+		]
+	},
+	"string": {
+		"1": "mulan dress",
+		"2": "ronin",
+		"3": "wedding white"
+	}
+}

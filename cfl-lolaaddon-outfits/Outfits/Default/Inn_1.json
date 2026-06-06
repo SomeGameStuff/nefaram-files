@@ -1,0 +1,45 @@
+{
+	"formList": {
+		"1": [
+			"0x911|[COCO] Scarlet Rose.esp",
+			"0x918|[COCO] Scarlet Rose.esp",
+			"0x91c|[COCO] Scarlet Rose.esp",
+			"0x929|[COCO] Scarlet Rose.esp"
+		],
+		"2": [
+			"0x86a|[Caenarvon] Pharaoh Slave.esp",
+			"0x86b|[Caenarvon] Pharaoh Slave.esp",
+			"0x86c|[Caenarvon] Pharaoh Slave.esp",
+			"0x86d|[Caenarvon] Pharaoh Slave.esp",
+			"0x86e|[Caenarvon] Pharaoh Slave.esp",
+			"0x870|[Caenarvon] Pharaoh Slave.esp",
+			"0x871|[Caenarvon] Pharaoh Slave.esp",
+			"0x874|[Caenarvon] Pharaoh Slave.esp",
+			"0x875|[Caenarvon] Pharaoh Slave.esp",
+			"0x876|[Caenarvon] Pharaoh Slave.esp",
+			"0x877|[Caenarvon] Pharaoh Slave.esp"
+		],
+		"3": [
+			"0x8dd|[COCO]BattleAngels.esp",
+			"0x8df|[COCO]BattleAngels.esp",
+			"0x8e6|[COCO]BattleAngels.esp",
+			"0x8e7|[COCO]BattleAngels.esp",
+			"0x8bc|[COCO]BattleAngels.esp"
+		]
+	},
+	"int": {
+		"next": 4
+	},
+	"intList": {
+		"ids": [
+			1,
+			2,
+			3
+		]
+	},
+	"string": {
+		"1": "scarlet rose alt",
+		"2": "pharaoh general",
+		"3": "battle angel bare"
+	}
+}
