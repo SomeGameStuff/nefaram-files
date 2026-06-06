@@ -1,0 +1,38 @@
+{
+	"formList": {
+		"1": [
+			"0x801|[Ashtoreth] Spartacus Slave.esp",
+			"0xd63|[Ashtoreth] Spartacus Slave.esp",
+			"0xd64|[Ashtoreth] Spartacus Slave.esp",
+			"0xd69|[Ashtoreth] Spartacus Slave.esp"
+		],
+		"2": [
+			"0x8e2|[COCO] Scarlet Rose.esp",
+			"0x8f3|[COCO] Scarlet Rose.esp",
+			"0x8f7|[COCO] Scarlet Rose.esp",
+			"0x90b|[COCO] Scarlet Rose.esp"
+		],
+		"3": [
+			"0x87b|[COCO]Goddess War v2.esp",
+			"0x87c|[COCO]Goddess War v2.esp",
+			"0x87e|[COCO]Goddess War v2.esp",
+			"0x880|[COCO]Goddess War v2.esp",
+			"0x882|[COCO]Goddess War v2.esp"
+		]
+	},
+	"int": {
+		"next": 4
+	},
+	"intList": {
+		"ids": [
+			1,
+			2,
+			3
+		]
+	},
+	"string": {
+		"1": "spartacus slave",
+		"2": "scarlet rose",
+		"3": "goddess bare"
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"formList": {
+		"1": [
+			"0x905|[COCO] Scarlet Rose.esp",
+			"0x909|[COCO] Scarlet Rose.esp",
+			"0x8f7|[COCO] Scarlet Rose.esp",
+			"0x90b|[COCO] Scarlet Rose.esp"
+		],
+		"2": [
+			"0x8c8|[COCO] Succubus.esp",
+			"0x8da|[COCO] Succubus.esp",
+			"0x8a9|[COCO] Succubus.esp",
+			"0x8c6|[COCO] Succubus.esp",
+			"0x8d1|[COCO] Succubus.esp"
+		],
+		"3": [
+			"0xd62|[Ashtoreth] Spartacus Slave.esp",
+			"0xd63|[Ashtoreth] Spartacus Slave.esp",
+			"0xd64|[Ashtoreth] Spartacus Slave.esp",
+			"0xd69|[Ashtoreth] Spartacus Slave.esp"
+		]
+	},
+	"int": {
+		"next": 4
+	},
+	"intList": {
+		"ids": [
+			1,
+			2,
+			3
+		]
+	},
+	"string": {
+		"1": "scarlet rose bare",
+		"2": "succubus",
+		"3": "spartacus half"
+	}
+}

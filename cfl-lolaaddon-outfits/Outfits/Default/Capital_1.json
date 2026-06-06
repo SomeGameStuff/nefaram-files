@@ -1,0 +1,46 @@
+{
+	"formList": {
+		"1": [
+			"0x849|[Caenarvon] Pharaoh Slave.esp",
+			"0x84b|[Caenarvon] Pharaoh Slave.esp",
+			"0x84c|[Caenarvon] Pharaoh Slave.esp",
+			"0x84d|[Caenarvon] Pharaoh Slave.esp",
+			"0x84f|[Caenarvon] Pharaoh Slave.esp",
+			"0x850|[Caenarvon] Pharaoh Slave.esp",
+			"0x851|[Caenarvon] Pharaoh Slave.esp",
+			"0x852|[Caenarvon] Pharaoh Slave.esp",
+			"0x854|[Caenarvon] Pharaoh Slave.esp",
+			"0x855|[Caenarvon] Pharaoh Slave.esp",
+			"0x856|[Caenarvon] Pharaoh Slave.esp",
+			"0x857|[Caenarvon] Pharaoh Slave.esp"
+		],
+		"2": [
+			"0x8e2|[COCO] Scarlet Rose.esp",
+			"0x8f3|[COCO] Scarlet Rose.esp",
+			"0x8f7|[COCO] Scarlet Rose.esp",
+			"0x90b|[COCO] Scarlet Rose.esp"
+		],
+		"3": [
+			"0x8a5|[COCO]BattleAngels.esp",
+			"0x8a7|[COCO]BattleAngels.esp",
+			"0x8ae|[COCO]BattleAngels.esp",
+			"0x8af|[COCO]BattleAngels.esp",
+			"0x881|[COCO]BattleAngels.esp"
+		]
+	},
+	"int": {
+		"next": 4
+	},
+	"intList": {
+		"ids": [
+			1,
+			2,
+			3
+		]
+	},
+	"string": {
+		"1": "pharaoh slave",
+		"2": "scarlet rose",
+		"3": "battle angel"
+	}
+}

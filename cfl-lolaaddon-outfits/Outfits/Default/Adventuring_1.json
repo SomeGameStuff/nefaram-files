@@ -1,0 +1,45 @@
+{
+	"formList": {
+		"1": [
+			"0x86a|[Caenarvon] Pharaoh Slave.esp",
+			"0x86b|[Caenarvon] Pharaoh Slave.esp",
+			"0x86c|[Caenarvon] Pharaoh Slave.esp",
+			"0x86d|[Caenarvon] Pharaoh Slave.esp",
+			"0x86e|[Caenarvon] Pharaoh Slave.esp",
+			"0x870|[Caenarvon] Pharaoh Slave.esp",
+			"0x871|[Caenarvon] Pharaoh Slave.esp",
+			"0x874|[Caenarvon] Pharaoh Slave.esp",
+			"0x875|[Caenarvon] Pharaoh Slave.esp",
+			"0x876|[Caenarvon] Pharaoh Slave.esp",
+			"0x877|[Caenarvon] Pharaoh Slave.esp"
+		],
+		"2": [
+			"0x8a5|[COCO]BattleAngels.esp",
+			"0x8a7|[COCO]BattleAngels.esp",
+			"0x8ae|[COCO]BattleAngels.esp",
+			"0x8af|[COCO]BattleAngels.esp",
+			"0x881|[COCO]BattleAngels.esp"
+		],
+		"3": [
+			"0x8d0|[COCO] RONIN.esp",
+			"0x8cf|[COCO] RONIN.esp",
+			"0x8ca|[COCO] RONIN.esp",
+			"0x8f1|[COCO] RONIN.esp"
+		]
+	},
+	"int": {
+		"next": 4
+	},
+	"intList": {
+		"ids": [
+			1,
+			2,
+			3
+		]
+	},
+	"string": {
+		"1": "pharaoh general",
+		"2": "battle angel",
+		"3": "ronin red"
+	}
+}
