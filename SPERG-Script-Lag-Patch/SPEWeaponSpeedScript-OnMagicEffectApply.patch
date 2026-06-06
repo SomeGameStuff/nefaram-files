@@ -1,0 +1,12 @@
+--- original/SPEWeaponSpeedScript.psc
++++ patched/SPEWeaponSpeedScript.psc
+@@
+ Event OnMagicEffectApply(ObjectReference akCaster, MagicEffect akEffect)
+ 	If akEffect == VoiceElementalFury
+ 		PlayerRef.RemoveSpell(SPEWeaponSpeedFixAb)
+ 		RegisterForSingleUpdate(15)
+-	Else
++	ElseIf akEffect == SPERaceKhajiitSkoomaEffect || akEffect == SPEPerkCounterattackHasteEffect || akEffect == SPEPerkRiposteEffect
+ 		RegisterForSingleUpdate(0)
+ 	EndIf
+ EndEvent
