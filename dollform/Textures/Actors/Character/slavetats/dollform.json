@@ -1,0 +1,158 @@
+[
+  {
+    "name": "Porcelain Lines",
+    "section": "Dollform",
+    "texture": "basic\\right_breast_princess.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Joint Seals",
+    "section": "Dollform",
+    "texture": "basic\\left_hand_slave.dds",
+    "area": "Hands"
+  },
+  {
+    "name": "Display Sigil",
+    "section": "Dollform",
+    "texture": "basic\\belly_slave_zqzqz.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Perfect Doll Brand",
+    "section": "Dollform",
+    "texture": "basic\\forehead_slave.dds",
+    "area": "Face"
+  },
+  {
+    "name": "Doll Blush",
+    "section": "Dollform Cosmetics",
+    "texture": "DoMBlush\\blush_cheeks_1.dds",
+    "area": "Face"
+  },
+  {
+    "name": "Doll Hand Polish",
+    "section": "Dollform Cosmetics",
+    "texture": "makeup\\both_hands_nails.dds",
+    "area": "Hands"
+  },
+  {
+    "name": "Doll Foot Polish",
+    "section": "Dollform Cosmetics",
+    "texture": "makeup\\both_feet_nails.dds",
+    "area": "Feet"
+  },
+  {
+    "name": "Doll Mascara",
+    "section": "Dollform Cosmetics",
+    "texture": "makeup\\right_cheek_tears.dds",
+    "area": "Face"
+  },
+  {
+    "name": "Strong Legs",
+    "section": "Horseform",
+    "texture": "basic\\right_hand_slave.dds",
+    "area": "Hands"
+  },
+  {
+    "name": "Burdened Hands",
+    "section": "Horseform",
+    "texture": "basic\\left_hand_slave.dds",
+    "area": "Hands"
+  },
+  {
+    "name": "Hoofbound Stride",
+    "section": "Horseform",
+    "texture": "basic\\belly_slave_zqzqz.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Perfect Courser",
+    "section": "Horseform",
+    "texture": "basic\\forehead_slave.dds",
+    "area": "Face"
+  },
+  {
+    "name": "Horse Hand Mark",
+    "section": "Horseform Cosmetics",
+    "texture": "basic\\right_hand_slave.dds",
+    "area": "Hands"
+  },
+  {
+    "name": "Horse Hoof Tint",
+    "section": "Horseform Cosmetics",
+    "texture": "makeup\\both_feet_nails.dds",
+    "area": "Feet"
+  },
+  {
+    "name": "Horse Body Mark",
+    "section": "Horseform Cosmetics",
+    "texture": "basic\\belly_slave_zqzqz.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Horse Stride Mark",
+    "section": "Horseform Cosmetics",
+    "texture": "basic\\right_breast_princess.dds",
+    "area": "Body"
+  },
+  {
+    "name": "First Letdown",
+    "section": "Cowform",
+    "texture": "basic\\right_breast_princess.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Full Udder",
+    "section": "Cowform",
+    "texture": "basic\\left_breast_princess.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Barn Brand",
+    "section": "Cowform",
+    "texture": "basic\\belly_slave_zqzqz.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Perfect Dairy Cow",
+    "section": "Cowform",
+    "texture": "basic\\forehead_slave.dds",
+    "area": "Face"
+  },
+  {
+    "name": "Cow Body Spots",
+    "section": "Cowform Cosmetics",
+    "texture": "basic\\belly_slave_zqzqz.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Cow Udder Mark",
+    "section": "Cowform Cosmetics",
+    "texture": "basic\\right_breast_princess.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Cow Face Mark",
+    "section": "Cowform Cosmetics",
+    "texture": "basic\\forehead_slave.dds",
+    "area": "Face"
+  },
+  {
+    "name": "Cow Hand Mark",
+    "section": "Cowform Cosmetics",
+    "texture": "basic\\right_hand_slave.dds",
+    "area": "Hands"
+  },
+  {
+    "name": "Cow Hoof Tint",
+    "section": "Cowform Cosmetics",
+    "texture": "makeup\\both_feet_nails.dds",
+    "area": "Feet"
+  },
+  {
+    "name": "Cow Heavy Spots",
+    "section": "Cowform Cosmetics",
+    "texture": "basic\\left_breast_princess.dds",
+    "area": "Body"
+  }
+]
