@@ -34,7 +34,7 @@ Always back up profile files before editing them manually.
 Use a separate MO2 mod folder rather than editing base mods:
 
 ```text
-mods\Dollform\
+mods\Bodymorph Alterations\
   Dollform.esp
   Scripts\
   Source\Scripts\
@@ -144,10 +144,10 @@ MerchantWCollegeTolfdirChest = cfl_BookHorseformInitiationT4|1
 
 This is useful for adding spell tomes to vendor chests without editing vanilla records directly.
 
-Current Dollform distribution file:
+Current Bodymorph Alterations distribution file:
 
 ```text
-mods\Dollform\Dollform_CID.ini
+mods\Bodymorph Alterations\Dollform_CID.ini
 ```
 
 Existing saves may need vendor inventory reset/restock before new tomes appear.
@@ -214,13 +214,19 @@ This fixed the pink-hair-stuck issue going forward.
 
 ## Body Morph Safety
 
-Do not globally reset RaceMenu morphs.
+Do not globally reset RaceMenu morphs or use unkeyed `SetMorphValue` for temporary form changes.
+
+Local working examples:
+
+- `CBBE 3BA\Scripts\Source\RaceMenuMorphsCBBE.psc` uses keyed `NiOverride.SetBodyMorph(actor, morphName, "RaceMenuMorphsCBBE.esp", value)` followed by `NiOverride.UpdateModelWeight(actor)`.
+- `Milk Mod Economy\Scripts\Source\MME_BodyMod.psc` also uses keyed `SetBodyMorph`, and writes multiple aliases for one body region. Breast changes cover legacy and SE/3BA names such as `Breasts`, `BreastsSH`, `BreastsNewSH`, `BreastGravity`, `BreastGravity2`, `NippleAreola`, and `AreolaSize`. Belly changes use `PregnancyBelly`.
+- Fertility Mode in this install only exposes compatibility source; its body morph implementation is not present as source here.
 
 For each form:
 
-- Save only the morph keys the form touches.
-- Apply the form values.
-- Restore only those saved morph keys.
+- Apply form values through this mod's own BodyMorph keys.
+- Use a separate visibility BodyMorph key when a stronger visible layer is needed.
+- Clear only this mod's BodyMorph keys on fade or debug cleanup.
 - Call `NiOverride.UpdateModelWeight(akActor)` after apply and restore.
 
 Useful morph keys already used:
@@ -257,6 +263,8 @@ cfl_BodymorphActiveForm
 1 = Dollform
 2 = Horseform
 3 = Cowform
+4 = Rabbitform
+5 = Trollform
 ```
 
 Current behavior:
@@ -351,6 +359,27 @@ Devious Devices lockable-item checks before forced slot unequip
 Trainer/vendor tomes through CID
 ```
 
+Rabbitform:
+
+```text
+Self-cast spell
+4 initiation tiers
+Speed/stamina package with fragile health and reduced carrying power
+Fertility Mode detection-only status hook
+Trainer/vendor tomes through CID
+```
+
+Trollform:
+
+```text
+Self-cast spell
+4 initiation tiers
+Large scale, bulky muscle morphs, high health, regeneration, armor, and melee damage
+Major penalties to speed, weapon speed, magicka, fire resistance, stealth, lockpicking, pickpocket, speech, and archery
+Fire hits suppress regeneration for roughly 10 seconds
+Trainer/vendor tomes through CID
+```
+
 ## Optional Asset Integrations
 
 TDN Equipable Horns is active in this profile:
@@ -378,5 +407,5 @@ Recommended next steps:
 1. Add a debug cleanup power for stuck overlays/hair/active-form state.
 2. Playtest Dollform/Horseform/Cowform in a save and tune morph/stat values.
 3. Playtest Cowform in a save with MME active and tune milk pulse size.
-4. Implement Rabbitform base without Fertility integration first.
-5. Inspect Fertility Mode APIs before changing cycle/output state.
+4. Inspect Fertility Mode APIs before changing Rabbitform cycle/output state.
+5. Playtest Trollform against fire mages and melee encounters to tune regeneration, scale, and fire weakness.

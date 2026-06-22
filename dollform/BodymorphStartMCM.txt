@@ -1,0 +1,4 @@
+stopquest cfl_DollformMCMQuest
+setstage ski_configmanagerinstance 1
+startquest cfl_DollformMCMQuest
+setstage ski_configmanagerinstance 1

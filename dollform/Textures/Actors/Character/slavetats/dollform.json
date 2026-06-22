@@ -1,39 +1,33 @@
 [
   {
+    "name": "Dollform Attunement",
+    "section": "Dollform",
+    "texture": "BodymorphAlterations\\doll_attunement.dds",
+    "area": "Body"
+  },
+  {
     "name": "Porcelain Lines",
     "section": "Dollform",
-    "texture": "basic\\right_breast_princess.dds",
+    "texture": "BodymorphAlterations\\doll_porcelain_lines.dds",
     "area": "Body"
   },
   {
     "name": "Joint Seals",
     "section": "Dollform",
-    "texture": "basic\\left_hand_slave.dds",
+    "texture": "BodymorphAlterations\\doll_joint_seals.dds",
     "area": "Hands"
   },
   {
     "name": "Display Sigil",
     "section": "Dollform",
-    "texture": "basic\\belly_slave_zqzqz.dds",
+    "texture": "BodymorphAlterations\\doll_display_sigil.dds",
     "area": "Body"
   },
   {
     "name": "Perfect Doll Brand",
     "section": "Dollform",
-    "texture": "basic\\forehead_slave.dds",
-    "area": "Face"
-  },
-  {
-    "name": "Doll Blush",
-    "section": "Dollform Cosmetics",
-    "texture": "DoMBlush\\blush_cheeks_1.dds",
-    "area": "Face"
-  },
-  {
-    "name": "Doll Hand Polish",
-    "section": "Dollform Cosmetics",
-    "texture": "makeup\\both_hands_nails.dds",
-    "area": "Hands"
+    "texture": "BodymorphAlterations\\doll_perfect_brand.dds",
+    "area": "Body"
   },
   {
     "name": "Doll Foot Polish",
@@ -42,117 +36,141 @@
     "area": "Feet"
   },
   {
-    "name": "Doll Mascara",
-    "section": "Dollform Cosmetics",
-    "texture": "makeup\\right_cheek_tears.dds",
-    "area": "Face"
+    "name": "Horseform Seed Brand",
+    "section": "Horseform",
+    "texture": "BodymorphAlterations\\horse_seed_brand.dds",
+    "area": "Body"
   },
   {
     "name": "Strong Legs",
     "section": "Horseform",
-    "texture": "basic\\right_hand_slave.dds",
+    "texture": "BodymorphAlterations\\horse_strong_legs.dds",
     "area": "Hands"
   },
   {
     "name": "Burdened Hands",
     "section": "Horseform",
-    "texture": "basic\\left_hand_slave.dds",
+    "texture": "BodymorphAlterations\\horse_burdened_hands.dds",
     "area": "Hands"
   },
   {
     "name": "Hoofbound Stride",
     "section": "Horseform",
-    "texture": "basic\\belly_slave_zqzqz.dds",
+    "texture": "BodymorphAlterations\\horse_hoofbound_stride.dds",
     "area": "Body"
   },
   {
     "name": "Perfect Courser",
     "section": "Horseform",
-    "texture": "basic\\forehead_slave.dds",
-    "area": "Face"
-  },
-  {
-    "name": "Horse Hand Mark",
-    "section": "Horseform Cosmetics",
-    "texture": "basic\\right_hand_slave.dds",
-    "area": "Hands"
+    "texture": "BodymorphAlterations\\horse_perfect_courser.dds",
+    "area": "Body"
   },
   {
     "name": "Horse Hoof Tint",
     "section": "Horseform Cosmetics",
-    "texture": "makeup\\both_feet_nails.dds",
+    "texture": "BodymorphAlterations\\horse_hoof_tint.dds",
     "area": "Feet"
   },
   {
     "name": "Horse Body Mark",
     "section": "Horseform Cosmetics",
-    "texture": "basic\\belly_slave_zqzqz.dds",
+    "texture": "BodymorphAlterations\\horse_hoofbound_stride.dds",
     "area": "Body"
   },
   {
     "name": "Horse Stride Mark",
     "section": "Horseform Cosmetics",
-    "texture": "basic\\right_breast_princess.dds",
+    "texture": "BodymorphAlterations\\horse_perfect_courser.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Cowform Milk Drops",
+    "section": "Cowform",
+    "texture": "BodymorphAlterations\\cow_milk_drops.dds",
     "area": "Body"
   },
   {
     "name": "First Letdown",
     "section": "Cowform",
-    "texture": "basic\\right_breast_princess.dds",
+    "texture": "BodymorphAlterations\\cow_first_letdown.dds",
     "area": "Body"
   },
   {
     "name": "Full Udder",
     "section": "Cowform",
-    "texture": "basic\\left_breast_princess.dds",
+    "texture": "BodymorphAlterations\\cow_full_udder.dds",
     "area": "Body"
   },
   {
     "name": "Barn Brand",
     "section": "Cowform",
-    "texture": "basic\\belly_slave_zqzqz.dds",
+    "texture": "BodymorphAlterations\\cow_barn_brand.dds",
     "area": "Body"
   },
   {
     "name": "Perfect Dairy Cow",
     "section": "Cowform",
-    "texture": "basic\\forehead_slave.dds",
-    "area": "Face"
+    "texture": "BodymorphAlterations\\cow_perfect_dairy.dds",
+    "area": "Body"
   },
   {
     "name": "Cow Body Spots",
     "section": "Cowform Cosmetics",
-    "texture": "basic\\belly_slave_zqzqz.dds",
+    "texture": "BodymorphAlterations\\cow_small_safe_spots.dds",
     "area": "Body"
   },
   {
     "name": "Cow Udder Mark",
     "section": "Cowform Cosmetics",
-    "texture": "basic\\right_breast_princess.dds",
+    "texture": "BodymorphAlterations\\cow_udder_mark.dds",
     "area": "Body"
-  },
-  {
-    "name": "Cow Face Mark",
-    "section": "Cowform Cosmetics",
-    "texture": "basic\\forehead_slave.dds",
-    "area": "Face"
-  },
-  {
-    "name": "Cow Hand Mark",
-    "section": "Cowform Cosmetics",
-    "texture": "basic\\right_hand_slave.dds",
-    "area": "Hands"
   },
   {
     "name": "Cow Hoof Tint",
     "section": "Cowform Cosmetics",
-    "texture": "makeup\\both_feet_nails.dds",
+    "texture": "BodymorphAlterations\\cow_hoof_tint.dds",
     "area": "Feet"
   },
   {
     "name": "Cow Heavy Spots",
     "section": "Cowform Cosmetics",
-    "texture": "basic\\left_breast_princess.dds",
+    "texture": "BodymorphAlterations\\cow_small_safe_spots.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Rabbitform Moon Mark",
+    "section": "Rabbitform",
+    "texture": "BodymorphAlterations\\rabbit_moon_mark.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Rabbit Hip Mark",
+    "section": "Rabbitform Cosmetics",
+    "texture": "BodymorphAlterations\\rabbit_moon_mark.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Rabbit Leap Mark",
+    "section": "Rabbitform Cosmetics",
+    "texture": "BodymorphAlterations\\rabbit_leap_mark.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Trollform Grayhide Brand",
+    "section": "Trollform",
+    "texture": "BodymorphAlterations\\horse_hoofbound_stride.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Troll Grayhide Patches",
+    "section": "Trollform Cosmetics",
+    "texture": "BodymorphAlterations\\cow_body_spots.dds",
+    "area": "Body"
+  },
+  {
+    "name": "Troll Stone Scars",
+    "section": "Trollform Cosmetics",
+    "texture": "BodymorphAlterations\\doll_porcelain_lines.dds",
     "area": "Body"
   }
 ]

@@ -316,6 +316,63 @@ Cowform: Alteration trainers plus MME-adjacent acquisition later
 Rabbitform: Alteration trainers plus fertility-themed acquisition later
 ```
 
+## Planned Hybrid Progression Gates
+
+Current implemented progression is active-use time: each form increments a use-seconds global while active and tiers up when the threshold is reached.
+
+Keep active time as the baseline so every form can progress reliably without hard external dependencies. Later progression should add one themed secondary gate per tier, checked alongside the time threshold. The goal is to make tiering feel earned without making saves brittle if an optional integration is missing.
+
+Suggested structure:
+
+```text
+Tier 1:
+  active-use time only
+
+Tier 2:
+  active-use time plus one easy form-themed action
+
+Tier 3:
+  active-use time plus a stronger form-themed action or integration event
+
+Tier 4:
+  active-use time plus a master condition, preferably tied to the form's identity
+```
+
+Per-form gate ideas:
+
+```text
+Dollform:
+  public exposure time
+  successful speech checks or persuasion-style interactions while transformed
+  enemy aura stagger/distract/arousal procs
+
+Horseform:
+  sprint distance or time spent sprinting
+  stamina spent/recovered while transformed
+  carrying heavy load or wearing heavy restraints
+  optional Fill Her Up / SexLab horse semen condition if a reliable API/global is found
+
+Cowform:
+  milk produced through Milk Mod Economy while transformed
+  lactacid gained while transformed
+  number of milking events
+  supplying Tolfdir or another trainer with bottles of the player's milk
+
+Rabbitform:
+  sprint/jump activity while transformed
+  time spent in fertile window, if Fertility Mode exposes a safe API
+  pregnancy/gem/output events, if reliably detectable
+  fragile survival condition such as spending time in combat without armor
+```
+
+Implementation notes:
+
+- Store secondary counters in new globals or a small quest script, not in local active-effect variables.
+- Keep each gate optional or fallback-safe when it depends on another mod.
+- Show gate progress in the MCM diagnostics/status page before enforcing it.
+- Add debug controls to reset secondary counters.
+- Do not poll external mods every frame; update on the existing 5-6 second form pulse or on explicit events.
+
 ## Mod Integration Strategy
 
 Do not hard require extra mods unless absolutely necessary.

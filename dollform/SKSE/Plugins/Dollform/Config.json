@@ -7,6 +7,20 @@
     "perActorCooldownSeconds": 45,
     "maxActorsPerPulse": 3
   },
+  "trollform": {
+    "durationSeconds": 420,
+    "scaleBase": 1.22,
+    "scalePerTier": 0.03,
+    "scaleClamp": 1.45,
+    "healthBase": 250,
+    "healthPerTier": 35,
+    "healRateBase": 8,
+    "healRatePerTier": 1,
+    "meleeDamageBase": 40,
+    "meleeDamagePerTier": 5,
+    "fireResistPenalty": -100,
+    "fireSuppressesRegenSecondsApprox": 10
+  },
   "tattooTiers": {
     "0": "Base Dollform.",
     "1": "Porcelain Lines: stronger morphs, stronger buffs, torso slot rejection.",
