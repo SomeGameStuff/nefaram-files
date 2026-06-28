@@ -1,0 +1,50 @@
+File	Kind	FormKey	ResponseIndex	Field	Text
+DiaryOfMine.esm	DIAL	057AF6:DiaryOfMine.esm		Name	Teach discipline to the slaves in Master's care.
+DiaryOfMine.esm	DIAL	057AF7:DiaryOfMine.esm		Name	Train Master's slaves in the sexual arts.
+DiaryOfMine.esm	DIAL	2523E9:DiaryOfMine.esm		Name	I want you to hand over all slaves in my charge.
+DiaryOfMine.esm	DIAL	261189:DiaryOfMine.esm		Name	Teach the slaves in my charge to fear the whip!
+DiaryOfMine.esm	DIAL	26FF34:DiaryOfMine.esm		Name	Gather all slaves in my charge.
+DiaryOfMine.esm	DIAL	5EAE7F:DiaryOfMine.esm		Name	You're under my Master's authority now. Do you understand?
+DiaryOfMine.esm	DIAL	724E11:DiaryOfMine.esm		Name	Train Master's slaves in the sexual arts.
+DiaryOfMine.esm	DIAL	817F80:DiaryOfMine.esm		Name	Would you like to use one of Master's slaves?
+DiaryOfMine.esm	DIAL	C53CB3:DiaryOfMine.esm		Name	I have another solution; Master can claim you too!
+DiaryOfMine.esm	DIAL	FF77BD:DiaryOfMine.esm		Name	Master has decided you will be a slave.
+DiaryOfMine.esm	INFO	81D081:DiaryOfMine.esm		Prompt	Would you like to defile one of Master's slaves?
+DiaryOfMine.esm	INFO	831486:DiaryOfMine.esm		Prompt	Would you like to have sex with me and the slave I'm handling?
+DiaryOfMine.esm	INFO	8782D4:DiaryOfMine.esm		Prompt	Those slaves are earning well under Master's orders. Good job!
+DiaryOfMine.esm	INFO	8782D5:DiaryOfMine.esm		Prompt	You're really getting used to handling Master's slaves!
+DiaryOfMine.esm	INFO	A7CBA0:DiaryOfMine.esm		Prompt	You will be assigned to Master's new slave pool.
+DiaryOfMine.esm	INFO	A7CBA1:DiaryOfMine.esm		Prompt	You will be assigned to Master's second slave group.
+DiaryOfMine.esm	INFO	A7CBA2:DiaryOfMine.esm		Prompt	You will be assigned to Master's third slave pool.
+DiaryOfMine.esm	INFO	A7CBA3:DiaryOfMine.esm		Prompt	You will be assigned to Master's fourth slave group.
+DiaryOfMine.esm	INFO	A7CBA4:DiaryOfMine.esm		Prompt	You will be assigned to Master's fifth slave pool.
+DiaryOfMine.esm	INFO	A7CBA5:DiaryOfMine.esm		Prompt	You will be assigned to Master's sixth slave group.
+DiaryOfMine.esm	INFO	A7CBA6:DiaryOfMine.esm		Prompt	You will be assigned to Master's seventh slave pool.
+DiaryOfMine.esm	INFO	A7CBA7:DiaryOfMine.esm		Prompt	You will be assigned to Master's last slave group.
+DiaryOfMine.esm	MESG	334DB4:DiaryOfMine.esm		Description	Would you agree to free the slave <Alias=rSlave> for %.0f gold?\r\n\r\n
+DiaryOfMine.esm	MESG	9389D6:DiaryOfMine.esm		Name	Select Diary handler wheel menu
+DiaryOfMine.esm	MESG	9389D6:DiaryOfMine.esm		Description	Select Diary handler wheel menu
+DiaryOfMine.esm	MESG	AC39F4:DiaryOfMine.esm		Name	Recruit as handler
+DiaryOfMine.esm	MESG	AC39F4:DiaryOfMine.esm		Description	Recruit as handler for %.0f gold?
+DiaryOfMine.esm	MESG	AC39F5:DiaryOfMine.esm		Name	Promote slave to free handler
+DiaryOfMine.esm	MESG	AC39F5:DiaryOfMine.esm		Description	Promote slave to free handler?
+DiaryOfMine.esm	MESG	BEE84E:DiaryOfMine.esm		Name	Select handler action
+DiaryOfMine.esm	MESG	C49AAB:DiaryOfMine.esm		Description	Would you agree to pay compensation for the slave <Alias=fSlave> of %.0f gold?\r\n\r\n
+PAH_AndYouGetASlave.esp	DIAL	0116F2:PAH_AndYouGetASlave.esp		Name	By Master's order, your body is going to make us some coin!
+PAH_AndYouGetASlave.esp	DIAL	012CB6:PAH_AndYouGetASlave.esp		Name	You look like you would enjoy the company of the slave I'm handling. What do you say?
+PAH_AndYouGetASlave.esp	DIAL	0C0371:PAH_AndYouGetASlave.esp		Name	Return to your handler!
+PAH_AndYouGetASlave.esp	MESG	0048E1:PAH_AndYouGetASlave.esp		Description	Will you accept an offer of %.0f septims for Master's slave <Alias=NameTagSelected>?
+PAH_HomeSweetHome.esp	INFO	028FDF:PAH_HomeSweetHome.esp	3	Response.Text	Oh, and here's the key to the basement. Leave the slaves in your charge here; on my word they will be safe here until the sale.
+PAH_HomeSweetHome.esp	DIAL	02E657:PAH_HomeSweetHome.esp		Name	When will Master's slaves be auctioned?
+PAH_HomeSweetHome.esp	INFO	02E658:PAH_HomeSweetHome.esp	0	Response.Text	We have an auction tonight at midnight. If you are present, we can sell the slaves you brought.
+PAH_HomeSweetHome.esp	DIAL	0533A4:PAH_HomeSweetHome.esp		Name	How can I keep Master's slaves securely?
+PAH_HomeSweetHome.esp	INFO	0533A5:PAH_HomeSweetHome.esp	1	Response.Text	There are ways to keep the slaves with you on the road, or build a more permanent camp to keep them. Either way you will need someone to guard them.
+PAH_HomeSweetHome.esp	DIAL	0533A9:PAH_HomeSweetHome.esp		Name	How can I keep Master's slaves securely?
+PAH_HomeSweetHome.esp	INFO	0533AB:PAH_HomeSweetHome.esp	1	Response.Text	There are ways to keep the slaves with you on the road, or build a more permanent camp to keep them. Either way you will need someone to guard them.
+PAH_HomeSweetHome.esp	DIAL	058A02:PAH_HomeSweetHome.esp		Name	I would like to leave Master's slaves here, if I may.
+PAH_HomeSweetHome.esp	INFO	0C1449:PAH_HomeSweetHome.esp	0	Response.Text	As a matter of fact it is! Just the thing for a trusted handler such as yourself.
+PAH_HomeSweetHome.esp	DIAL	1048B0:PAH_HomeSweetHome.esp		Name	Please stop using Master's slaves.
+PAH_HomeSweetHome.esp	INFO	1048B2:PAH_HomeSweetHome.esp		Prompt	You can use Master's slaves as agreed.
+cfl_LolaAddon.esp	INFO	015854:cfl_LolaAddon.esp	0	Response.Text	I received an interesting request for you to take the lead of a slave caravan to another town.
+cfl_LolaAddon.esp	INFO	015858:cfl_LolaAddon.esp		Prompt	Yes <Alias=T>! The other handlers will envy you when they see how well trained your pet is.
+cfl_LolaAddon.esp	INFO	015867:cfl_LolaAddon.esp	0	Response.Text	We will see. It was very lucrative. The others enjoyed your presence as a good example for the slaves in Master's care.

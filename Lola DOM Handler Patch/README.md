@@ -50,3 +50,21 @@ In the NEFARAM profile where this was created, the plugin was placed after `cfl_
 
 - `Lola DOM Handler Patch.esp` - ESL-flagged text/dialogue override plugin
 - `README.md` - this file
+- `Build\` - C# Mutagen builder and replacement table used to generate the ESP
+
+## Build from source
+
+The ESP is generated from `Build\replacements.tsv` by `Build\Program.cs`.
+
+Prerequisites:
+
+- .NET 9 SDK
+- The source plugins installed at the NEFARAM MO2 paths used by the builder
+
+From this folder, run:
+
+```powershell
+dotnet run --project .\Build\LolaDomHandlerPatchBuilder.csproj
+```
+
+The builder imports the original dialogue/message records from the installed source plugins, applies the rows in `Build\replacements.tsv`, and overwrites `Lola DOM Handler Patch.esp`.
