@@ -71,6 +71,13 @@ Place it after SPERG in MO2's left pane so the loose `scripts/SPEWeaponSpeedScri
 
 No plugin is required.
 
+## Source and Build
+
+- Purpose: prevent SPERG from queuing weapon-speed recalculation for unrelated magic effects.
+- Source: `SPEWeaponSpeedScript.psc`; `SPEWeaponSpeedScript-OnMagicEffectApply.patch` documents the focused code change.
+- Build: compile the patched source against vanilla and SPERG sources, producing `SPEWeaponSpeedScript.pex`.
+- Install: use the folder layout shown above and keep the MO2 mod after SPERG.
+
 ## Save Cleanup
 
 This patch prevents the queue from quickly rebuilding, but it does not remove already-suspended Papyrus work from an existing save.
@@ -84,4 +91,3 @@ In the tested NEFARAM save, only queued work items were removed. Script instance
 This patch is conservative but still changes SPERG behavior. It assumes SPERG's weapon-speed fix only needs magic-effect-triggered refreshes for the named SPERG speed effects and Elemental Fury. Equipment changes and the `SPE_UpdateHaste` mod event still trigger recalculation as before.
 
 If someone relies on another mod applying arbitrary magic effects solely to force SPERG weapon-speed recalculation, that behavior will no longer happen. In practice, that broad behavior is what caused the VM backlog.
-

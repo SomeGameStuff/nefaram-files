@@ -6,12 +6,16 @@ cfl_MCM_TaskOutfitSleep Property outfitpage   Auto
 cfl_MCM_MiscTask        Property misctask1    Auto
 cfl_json_settings       Property JSonSettings Auto
 String Property LEAConfigPath = "../LolaExpandedAddons/Config.json" Auto
+String Property LEAHairPoolPath = "../LolaExpandedAddons/HairPool.json" Auto
+String Property LEALolaHairStylesPath = "../Lola/HairStyles.json" Auto
 
 bool firstModScanDone = False
 
-int OID_LEA_TransformativeEnabled
-int OID_LEA_TransformativeChance
-int OID_LEA_TransformativeMaxPotions
+int OID_LEA_MissivesStatus
+int OID_LEA_MissivesDetail
+int OID_LEA_TreasureFallbackMode
+int OID_LEA_TreasureMinGold
+int OID_LEA_TreasureMinValue
 int OID_LEA_FertilityEnabled
 int OID_LEA_FertilityChance
 int OID_LEA_FertilityCooldown
@@ -20,13 +24,35 @@ int OID_LEA_MilkEnabled
 int OID_LEA_MilkChance
 int OID_LEA_MilkCooldown
 int OID_LEA_MilkQuota
+int OID_LEA_MilkOwnerMilking
+int OID_LEA_MilkOwnerChance
+int OID_LEA_MilkOwnerThreshold
+int OID_LEA_MilkOwnerDistance
 int OID_LEA_BodyEnabled
 int OID_LEA_BodyChance
 int OID_LEA_BodyCooldown
-int OID_LEA_BodyMode
+int OID_LEA_BodyMoodPolicy
+int OID_LEA_BodySizeOverride
+int OID_LEA_BodyMoodDuration
 int OID_LEA_BodyPotions
+int OID_LEA_CollarEnabled
+int OID_LEA_CollarChance
+int OID_LEA_CollarCooldown
+int OID_LEA_CollarDistance
+int OID_LEA_BathEnabled
+int OID_LEA_BathChance
+int OID_LEA_BathCooldown
+int OID_LEA_BathOwnerChance
+int OID_LEA_BathCumThreshold
+int OID_LEA_BathDirtStage
+int OID_LEA_BathTimeout
+int OID_LEA_BathRequireTown
+int OID_LEA_HairStatus
+int OID_LEA_HairSeed
+int OID_LEA_HairClear
 
-String[] LEA_BodyModes
+String[] LEA_BodyMoodPolicies
+String[] LEA_TreasureFallbackModes
 
 ; ------------------------------------------------------------------------------
 ;                                    STATICS                                    
@@ -364,28 +390,50 @@ Function LEA_SetFloat(string keyName, float value)
 EndFunction
 
 Function LEA_InitMenus()
-    LEA_BodyModes = new string[3]
-    LEA_BodyModes[0] = "Bigger"
-    LEA_BodyModes[1] = "Smaller"
-    LEA_BodyModes[2] = "Random"
+    LEA_BodyMoodPolicies = new string[4]
+    LEA_BodyMoodPolicies[0] = "Dynamic"
+    LEA_BodyMoodPolicies[1] = "Always Bigger"
+    LEA_BodyMoodPolicies[2] = "Always Smaller"
+    LEA_BodyMoodPolicies[3] = "Random"
+
+    LEA_TreasureFallbackModes = new string[3]
+    LEA_TreasureFallbackModes[0] = "Off"
+    LEA_TreasureFallbackModes[1] = "Valuable Loot"
+    LEA_TreasureFallbackModes[2] = "Any Container"
 EndFunction
 
-string Function LEA_GetBodyModeName()
-    int mode = LEA_GetInt("body.mode", 0)
+string Function LEA_GetBodyMoodPolicyName()
+    int mode = LEA_GetInt("body.moodPolicy", 0)
     if mode == 1
-        return "Smaller"
+        return "Always Bigger"
     elseif mode == 2
+        return "Always Smaller"
+    elseif mode == 3
         return "Random"
     endif
-    return "Bigger"
+    return "Dynamic"
+EndFunction
+
+string Function LEA_GetTreasureFallbackModeName()
+    int mode = LEA_GetInt("treasure.fallbackMode", 1)
+    if mode == 2
+        return "Any Container"
+    elseif mode == 0
+        return "Off"
+    endif
+    return "Valuable Loot"
 EndFunction
 
 Function LEA_Page_Addons()
     LEA_InitMenus()
-    AddHeaderOption("Transformative Drug Trick", OPTION_FLAG_NONE)
-    OID_LEA_TransformativeEnabled = AddToggleOption("Enabled", LEA_GetBool("transformative.enabled", true), OPTION_FLAG_NONE)
-    OID_LEA_TransformativeChance = AddSliderOption("Chance", LEA_GetFloat("transformative.triggerChance", 40.0), "{0}%", OPTION_FLAG_NONE)
-    OID_LEA_TransformativeMaxPotions = AddSliderOption("Max potions", LEA_GetFloat("transformative.maxPotionsPerEvent", 1.0), "{0}", OPTION_FLAG_NONE)
+    AddHeaderOption("Forced Adventuring", OPTION_FLAG_NONE)
+    OID_LEA_MissivesStatus = AddTextOption("Missives status", LEA_GetMissivesStatusText(), OPTION_FLAG_NONE)
+    OID_LEA_MissivesDetail = AddTextOption("Show active Missives", "Click", OPTION_FLAG_NONE)
+
+    AddHeaderOption("Treasure Quest", OPTION_FLAG_NONE)
+    OID_LEA_TreasureFallbackMode = AddMenuOption("Treasure fallback", LEA_GetTreasureFallbackModeName(), OPTION_FLAG_NONE)
+    OID_LEA_TreasureMinGold = AddSliderOption("Min gold from chest", LEA_GetFloat("treasure.minGold", 100.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_TreasureMinValue = AddSliderOption("Min item value", LEA_GetFloat("treasure.minItemValue", 250.0), "{0}", OPTION_FLAG_NONE)
 
     AddHeaderOption("Fertility Drug Trick", OPTION_FLAG_NONE)
     OID_LEA_FertilityEnabled = AddToggleOption("Enabled", LEA_GetBool("fertility.enabled", true), OPTION_FLAG_NONE)
@@ -398,24 +446,101 @@ Function LEA_Page_Addons()
     OID_LEA_MilkChance = AddSliderOption("Chance", LEA_GetFloat("milk.dailyChance", 35.0), "{0}%", OPTION_FLAG_NONE)
     OID_LEA_MilkCooldown = AddSliderOption("Cooldown hours", LEA_GetFloat("milk.cooldownHours", 24.0), "{0}", OPTION_FLAG_NONE)
     OID_LEA_MilkQuota = AddSliderOption("Milk quota", LEA_GetFloat("milk.assignmentMilkCount", 2.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_MilkOwnerMilking = AddToggleOption("Owner milks when full", LEA_GetBool("milk.allowOwnerMilking", true), OPTION_FLAG_NONE)
+    OID_LEA_MilkOwnerChance = AddSliderOption("Owner milking chance", LEA_GetFloat("milk.ownerMilkingChance", 50.0), "{0}%", OPTION_FLAG_NONE)
+    OID_LEA_MilkOwnerThreshold = AddSliderOption("Fullness threshold", LEA_GetFloat("milk.ownerMilkingFullnessThreshold", 0.75) * 100.0, "{0}%", OPTION_FLAG_NONE)
+    OID_LEA_MilkOwnerDistance = AddSliderOption("Owner milking distance", LEA_GetFloat("milk.ownerMilkingDistance", 500.0), "{0}", OPTION_FLAG_NONE)
 
     AddHeaderOption("Body Potion Routine", OPTION_FLAG_NONE)
     OID_LEA_BodyEnabled = AddToggleOption("Enabled", LEA_GetBool("body.enabled", true), OPTION_FLAG_NONE)
     OID_LEA_BodyChance = AddSliderOption("Chance", LEA_GetFloat("body.eventChance", 35.0), "{0}%", OPTION_FLAG_NONE)
     OID_LEA_BodyCooldown = AddSliderOption("Cooldown hours", LEA_GetFloat("body.cooldownHours", 8.0), "{0}", OPTION_FLAG_NONE)
-    OID_LEA_BodyMode = AddMenuOption("Mode", LEA_GetBodyModeName(), OPTION_FLAG_NONE)
+    OID_LEA_BodyMoodPolicy = AddMenuOption("Mood policy", LEA_GetBodyMoodPolicyName(), OPTION_FLAG_NONE)
+    OID_LEA_BodySizeOverride = AddSliderOption("Current size override", LEA_GetFloat("body.sizeOverride", 0.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_BodyMoodDuration = AddSliderOption("Mood duration hours", LEA_GetFloat("body.moodDurationHours", 168.0), "{0}", OPTION_FLAG_NONE)
     OID_LEA_BodyPotions = AddSliderOption("Potions per event", LEA_GetFloat("body.potionsPerEvent", 1.0), "{0}", OPTION_FLAG_NONE)
+
+    AddHeaderOption("Collar Changes", OPTION_FLAG_NONE)
+    OID_LEA_CollarEnabled = AddToggleOption("Owner changes collar", LEA_GetBool("collar.enabled", true), OPTION_FLAG_NONE)
+    OID_LEA_CollarChance = AddSliderOption("Change chance", LEA_GetFloat("collar.eventChance", 20.0), "{0}%", OPTION_FLAG_NONE)
+    OID_LEA_CollarCooldown = AddSliderOption("Cooldown hours", LEA_GetFloat("collar.cooldownHours", 72.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_CollarDistance = AddSliderOption("Owner distance", LEA_GetFloat("collar.ownerDistance", 500.0), "{0}", OPTION_FLAG_NONE)
+
+    AddHeaderOption("Bathing Orders", OPTION_FLAG_NONE)
+    OID_LEA_BathEnabled = AddToggleOption("Owner demands bathing", LEA_GetBool("bath.enabled", true), OPTION_FLAG_NONE)
+    OID_LEA_BathChance = AddSliderOption("Bathing chance", LEA_GetFloat("bath.eventChance", 25.0), "{0}%", OPTION_FLAG_NONE)
+    OID_LEA_BathCooldown = AddSliderOption("Bath cooldown hours", LEA_GetFloat("bath.cooldownHours", 24.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_BathOwnerChance = AddSliderOption("Owner bath chance", LEA_GetFloat("bath.ownerBathChance", 35.0), "{0}%", OPTION_FLAG_NONE)
+    OID_LEA_BathCumThreshold = AddSliderOption("Cum threshold", LEA_GetFloat("bath.cumThreshold", 2.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_BathDirtStage = AddSliderOption("Dirt stage threshold", LEA_GetFloat("bath.dirtMinStage", 3.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_BathTimeout = AddSliderOption("Cleanup deadline hours", LEA_GetFloat("bath.assignmentTimeoutHours", 1.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_BathRequireTown = AddToggleOption("Only in town", LEA_GetBool("bath.requireTown", true), OPTION_FLAG_NONE)
+
+    AddHeaderOption("Hair Style Pool", OPTION_FLAG_NONE)
+    OID_LEA_HairStatus = AddTextOption("Hair styles available", LEA_GetHairStatusText(), OPTION_FLAG_NONE)
+    OID_LEA_HairSeed = AddTextOption("Seed Lola hair styles", "Click", OPTION_FLAG_NONE)
+    OID_LEA_HairClear = AddTextOption("Clear seeded hair styles", "Click", OPTION_FLAG_NONE)
 EndFunction
 
 bool Function LEA_OnHighlight(int option)
-    if option == OID_LEA_TransformativeChance
-        SetInfoText("Chance that Lola's drug trick uses Transformative Elixirs.")
+    if option == OID_LEA_MissivesStatus
+        SetInfoText("Shows whether Forced Adventuring is active and how many selected Missives are complete.")
+    elseif option == OID_LEA_MissivesDetail
+        SetInfoText("Shows the selected Missives quest names and whether each one is still active.")
+    elseif option == OID_LEA_TreasureFallbackMode
+        SetInfoText("Lets Lola's treasure quest accept valuable loot from ordinary non-owned source containers when the chest is not tagged as a boss chest.")
+    elseif option == OID_LEA_TreasureMinGold
+        SetInfoText("Valuable Loot mode completes the treasure quest when this much gold is taken from a non-owned source container.")
+    elseif option == OID_LEA_TreasureMinValue
+        SetInfoText("Valuable Loot mode completes the treasure quest when the taken item stack is worth at least this much gold.")
     elseif option == OID_LEA_FertilityDirect
         SetInfoText("Uses Fertility Mode's direct pregnancy spell instead of insemination. Leave off for normal Fertility Mode chance.")
     elseif option == OID_LEA_MilkQuota
         SetInfoText("Number of milk bottles required for owner milk quota assignments.")
-    elseif option == OID_LEA_BodyMode
-        SetInfoText("Bigger, smaller, or random recurring body potion events.")
+    elseif option == OID_LEA_MilkOwnerMilking
+        SetInfoText("Lets the owner start MME mobile hand milking when the player is nearby and sufficiently full.")
+    elseif option == OID_LEA_MilkOwnerChance
+        SetInfoText("Chance that a Milk Economy event becomes owner milking when the fullness checks pass.")
+    elseif option == OID_LEA_MilkOwnerThreshold
+        SetInfoText("Required current milk as a percent of MME's current milk maximum.")
+    elseif option == OID_LEA_MilkOwnerDistance
+        SetInfoText("Maximum distance from the owner before automatic owner milking can start.")
+    elseif option == OID_LEA_BodyMoodPolicy
+        SetInfoText("Dynamic uses current size override. Bigger/Smaller forces the owner's weekly mood.")
+    elseif option == OID_LEA_BodySizeOverride
+        SetInfoText("-100 means very small, 0 neutral, 100 very large. Dynamic mood tends to push back toward the opposite direction.")
+    elseif option == OID_LEA_BodyMoodDuration
+        SetInfoText("How long the owner keeps a chosen bigger/smaller mood before picking a new one.")
+    elseif option == OID_LEA_CollarEnabled
+        SetInfoText("Lets the owner periodically use Lola's own collar swap behavior.")
+    elseif option == OID_LEA_CollarChance
+        SetInfoText("Chance that a collar change happens when the collar cooldown expires.")
+    elseif option == OID_LEA_CollarCooldown
+        SetInfoText("In-game hours between possible automatic collar changes.")
+    elseif option == OID_LEA_CollarDistance
+        SetInfoText("Maximum distance from the owner before an automatic collar change can start.")
+    elseif option == OID_LEA_BathEnabled
+        SetInfoText("Lets the owner react when the player has enough cum overlays or bathing dirt effects.")
+    elseif option == OID_LEA_BathChance
+        SetInfoText("Chance that the owner comments when bathing checks find the player dirty.")
+    elseif option == OID_LEA_BathCooldown
+        SetInfoText("In-game hours between possible bathing orders.")
+    elseif option == OID_LEA_BathOwnerChance
+        SetInfoText("Chance the owner washes the player directly when nearby and Bathing in Skyrim is available.")
+    elseif option == OID_LEA_BathCumThreshold
+        SetInfoText("Total SCO oral, anal, and vaginal cum counters needed before the player counts as needing cleaning.")
+    elseif option == OID_LEA_BathDirtStage
+        SetInfoText("Bathing dirt stage needed before the player counts as dirty. Uses Bathing in Skyrim, Dirt and Blood, or Keep It Clean effects when present.")
+    elseif option == OID_LEA_BathTimeout
+        SetInfoText("In-game hours the player has to clean up when ordered to do it themselves.")
+    elseif option == OID_LEA_BathRequireTown
+        SetInfoText("Requires Lola's town check before bathing orders can start.")
+    elseif option == OID_LEA_HairStatus
+        SetInfoText("Generated pool count / current Lola style count / styles seeded by this addon.")
+    elseif option == OID_LEA_HairSeed
+        SetInfoText("Adds valid generated hair HeadParts to Lola's existing HairStyles.json list.")
+    elseif option == OID_LEA_HairClear
+        SetInfoText("Removes hair styles this addon previously seeded. Manually added Lola styles are left alone unless they share the same name.")
     else
         return false
     endif
@@ -423,10 +548,8 @@ bool Function LEA_OnHighlight(int option)
 EndFunction
 
 bool Function LEA_OnSelect(int option)
-    if option == OID_LEA_TransformativeEnabled
-        bool value = !LEA_GetBool("transformative.enabled", true)
-        LEA_SetBool("transformative.enabled", value)
-        SetToggleOptionValue(option, value, false)
+    if option == OID_LEA_MissivesDetail
+        Debug.MessageBox(LEA_GetMissivesDetailText())
     elseif option == OID_LEA_FertilityEnabled
         bool valueFertility = !LEA_GetBool("fertility.enabled", true)
         LEA_SetBool("fertility.enabled", valueFertility)
@@ -439,21 +562,115 @@ bool Function LEA_OnSelect(int option)
         bool valueMilk = !LEA_GetBool("milk.enabled", true)
         LEA_SetBool("milk.enabled", valueMilk)
         SetToggleOptionValue(option, valueMilk, false)
+    elseif option == OID_LEA_MilkOwnerMilking
+        bool valueOwnerMilking = !LEA_GetBool("milk.allowOwnerMilking", true)
+        LEA_SetBool("milk.allowOwnerMilking", valueOwnerMilking)
+        SetToggleOptionValue(option, valueOwnerMilking, false)
     elseif option == OID_LEA_BodyEnabled
         bool valueBody = !LEA_GetBool("body.enabled", true)
         LEA_SetBool("body.enabled", valueBody)
         SetToggleOptionValue(option, valueBody, false)
+    elseif option == OID_LEA_CollarEnabled
+        bool valueCollar = !LEA_GetBool("collar.enabled", true)
+        LEA_SetBool("collar.enabled", valueCollar)
+        SetToggleOptionValue(option, valueCollar, false)
+    elseif option == OID_LEA_BathEnabled
+        bool valueBath = !LEA_GetBool("bath.enabled", true)
+        LEA_SetBool("bath.enabled", valueBath)
+        SetToggleOptionValue(option, valueBath, false)
+    elseif option == OID_LEA_BathRequireTown
+        bool valueBathTown = !LEA_GetBool("bath.requireTown", true)
+        LEA_SetBool("bath.requireTown", valueBathTown)
+        SetToggleOptionValue(option, valueBathTown, false)
+    elseif option == OID_LEA_HairSeed
+        LEA_SeedHairStyles()
+        ForcePageReset()
+    elseif option == OID_LEA_HairClear
+        LEA_ClearSeededHairStyles()
+        ForcePageReset()
     else
         return false
     endif
     return true
 EndFunction
 
+string Function LEA_GetMissivesStatusText()
+    cfl_Missives missives = Quest.GetQuest("cfl_Missives") as cfl_Missives
+    if missives == None
+        return "Unavailable"
+    endif
+    return missives.GetActiveMissivesStatus()
+EndFunction
+
+string Function LEA_GetMissivesDetailText()
+    cfl_Missives missives = Quest.GetQuest("cfl_Missives") as cfl_Missives
+    if missives == None
+        return "Forced adventuring is unavailable."
+    endif
+    return missives.GetActiveMissivesDetail()
+EndFunction
+
+string Function LEA_GetHairStatusText()
+    int poolCount = JsonUtil.StringListCount(LEAHairPoolPath, "names")
+    int lolaCount = JsonUtil.StringListCount(LEALolaHairStylesPath, "hairstyles")
+    int seededCount = JsonUtil.StringListCount(LEAConfigPath, "hair.seededNames")
+    return poolCount + " pool / " + lolaCount + " Lola / " + seededCount + " seeded"
+EndFunction
+
+Function LEA_SeedHairStyles()
+    int poolCount = JsonUtil.StringListCount(LEAHairPoolPath, "names")
+    int added = 0
+    int skipped = 0
+    int i = 0
+    while i < poolCount
+        string styleName = JsonUtil.StringListGet(LEAHairPoolPath, "names", i)
+        string pluginName = JsonUtil.StringListGet(LEAHairPoolPath, "plugins", i)
+        int formId = JsonUtil.IntListGet(LEAHairPoolPath, "formIds", i)
+        HeadPart style = Game.GetFormFromFile(formId, pluginName) as HeadPart
+        if style != None && style.GetType() == 3 && styleName != ""
+            if !JsonUtil.StringListHas(LEALolaHairStylesPath, "hairstyles", styleName)
+                JsonUtil.StringListAdd(LEALolaHairStylesPath, "hairstyles", styleName, false)
+                JsonUtil.SetFormValue(LEALolaHairStylesPath, styleName, style)
+                added += 1
+            else
+                skipped += 1
+            endif
+            if !JsonUtil.StringListHas(LEAConfigPath, "hair.seededNames", styleName)
+                JsonUtil.StringListAdd(LEAConfigPath, "hair.seededNames", styleName, false)
+            endif
+        else
+            skipped += 1
+        endif
+        i += 1
+    endwhile
+    JsonUtil.Save(LEALolaHairStylesPath)
+    JsonUtil.Save(LEAConfigPath)
+    Debug.Notification("Lola Expanded Addons seeded " + added + " hair style(s), skipped " + skipped + ".")
+EndFunction
+
+Function LEA_ClearSeededHairStyles()
+    int count = JsonUtil.StringListCount(LEAConfigPath, "hair.seededNames")
+    int removed = 0
+    while count > 0
+        count -= 1
+        string styleName = JsonUtil.StringListGet(LEAConfigPath, "hair.seededNames", count)
+        if styleName != ""
+            JsonUtil.StringListRemove(LEALolaHairStylesPath, "hairstyles", styleName, true)
+            JsonUtil.UnsetFormValue(LEALolaHairStylesPath, styleName)
+            removed += 1
+        endif
+        JsonUtil.StringListRemoveAt(LEAConfigPath, "hair.seededNames", count)
+    endwhile
+    JsonUtil.Save(LEALolaHairStylesPath)
+    JsonUtil.Save(LEAConfigPath)
+    Debug.Notification("Lola Expanded Addons removed " + removed + " seeded hair style(s).")
+EndFunction
+
 bool Function LEA_OnSliderOpen(int option)
-    if option == OID_LEA_TransformativeChance
-        LEA_OpenSlider(LEA_GetFloat("transformative.triggerChance", 40.0), 0.0, 100.0, 5.0, 40.0)
-    elseif option == OID_LEA_TransformativeMaxPotions
-        LEA_OpenSlider(LEA_GetFloat("transformative.maxPotionsPerEvent", 1.0), 1.0, 3.0, 1.0, 1.0)
+    if option == OID_LEA_TreasureMinGold
+        LEA_OpenSlider(LEA_GetFloat("treasure.minGold", 100.0), 1.0, 5000.0, 25.0, 100.0)
+    elseif option == OID_LEA_TreasureMinValue
+        LEA_OpenSlider(LEA_GetFloat("treasure.minItemValue", 250.0), 1.0, 10000.0, 25.0, 250.0)
     elseif option == OID_LEA_FertilityChance
         LEA_OpenSlider(LEA_GetFloat("fertility.triggerChance", 15.0), 0.0, 100.0, 5.0, 15.0)
     elseif option == OID_LEA_FertilityCooldown
@@ -464,12 +681,40 @@ bool Function LEA_OnSliderOpen(int option)
         LEA_OpenSlider(LEA_GetFloat("milk.cooldownHours", 24.0), 0.0, 240.0, 1.0, 24.0)
     elseif option == OID_LEA_MilkQuota
         LEA_OpenSlider(LEA_GetFloat("milk.assignmentMilkCount", 2.0), 1.0, 10.0, 1.0, 2.0)
+    elseif option == OID_LEA_MilkOwnerChance
+        LEA_OpenSlider(LEA_GetFloat("milk.ownerMilkingChance", 50.0), 0.0, 100.0, 5.0, 50.0)
+    elseif option == OID_LEA_MilkOwnerThreshold
+        LEA_OpenSlider(LEA_GetFloat("milk.ownerMilkingFullnessThreshold", 0.75) * 100.0, 5.0, 100.0, 5.0, 75.0)
+    elseif option == OID_LEA_MilkOwnerDistance
+        LEA_OpenSlider(LEA_GetFloat("milk.ownerMilkingDistance", 500.0), 100.0, 3000.0, 50.0, 500.0)
     elseif option == OID_LEA_BodyChance
         LEA_OpenSlider(LEA_GetFloat("body.eventChance", 35.0), 0.0, 100.0, 5.0, 35.0)
     elseif option == OID_LEA_BodyCooldown
         LEA_OpenSlider(LEA_GetFloat("body.cooldownHours", 8.0), 0.0, 240.0, 1.0, 8.0)
+    elseif option == OID_LEA_BodySizeOverride
+        LEA_OpenSlider(LEA_GetFloat("body.sizeOverride", 0.0), -100.0, 100.0, 5.0, 0.0)
+    elseif option == OID_LEA_BodyMoodDuration
+        LEA_OpenSlider(LEA_GetFloat("body.moodDurationHours", 168.0), 1.0, 720.0, 1.0, 168.0)
     elseif option == OID_LEA_BodyPotions
         LEA_OpenSlider(LEA_GetFloat("body.potionsPerEvent", 1.0), 1.0, 3.0, 1.0, 1.0)
+    elseif option == OID_LEA_CollarChance
+        LEA_OpenSlider(LEA_GetFloat("collar.eventChance", 20.0), 0.0, 100.0, 5.0, 20.0)
+    elseif option == OID_LEA_CollarCooldown
+        LEA_OpenSlider(LEA_GetFloat("collar.cooldownHours", 72.0), 1.0, 720.0, 1.0, 72.0)
+    elseif option == OID_LEA_CollarDistance
+        LEA_OpenSlider(LEA_GetFloat("collar.ownerDistance", 500.0), 100.0, 3000.0, 50.0, 500.0)
+    elseif option == OID_LEA_BathChance
+        LEA_OpenSlider(LEA_GetFloat("bath.eventChance", 25.0), 0.0, 100.0, 5.0, 25.0)
+    elseif option == OID_LEA_BathCooldown
+        LEA_OpenSlider(LEA_GetFloat("bath.cooldownHours", 24.0), 1.0, 720.0, 1.0, 24.0)
+    elseif option == OID_LEA_BathOwnerChance
+        LEA_OpenSlider(LEA_GetFloat("bath.ownerBathChance", 35.0), 0.0, 100.0, 5.0, 35.0)
+    elseif option == OID_LEA_BathCumThreshold
+        LEA_OpenSlider(LEA_GetFloat("bath.cumThreshold", 2.0), 1.0, 10.0, 1.0, 2.0)
+    elseif option == OID_LEA_BathDirtStage
+        LEA_OpenSlider(LEA_GetFloat("bath.dirtMinStage", 3.0), 2.0, 5.0, 1.0, 3.0)
+    elseif option == OID_LEA_BathTimeout
+        LEA_OpenSlider(LEA_GetFloat("bath.assignmentTimeoutHours", 1.0), 0.25, 24.0, 0.25, 1.0)
     else
         return false
     endif
@@ -484,11 +729,11 @@ Function LEA_OpenSlider(float startValue, float minValue, float maxValue, float 
 EndFunction
 
 bool Function LEA_OnSliderAccept(int option, float value)
-    if option == OID_LEA_TransformativeChance
-        LEA_SetInt("transformative.triggerChance", value as int)
-        SetSliderOptionValue(option, value, "{0}%", false)
-    elseif option == OID_LEA_TransformativeMaxPotions
-        LEA_SetInt("transformative.maxPotionsPerEvent", value as int)
+    if option == OID_LEA_TreasureMinGold
+        LEA_SetInt("treasure.minGold", value as int)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_TreasureMinValue
+        LEA_SetInt("treasure.minItemValue", value as int)
         SetSliderOptionValue(option, value, "{0}", false)
     elseif option == OID_LEA_FertilityChance
         LEA_SetInt("fertility.triggerChance", value as int)
@@ -505,14 +750,58 @@ bool Function LEA_OnSliderAccept(int option, float value)
     elseif option == OID_LEA_MilkQuota
         LEA_SetInt("milk.assignmentMilkCount", value as int)
         SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_MilkOwnerChance
+        LEA_SetInt("milk.ownerMilkingChance", value as int)
+        SetSliderOptionValue(option, value, "{0}%", false)
+    elseif option == OID_LEA_MilkOwnerThreshold
+        LEA_SetFloat("milk.ownerMilkingFullnessThreshold", value / 100.0)
+        SetSliderOptionValue(option, value, "{0}%", false)
+    elseif option == OID_LEA_MilkOwnerDistance
+        LEA_SetFloat("milk.ownerMilkingDistance", value)
+        SetSliderOptionValue(option, value, "{0}", false)
     elseif option == OID_LEA_BodyChance
         LEA_SetInt("body.eventChance", value as int)
         SetSliderOptionValue(option, value, "{0}%", false)
     elseif option == OID_LEA_BodyCooldown
         LEA_SetFloat("body.cooldownHours", value)
         SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_BodySizeOverride
+        LEA_SetInt("body.sizeOverride", value as int)
+        LEA_SetInt("body.currentMood", -1)
+        LEA_SetFloat("body.nextMoodGameDay", 0.0)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_BodyMoodDuration
+        LEA_SetFloat("body.moodDurationHours", value)
+        SetSliderOptionValue(option, value, "{0}", false)
     elseif option == OID_LEA_BodyPotions
         LEA_SetInt("body.potionsPerEvent", value as int)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_CollarChance
+        LEA_SetInt("collar.eventChance", value as int)
+        SetSliderOptionValue(option, value, "{0}%", false)
+    elseif option == OID_LEA_CollarCooldown
+        LEA_SetFloat("collar.cooldownHours", value)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_CollarDistance
+        LEA_SetFloat("collar.ownerDistance", value)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_BathChance
+        LEA_SetInt("bath.eventChance", value as int)
+        SetSliderOptionValue(option, value, "{0}%", false)
+    elseif option == OID_LEA_BathCooldown
+        LEA_SetFloat("bath.cooldownHours", value)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_BathOwnerChance
+        LEA_SetInt("bath.ownerBathChance", value as int)
+        SetSliderOptionValue(option, value, "{0}%", false)
+    elseif option == OID_LEA_BathCumThreshold
+        LEA_SetInt("bath.cumThreshold", value as int)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_BathDirtStage
+        LEA_SetInt("bath.dirtMinStage", value as int)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_BathTimeout
+        LEA_SetFloat("bath.assignmentTimeoutHours", value)
         SetSliderOptionValue(option, value, "{0}", false)
     else
         return false
@@ -521,29 +810,47 @@ bool Function LEA_OnSliderAccept(int option, float value)
 EndFunction
 
 bool Function LEA_OnMenuOpen(int option)
-    if option != OID_LEA_BodyMode
-        return false
+    if option == OID_LEA_TreasureFallbackMode
+        LEA_InitMenus()
+        SetMenuDialogOptions(LEA_TreasureFallbackModes)
+        SetMenuDialogStartIndex(LEA_GetInt("treasure.fallbackMode", 1))
+        SetMenuDialogDefaultIndex(1)
+        return true
+    elseif option == OID_LEA_BodyMoodPolicy
+        LEA_InitMenus()
+        SetMenuDialogOptions(LEA_BodyMoodPolicies)
+        SetMenuDialogStartIndex(LEA_GetInt("body.moodPolicy", 0))
+        SetMenuDialogDefaultIndex(0)
+        return true
     endif
-    LEA_InitMenus()
-    SetMenuDialogOptions(LEA_BodyModes)
-    SetMenuDialogStartIndex(LEA_GetInt("body.mode", 0))
-    SetMenuDialogDefaultIndex(0)
-    return true
+    return false
 EndFunction
 
 bool Function LEA_OnMenuAccept(int option, int index)
-    if option != OID_LEA_BodyMode
-        return false
+    if option == OID_LEA_TreasureFallbackMode
+        if index < 0
+            index = 0
+        endif
+        if index > 2
+            index = 2
+        endif
+        LEA_SetInt("treasure.fallbackMode", index)
+        SetMenuOptionValue(option, LEA_GetTreasureFallbackModeName(), false)
+        return true
+    elseif option == OID_LEA_BodyMoodPolicy
+        if index < 0
+            index = 0
+        endif
+        if index > 3
+            index = 3
+        endif
+        LEA_SetInt("body.moodPolicy", index)
+        LEA_SetInt("body.currentMood", -1)
+        LEA_SetFloat("body.nextMoodGameDay", 0.0)
+        SetMenuOptionValue(option, LEA_GetBodyMoodPolicyName(), false)
+        return true
     endif
-    if index < 0
-        index = 0
-    endif
-    if index > 2
-        index = 2
-    endif
-    LEA_SetInt("body.mode", index)
-    SetMenuOptionValue(option, LEA_GetBodyModeName(), false)
-    return true
+    return false
 EndFunction
 
 bool Function ToggleManualMode(int option)
