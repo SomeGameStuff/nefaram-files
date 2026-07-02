@@ -4,6 +4,13 @@ Standalone MO2 add-on for self-cast NSFW Alteration bodymorph transformations.
 
 The MO2 mod folder and user-facing MCM name are `Bodymorph Alterations`. The plugin remains `Dollform.esp` for save compatibility with existing test saves and Papyrus properties.
 
+## Purpose, Source, and Build
+
+- Purpose: provide self-cast bodymorph transformation powers with progression, MCM repair/debugging, and SlaveTats overlays.
+- Source: `Source/Scripts/*.psc`, `Dollform.esp`, `Textures/Actors/Character/slavetats`, `SKSE/Plugins/Dollform/Config.json`, and the included planning/modding notes.
+- Build: compile Papyrus sources against vanilla, SkyUI, RaceMenu/NiOverride, PapyrusUtil, powerofthree's Papyrus Extender, and SlaveTats sources. Use xEdit or Creation Kit for plugin record changes.
+- Install: use the installation steps below.
+
 ## Installation
 
 Install this as a normal Mod Organizer 2 mod.
