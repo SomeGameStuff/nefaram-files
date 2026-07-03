@@ -1,30 +1,30 @@
 {
 	"formList": {
 		"1": [
-			"0x86a|[Caenarvon] Pharaoh Slave.esp",
-			"0x86b|[Caenarvon] Pharaoh Slave.esp",
-			"0x86c|[Caenarvon] Pharaoh Slave.esp",
-			"0x86d|[Caenarvon] Pharaoh Slave.esp",
-			"0x86e|[Caenarvon] Pharaoh Slave.esp",
-			"0x870|[Caenarvon] Pharaoh Slave.esp",
-			"0x871|[Caenarvon] Pharaoh Slave.esp",
-			"0x874|[Caenarvon] Pharaoh Slave.esp",
-			"0x875|[Caenarvon] Pharaoh Slave.esp",
-			"0x876|[Caenarvon] Pharaoh Slave.esp",
-			"0x877|[Caenarvon] Pharaoh Slave.esp"
+			"0x849|[Caenarvon] Pharaoh Slave.esp",
+			"0x84b|[Caenarvon] Pharaoh Slave.esp",
+			"0x84c|[Caenarvon] Pharaoh Slave.esp",
+			"0x84d|[Caenarvon] Pharaoh Slave.esp",
+			"0x850|[Caenarvon] Pharaoh Slave.esp",
+			"0x851|[Caenarvon] Pharaoh Slave.esp",
+			"0x852|[Caenarvon] Pharaoh Slave.esp",
+			"0x854|[Caenarvon] Pharaoh Slave.esp",
+			"0x855|[Caenarvon] Pharaoh Slave.esp",
+			"0x856|[Caenarvon] Pharaoh Slave.esp",
+			"0x857|[Caenarvon] Pharaoh Slave.esp"
 		],
 		"2": [
-			"0x8a5|[COCO]BattleAngels.esp",
-			"0x8a7|[COCO]BattleAngels.esp",
-			"0x8ae|[COCO]BattleAngels.esp",
-			"0x8af|[COCO]BattleAngels.esp",
-			"0x881|[COCO]BattleAngels.esp"
+			"0x968|[COCO] Succubus.esp",
+			"0x962|[COCO] Succubus.esp",
+			"0x95e|[COCO] Succubus.esp",
+			"0x956|[COCO] Succubus.esp",
+			"0x966|[COCO] Succubus.esp"
 		],
 		"3": [
-			"0x8d0|[COCO] RONIN.esp",
-			"0x8cf|[COCO] RONIN.esp",
-			"0x8ca|[COCO] RONIN.esp",
-			"0x8f1|[COCO] RONIN.esp"
+			"0xd62|[Ashtoreth] Spartacus Slave.esp",
+			"0xd63|[Ashtoreth] Spartacus Slave.esp",
+			"0xd64|[Ashtoreth] Spartacus Slave.esp",
+			"0xd69|[Ashtoreth] Spartacus Slave.esp"
 		]
 	},
 	"int": {
@@ -38,8 +38,8 @@
 		]
 	},
 	"string": {
-		"1": "pharaoh general",
-		"2": "battle angel",
-		"3": "ronin red"
+		"1": "pharaoh slave",
+		"2": "succubus black",
+		"3": "spartacus half"
 	}
 }
