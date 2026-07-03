@@ -1,0 +1,3 @@
+separator "combat"
+# review archive-candidate score=0.918: E:\Games\Tsukiro2\Downloads\Skyrim's Paraglider Anniversary Edition-71123-1-11-0-1704159999.7z
+# unresolved: Skyrim's Paraglider Anniversary Edition Update (Combat)

@@ -1,0 +1,2 @@
+separator "graphics"
++ local path="E:\Games\Tsukiro2\Downloads\ClickLight - Colour Picker FOMOD-121555-1-0-1718438717.7z" install="ClickLight - Colour Picker FOMOD"

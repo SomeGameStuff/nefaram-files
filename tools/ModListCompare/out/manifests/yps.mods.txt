@@ -1,0 +1,11 @@
+separator "yps"
+# review archive-candidate score=0.732: E:\Games\Tsukiro2\Downloads\Sexier Vanilla - Guards-60399-1-3-1640425063.7z
+# unresolved: Arial Vanilla Sexism (YPS)
++ local path="C:\Users\antho\Downloads\Spank That Ass v4.8 BETA SE (27-Apr-2021).7z" install="Spank That Ass v4.8 BETA SE (27-Apr-2021)"
++ local path="C:\Users\antho\Downloads\Impact Play v0.1.0.7z" install="Impact Play v0.1.2"
+# unresolved: Simple Events for ReAnimated (YPS)
+# unresolved: SexualPersuasion (YPS)
+# review archive-candidate score=0.750: E:\Games\Tsukiro2\Downloads\SLAL v1.6 SE.7z
+# unresolved: SLAP (YPS)
+# unresolved: PWComments v1.7 (YPS)
+# unresolved: SLDrunkRedux v1.3 (YPS)

@@ -1,0 +1,10 @@
+separator "adult-frameworks"
+# review archive-candidate score=0.733: C:\Users\antho\Downloads\SlaveTatsSE-1.3.9.7z
+# unresolved: slavetats_spanked_1.0 (Pama Mods)
+# unresolved: YPS Devious & Immersive Fashion 6.9.2 (Nicht Sexmods)
+# review archive-candidate score=0.789: C:\Users\antho\Downloads\DCarriage Redux 1.0.5.7z
+# unresolved: Devious Carriages Redux 1.0.5 (YPS)
+# unresolved: Sexlab Approach Redux 3.61 (YPS)
+# unresolved: Devious Carriages Redux Voice Pack (Sexmods Addition)
+# unresolved: Sexlab Approach Redux 3.60 Voice Pack (Sexmods Addition)
+# unresolved: scrollwheelfix (Sexlab Content)

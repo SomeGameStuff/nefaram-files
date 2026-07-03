@@ -1,0 +1,3 @@
+separator "lola-mods"
+# unresolved: RSE - Shoulder Or Saddle (Lola Mods)
++ local path="E:\Games\Tsukiro2\Downloads\Next-Gen Decapitations - Latest Version-135254-1-4-3-1763108174.zip" install="Next-Gen Decapitations - Latest Version"

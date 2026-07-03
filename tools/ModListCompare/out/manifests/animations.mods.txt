@@ -1,0 +1,4 @@
+separator "animations"
+# unresolved: TNG_Himbo_SMP_XMLs (Animations)
+# unresolved: Rydin Animations SLAL Pack_Complete_SSE v0.5a (Pama Mods)
++ local path="E:\Games\Tsukiro2\Downloads\Goetia Animations - Magic Spell Casting-70204-1-4-1656370500.7z" install="Goetia Animations - Magic Spell Casting"

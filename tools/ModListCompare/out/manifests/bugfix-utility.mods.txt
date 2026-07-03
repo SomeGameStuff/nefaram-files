@@ -1,0 +1,17 @@
+separator "bugfix-utility"
+# unresolved: PamaSovngardeAftermath_V1.0.0_SE_AE (Bug Fixes)
+# unresolved: PaOutdoorEventPack_V1.2_SE_AE (Bug Fixes)
+# unresolved: PA_Extension_BadEndsRevived_WindHelm_V1.2.0_SE_AE (Bug Fixes)
+# unresolved: PaPunishmentPack_V1.2.0_SE_AE (Bug Fixes)
+# review archive-candidate score=0.885: C:\Users\antho\Downloads\PamaDeadlyFurniture_V2.4.0_LE_SSE (1).zip
+# unresolved: PamaDeadlyFurniture_V3.3.2_SE_AE (Bug Fixes)
+# unresolved: PA_Extension_BadEndsRevived_Solitude_V1.7.6_SE_AE (Bug Fixes)
+# unresolved: OrkishBountyHunters_V0.4_SE_AE (Bug Fixes)
++ local path="C:\Users\antho\Downloads\PamaPrisonAlternative_V2.0.3_LE_SE_AE (1).zip" install="PamaPrisonAlternative_V2.0.3_LE_SE_AE"
+# unresolved: InteractiveGallows_V3.0_ForSpecialEdition (Bug Fixes)
+# unresolved: PA_Extension_BadEndsRevived_Riften_V1.3.1_SE_AE (Bug Fixes)
+# unresolved: Furniture_Alignment_Helper_V4 (Bug Fixes)
+# unresolved: Auto Skeleton Patch - Universal Behaviour Runtime (Camera)
+# review archive-candidate score=0.762: E:\Games\Tsukiro2\Downloads\Console Commands Extender - 1.6.1130 Update-74390-1-12-0-1704159838.7z
+# unresolved: Console Commands Extender - Anniversary Edition Update (Fixes)
+# unresolved: Crash Logger SSE AE VR - PDB SkyrimSE 1.6.1170 (Fixes)

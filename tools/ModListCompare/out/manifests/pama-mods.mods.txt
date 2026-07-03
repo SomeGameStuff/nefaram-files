@@ -1,0 +1,10 @@
+separator "pama-mods"
+# review archive-candidate score=0.810: C:\Users\antho\Downloads\Bathing in Skyrim-135288-2-7-8-1776056260.7z
+# unresolved: Bathing in Skyrim - Renewed (Pama Mods)
+# unresolved: Slap da Butt SE (Pama Mods)
+# unresolved: Slap da Butt with Spank Tats (Pama Mods)
+# unresolved: pamaInteractiveBeatup_V_2.9_SE_AE (Pama Mods)
+# review archive-candidate score=0.857: C:\Users\antho\Downloads\rapeTattoos_v1.4.7z
+# unresolved: fadeTattoos_v1.0 (Pama Mods)
+# unresolved: BrandingDeviceOfDoom_0_53_SE (Pama Mods)
+# unresolved: TTLolaAddon_0.54 (Pama Mods)

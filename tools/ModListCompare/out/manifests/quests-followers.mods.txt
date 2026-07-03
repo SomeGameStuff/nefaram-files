@@ -1,0 +1,5 @@
+separator "quests-followers"
+# unresolved: Follower Slavery Mod V1.731 (Pama Mods)
++ local path="E:\Games\Tsukiro2\Downloads\NPC Dialogue Audio Enhancer-40040-1-0-1599021767.zip" install="NPC Dialogue Audio Enhancer"
+# review archive-candidate score=0.765: E:\Games\Tsukiro2\Downloads\C.3 - IMMORTAN - Followers-43293-1-0-1755645483.zip
+# unresolved: Mean Followers (YPS)
