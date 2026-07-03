@@ -536,7 +536,7 @@ internal sealed class Installer(IInstallLog log)
             throw new FormatException($"Nexus entry requires game/mod_id/file_id: {mod.InstallName}");
         }
 
-        var cached = FindCachedNexusArchive(mo2.DownloadSearchPaths, modId, fileId);
+        var cached = FindCachedNexusArchive(mo2.DownloadSearchPaths, modId, fileId, mod.Fields.GetValueOrDefault("download_file"));
         if (cached is not null)
         {
             log.Info($"Using cached Nexus archive: {cached}");
@@ -833,8 +833,25 @@ internal sealed class Installer(IInstallLog log)
         });
     }
 
-    private static string? FindCachedNexusArchive(IEnumerable<string> downloadPaths, string modId, string fileId)
+    private static string? FindCachedNexusArchive(IEnumerable<string> downloadPaths, string modId, string fileId, string? downloadFile)
     {
+        var expectedFileName = string.IsNullOrWhiteSpace(downloadFile) ? null : Path.GetFileName(downloadFile.Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar));
+        if (!string.IsNullOrWhiteSpace(expectedFileName))
+        {
+            var exact = downloadPaths
+                .Where(Directory.Exists)
+                .SelectMany(Directory.EnumerateFiles)
+                .Where(IsArchivePath)
+                .Where(path => Path.GetFileName(path).Equals(expectedFileName, StringComparison.OrdinalIgnoreCase))
+                .OrderByDescending(File.GetLastWriteTimeUtc)
+                .FirstOrDefault();
+
+            if (exact is not null)
+            {
+                return exact;
+            }
+        }
+
         var idPattern = $"-{modId}-";
         var candidates = downloadPaths
             .Where(Directory.Exists)
@@ -843,7 +860,8 @@ internal sealed class Installer(IInstallLog log)
             .Where(path =>
             {
                 var name = Path.GetFileName(path);
-                return name.Contains(idPattern, StringComparison.OrdinalIgnoreCase) || name.Contains(fileId, StringComparison.OrdinalIgnoreCase);
+                return name.Contains(fileId, StringComparison.OrdinalIgnoreCase) ||
+                    (string.IsNullOrWhiteSpace(expectedFileName) && name.Contains(idPattern, StringComparison.OrdinalIgnoreCase));
             })
             .OrderByDescending(File.GetLastWriteTimeUtc)
             .ToList();

@@ -84,7 +84,8 @@ foreach (var row in rows)
         var url = string.IsNullOrWhiteSpace(nexusUrl)
             ? $"https://www.nexusmods.com/skyrimspecialedition/mods/{modId}?tab=files&file_id={fileId}"
             : $"{nexusUrl}?tab=files&file_id={fileId}";
-        output.AppendLine($"+ nexus skyrimspecialedition {modId} file_id={fileId} url=\"{url}\" install=\"{Escape(installName)}\"");
+        var downloadFileField = string.IsNullOrWhiteSpace(expectedFile) ? "" : $" download_file=\"{Escape(expectedFile)}\"";
+        output.AppendLine($"+ nexus skyrimspecialedition {modId} file_id={fileId} url=\"{url}\" install=\"{Escape(installName)}\"{downloadFileField}");
         resolved++;
         continue;
     }
