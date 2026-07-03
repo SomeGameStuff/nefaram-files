@@ -1,0 +1,739 @@
+# Missing Mods
+
+Total missing: 714
+
+## adult-frameworks (16)
+
+- Sexlab BJ Sound FX replacerv (Quests - New) - expected: `C:/Users/tld/Downloads/Sexlab BJ Sound FX replacerv0.1.rar`
+- Sexlab Sound FX Hip flap replacer (Quests - New) - expected: `C:/Users/tld/Downloads/Sexlab Sound FX Hip flap replacer 0.2.rar`
+- Deviously Enchanted Chests SE (Quests - New) - expected: `Deviously Enchanted Chests SE-LE 3.218.7z`
+- SexLab Dibella Sisterhood SE (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\SexLab Dibella Sisterhood SE 2022-01-31.7z`
+- SexLab Dibella Sisterhood Sisters SE (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\SexLab Dibella Sisterhood Sisters SE 2022-01-31.7z`
+- SexLab Aroused Creatures SE v04.16 (Quests - New) - expected: `C:/Users/lesli/Downloads/SexLab Aroused Creatures SE v04.16.7z`
+- SexLabMatchMaker.Rev7 (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/Not Used/SexLabMatchMaker.Rev7.zip`
+- Wintersun - SexLab Integration SE v1.3.3 (Quests - New) - expected: `E:/My Skyrim mods/Immersions/Wintersun - SexLab Integration SE v1.3.3.7z`
+- Xelzaz Follower Core DBVO 1.8.2 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/Xelzaz Follower Core DBVO 1.8.2-89810-1-0-1683301169.rar`
+- SexLab Solutions - Revisited DBVO 1.15 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/SexLab Solutions - Revisited DBVO 1.15-89810-1-0-1683886728.rar`
+- Voice Bella DBVO SL Aroused Creatures (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `E:/skyrim mods/Nolvus 6 Mods/Voice Pack/Voice Bella DBVO SL Aroused Creatures.7z`
+- Aroused Creatures v04.14 Voice Lines (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Voice Pack/Aroused Creatures v04.14 Voice Lines.7z`
+- Alpia Slavetats Pack (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Alpia Slavetats SE.7z`
+- Alpia Slavetats Riek (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Alpia Slavetats Riek SE-LE.7z`
+- Alpia Slavetats Orc (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Alpia Slavetats Orc SE-LE.7z`
+- SlaveTatsGUI (Quests - New) - expected: `E:/My Skyrim mods/Icons/SlaveTatsGUI-0.2.0.7z`
+
+## animations (26)
+
+- Turn Animation Fix (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Disable Turn Animation-54803-1-1630320133.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/54803
+- First Person Combat Animations Overhaul 2.0 -SIZE MATTERS (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\FPCAO2 - SIZE MATTERS SE ALL-IN-ONE 2.01-45177-2-01-1612846122.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/45177
+- Riding Animation Overhaul - RAO (OAR - DAR) (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Riding Animation Overhaul - RAO-102881-1-3-1-1723238159.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/102881
+- BakaFactory SLAL Animation 7.70 (Quests - New) - expected: `E:/My Skyrim mods/Animations/LoverLab Animations/BakaFactory SLAL Animation 7.70.zip`
+- SkyParkour V3 - Pandora Patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132292 - expected: `E:/skyrim mods/Nolvus 6 Mods/Animations/SkyParkour V3 - Pandora Patch-132292-3-0-0-1755214387.rar`
+- EVG CLAMBER - Slope Animations (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/114753 - expected: `E:/skyrim mods/Nolvus 6 Mods/Animations/EVG CLAMBER - Slope Animations 1.0-114753-1-0-1717167372.zip`
+- More Feminine EVG Clamber Animations (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/148067 - expected: `E:/skyrim mods/Nolvus 6 Mods/Animations/More Feminine EVG Clamber Animations-148067-1-00-1744999889.7z`
+- Immersive Hunting Animations (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/96961 - expected: `C:/Users/lesli/Downloads/Immersive Hunting Animations-96961-2-3-1-1729893491.zip`
+- SexLab sslAnimationSlots 3000 SE (Quests - New) - expected: `E:/My Skyrim mods/Loverlab/Immersions/SexLab sslAnimationSlots SE 3.zip`
+- Rustic Repose Beds - BOS Distributed (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/138889 - expected: `E:/My Skyrim mods/Objects/Rustic Repose - BOS Distributed-138889-1-0-8-1770489480.rar`
+- RaySense - Cover Animation (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/175504 - expected: `E:/My Skyrim mods/Animations/Movement/RaySense - Cover Animation-175504-1-5-1774677046.zip`
+- Dynamic Random Female idle animation (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Animations/Dynamic Random Female idle animation.rar`
+- Dynamic Random Non-Combat Female idle animations OAR (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Animations/Dynamic Random Non-Combat Female idle animations OAR.rar`
+- Gunslicer OAR Animations Pack (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/123949 - expected: `C:/Users/lesli/Downloads/Gunslicer Animations All in One OAR-123949-1-15-4-1761694140.zip`
+- Malignis Animations - Conditions (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132028 - expected: `C:/Users/lesli/Downloads/Malignis Animations - Conditions v1.07-132028-1-07-1738693406.rar`
+- Eating Animations And Sounds SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/42602 - expected: `E:/My Skyrim mods/Immersions/Eating Animations And Sounds SE V1.9.4-42602-1-9-4-1668786874.7z`
+- Eating animations - My HD version SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/44010 - expected: `E:/My Skyrim mods/Immersions/Eating animations - My HD version SE-44010-6-1-1670205798.7z`
+- Eating Animations - Patch Collection (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/63741 - expected: `E:/My Skyrim mods/Immersions/Eating Animations - Patch Collection-63741-2-10-1683906496.7z`
+- SLAL SE Creature Animations by Sailing Rebel (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/LoverLab Animations/SLAL SE Creature Animations by Sailing Rebel (SRB) v03.0.7z`
+- MYSLALPACK v12.0 (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/LoverLab Animations/FBSLALPACK v12.0SERev1.7z`
+- Troll Animation - with Drop Kick (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/84026 - expected: `E:/My Skyrim mods/Creatures/Troll Animation - with Drop Kick-84026-1-0-1676424441.7z`
+- Lurker Animation (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/83105 - expected: `E:/My Skyrim mods/Creatures/Lurker Animation-83105-1-0-1674881195.7z`
+- Giant Animation 2.01 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/83317 - expected: `E:/My Skyrim mods/Creatures/Giant Animation 2.01-83317-2-01-1743658507.zip`
+- Riekling Animation (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/82974 - expected: `E:/My Skyrim mods/Creatures/Riekling Animation-82974-1-0-1674114968.7z`
+- Falmer Animation 2.0 DAR No SCAR Version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/83572 - expected: `E:/My Skyrim mods/Creatures/Falmer Animation 2.0 DAR No SCAR Version-83572-1-0-1742812385.zip`
+- Frost Atronach Animation (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/84568 - expected: `E:/My Skyrim mods/Creatures/Frost Atronach Animation-84568-1-0-1676430096.7z`
+
+## armor-clothing (70)
+
+- Dynamic Armor Variants for Skyrim 1.5 (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dynamic Armor Variants for Skyrim 1.5-88302-1-0-5-SE-2-1739481651.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/88302
+- Ancient Dwemer Metal - My patches - Guards Armor Replacer (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Ancient Dwemer Metal - My patches - Guards Armor Replacer-38845-GAR-v2-1635335565.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845
+- Vindicator Armor 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/124613 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/Vindicator Armor 8k Complex Material-124613-1-0-1721579046.7z`
+- RUSTIC ARMOR and WEAPONS SE (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\RAW SSE - 4K-2K-19666-3-0-1539568268.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/19666
+- Thieves Guild Armors Retexture SE (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Thieves Guild Armors Retexture SE - Half Res-98561-1-0-1692363044.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/98561
+- Dark Brotherhood Armors Retexture SE (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dark Brotherhood Armors Retexture SE - Half Res-93890-1-0-1687267159.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/93890
+- Frankly HD Dawnguard Armor and Weapons (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/19663 - expected: `Frankly HD Dawnguard Armor CBBE SE-19663-1-2.7z`
+- Bruma Outfits for Skyrim Imperials (SPID Version) (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Bruma Outfits for Skyrim Imperials-48783-1-0-1618860792.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/48783
+- Deze Clothing - Update (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/50446 - expected: `Deze Clothing - Update-50446-2-1-1638008882.7z`
+- [A] Deze Clothing Set - CBBE 3BA UniString Edits (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/81321 - expected: `Deze Clothing Set - CBBE 3BA UniString Edits-81321-1-5-1674787604.7z`
+- (Update) HDT-SMP Einherjr Dress Patch for 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/112927 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/(Update) HDT-SMP Einherjr Dress Patch for 3BA-112927-1-1-1709529306.rar`
+- [COCO] Lace Lingerie [SE] - 3BA (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/[COCO] Lace Lingerie [SE] - 3BA.7z`
+- Ashtoreth - Silent Woods Outfit - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/114859 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Ashtoreth - Silent Woods Outfit - 3BA-114859-1-0-1711231616.zip`
+- Chronomancer Armor (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135729 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Chronomancer Armor-135729-1-4-1744532506.7z`
+- Cimmerian Armor 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135392 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Cimmerian Armor 3BA-135392-1-0-1733156690.zip`
+- Cimmerian Armor 3BA - SMP Bodyslides no Top fix (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Cimmerian Armor 3BA - SMP Bodyslides no Top fix.zip`
+- Royal Vanguard Armor (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/120373 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Royal Vanguard Armor-120373-1-0-1716922388.7z`
+- Royal Vanguard Armor 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/120373 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Royal Vanguard Armor 8k Complex Material-120373-1-0-1718297453.7z`
+- Rover Armor (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/126983 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Rover Armor-126983-1-1-1725377263.7z`
+- Rover Armor 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/126983 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Rover Armor 8k Complex Material-126983-1-0-1724599313.7z`
+- Dracania Armor 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/128683 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Dracania Armor 8k Complex Material-128683-1-0-1726330769.7z`
+- Lavatera Armor (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/131645 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Lavatera Armor-131645-1-2-1746257470.7z`
+- Lavatera Armor 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/131645 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Lavatera Armor 8k Complex Material-131645-1-0-1729328662.7z`
+- Senecio Armor (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/133720 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Senecio Armor-133720-1-2-1732131400.7z`
+- Senecio Armor 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/133720 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Senecio Armor 8k Complex Material-133720-1-0-1731860865.7z`
+- Volkihar Assasin Outfit (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/141457 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Volkihar Assasin-141457-1-0-1739730489.7z`
+- Iron Rose Armor (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/143045 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Iron Rose Armor-143045-1-0-1741366253.7z`
+- Iron Rose Armor 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/143045 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Iron Rose Armor 8k Complex Material-143045-1-0-1741366422.7z`
+- ROS DDDA Bikini Armor - CBBE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/73331 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/ROS DDDA Bikini Armor - CBBE 3BA-73331-1-0-1660457928.7z`
+- Obi's Casual Outfit 2K 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/96357 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Casual Outfit 2K 3BA-96357-1-0-1690071404.zip`
+- Eve's Sunfire Armor Main File (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/140366 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Eve's Sunfire Armor Main File-140366-1-0-1738428193.zip`
+- Eve's Sunfire Armor 3BA Bodyslide Files (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/140366 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Eve's Sunfire Armor 3BA Bodyslide Files-140366-1-0-1738335060.zip`
+- Obi's Gladiator Armor Main File (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/138207 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Gladiator Armor Main File-138207-1-0-1736159606.zip`
+- Obi's Rogue Outfit 3BA 2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/99549 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Rogue Outfit 3BA 2k-99549-1-1-1693409162.zip`
+- Obi's Cozy Classic Outfit (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/117511 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Cozy Classic Outfit-117511-1-0-1713865856.zip`
+- Obi's Hood and Steel Armor Main File CBBE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/136388 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Hood and Steel Armor Main File CBBE 3BA-136388-1-0-1734245549.zip`
+- Obi's Hood and Steel Armor 3BA bodyslide files (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/136388 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Hood and Steel Armor 3BA bodyslide files-136388-1-0-1734370019.zip`
+- Obi's Derketo Priestess Outfit 4K MAIN FILE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/137642 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Derketo Priestess Outfit 4K MAIN FILE-137642-1-0-1735544359.zip`
+- HDT-SMP Templar Assassin Armor Patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135910 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/HDT-SMP Templar Assassin Armor Patch-135910-1-0-1733674383.rar`
+- [COCO] Lace Lingerie Pack (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/104551 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/OCO Lace Lingerie Pack - CBBE 3BA-104551-1-0-1699980114.7z`
+- FB - Manticore Armor 4k 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132109 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/FB - Manticore Armor 4k 3BA-132109-1-0-1730723635.zip`
+- [NINI] Heart Bikini [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Heart Bikini [SE] - CBBE.7z`
+- Clothing Assembly 5 [SE] - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Clothing Assembly 5 [SE] - CBBE - BHUNP.7z`
+- H2135's Halloween Outfit 2020 [SE] - 3BA (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/H2135s Halloween Outfit 2020 [SE] - 3BA.7z`
+- Kinnari Armor - CBBE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/72381 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/TheMilkDrinker - Kinnari Armor CBBE 3BA-72381-2-0-1662595213.7z`
+- Kinnari Armor SE Textures - Resources (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/71999 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Kinnari Armor SE Textures - Resources-71999-1-0-1658631933.7z`
+- Imperial Centurion Battle Dress Evolution 3BA Remastered (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/76305 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Imperial Centurion Battle Dress Evolution 3BA Remastered-76305-1-3-1665222616.7z`
+- Tifa Lockhart Remake Outfit - CBBE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/63099 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Tifa Lockhart Remake Outfit - CBBE 3BA-63099-1-02-1644210021.7z`
+- Vtaw Wardrobe 5 - CBBE SE - CBBE SMP - BodySlide (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/44838 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Vtaw Wardrobe 5 - CBBE SE - CBBE SMP - BodySlide-44838-1-0-1612017028.7z`
+- Vtaw Wardrobe 5 4K Textures (BC7) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/44838 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Vtaw Wardrobe 5 4K Textures (BC7)-44838-1-0-1611613719.7z`
+- Main File Clothes Pack 5 - 4K Textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/01 Main File Clothes Pack 5 - 4K Textures --66964-2-0-1651439453.7z`
+- clothes pack 5 02 Bodyslide Files for CBBE 3BAv2 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/66964 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/clothes pack 5 02 Bodyslide Files for CBBE 3BAv2-66964-2-0-1651445027.7z`
+- Armor of the Deep (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/149729 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/Armor Of The Deep-149729-1-0-1750598234.7z`
+- Armor Of The Deep 8k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/149729 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/Armor Of The Deep 8k-149729-1-0-1750598327.7z`
+- [Melodic] Bikini Armor (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/84029 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/Melodic Bikini Armor - CBBE 3BA-84029-1-0-1675415718.7z`
+- ArmorMelonyCBBE (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/_Fuse00_ArmorMelonyCBBE.rar`
+- Obi's Twilight Bikini 3BA Main file (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/166376 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/Obi's Twilight Bikini 3BA Main file-166376-1-2-1-1766523080.zip`
+- [TalesOfStar] First Descendant Bikinis AE - v1.0.2 (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/[TalesOfStar] First Descendant Bikinis AE - v1.0.2.7z`
+- HDT-SMP Bishop Armor Patch for 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/170921 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/HDT-SMP Bishop Armor Patch for 3BA-170921-1-0-1769521898.rar`
+- Corsair Outfit (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Corsair Outfit.7z`
+- Corsair Outfit 8k (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Corsair Outfit 8k.7z`
+- Cyber Outfit Selection A (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Cyber Outfit SelectionA.7z`
+- Cyber Outfit SelectionA 8K (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Cyber Outfit SelectionA 8K.7z`
+- Cute Adventurer Outfit (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Cute Adventurer Outfit.7z`
+- Cute Adventurer Outfit 8k (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Cute Adventurer Outfit 8k.7z`
+- [dint999] BDOr Guardian Kharoxia Clothes v.1.01 (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/[dint999] BDOr Guardian Kharoxia Clothes v.1.01.7z`
+- Obi - Traveler's Romper Outfit 3BA Main (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/176951 - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Obi - Traveler's Romper Outfit 3BA Main-176951-1-1-1776435304.zip`
+- Obi's Zamorian Thief Armor 3BA Main (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/168091 - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Obi's Zamorian Thief Armor 3BA Main-168091-1-0-1767126104.zip`
+- Obi's Druchii Armor MAIN FILE 3Ba (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/148867 - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Obi's Druchii Armor MAIN FILE 3Ba-148867-1-31-1746266168.zip`
+- FE Armor - CBBE 3BA (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/FE Armor - CBBE 3BA.7z`
+
+## bugfix-utility (18)
+
+- Skyrim Priority SE AE - skse plugin (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\1_Skyrim Priority SE AE-50129-3-2-0-1639055862.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/50129
+- .NET Script Framework (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\NetScriptFramework SkyrimSE v18-21294-18-1635489335.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/21294
+- Recursion FPS Fix SKSE (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Recursion Fix-76867-1-2-1666911818.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/76867
+- Backported Extended ESL Support (SKSE Utility Mods) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/106441 - expected: `BEES-1_2-106441-1-2-1702155399.zip`
+- Universal (SKSE) Rim Lighting Fix (SKSE Utility Mods) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/119367 - expected: `Universal Rim Lighting Fix-119367-1-1-1715731621.zip`
+- LeveledList Crash Fix for Skyrim 1.5 (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\1_LeveledList Crash Fix for Skyrim 1.5-129152-1-1-0-1726421993.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/129152
+- Magic Fixes and Tweaks for Skyrim 1.5 (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Magic Fixes and Tweaks for Skyrim 1.5-148821-1-2-0-1-SE-1750823560.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/148821
+- Best in Class for Skyrim 1.5 (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Best in Class for Skyrim 1.5-148087-2-0-3-SE-1745186397.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/148087
+- crash_fixes by 0572 (SKSE Utility Mods) - expected: `C:/Users/tld/Downloads/crash_fixes.zip`
+- Pickpocket Reset (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Pickpocket Reset-13838-1-1-1-1618526480.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/13838
+- Power of Creation - Fishing (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Power of Creation - Fishing-58354-1-1-1636923149.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/58354
+- bc036's Tweaks (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\bc036's Tweaks-58408-1-1-1637009353.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/58408
+- Skyrim Project Optimization SE (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Skyrim SE - Project Optimization - NO HOMES - ESL VERSION-14084-1-4-1611044112.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/14084
+- Stay At The System Page - Updated (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Stay At System Page-19832-1-5-0-1583022131.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/19832
+- Player Eyes Blink Fix (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Blinking Player Eyes-21713-1-3-1544943889.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/21713
+- Divine Crusader Creation Club Sword Fix (SKSE Utility Mods) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/15089 - expected: `Divine Crusader Creation Club Sword Fix-15089-1-0.7z`
+- Myrwatch - Editable Home Cells (Cell Bug Workaround) (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\MYrwatch - House Fix - USCCCP Patch-64108-1-0-0-1645592154.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/64108
+- Enchantable Special Item Fix for Skyrim 1.5 (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Enchantable Special Item Fix 1.5-101420-1-0-1695850366.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/101420
+
+## graphics (2)
+
+- ENB Helper SE (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\ENB Helper SE 1.5 for SSE 1.5.97-23174-1-5-1574569443.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/23174
+- DynDOLOD DLL NG and Scripts 3.00 (SKSE Utility Mods) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/97720 - expected: `E:/My Skyrim mods/DynDOLOD DLL NG and Scripts 3.00-97720-Alpha-41-1778434637.7z`
+
+## quests-followers (522)
+
+- YEET - Store Quest Items (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\YEET - Store Quest Items-65732-0-2-1657450857.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/65732
+- Optimized USSEP Valdr Quest (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Optimized USSEP Valdr Quest-69346-2-0-1655443568.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/69346
+- Chanterelle - Quest Package (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\CW-QuestPackage-32603-2-47-1736477690.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/32603
+- Belethor's Sister - Quest (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/92381 - expected: `Belethor's Sister - Quest-92381-0-3-4-1737859518.7z`
+- aMidianBorn Book of Silence SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/35382 - expected: `aMidianBorn Book of Silence SE -- COMPLETE-35382-1-9-1-1593501570.zip`
+- Hide Your Quests (ESL flagged) (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Hide Your Quests 1.0.1-50125-1-0-1-1622149001.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/50125
+- Longer Jailtime (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Longer Jailtime-52682-1-1-1677437640.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/52682
+- Considerate Followers for Skyrim 1.5 (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Considerate Followers for Skyrim 1.5-133666-1-2-3-1734313310.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/133666
+- Wade In Water Redone (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Wade In Water Redone-71418-1-1-1-1657912081.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/71418
+- Dynamic Climbable Ladders 1.3.1 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/108900 - expected: `E:/My Skyrim mods/Immersions/Dynamic Climbable Ladders-108900-1-3-1-1749970439.7z`
+- XP32 XPMSSE Double body 1st person fix (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\XP32 XPMSSE fix-107227-1-1702837395.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/107227
+- Dragon War - A Dragon Overhaul (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dragon War - A Dragon Overhaul-51310-3-2-1-1701629512.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/51310
+- Cannibal Draugr on Solstheim (Bloodmoon Creature Restoration Project) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/21238 - expected: `Cannibal Draugr on Solstheim-21238-2-2-1623042542.zip`
+- The Dragon Cult - A Draugr Overhaul (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\The Dragon Cult - A Draugr Overhaul-81422-1-4-3-1710108558.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/81422
+- The Dragon Cult - Simonrim old (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\The Dragon Cult - A Draugr Overhaul-81422-1-4-3-1710108558.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/81422
+- Usable Unlit Campfires - A Campfire Addon (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Usable Unlit Campfires - A Campfire Addon-108712-1-0-1704683344.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/108712
+- Pickpocket Everyone - Steal from Any Creature (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Pickpocket Everyone-38702-0-2-1595835704.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38702
+- No Lockpick Activate (SKSE) - Updated (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\1_No Lockpick Activate-26790-3-1-1637648074.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/26790
+- Improvement Names Customized SSE (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Improvement Names Customized SSE-27776-1-3-0-1583021613.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/27776
+- Adamant - Plus Ten Smithing (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Adamant - Smithing Addon-30191-5-4-6-1654728794.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/30191
+- Fires Hurt RE (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\FiresHurtRE-67473-2-1-1655670331.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67473
+- Fire Hurts NG (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Fire Hurts NG-74064-1-0-3-1674928822.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/74064
+- Realistic AI Detection (RAID) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/2345 - expected: `Realistic AI Detection 3 - Medium Interior Medium Exterior-2345-3-1-1650801751.zip`
+- Alik'r Warriors wear CC Redguard Elite Armaments (SPID) (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Alik'r Warriors wear CC Redguard Elite Armaments-78141-1-0-1667541565.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/78141
+- Buy and Sell Torches - bug fix (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/96387 - expected: `Buy and Sell Torches - bug fix-96387-0-3-1690234234.7z`
+- Evolving Value Economy (SkyRem - Eve) (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\SkyRem - Eve-26325-2-3-0-1630261966.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/26325
+- non-combat sneak idle (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\non-combat sneak idle-62491-1-2-1643121387.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/62491
+- Dynamic Random Female Idles V2 (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dynamic Random Female Idles V2 2.1-39431-2-1-1633826419.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/39431
+- Go To Bed - DAR patch (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Go To Bed - DAR patch SE PLAYER and NPCs-43714-1-2-1609533726.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/43714
+- Horses Simply Turn Better (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/57790 - expected: `HorsesSimplyTurnBetter-57790-1-0-0-1635787436.rar`
+- Go to bed - Settings Loader (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Go to bed - Settings Loader-56286-2-2-0-1682941821.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/56286
+- Faster Horse Dismount SSE (with optional Faster Mounting) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/46307 - expected: `Faster Horse Dismount SSE - 50 Percent Faster-46307-1-0-1-1614704928.zip`
+- The Courier Crew (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Courier Clothes No long pants-61400-220131-1643665033.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/61400
+- Courier Delivers to NPCs (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Courier Delivers to NPCs-42928-1-0-4-1606942689.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/42928
+- The Courier Crew - Revoiced (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\The Courier Crew and Courier Delivers to NPCs - Revoiced-87499-1-0-1679386103.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/87499
+- Smoking Torches and Candles SSE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/8607 - expected: `E:/My Skyrim mods/Objects/Smoking Torches and Candles-8607-1-76-1616249774.zip`
+- Ancient Dwemer Metal - My patches - ENB Particle Lights - Dwemer Lanterns (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\1_Ancient Dwemer Metal - My patches - ENB Particle Lights - Dwemer Lanterns-38845-ENB-DL-v1-1648578116.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845
+- Radiant - Candles (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Radiant - Candles v2.2.0-55856-2-2-0-1636686882.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/55856
+- SD's Horn Candles SE - STAC Patch (subtle version) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/40192 - expected: `E:/My Skyrim mods/Objects/SD's Horn Candles SE - STAC Patch (subtle version)-40192-1-0-1599498494.7z`
+- SD's Horn Candles Radiant ENB (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/108882 - expected: `E:/My Skyrim mods/Objects/SDs Radiant Horn Candles-108882-1-0-5-1727650136.7z`
+- Dwemer Tech Glowmapped With ENB Light (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dwemer Tech Glowmapped With ENB Light-62309-1-03-1642757906.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/62309
+- Ancient Dwemer Metal - My patches - Dwemer Tech Glowmapped (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Ancient Dwemer Metal - My patches - Dwemer Tech Glowmapped-38845-DTGlowmapped-v1-1664748745.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845
+- Water Effects Brightness and Reflection Fix (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Water Effects Brightness and Reflection Fix-63862-0-5-1667245683.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/63862
+- Ancient Dwemer Metal - My patches - JS Dwemer Artifacts SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845 - expected: `1_Ancient Dwemer Metal - My patches - JS Dwemer Artifacts SE-38845-JSDA-v1-1651864002.7z`
+- Embers XD - Fire Them Sparks (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Embers XD - Fire Them Sparks-102589-1-3-1698678335.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/102589
+- Footprints (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Footprints - ENB-3808-1-6-0-1613342638.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/3808
+- Footprints Sand Patch 0.9 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/50484 - expected: `Footprints Sand Patch FOMOD 0.9-50484-0-9-1639872529.7z`
+- SPID for Footprints (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\SPID for Footprints-54924-3-4-1673214662.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/54924
+- SPID for Footprints fix (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\SPID for Footprints fix-70978-2-3-0-1683042240.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/70978
+- SPID for Footprints - Player Footprints Fix (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Footprints - Player Footprints Fix-78957-1-0-0-1668712420.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/78957
+- Footprints - heels addon (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\footprints-heelsAddon_SPID_v1.03-72854-1-03-1675721146.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/72854
+- Vigilant - foootprints patch (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Vigilant footprintsDISTR_ini-60239-1-02-1675639519.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/60239
+- EC Vanilla Tweaks - Winter Unending (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\EC Vanilla Tweaks - Winter Unending-81766-1-0-0-1-1672583427.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/81766
+- Elevated NPCs (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Elevated NPCs main file hotfix 1.3.2-67065-1-3-2-1654542607.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67065
+- High Poly Heads COURIER CEW (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\HIGH POLY HEADS Courier Crew-69596-1-0-1655098845.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/69596
+- HDT-SMP Racemenu Hairs and Wigs (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/43120 - expected: `HDT-SMP Hairs and Wigs - FOMOD-43120-1-21-1633422774.7z`
+- Complete Vanilla Eye Overhaul (CVEO) by LDD (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/160705 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/(CVEO) by LDD-160705-3-0-1-1766924471.7z`
+- LDD - Better Eye Shape for HPH (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/165624 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/LDD - Better Eye Shape for HPH-165624-1-0-0-1764261059.7z`
+- Advanced Eyes Addon for (CVEO) by LDD (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/169004 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Advanced Eyes Addon for (CVEO) by LDD-169004-3-0-0-1768610348.7z`
+- Advanced Eyes Addon for (CVEO) by LDD - EFM Patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/169004 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Advanced Eyes Addon for (CVEO) by LDD - EFM Patch-169004-1-0-0-1768156484.7z`
+- DVA - Dynamic Vampire Appearance (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dynamic Vampire Appearance-96817-1-3-1740414479.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/96817
+- Feminine Argonian Textures (Chameleon and Lizard) [CBBE] (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/184 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Skin Textures/Feminine Chameleon and Lizard (CBBE) 8K-184-3-2-1656178648.7z`
+- Feminine Argonian Textures Update (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/184 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Skin Textures/Feminine Argonian Textures Hotfix-184-3-3-Hotfix-1687254585.7z`
+- CBPC 3-Bone Breast Body Breast-Butt Bounce Configs for 3BA-BHUNP-COCO (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\CBPC 3-Bone Breast Body Breast-Butt Bounce Configs for 3BA-BHUNP-COCO-21224-1-5-2-1654550666.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/21224
+- CBBE 3BA Main Bodyslide (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Main-131991-1-0-1-1730377594.zip`
+- Masculine Argonian Textures (Chameleon and Lizard) [SOS-FULL] (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/185 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Skin Textures/Masculine Chameleon and Lizard (SOS-FULL) 8K-185-2-1-1658172004.7z`
+- TNG dll fix (Quests - New) - expected: `C:/Users/tld/Downloads/The.New.Gentleman.4.2.3.andb.build.0.2.zip`
+- BnP male skin SOS (Replacer+Player version) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/65402 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Skin Textures/BnP male skin 4k (SOS full Player Replacer)-65402-2-1-1704038091.7z`
+- [A] Deze 3BA Bodyslide (Quests - New)
+- Dark Preset - Cbbe - 3BBB (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dark Preset-40381-1-0-1599915724.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/40381
+- Mysterious Heroine - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/177564 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/BodySlides Presets/Mysterious Heroine - 3BA-177564-1-0-1776412693.7z`
+- VanWaifuGuard (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/126198 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/BodySlides Presets/VanWaifuGuard-126198-1-0-1726114415.zip`
+- Untamed Beauty (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/180175 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/BodySlides Presets/Females/Untamed Beauty-180175-1-0-1778945814.7z`
+- Fiona's Vindictus Ass (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/152880 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/BodySlides Presets/Females/Fiona's Vindictus Ass-152880-1-1750098583.zip`
+- Buxom Damsel CBBE 3BA Bodyslide Preset (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/180448 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/BodySlides Presets/Females/Buxom Damsel   CBBE 3BA Bodyslide Preset-180448-1-1780126120.7z`
+- HIMBO LDD_ZeusPreset (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/138886 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/BodySlides Presets/HIMBO LDD_ZeusPreset-138886-1-0-0-1736712091.7z`
+- Miggyluv's HIMBO Galore (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/136840 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/BodySlides Presets/Miggyluv's HIMBO Galore-136840-1-0-13-1765673309.zip`
+- Shield-Brother Physique - SerketHetyt's HIMBO Body (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/179089 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/BodySlides Presets/Males/Shield-Brother Physique - SerketHetyt's HIMBO Body-179089-1-0-1778847093.rar`
+- Racheal- Lovely Breton Preset (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Racheal-79487-1-0-1669588251.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/79487
+- STRAWBERRY MEGAPACK - ALL 25 PRESETS - ONE SKIN - FEW REQUIREMENTS (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/81986 - expected: `Mega Pack-81986-1-1672856028.rar`
+- NoOverpenetration (Quests - New) - expected: `NoOverpenetration_SE_1.0.7z`
+- SLWidgets (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\SLWidgets.2.0.21.SE.zip`
+- Sex Lab - Sexual Fame Framework SE (Quests - New) - expected: `Sex Lab - Sexual Fame Framework SE V0.99.7z`
+- Creature Framework (Quests - New) - expected: `CreatureFrameworkV3_0.7z`
+- CBPC Anus Support (Quests - New) - expected: `C:/Users/tld/Downloads/CBPC Anus Support 2.2 FOMOD fixed.zip`
+- SLSF NPC Init Patch SE (Quests - New) - expected: `C:/Users/tld/Downloads/SLSF NPC Init Patch SE v.1.3.7z`
+- SLATE_SE (Quests - New) - expected: `C:/Users/tld/Downloads/SLATE_SE_v20160801.7z`
+- SLATE_Creature Patch (Quests - New) - expected: `C:/Users/tld/Downloads/SLATE_Creature Patch(2023_12_30) .7z`
+- SLAnimStageLabels (Quests - New) - expected: `C:/Users/tld/Downloads/SLAnimStageLabels.7z`
+- ASL Patch for SLGP (Quests - New) - expected: `C:/Users/tld/Downloads/ASL Patch for SLGP - SexLab Grass Patch SLSO.7z`
+- ASL SLSO Sound Effects (Quests - New) - expected: `C:/Users/tld/Downloads/ASL SLSO Sound Effects.zip`
+- SLSFFameComments (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\SLSFFameComments v3.65 SE.7z`
+- Paradise Halls Enhanced (PAHE) SSE (Quests - New) - expected: `ParadiseHallsEnhanced(PAHE)SSE_8.1.6_Fomod.7z`
+- Unofficial Lux - pahe lakeview manor cell patch (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Unofficial Lux - pahe lakeview manor cell patch-89822-1-0-1682214435.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89822
+- BaboDialogue 6.11V - Hotfix ver2 (Quests - New) - expected: `E:/My Skyrim mods/Animations/LoverLab Animations/BaboDialogue 6.11V - Hotfix ver2.zip`
+- Acheron - Diary Of Mine Integration (Quests - New) - archive candidate (0.844): `E:\Games\Tsukiro2\Downloads\Acheron - Diary of Mine Extension.zip`
+- Immersive Interactions - DD&Toy Patch (Quests - New) - expected: `C:/Users/tld/Downloads/Immersive Interactions - DD&Toy Patch.1.1.0.7z`
+- Menu and Load Smoke Removed for ENB (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/51986 - expected: `Menu and Load Smoke Removed for ENB-51986-1-0-1625418666.zip`
+- SkyrimUpscalerAIOBuild10 (Quests - New) - expected: `E:/My Skyrim mods/Paid Mod/DLSS 4.5/SkyrimUpscalerAIOBuild10.zip`
+- Fertility Mode v3 Fixes and Tweaks (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Fertility Mod Fixes and Updates-46820-2-61-1677529313.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/46820
+- Fertility Mode v3 Fixes and Tweaks - Settings Loader (Quests - New) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Fertility Mode v3 Fixes and Tweaks - Settings Loader-78055-1-1-0-1677666379.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/78055
+- SkyParkour V3 - Parkour Framework (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132292 - expected: `E:/skyrim mods/Nolvus 6 Mods/Animations/SkyParkour V3 - Parkour Framework-132292-3-1-2-1756752771.rar`
+- CO More Creatures 1.8.2 (With Hostile Creatures) (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/CO More Creatures 1.8.2 (With Hostile Creatures).rar`
+- Demonic Creatures V2.0 SE_AE_any version (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/Creature Pack/Demonic Creatures V2.0 SE_AE_any version.7z`
+- ColdSun's Visions - Assets - 3BA-CBBE-TBD (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/109528 - expected: `E:/skyrim mods/Nolvus 6 Mods/Followers/ColdSun's Visions - Assets - 3BA-CBBE-TBD-109528-2-3-1719858957.zip`
+- xtrareelz Ellenora - 3BA-CBBE-TBD (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/120356 - expected: `E:/skyrim mods/Nolvus 6 Mods/Followers/xtrareelz Ellenora - 3BA-CBBE-TBD-120356-1-0-1716745842.zip`
+- Alya Custom Follower (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/71566 - expected: `E:/skyrim mods/Nolvus 6 Mods/Character Presets/Alya Follower-71566-2-1676746943.rar`
+- Skadi Follower (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/154361 - expected: `E:/skyrim mods/Nolvus 6 Mods/Character Presets/Skadi Follower-154361-1-1751934578.rar`
+- ColdSun's Visions - Solvi - ESPFE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/112407 - expected: `E:/skyrim mods/Nolvus 6 Mods/Followers/ColdSun's Visions - Solvi - ESPFE-112407-1-6-1712769615.zip`
+- Katarina - Follower (ESP-FE) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/58378 - expected: `E:/skyrim mods/Nolvus 6 Mods/Followers/Katarina - Follower (ESP-FE)-58378-1-0-1636814464.rar`
+- ColdSun's Visions - Fiarrah - Altmer Healer (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/83483 - expected: `E:/skyrim mods/Nolvus 6 Mods/Followers/ColdSun's Visions - Fiarrah - Altmer Healer-83483-2-0-1718730519.zip`
+- Mommy Assets HQ (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135567 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Mommy Assets HQ-135567-4-0-1767501257.zip`
+- WillowJV Default (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/179766 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/WillowJV Default-179766-1-1778541164.zip`
+- Heart of Ice (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132350 - expected: `E:/My Skyrim mods/Followers/Heart of Ice-132350-1-5-1-1768126053.rar`
+- Inigo patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132350 - expected: `E:/My Skyrim mods/Followers/Inigo patch-132350-1-0-2-1730559623.rar`
+- Daenerys Follower 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/180660 - expected: `E:/My Skyrim mods/Followers/Daenerys Follower 3BA-180660-1-1-1779681281.7z`
+- Adoptable Beast Children (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38480 - expected: `E:/My Skyrim mods/NPC Overhauls/Adoptable Beast Children-38480-1-1-1725131390.zip`
+- A - IMMORTAN - Complete base game and dlcs - FINAL (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/43293 - expected: `E:/My Skyrim mods/NPC Overhauls/A - IMMORTAN - Complete base game and dlcs - FINAL-43293-6-9-1-1767510654.zip`
+- IMMORTAN - Beasts - Next Gen Argonians (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/43293 - expected: `E:/My Skyrim mods/NPC Overhauls/B - IMMORTAN - Beasts - Argonian Overhaul-43293-7-2-1778248580.zip`
+- IMMORTAN - Beasts - Khajiit Overhaul (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/43293 - expected: `E:/My Skyrim mods/NPC Overhauls/B - IMMORTAN - Beasts - Khajiit overhaul-43293-7-2-1777583695.zip`
+- SOS_Leito_Schlongs_Addon_SE v1.0.1 (Quests - New) - expected: `C:/Users/lesli/Downloads/SOS_Leito_Schlongs_Addon_SE_v1_0_1.7z`
+- Leito TNG Patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/120124 - expected: `E:/skyrim mods/Nolvus 6 Mods/Leito TNG Patch-120124-1-0-1716502894.zip`
+- TNG Texture Patches (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/120124 - expected: `E:/skyrim mods/Nolvus 6 Mods/TNG Texture Patches-120124-1-0-0-1716946156.zip`
+- Masculine Textures Patches Khajit Grey Cat (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/120511 - expected: `C:/Users/lesli/Downloads/Masculine Textures Patches-120511-1-0-1716882392.zip`
+- LDD - Racial Penis Variances TNG (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/143062 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Skin Textures/LDD - Racial Penis Variances-143062-1-0-2-1765621900.7z`
+- QuickLoot IE - A QuickLoot EE Fork (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/120075 - expected: `C:/Users/lesli/Downloads/QuickLoot IE - A QuickLoot EE Fork-120075-3-4-1-1739389633.zip`
+- QuickLoot IE - Dear Diary Dark Mode Reskin (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/137059 - expected: `C:/Users/lesli/Downloads/QuickLoot IE - DDDM Reskin-137059-4-2-1739386242.zip`
+- Bathing in Skyrim - Renewed (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135288 - expected: `C:/Users/lesli/Downloads/Bathing in Skyrim-135288-2-6-2-1758291072.7z`
+- Morning Fogs SSE - Thick Fog (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/21436 - expected: `C:/Users/lesli/Downloads/Morning Fogs SSE - Thick Fog-21436-1-3-1-1553685846.7z`
+- Vanilla And Morning Fogs SSE - Easy Seam Fixer (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/36656 - expected: `C:/Users/lesli/Downloads/Vanilla And Morning Fogs SSE - Easy Seam Fixer-36656-v1-1-1590868673.zip`
+- CreatureSummoner_MNCSEv15 (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/CreatureSummoner_MNCSEv15.7z`
+- Hylios Female Mannequins - Custom Body (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/66300 - expected: `C:/Users/lesli/Downloads/Hylios Female Mannequins - Custom Body-66300-2-0-0-1711753228.7z`
+- Diverse Dragons Collection SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/695 - expected: `C:/Users/lesli/Downloads/Diverse Dragons Collection SE-695-2-1-3.zip`
+- GoT Dragons-Skeleton (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/79252 - expected: `C:/Users/lesli/Downloads/GoT Dragons-Skeleton-79252-1-1669254165.rar`
+- GoT Dragons-Textures (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/79252 - expected: `C:/Users/lesli/Downloads/GoT Dragons-Textures-79252-1-4-1669819981.rar`
+- GoT Dragons-Ally (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/79252 - expected: `C:/Users/lesli/Downloads/GoT Dragons-Ally-79252-1-2-1669818829.rar`
+- GoT_Dragons_Diverse Dragons (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/79252 - expected: `C:/Users/lesli/Downloads/GoT_Dragons_Diverse Dragons-79252-1-3-1669820781.rar`
+- Simple Inn Bath - 10 Gold ESL-Flagged Version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/49014 - expected: `C:/Users/lesli/Downloads/Simple Inn Bath - 10 Gold ESL-Flagged Version-49014-1-3-1636842112.7z`
+- Perfectly Valid Wards (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/153401 - expected: `C:/Users/lesli/Downloads/Perfectly Valid Wards-153401-2-0-2-1765331393.7z`
+- Ward (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/156225 - expected: `C:/Users/lesli/Downloads/360 Ward-156225-5-1764309196.7z`
+- R.A.S.S. - Rain Ash And Snow Shaders (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/22780 - expected: `E:/skyrim mods/R.A.S.S. - Rain Ash And Snow Shaders-22780-3-5-1-1676742582.zip`
+- SkyPatcher - SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/106659 - expected: `E:/My Skyrim mods/SkyPatcher - SE-106659-6-3-3-1775303929.zip`
+- Dynamic Interior Ambient Lighting (DIAL) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/149920 - expected: `E:/My Skyrim mods/Immersions/Dynamic Interior Ambient Lighting (DIAL)-149920-3-9-1758330287.zip`
+- Use Special Markers (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/32748 - expected: `E:/My Skyrim mods/Immersions/Use Special Markers-32748-1-0-1582083931.zip`
+- Wintersun 3.2.0 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/22506 - expected: `E:/My Skyrim mods/Immersions/Wintersun 3.2.0-22506-3-2-0-1623934121.zip`
+- Wintersun - Ghosts of the Tribunal (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/58988 - expected: `E:/My Skyrim mods/Immersions/Wintersun - Ghosts of the Tribunal-58988-1-0-1637783294.zip`
+- Wintersun - Gallows Hall (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/58988 - expected: `E:/My Skyrim mods/Immersions/Wintersun - Gallows Hall-58988-1-0-1637770412.zip`
+- Khajiit Has Wares (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/73500 - expected: `E:/My Skyrim mods/Immersions/Khajiit Has Wares-73500-1-08-1-1697493637.7z`
+- HentaiCreaturesV1_04 (Quests - New) - expected: `C:/Users/lesli/Downloads/HentaiCreaturesV1_04.zip`
+- Berserk Troll creature (Quests - New) - expected: `C:/Users/lesli/Downloads/Berserk Troll creature.7z`
+- Tamriel of Ape (Quests - New) - expected: `C:/Users/lesli/Downloads/Tamriel of Ape.7z`
+- DemoGorgon (Quests - New) - expected: `C:/Users/lesli/Downloads/DemoGorgon.7z`
+- cthulhu Spawn (Quests - New) - expected: `C:/Users/lesli/Downloads/cthulhu Spawn.7z`
+- Bloodborne Beast (Quests - New) - expected: `C:/Users/lesli/Downloads/Bloodborne Beast.7z`
+- GS Goblin mod (Quests - New) - expected: `C:/Users/lesli/Downloads/GS Goblin mod.7z`
+- Grea_SummonCreatures (Quests - New) - expected: `C:/Users/lesli/Downloads/Grea_SummonCreatures.zip`
+- Dogmeat Miko Replacer (Quests - New) - expected: `C:/Users/lesli/Downloads/Dogmeat Miko Replacer.7z`
+- Dogmeat 4k Texture (Quests - New) - expected: `C:/Users/lesli/Downloads/Dogmeat_4K_retexture.7z`
+- Mythical Giants Replacer (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/147274 - expected: `E:/My Skyrim mods/Creatures/Mythical Giants Replacer-147274-1-00-1744315631.zip`
+- Mythical Giants Replacer 4k texture (Quests - New) - expected: `E:/My Skyrim mods/Creatures/Mythical Giants Replacer 4k texture.zip`
+- Mythical Giant ABC MNC Patch (Quests - New) - expected: `E:/My Skyrim mods/Creatures/Mythical Giant ABC MNC Patch.7z`
+- HDT SMP beast race tail (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/91811 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/HDT SMP beast race tail 1.3.1-91811-1-3-1-1684773869.zip`
+- HDT SMP Fluffy Beast Race Tail Replacer Tweaks (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/113414 - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/HDT SMP Fluffy Beast Race Tail Replacer Tweaks-113414-1-1-1716600660.7z`
+- Beastess Lair SE v5.1 (Quests - New) - expected: `C:/Users/lesli/Downloads/Beastess Lair SE v5.1.7z`
+- Freshwater Cave Player Home SSE 1-0 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/18049 - expected: `C:/Users/lesli/Downloads/Freshwater Cave Player Home SSE 1-0-18049-1-0.rar`
+- Druids Dwelling (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/92382 - expected: `C:/Users/lesli/Downloads/Druids Dwelling-92382-1-1-1685817533.zip`
+- Rayek's End - SSE Expanded Edition 1.7 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/8285 - expected: `C:/Users/lesli/Downloads/Rayek's End - SSE Expanded Edition 1.7-8285-1-7.zip`
+- Rayeks End Expanded - fixes - fixed (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/136506 - expected: `C:/Users/lesli/Downloads/Rayeks End Expanded - fixes - fixed-136506-1-2-1737345493.zip`
+- Riften Bathhouse (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/47576 - expected: `C:/Users/lesli/Downloads/Riften Bathhouse-47576-1-4-1637174763.zip`
+- Falkreath Bathhouse (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/51656 - expected: `C:/Users/lesli/Downloads/Falkreath Bathhouse-51656-1-5-1637335725.zip`
+- Raven Rock Bathhouse (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/71113 - expected: `C:/Users/lesli/Downloads/Raven Rock Bathhouse-71113-1-5-2-1659976591.zip`
+- Winterhold Bathhouse (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/56054 - expected: `C:/Users/lesli/Downloads/Winterhold Bathhouse-56054-1-5-1658239478.zip`
+- HSMarkarth - The Treasury House (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/108286 - expected: `C:/Users/lesli/Downloads/HSMarkarth - The Treasury House-108286-1-0-0-1704213715.7z`
+- HSMarkarth - The Treasury House - LUX (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/108286 - expected: `C:/Users/lesli/Downloads/HSMarkarth - The Treasury House - LUX-108286-1-0-0-1704213778.7z`
+- HSMarkarth - The Hag's Cure (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/106067 - expected: `C:/Users/lesli/Downloads/HSMarkarth - The Hag's Cure-106067-1-0-0-1701544142.7z`
+- HSMarkarth - The Hag's Cure - LUX (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/106067 - expected: `C:/Users/lesli/Downloads/HSMarkarth - The Hag's Cure - LUX-106067-1-0-0-1701544197.7z`
+- HSWhiterun - Arcadia's Cauldron (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/75340 - expected: `C:/Users/lesli/Downloads/HSWhiterun - Arcadia's Cauldron-75340-2-0-0-1700401949.7z`
+- HSWhiterun - Arcadia's Cauldron - LUX (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/75340 - expected: `C:/Users/lesli/Downloads/HSWhiterun - Arcadia's Cauldron - LUX-75340-1-0-0-1700403637.7z`
+- Praedy's Sky AIO - SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/47530 - expected: `E:/My Skyrim mods/Sky Texture/Praedys Sky AIO 4K-47530-2-1-1746020814.7z`
+- Skygazer Moons SSE 2K - GLOW (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/32057 - expected: `E:/My Skyrim mods/Sky Texture/Skygazer Moons SSE 2K - GLOW-32057-1-3-1597468688.rar`
+- JK's The Ragged Flagon (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/50765 - expected: `E:/My Skyrim mods/Town, City, Places/JK's The Ragged Flagon-50765-1-0-0-1622811373.rar`
+- JK's The Bee and Barb (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/49516 - expected: `E:/My Skyrim mods/Town, City, Places/JK's The Bee and Barb-49516-1-1-1-1653437477.zip`
+- Riften Bathhouseand JK's Bee and Barb Patch - ESL Flagged (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/47576 - expected: `E:/My Skyrim mods/Town, City, Places/Riften Bathhouseand JK's Bee and Barb Patch - ESL Flagged-47576-1-0-1636065973.zip`
+- JK's Interiors Patch Collection (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/35910 - expected: `E:/My Skyrim mods/Town, City, Places/JK's Interiors Patch Collection-35910-5-29-1-1767693949.rar`
+- Vanaheimr - Landscapes - AIO - CPM 4K (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/145439 - expected: `C:/Users/lesli/Downloads/Vanaheimr Landscapes - AIO - CPM - 4k-145439-5-0-1764102783.7z`
+- Vanaheimr - Northern Roads - 4k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/152575 - expected: `C:/Users/lesli/Downloads/Vanaheimr - Northern Roads - 4k-152575-2-7-1763800254.7z`
+- Nordic Stonewalls (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/57686 - expected: `C:/Users/lesli/Downloads/Nordic Stonewalls-57686-3-11-1763126585.zip`
+- Nature of the Wild Lands (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/63604 - expected: `C:/Users/lesli/Downloads/Nature of the Wild Lands-63604-3-14-1756825179.7z`
+- Nature of the Wild Lands - Patch Collection (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/63604 - expected: `C:/Users/lesli/Downloads/Nature of the Wild Lands - Patch Collection-63604-3-10-1743706207.7z`
+- Nature of the Wild Lands 3.0 - 3D hybrid LOD (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/133619 - expected: `E:/My Skyrim mods/TexGen and DynDOLOD Settings/Nature of the Wild Lands 3.0 - 3D hybrid LOD-133619-1-2-2-1760790285.7z`
+- RogueUnicorn - City Trees (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/35546 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/City Trees-35546-11-6-15-1765637067.zip`
+- Riton Solitude 4k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/98390 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Riton Solitude 4k-98390-1-2-1694011049.rar`
+- Solitude Public Bathouse SSE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/41417 - expected: `C:/Users/lesli/Downloads/Solitude Public Bathouse SSE-41417-1-0-1602699687.rar`
+- Solitude Public Bathhouse SSE Patch (Drengin's Blue Palace Terrace) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/56869 - expected: `C:/Users/lesli/Downloads/Solitude Public Bathhouse SSE Patch (Drengin's Blue Palace Terrace)-56869-1-1-1641141920.zip`
+- Riton's Whiterun II 4k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/140812 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Riton's Whiterun II 4k-140812-1-0-1738674867.rar`
+- Riton Riften 4k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/95276 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Riton Riften 4k-95276-2-0-1715174331.rar`
+- Riton Imperial Forts 2k cpm (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/101743 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Riton Imperial Forts 2k cpm-101743-2-0-1748179817.rar`
+- Riton Farmhouse II 2k version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/94721 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/2k version-94721-1-0-1688159829.rar`
+- Riton Farmhouse III 2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/102046 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Riton Farmhouse III 2k-102046-1-0-1696690911.rar`
+- Riton's mossy stonewall 2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135052 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Riton's mossy stonewall 2k-135052-1-0-1735000660.rar`
+- [TalesOfStar] Air Balloons (Quests - New) - expected: `E:/downloads/[TalesOfStar] Flying Air Balloons v1.0.2 (fomod).7z`
+- Nix's Floating Islands of Whiterun (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/142711 - expected: `C:/Users/lesli/Downloads/Nix's Floating Islands of Whiterun-142711-1-03-1744666993.7z`
+- Whiterun Exterior Horse Statue (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/107108 - expected: `C:/Users/lesli/Downloads/Whiterun Exterior Horse Statue-107108-1-0-0-1702702165.zip`
+- Whiterun Exterior Horse Statue - Northern Roads Synergy (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/107108 - expected: `C:/Users/lesli/Downloads/Northern Roads Synergy-107108-1-0-0-1702702207.zip`
+- Whiterun Horse Statue - SKyrim Sewers 4 Version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/23527 - expected: `C:/Users/lesli/Downloads/Whiterun Horse Statue - SKyrim Sewers 4 Version-23527-1-1-1550972496.7z`
+- Lush Dragonsreach Pools (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/138250 - expected: `C:/Users/lesli/Downloads/Lush Dragonsreach Pools-138250-1-0-0-1736137731.zip`
+- Lush Dragonsreach Pools - Lower Pools Addon (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/138250 - expected: `C:/Users/lesli/Downloads/Lush Dragonsreach Pools - Lower Pools Addon-138250-1-0-0-1736302904.zip`
+- Ivy - Whiterun - Well Overhaul (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/125955 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Ivy - Whiterun - Well Overhaul-125955-1-3-1742398095.zip`
+- Ivy Well Patch Default version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/134773 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Ivy Well Patch Default version-134773-1-0-2-1732553940.zip`
+- Waterplants - lily only (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/6092 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Waterplants - lily only-6092-1-8-1699186362.zip`
+- Animated water lily SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/75407 - expected: `C:/Users/lesli/Downloads/Skyrim Mods/Installer_AnimatedWaterLilySE-75407-v1-2-1680189907.7z`
+- Earth Floor Whiterun (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/103911 - expected: `C:/Users/lesli/Downloads/Earth Floor Whiterun-103911-1-0-1698964141.rar`
+- An Abstract Whiterun - All-In-One (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/70267 - expected: `C:/Users/lesli/Downloads/An Abstract Whiterun - All-In-One-70267-1-2-1703701355.7z`
+- Mahrlek1´s trees compilation - Whiterun Trees module (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/57101 - expected: `C:/Users/lesli/Downloads/Whiterun trees-57101-2-0-1723302099.zip`
+- Docks of Riverwood (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/141169 - expected: `E:/My Skyrim mods/Town, City, Places/Docks of Riverwood-141169-1-1-5-1768167438.zip`
+- Ivy Riverwood Overhaul (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/151441 - expected: `E:/My Skyrim mods/Town, City, Places/Ivy's Riverwood Overhaul-151441-1-5-1-1773516100.7z`
+- Mirele Bismath Reborn 0.4 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/93817 - expected: `E:/My Skyrim mods/player home/Mirele Bismath Reborn 0.4-93817-0-4-1687564301.zip`
+- Mirele Bismath Reborn Addon - Extended Bath EVGAT (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/100116 - expected: `E:/My Skyrim mods/player home/Mirele Bismath Reborn Addon - Extended Bath EVGAT-100116-1-1694058521.zip`
+- Mirele Bismath Reborn - Interior Fixes (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/100472 - expected: `E:/My Skyrim mods/player home/Mirele Bismath Reborn - Interior Fixes-100472-1-0-1694540296.zip`
+- Nature of the Wildlands - Mirele Bismath Reborn (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/127939 - expected: `E:/My Skyrim mods/player home/Nature of the Wildlands - Mirele Bismath Reborn-127939-1-0-1725535400.rar`
+- Sleipnir Beds - BOS Color Variance - Upper Class (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/143168 - expected: `E:/My Skyrim mods/Objects/Sleipnir Beds - BOS Color Variance - Upper Class-143168-1-1-2-1774472765.rar`
+- Sleipnir Beds - BOS Color Variance - Noble (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/143168 - expected: `E:/My Skyrim mods/Objects/Sleipnir Beds - BOS Color Variance - Noble-143168-1-1-2-1774472743.rar`
+- Deep Slumber - BOS Distributed (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/131560 - expected: `E:/My Skyrim mods/Objects/Deep Slumber - BOS Distributed-131560-1-0-4-1748467705.rar`
+- Redoran Reverie Beds - BOS Distributed DD Full (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132997 - expected: `E:/My Skyrim mods/Objects/Redoran Reverie Beds - BOS Distributed DD Full-132997-1-1-2-1767380604.rar`
+- Cozy Cots - BOS Color Variance (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/134836 - expected: `E:/My Skyrim mods/Objects/Cozy Cots - BOS Color Variance-134836-1-0-2-1747585424.rar`
+- Malacath's Chosen - An Orc Furniture Replacer (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/133717 - expected: `E:/My Skyrim mods/Objects/Malacath's Chosen - An Orc Furniture Replacer-133717-1-0-2-1731526659.rar`
+- Silver Objects SMIMed (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/70787 - expected: `E:/skyrim mods/Objects/Silver Objects SMIMed-70787-0-4-1669391277.7z`
+- HITS - 4K (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/23076 - expected: `E:/skyrim mods/Objects/HITS - 4K-23076-1-0-1549020390.zip`
+- GG's Complex Silverware (standalone CM cubemap) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/121232 - expected: `E:/skyrim mods/Objects/GG's Complex Silverware (standalone CM cubemap)-121232-1-5-1718970018.7z`
+- 4-8k. New Dragon Word Wall (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/177263 - expected: `E:/My Skyrim mods/Objects/4-8k. New Dragon Word Wall-177263-1-0-1776076015.rar`
+- 2k-4k. New Night Mother 1A (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/64404 - expected: `E:/My Skyrim mods/Objects/2k-4k. New Night Mother 1A-64404-1-0-0-1646219101.zip`
+- Arcs Kitchen redux-2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/111694 - expected: `E:/My Skyrim mods/Objects/Arcs Kitchen redux-2k-111694-2-1708588993.rar`
+- Arcs Tankard Redux 2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/112567 - expected: `E:/My Skyrim mods/Objects/Arcs Tankard Redux 2k-112567-1-1708889861.rar`
+- Arc's Kettle Redux 2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/110929 - expected: `E:/My Skyrim mods/Objects/Arc's Kettle Redux 2k-110929-1-1707130550.rar`
+- Arc's MeadBarrel Redux-2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/111195 - expected: `E:/My Skyrim mods/Objects/Arc's MeadBarrel Redux-2k-111195-2-1707741989.rar`
+- Arcs Bear Trap Redux 2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/115412 - expected: `E:/My Skyrim mods/Objects/Arcs Bear Trap Redux 2k-115412-1-1711801631.rar`
+- Arcs Gem Holder Redux-2k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/127973 - expected: `E:/My Skyrim mods/Objects/Arcs Gem Holder Redux-2k-127973-1-1724986447.rar`
+- Arcs Gem Stone Redux 1k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/145190 - expected: `E:/My Skyrim mods/Objects/Arcs Gem Stone Redux 1k-145190-1-1742413209.rar`
+- Rudy HQ - Miscellaneous SE (Pottery) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/19867 - expected: `E:/My Skyrim mods/Objects/Rudy HQ - Miscellaneous SE-19867-1-02-1605037093.rar`
+- Lux Patches for Added Interior (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/113002 - expected: `C:/Users/lesli/Downloads/Lux (patch hub)-113002-7-0-1753427843.rar`
+- RaySense - Jumping over obstacles (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/175506 - expected: `E:/My Skyrim mods/Animations/Movement/RaySense - Jumping Over Obstacles-175506-1-0-1774374499.zip`
+- Beam Walking Assist (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/175511 - expected: `E:/My Skyrim mods/Animations/Movement/Beam Walking Assist-175511-1-3-1776342987.zip`
+- SLAC DAR Invite My Choice SE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/Not Used/SLAC DAR Invite My Choice SE.rar`
+- SLAC DAR Invite Playful SE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/Not Used/SLAC DAR Invite Playful SE.rar`
+- SLAC DAR Invite Seductive SE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/Not Used/SLAC DAR Invite Seductive SE.rar`
+- SLAC DAR Invite Shy SE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/Not Used/SLAC DAR Invite Shy SE.rar`
+- Fill Her Up Expansion OAR (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/124228 - expected: `E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/LoverLab Animations/Fill Her Up Expansion OAR-124228-1-2-1727923649.zip`
+- SunHelm - EAS patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/168863 - expected: `E:/My Skyrim mods/Immersions/SunHelm - EAS patch-168863-1-1767572533.zip`
+- Dynamic Looting and Harvesting (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/114547 - expected: `E:/My Skyrim mods/Immersions/Dynamic Looting and Harvesting-114547-1-7-1715257460.zip`
+- Gulan0_walk_run_sprint- OAR-player (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/164743 - expected: `E:/My Skyrim mods/Animations/Movement/Gulan0_walk_run_sprint- OAR-player-164743-1-1-1764474088.zip`
+- Cute girl jump_legs apart (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/163117 - expected: `E:/My Skyrim mods/Animations/Movement/Cute girl jump_legs apart-163117-1-0-1761839729.zip`
+- Dragonborn Voice Over (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/84329 - expected: `C:/Users/lesli/Downloads/Dragonborn Voice Over-84329-1-1-1-1691780943.zip`
+- DBVO - ElevenLabs Bella - FDE Aela (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/91260 - expected: `C:/Users/lesli/Downloads/DBVO - ElevenLabs Bella - FDE Aela-91260-1-2-1712242374.7z`
+- DBVO - ElevenLabs Bella - Gore 1.523 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/91260 - expected: `C:/Users/lesli/Downloads/DBVO - ElevenLabs Bella - Gore 1.523-91260-1-523-1691418732.7z`
+- Honed Metal DBVO Pack 1.23 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/Honed Metal DBVO Pack 1.23-89810-1-0-1683131663.rar`
+- DBVO - ElevenLabs Bella - Kaidan 2 REPACK (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/91260 - expected: `C:/Users/lesli/Downloads/DBVO - ElevenLabs Bella - Kaidan 2 REPACK-91260-1-0-1691789735.7z`
+- Lucien DBVO Pack (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/Lucien DBVO Pack v1.6.3-89810-1-0-1683045471.rar`
+- Remiel-Dwemer Specialist DBVO 1.6.1 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/Remiel-Dwemer Specialist DBVO 1.6.1-89810-1-1-1683441737.rar`
+- DBVO - ElevenLabs Bella - Simple Hunting Overhaul (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/91260 - expected: `C:/Users/lesli/Downloads/DBVO - ElevenLabs Bella - Simple Hunting Overhaul-91260-1-0-1691276215.7z`
+- Song Of The Green DBVO 1.4 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/Song Of The Green DBVO 1.4-89810-1-0-1683211335.rar`
+- Relationship Dialogue Overhaul - DBVO Pack RDO Final (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/Relationship Dialogue Overhaul -  DBVO Pack RDO Final-89810-1-0-1683137391.rar`
+- DBVO Bella - USSEP (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/91260 - expected: `C:/Users/lesli/Downloads/DBVO Bella - USSEP-91260-1-0-1688583721.7z`
+- Voice Bella DBVO Simple Slavery v6.3.23 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `E:/skyrim mods/Nolvus 6 Mods/Voice Pack/Voice Bella DBVO Simple Slavery v6.3.23.7z`
+- Bella Voice DBVO (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/BellaVoiceInstaller_1.0-89810-1-0-1684790853.zip`
+- DBVO - Bella - Patch Hub AIO (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/125170 - expected: `C:/Users/lesli/Downloads/DBVO - Bella - Patch Hub AIO-125170-1-2-3-1734735655.7z`
+- Fill Her Up 1.96 Voice Lines (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Voice Pack/Fill Her Up 1.96 Voice Lines.7z`
+- Voice Bella DBVO Balazar's Bitch v095 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89810 - expected: `C:/Users/lesli/Downloads/Voice Bella DBVO Balazar's Bitch v095.7z`
+- DBVO - Bella - Heart of Ice - Astrid (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135447 - expected: `E:/My Skyrim mods/Sounds/DBVO/DBVO - Bella - Heart of Ice - Astrid.-135447-1-1-1733422912.rar`
+- The Prophecy -Lord Harkon Voice Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/The Prophecy -Lord Harkon Voice Rework--41566-1-5-1603216864.7z`
+- Unfaithed -Miraak's Voice Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Unfaithed -Miraak's Voice Rework--41615-1-1F-1603362525.7z`
+- The Enigma Series Dawn (Quests - New) - expected: `E:/My Skyrim mods/Sounds/The Enigma Series Dawn - Installer --140205-1-1RE-1738010930.7z`
+- Wyrm - The Ancient Ones (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Wyrm - The Ancient Ones --139539-1-2-0IR-1737396773.7z`
+- Enigma Series - Book Of The Wild - RE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/139720 - expected: `E:/My Skyrim mods/Sounds/Enigma Series - Book Of The Wild - RE-139720-1--1737500356.7z`
+- Equus - Horses Sounds Redesigned - Riley's Edit (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/69069 - expected: `E:/My Skyrim mods/Sounds/Equus - Horses Sounds Redesigned - Riley's Edit-69069-1-0-1E-1667803680.zip`
+- Insectoid - Scrib Sounds Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Insectoid - Scrib Sounds Rework --143414-1-0-1740961889.7z`
+- Insectoid - Chaurus Sounds Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Insectoid - Chaurus Sounds Rework --90772-1-0-1683380649.7z`
+- Phantasmagoria - Female Ghosts Voice Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Phantasmagoria - Female Ghosts Voice Rework --139952-1-0-1737762163.7z`
+- Glacia - Ice Wraiths SFX Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Glacia - Ice Wraiths SFX Rework --139869-1-0-1737681902.7z`
+- Oread - Spriggan SFX Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Oread - Spriggan SFX Rework --119552-1-0-1715805493.7z`
+- Depths of Apocrypha - Lurker VSFX Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Depths of Apocrypha - Lurker VSFX Rework --138794-1-2-1737751347.7z`
+- Animunculi - Dwarven Spider SFX Redesigned (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Animunculi - Dwarven Spider SFX Redesigned --90638-1-0-1683201736.7z`
+- Animunculi - Dwarven Centurion SFX Redesigned - (Aggressive) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/70862 - expected: `E:/My Skyrim mods/Sounds/Animunculi - Dwarven Centurion SFX Redesigned - (Aggressive)-70862-1-0-1-1657136639.7z`
+- Animunculi - Dwarven Sphere SFX Redesigned (Aggressive Version) (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Animunculi - Dwarven Sphere SFX Redesigned (Aggressive Version) --87528-1-1-1679432314.7z`
+- Twin Souls - Storm and Frost Atronachs Sound SFX Rework (Quests - New) - expected: `E:/My Skyrim mods/Sounds/Twin Souls - Storm and Frost Atronachs Sound SFX Rework --59457-1-1-1638524756.7z`
+- Leviathan -Giants SVFX Rework (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/52041 - expected: `E:/My Skyrim mods/Sounds/Leviathan -Giants SVFX Rework-52041-1-2-1625543144.7z`
+- Magical Potion Sounds (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/138932 - expected: `E:/My Skyrim mods/Sounds/Magical Potion Sounds-138932-1-1-1737167673.7z`
+- Echoes of Oblivion (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/153979 - expected: `E:/My Skyrim mods/NPC Overhauls/Echoes of Oblivion-153979-1-6-1770761301.7z`
+- Payload Interpreter (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/65089 - expected: `C:/Users/lesli/Downloads/Payload Interpreter-65089-1-1-0-1685672813.zip`
+- One Click Power Attack NG (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/60878 - expected: `C:/Users/lesli/Downloads/One Click Power Attack NG-60878-NG-v1-11-1679176229.7z`
+- Attack MCO-DXP (Quests - New) - expected: `C:/Users/lesli/Downloads/Attack+MCO-DXP+v1.6.0.6.zip`
+- MCO Universal Support (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/85491 - expected: `C:/Users/lesli/Downloads/MCO Universal Support-85491-1-0-1676987105.zip`
+- ADXP MCO Attack Data Transition Fix (ADTF) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135316 - expected: `C:/Users/lesli/Downloads/ADXP MCO Attack Data Transition Fix (ADTF)-135316-0-1-2-1733067879.7z`
+- ADXP MCO 1.6.0.6 Bug Fixes (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/117275 - expected: `C:/Users/lesli/Downloads/ADXP MCO 1.6.0.6 Bug Fixes-117275-2-0-6-1735549815.zip`
+- SCAR - Skyrim Combos AI Revolution (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/72014 - expected: `C:/Users/lesli/Downloads/SCAR - Skyrim Combos AI Revolution-72014-v1-06b-1674447816 (1).7z`
+- ER Moveset Collection NPC (CPR) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/72220 - expected: `C:/Users/lesli/Downloads/ER Moveset Collection NPC (CPR)-72220-1-1-1722517843.7z`
+- MaxsuBlockOverhaul-V0.24a (Quests - New) - expected: `C:/Users/lesli/Downloads/MaxsuBlockOverhaul-V0.24a.7z`
+- Dynamic Block Hit (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/100570 - expected: `C:/Users/lesli/Downloads/Dynamic Block Hit-100570-1-7-1712464631.zip`
+- Keyword Compatibility Framework (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/79564 - expected: `C:/Users/lesli/Downloads/Keyword Compatibility Framework-79564-3-1-1685599325.zip`
+- Behavior Data Injector (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/78146 - expected: `C:/Users/lesli/Downloads/Behavior Data Injector-78146-v0-13-1667564855.7z`
+- 2hw Arm Blend KILLER (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/51615 - expected: `C:/Users/lesli/Downloads/2hw Arm Blend KILLER-51615-2-1742056688.7z`
+- Inertia - Latest Version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/148746 - expected: `C:/Users/lesli/Downloads/Inertia - Latest Version-148746-1-1-0-1749035032.zip`
+- Death Drop Overhaul - Latest Version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/151590 - expected: `C:/Users/lesli/Downloads/Death Drop Overhaul - Latest Version-151590-1-2-2-1758726035.zip`
+- Next-Gen Decapitations - Latest Version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135254 - expected: `C:/Users/lesli/Downloads/Next-Gen Decapitations - Latest Version-135254-1-4-2-1762629538.zip`
+- Dual Wield Parrying SKSE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/85505 - expected: `C:/Users/lesli/Downloads/Dual Wield Parrying SKSE-85505-1-7-0-1689508403.zip`
+- IFrame Generator RE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/74401 - expected: `C:/Users/lesli/Downloads/IFrame Generator RE-74401-v1-03-1662193506.7z`
+- TK Dodge SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/15309 - expected: `C:/Users/lesli/Downloads/TK Dodge SE-15309-3-18-1574502132.7z`
+- TK Dodge RE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/56956 - expected: `C:/Users/lesli/Downloads/TK Dodge RE-v0.55-rc3-56956-v0-55-rc3-1688194322.zip`
+- Modern.Stagger.Lock-v1.07a (Quests - New) - expected: `C:/Users/lesli/Downloads/Modern.Stagger.Lock-v1.07a.7z`
+- Delia Vindictus MCO Moveset Remake (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Animations/Delia Vindictus MCO Moveset Remake 1.4.rar`
+- Lynn Vindictus MCO Moveset (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Animations/Lynn Vindictus MCO Moveset.rar`
+- Smooth TK Dodge Attack (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/63215 - expected: `C:/Users/lesli/Downloads/Smooth TK Dodge Attack-63215-2-0-1644291307.zip`
+- Smooth Moveset - OAR (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/149713 - expected: `C:/Users/lesli/Downloads/Smooth Moveset - OAR-149713-1-5-1756381509.zip`
+- For Honor in Skyrim (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/151478 - expected: `C:/Users/lesli/Downloads/For Honor in Skyrim-151478-1-6-1760869672.zip`
+- Hot Key Skill (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/86352 - expected: `C:/Users/lesli/Downloads/Hot Key Skill-86352-0-8-1688522971.zip`
+- DKAF (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/87706 - expected: `C:/Users/lesli/Downloads/DKAF-87706-v1-0-1679787928.7z`
+- Bow Rapid Combo V3 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89308 - expected: `C:/Users/lesli/Downloads/Bow Rapid Combo v3-89308-1-9-6-1710583778.zip`
+- Bow Charge Plus (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/59124 - expected: `C:/Users/lesli/Downloads/Bow Charge Plus-59124-0-9-1642820165.zip`
+- Jump Slide Fix (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132841 - expected: `E:/My Skyrim mods/Animations/Movement/Jump Slide Fix-132841-1-0-1730448424.zip`
+- Jump Slide Fix (Consistency) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132841 - expected: `E:/My Skyrim mods/Animations/Movement/Jump Slide Fix (Consistency)-132841-1-0-1731814847.zip`
+- Jump Slide Fix (First Person) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132841 - expected: `E:/My Skyrim mods/Animations/Movement/Jump Slide Fix (First Person)-132841-1-0-1730664102.zip`
+- Jump Slide Fix (For Horses) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132841 - expected: `E:/My Skyrim mods/Animations/Movement/Jump Slide Fix (For Horses)-132841-1-0-1730461767.zip`
+- Block Enchantments 1.0.1 (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/60833 - expected: `E:/My Skyrim mods/Animations/Attack/Block Enchantments 1.0.1-60833-1-0-1-1690051495.7z`
+- Modern Combat AI (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/74716 - expected: `E:/My Skyrim mods/Animations/Attack/Modern Combat AI-74716-3-0-1725220782.7z`
+- Centurion OAR (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/137900 - expected: `E:/My Skyrim mods/Creatures/Centurion OAR-137900-1-006-1756171132.zip`
+- Zaki Tattoos Beast Pack SE (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Zaki Tattoos Beast SE 1.1.1.7z`
+- Zaki Tattoos Beast 8K Addon (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Zaki Tattoos Beast 8K Addon 1.2.1.7z`
+- Zaki Tattoos Blacked Pack SE (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Zaki Tattoos Blacked SE 1.2.0.7z`
+- Zaki Tattoos Blacked 8K Addon (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Zaki Tattoos Blacked 8K Addon 1.2.1.7z`
+- Zaki Tattoos General Pack SE (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Zaki Tattoos General SE 1.1.1.7z`
+- Zaki Tattoos General 8K Addon (Quests - New) - expected: `E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Zaki Tattoos General 8K Addon 1.2.1.7z`
+- Egyptian Pharaoh [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Egyptian Pharaoh [SE] - CBBE.7z`
+- [NINI] Egyptian Pharaoh [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Egyptian Pharaoh [SE] - 4K textures.7z`
+- FB - Einherjr 3BA 4k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/112692 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/FB - Einherjr 3BA 4k-112692-2-0-1733693696.zip`
+- [COCO] Scarlet Rose [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/[COCO] Scarlet Rose [SE] - CBBE.7z`
+- [immyneedscake] RyanReos Bladedancer Mercenary (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/[immyneedscake] RyanReos BladeDancer.zip`
+- RyanReos BladeDancer - Bra Nif Replacer (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/71906 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/RyanReos BladeDancer - Bra Nif Replacer-71906-1-0-1-1658656621.zip`
+- [NINI] Chat Noir [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/[NINI] Chat Noir [SE] - CBBE.7z`
+- [NINI] Chat Noir [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/[NINI] Chat Noir [SE] - 4K textures .7z`
+- [Rektas] Luna [SE] - 3BA (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Luna [SE] - 3BA.7z`
+- [Rektas] Luna [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/[Rektas] Luna [SE] - 4K textures.7z`
+- ahz Wayward Knight (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/112793 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/ahz Wayward Knight-112793-130-1-1715560553.7z`
+- Chronomancer 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135729 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Chronomancer 8k Complex Material-135729-1-0-1734119776.7z`
+- [COCO] Caress of Venus - CBBE-TBD-UUNP SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/68006 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/COCO Caress of Venus - CBBE 3BA-68006-1-0-1652595767.7z`
+- COCO Goddess Of War - CBBE SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/51697 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/COCO Goddess Of War -  CBBE SE-51697-1-0-1625007953.7z`
+- [COCO] Joan Of Arc (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/98962 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/COCO Joan Of Arc - CBBE 3BA-98962-1-0-1693049884.7z`
+- [COCO] Twilight Sorceress (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/102730 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/COCO Twilight Sorceress - CBBE 3BA-102730-1-0-1697846040.7z`
+- DD - Elanor Timeless Elegance (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/147497 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/DD - Elanor Timeless Elegance-147497-1-4-1746097768.rar`
+- Star Guardian 8k Complex Material (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/125628 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Star Guardian 8k Complex Material-125628-1-1-1723739895.7z`
+- Volkihar Assasin 8k (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/141457 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Volkihar Assasin 8k-141457-1-0-1739374093.7z`
+- [Melodic] Chloe (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/66917 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Melodic Chloe - CBBE 3BA-66917-1-0-1650998685.7z`
+- RyanReos Battle Bunny Irelia (HDT-SMP cloth physics) - SSE - CBBE SMP 3BBB 3BA BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/immyneedscake - RyanReos Battle Bunny Irelia.7z`
+- Dark Elf Blader - CBBE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/54994 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Ryan Reos Dark Elf Blader - CBBE 3BA-54994-4-2-1732046412.7z`
+- Grand Scarlet Kunoichi CBBE 3BA SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/46244 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Grand Scarlet Kunoichi CBBE 3BA SE-46244-1-03-1616865800.7z`
+- Spartan Hoplite Female Version - CBBE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/91257 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Spartan Hoplite Female Version - CBBE 3BA-91257-1-2-1693949721.7z`
+- [immyneedscake] RyanReos Primrose Egypt (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/immyneedscake - RyanReos Primrose Egypt.7z`
+- [Dint999] Forgotten Princess (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/109153 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Forgotten Princess - CBBE 3BA-109153-1-0-1705508265.7z`
+- Forgotten Princess - Simple Crafting Patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/109153 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Forgotten Princess - Simple Crafting-109153-1-0-1705876306.7z`
+- Daymarr Yokuda - CBBE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/142696 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Daymarr Yokuda - CBBE 3BA-142696-1-0-1740412723.7z`
+- [Daymarr] K-Fashion Pack (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/138935 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Daymarr  K-Fashion Pack - CBBE 3BA-138935-1-0-1737040554.7z`
+- [Daymarr] Lone Wanderer (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132584 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Daymarr Lone Wanderer - CBBE 3BA-132584-1-1-1732592704.7z`
+- [Daymarr] Shadow Knight (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/119080 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Daymarr Shadow Knight - CBBE 3BA-119080-1-0-1715818200.7z`
+- [Melodic] Assassin Sister (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/111427 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Melodic Assassin Sister - CBBE 3BA-111427-1-0-1708443244.7z`
+- Skyforge Assassins 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/87465 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Skyforge Assassins 3BA-87465-1-1-1680675747.7z`
+- DX Atago SE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/79350 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/DX Atago SE 3BA-79350-1-0-1669776211.7z`
+- Obi's Gladiator 3BA Patch Bodyslides (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/138207 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Gladiator 3BA Patch Bodyslides-138207-1-0-1736155715.zip`
+- Cozy Classic 3BA files (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/117511 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Cozy Classic 3BA files-117511-1-0-1713866039.zip`
+- Obi's Goth GF 4k 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/118300 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Goth GF 4k 3BA-118300-1-0-1714558571.zip`
+- Goth GF Heels Patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/118300 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Goth GF Heels Patch-118300-1-0-1714737953.zip`
+- Obi's Greaser 4k 3BA main file (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/131708 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Greaser 4k 3BA main file-131708-1-0-1729174968.zip`
+- Derketo Priestess 3BA Patch (Bodyslides) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/137642 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Derketo Priestess 3BA Patch (Bodyslides)-137642-1-2-1735913855.zip`
+- Knight Winds (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89980 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Knight Winds-89980-1-1682381312.zip`
+- Dark Rebel 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/102957 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Dark Rebel 3BA-102957-1-1697777812.rar`
+- Dominique 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/103423 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Dominique 3BA-103423-1-1-1698913604.rar`
+- October Seer 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/105472 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/October Seer 3BA-105472-1-2-1702040865.rar`
+- Dangerous Gladiator - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/106430 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Dangerous Gladiator - 3BA-106430-1-1702001700.rar`
+- Elven Assasin 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/128383 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Elven Assasin 3BA-128383-1-1725454944.rar`
+- [ELLE] Warrior (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/129907 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Warrior - 3BA-129907-1-1727343079.rar`
+- [ELLE] Knight Elaine (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/131624 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Knight Elaine - 3BA-131624-1-2-1729322509.rar`
+- FB - Templar Assassin 4k 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/135547 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/FB - Templar Assassin 4k 3BA-135547-1-0-1733438027.zip`
+- FB - Manticore BodySlides 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132109 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/FB - Manticore BodySlides 3BA-132109-1-0-1730724111.zip`
+- FB - Witch Slayer 4k 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/106921 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/FB - Witch Slayer 4k 3BA-106921-1-0-1702652686.zip`
+- Witchslayer Boot BodySlide Update - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/106921 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Witchslayer Boot BodySlide Update - 3BA-106921-1-1-1702811064.zip`
+- Witchslayer ESP fix (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/106921 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Witchslayer ESP fix-106921-1-1-1702748621.zip`
+- Evil Lady [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Evil Lady [SE] - CBBE.7z`
+- Evil Lady [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Evil Lady [SE] - 4K textures.7z`
+- Lovely Latex [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Lovely Latex [SE] - CBBE.7z`
+- Lovely Latex - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Lovely Latex - 4K textures.7z`
+- H2135's Fantasy Series 8 [SE] - 3BA (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/H2135s Fantasy Series8 [SE] - 3BA.7z`
+- H2135s Pirate Series2 [SE] - 3BA (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/H2135s Pirate Series2 [SE] - 3BA.7z`
+- Homebody [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Homebody [SE] - CBBE.7z`
+- [NINI] Sweet Spot [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Sweet Spot [SE] - CBBE.7z`
+- [NINI] Sweet Spot [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Sweet Spot [SE] - 4K textures.7z`
+- [NINI] Ancient Oasis [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Ancient Oasis [SE] - CBBE.7z`
+- [NINI] Ancient Oasis [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Ancient Oasis [SE] - 4K textures.7z`
+- Shadow Witch [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Shadow Witch [SE] - CBBE.7z`
+- Shadow Witch SE Textures - Resources (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/58102 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Shadow Witch SE Textures - Resources-58102-1-0-1636926660.7z`
+- COCO Evelynn Halloween [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[COCO] Evelynn Halloween [SE] - CBBE.7z`
+- COCO Ahri Halloween [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[COCO] Ahri Halloween [SE] - CBBE.7z`
+- COCO Christmas Gift [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[COCO] Christmas Gift - CBBE.7z`
+- Bonne Nuit [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Bonne Nuit [SE] - CBBE.7z`
+- [COCO] Ahri Uniforms v2 [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[COCO] Ahri Uniforms v2 [SE] - CBBE.7z`
+- Operator [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Operator [SE] - CBBE.7z`
+- Stellar Cancer [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Stellar Cancer [SE] - CBBE.7z`
+- [NINI] Stellar Cancer [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Stellar Cancer [SE] - 4K textures.7z`
+- Destroyer [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Destroyer [SE] - CBBE.7z`
+- Harley Quinn [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Harley Quinn [SE] - CBBE.7z`
+- [Rektas] Nihon [SE] - CBBE (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Nihon [SE] - CBBE.7z`
+- Nihon [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Nihon [SE] - 4K textures.7z`
+- Daemon Girl [SE] - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Daemon Girl [SE] - CBBE - BHUNP.7z`
+- Malibu [SE] - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Malibu [SE] - CBBE - BHUNP.7z`
+- Helena Succubus [SE] - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Helena Succubus [SE] - CBBE - BHUNP.7z`
+- Lewd Tennis [SE] - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Lewd Tennis [SE] - CBBE - BHUNP.7z`
+- Tara [SE] - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Tara [SE] - CBBE - BHUNP.7z`
+- Midday [SE] - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Midday [SE] - CBBE - BHUNP.7z`
+- [COCO] Accessories [SE] - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[COCO] Accessories [SE] - CBBE - BHUNP.7z`
+- [COCO] Student Uniform - CBBE - BHUNP (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[COCO] Student Uniform - CBBE - BHUNP.7z`
+- Thaler - CBBE - BHUNP - (Physics - 3BB) (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Thaler [SE] - CBBE - BHUNP.7z`
+- [Rektas] First Priest - 3BA (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[Rektas] First Priest - 3BA.7z`
+- [Rektas] First Priest - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[Rektas] First Priest - 4K textures.7z`
+- Vampire Chain [SE] - 3BA (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Vampire Chain [SE] - 3BA.7z`
+- [Rektas] Sanguine [SE] - 3BA (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[Rektas] Sanguine [SE] - 3BA.7z`
+- [Rektas] Sanguine [SE] - 4K textures (Quests - New) - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[Rektas] Sanguine [SE] - 4K textures.7z`
+- [Dint999] Secret Child Of Talos (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/69767 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Secret Child of Talos - CBBE 3BA-69767-1-0-1655477095.7z`
+- Bladedancer's Edge (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/62751 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Bladedancer's Edge CBBE-3BA-62751-1-2-1646520908.7z`
+- Dark Mage of Plegia - hdt SMP (CBBE 3BA) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/84554 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Dark Mage of Plegia - hdt SMP (CBBE 3BA)-84554-1-0-1676035421.7z`
+- Dark Mage of Plegia - 4K texture (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/84554 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Dark Mage of Plegia - 4K texture-84554-1-0-1676035717.7z`
+- DX St. Louis 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/85050 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/DX St. Louis 3BA-85050-1-2-1677637723.7z`
+- DX Star Trek TOS Uniform SE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/80847 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/DX Star Trek TOS Uniform SE 3BA-80847-1-2-1672383123.7z`
+- BHUNP Egil's Demon Hunter Templar (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/81572 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/BHUNP Egil's Demon Hunter Templar-81572-2022-a-1673342255.7z`
+- EGIL Demon Hunter II Templar 3ba (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/81705 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/EGIL Demon Hunter II Templar 3ba-81705-1-0-1673337350.7z`
+- DX Naughty Secretary 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/90690 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/DX Naughty Secretary 3BA-90690-1-0-1684840240.7z`
+- Obi's Vampirella -SE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/78045 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Obi's Vampirella -SE 3BA-78045-1-1-1668258279.7z`
+- BHUNP EGIL Battle Queen (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/77509 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/BHUNP EGIL Battle Queen-77509-2022-e-1667170662.7z`
+- 3BA EGIL Battle Queen (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/77382 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/3BA EGIL Battle Queen-77382-1-1-1667377542.7z`
+- BHUNP - EGIL Srikandi Main File (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/75402 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/BHUNP - EGIL Srikandi Main File-75402-2022-a-1663478231.7z`
+- EGIL Srikandi - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/75391 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/EGIL Srikandi - 3BA-75391-1-0-1663227752.7z`
+- EGIL Srikandi Default Textures (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/75402 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/EGIL Srikandi Default Textures-75402-2022-a-1663242293.7z`
+- TheMilkDrinker - YoRHa 2B Attire SSE CBBE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/50833 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/TheMilkDrinker - YoRHa 2B Attire SSE CBBE 3BA-50833-1-03-1624559852.7z`
+- YoRHa 2B Attire SSE Textures - Resources (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/48359 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/YoRHa 2B Attire SSE Textures - Resources-48359-1-0-1618625050.7z`
+- Daughters of Dimitrescu CBBE 3BA SE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/49321 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Daughters of Dimitrescu CBBE 3BA SE-49321-1-5-1695257118.7z`
+- FREESTYLE - hdt SMP (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/76381 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/FREESTYLE - hdt SMP-76381-1-0-1664654390.7z`
+- Thorn Princess - hdt SMP (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67794 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Thorn Princess - hdt SMP-67794-1-1-1653242497.7z`
+- [SE] Fashion Witch Set (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/48922 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Fashion Witch SSE - CBBE 3BA - BHUNP-48922-1-01-1619187776.7z`
+- DX Fetish Fashion Volume 1 SE 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/65998 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/DX Fetish Fashion Volume 1 SE 3BA-65998-1-1-1651027291.7z`
+- Asura's Guard (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/86891 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Asura's Guard 3BA 4K-86891-1-0-1678747088.7z`
+- Glasses Pack - ENB Version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/115653 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Glasses Pack - ENB Version-115653-1-0-1712022382.zip`
+- Bifrost (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/88152 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Bifrost-88152-1-1-1680307451.rar`
+- Sena - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/140245 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Sena - 3BA-140245-1-1738065481.rar`
+- Elle Sena CM Alternate Texture Replacer (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/140245 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Elle Sena CM Alternate Texture Replacer-140245-1-1738067186.rar`
+- Mageali - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/147010 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Mageali - 3BA-147010-1-1745066680.rar`
+- Apothecary - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/141507 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Apothecary - 3BA-141507-1-1739362537.rar`
+- SK Shinobi - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/133684 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/SK Shinobi - 3BA-133684-1-1733814566.rar`
+- SK Shinobi Psuedo's Cut - Complex Material Texture Replacer (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/133684 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/SK Shinobi Psuedo's Cut - Complex Material Texture Replacer-133684-1-1733815002.rar`
+- [ELLE] Roca (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/129542 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Roca - 3BA-129542-1-1726656743.rar`
+- Ellxe Tavern Maid (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/108334 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Tavern Maid FOMOD-108334-1-1-1704285740.rar`
+- Dremorn Witch - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/164056 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Dremorn Witch - 3BA-164056-1-1762696890.rar`
+- Dremorn Witch Staffs (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/164056 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Dremorn Witch Staffs-164056-1-1762696744.rar`
+- ELLE - Dilirogue 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/163298 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/ELLE - Dilirogue 3BA-163298-1-1761993331.rar`
+- Ginnungagap 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/97931 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Ginnungagap 3BA-97931-1-1691564982.rar`
+- Tribal Scout 3BA - 2K (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/95333 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Tribal Scout 3BA - 2K-95333-1-1-1688807945.rar`
+- Sherwood Huntress 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/91750 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Sherwood Huntress 3BA-91750-1-1684578438.zip`
+- Maid - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/86864 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Maid - 3BA-86864-2-1720670739.rar`
+- Maid - 4K Textures (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/86864 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Maid - 4K Textures-86864-1-1720673027.rar`
+- Elven Lake 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/82865 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Elven Lake 3BA-82865-2-1720158466.rar`
+- Lastriem - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/166180 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Lastriem - 3BA-166180-1-1764929018.rar`
+- Christmas Knits 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/166984 - expected: `E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Christmas Knits 3BA-166984-1-1765626992.rar`
+- [SE] BDOR Liapina (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/[SE] BDOR Liapina.7z`
+- [SE] BDOR Cernay (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/[SE] BDOR Cernay.7z`
+- [SE] BDOR Arditer (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/[SE] BDOR Arditer.7z`
+- BDOR Sephia by Team TAL (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/[SE] DM BDOR Sephia by Team TAL, em486.7z`
+- Melony 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/124176 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/Melony 3BA-124176-1-2-1743095314.7z`
+- [TalesOfStar] Aion2 Underwear - 3BA SMP (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/[TalesOfStar] Aion2 Swimsuit and Bikini 3BASMP v10 Public.7z`
+- [TalesOfStar] Summer Paradise v1.0 (AE) (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/[TalesOfStar] Summer Paradise v1.0 (AE).7z`
+- [TalesOfStar] Gley Professor Suit (Quests - New) - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/[TalesOfStar] Gley Professor Suit v1.075(AE+SE) fomod.7z`
+- Kambi 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/169038 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/Kambi 3BA-169038-1-1767772314.rar`
+- 3BA - Wayfarer Navi (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/170449 - expected: `E:/skyrim mods/Skyrim Clothing Mods/New folder/3BA - Wayfarer Navi-170449-1-1769080059.rar`
+- Eldritch Disciple (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Eldritch Disciple.7z`
+- Eldritch Disciple 8k (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Eldritch Disciple 8k.7z`
+- Curious Adventurer (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Curious Adventurer.7z`
+- Curious Adventurer 8k (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Curious Adventurer 8k.7z`
+- Faithful Knight (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/FaithfulKnight.7z`
+- FaithfulKnight 8k (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/FaithfulKnight 8k.7z`
+- Courageous Knight (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Courageous Knight.7z`
+- Courageous Knight 8k (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Courageous Knight 8k.7z`
+- Desert Sorceress Main File - 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/155483 - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Desert Sorceress Main File - 3BA-155483-1-0-1753456202.7z`
+- [NINI] Demon Ranger SE (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/[NINI] Demon Ranger - CBBE 3BA.7z`
+- Hwybee Crimson Harlequin 3BA (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/173628 - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Hwybee Crimson Harlequin 3BA-173628-1-0-1778706810.7z`
+- Hwybee Crimson Harlequin High Heals (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/173628 - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Hwybee Crimson Harlequin HHS-173628-1-0-1778706949.7z`
+- Thorny Rain (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/ThornyRain.7z`
+- ThornyRain 8k (Quests - New) - expected: `E:/My Skyrim mods/Clothing & Armor/Even More Clothing/ThornyRain 8k.7z`
+- Tetsunami - Katana Set (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/85888 - expected: `E:/My Skyrim mods/Weapons/Tetsunami - Katana Set - FOMod-85888-1-3-1746524714.7z`
+- Tetsunami - 4K Textures (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/85888 - expected: `E:/My Skyrim mods/Weapons/Tetsunami - 4K Textures-85888-1-2-1724954379.7z`
+- Insanity's Celtic Katana - PROJECT SHINSEKAI SSE (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/15434 - expected: `E:/My Skyrim mods/Weapons/Insanity's Celtic Katana - PROJECT SHINSEKAI SSE-15434-3-1-1615809693.7z`
+- FFVII Remake Buster Sword - 4k Textures (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/22553 - expected: `E:/My Skyrim mods/Weapons/FFVII Remake Buster Sword - 4k Textures-22553-1-1-1749747793.7z`
+- Relentless (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/114022 - expected: `E:/My Skyrim mods/Weapons/Relentless - 4k Textures-114022-1-1-1711391595.zip`
+- Moonblade (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/170595 - expected: `E:/My Skyrim mods/Weapons/Moonblade - 4k Textures-170595-1-01-1774704533.7z`
+- Smart Talk - Latest Version (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/161500 - expected: `E:/My Skyrim mods/Immersions/Smart Talk - Latest Version-161500-1-0-5-1766414595.zip`
+- Quest Journal Overhaul (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/141295 - expected: `E:/My Skyrim mods/Immersions/Quest Journal Overhaul-141295-1-3-1742568550.zip`
+- STB Widgets (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/136148 - expected: `C:/Users/lesli/Downloads/STB Widgets-136148-1-9-1746903963.7z`
+- Modern Wait Menu (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/117661 - expected: `C:/Users/lesli/Downloads/Modern Wait Menu-117661-1-00-1715104007.zip`
+- Dragonborn Reskin - Sunhelm Icons (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/132688 - expected: `C:/Users/lesli/Downloads/Dragonborn Reskin - Sunhelm Icons V1-132688-1-0-1742227764.zip`
+- Menu Maid 2 - MCM manager (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67556 - expected: `C:/Users/lesli/Downloads/Menu Maid 2 - MCM manager-67556-2-2-3-1727659895.zip`
+- Random Main Menu Music (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/73437 - expected: `E:/My Skyrim mods/Main Menu/Random Main Menu Music-73437-1-0-1-1677847940.zip`
+- Follower Stats (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/159406 - expected: `E:/My Skyrim mods/Immersions/Follower Stats-159406-1-0-12-1766336390.zip`
+- Legendary Map (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/157397 - expected: `E:/My Skyrim mods/UI/Legendary Map-157397-1-0-2-1755902359.zip`
+- Vel'dun UI (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/176230 - expected: `E:/My Skyrim mods/UI/Vel'dun UI-176230-0-9-4-1776027988.7z`
+- Vel'dun UI Wheeler (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/176230 - expected: `E:/My Skyrim mods/UI/Vel'dun UI Wheeler-176230-0-9-4-1776089495.7z`
+- Vel'dun Overhauls (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/176230 - expected: `E:/My Skyrim mods/UI/Vel'dun UI Overhauls-176230-0-9-4-1776100466.7z`
+- Vel'dun Patches (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/176230 - expected: `E:/My Skyrim mods/UI/Vel'dun UI Patches-176230-0-9-4-1776100423.7z`
+- Vel'dun RaceMenu DIP Patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/176230 - expected: `E:/My Skyrim mods/UI/Vel'dun Racemenu DIP-176230-0-9-5-1776739940.7z`
+- Colored And Animated Celtic Icons For SkyUI (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/23054 - expected: `E:/skyrim mods/Nolvus 6 Mods/Icons/Colored And Animated Celtic Icons For SkyUI-23054-1-0-1548949225.7z`
+- CatMenu (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/65958 - expected: `E:/My Skyrim mods/Icons/CatMenu-65958-2-0-1-1727170372.7z`
+- Phenomenally Enriched and Nuanced Ingredients for SkyUI (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/90526 - expected: `E:/My Skyrim mods/UI/P.E.N.I.S. for B.O.O.B.I.E.S.-90526-1--1694807732.zip`
+- Aura's Scrumptious Supplement (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/89823 - expected: `E:/My Skyrim mods/UI/A.S.S. for B.O.O.B.I.E.S.-89823-1-4-0-1707116893.zip`
+- Rotols More Icons (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/113657 - expected: `E:/My Skyrim mods/UI/Rotols More Icons-113657-1-0-10-0-1766914081.7z`
+- Rotols Additional Icons AIT Sunhelm Patch (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/113657 - expected: `E:/My Skyrim mods/UI/Rotols Additional Icons AIT Sunhelm Patch-113657-1-0-0-5-1710438962.7z`
+- Rotols More Icons Sacrosanct - Vampires of Skyrim (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/113657 - expected: `E:/My Skyrim mods/UI/Rotols More Icons Sacrosanct - Vampires of Skyrim-113657-1-0-1-1-1711272514.7z`
+- CrashLogger (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/59818 - expected: `E:/My Skyrim mods/Tools/CrashLogger-59818-1-20-1-1770787893.7z`
+- NGIO - Special Edition (1.5.97) (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/42161 - expected: `E:/My Skyrim mods/NGIO - Special Edition (1.5.97)-42161-1-2-4-1734319214.7z`
+- Grass Cache Helper NG (Quests - New) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/101095 - expected: `E:/My Skyrim mods/Grass Cache Helper NG-101095-1-0-1-1695412976.rar`
+- Grass Cache (Quests - New) - archive candidate (0.786): `E:\Games\Tsukiro2\Downloads\N.Y.A - Grass Cache v2.rar`
+- ParallaxGen Output (Quests - New) - expected: `C:/Users/lesli/Downloads/ParallaxGen_Output.zip`
+
+## ui (60)
+
+- Item Equip Restrictor (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Item Equip Restrictor-108665-1-4-0-1706306497.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/108665
+- NL_MCM - A Modular MCM Framework (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\NL_MCM_SSE-49127-1-1-4-1717208748.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/49127
+- Mannequin Management (SKSE Utility Mods) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Mannequin Management-38221-4-1-1694792205.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38221
+- RaceMenu 0.4.16 Memory Leak Hotfix (SE) (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\RaceMenu 0.4.16 Memory Leak Hotfix (SE)-70161-1-0-0-1656002259.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/70161
+- Player Rotation in ShowRaceMenu (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Player Rotation in ShowRaceMenu v1.0.0 for SkyrimSE-36095-1-0-0-1589710499.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/36095
+- Heels Fix - Settings Loader (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Heels Fix - Settings Loader-77264-1-2-0-1676991246.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/77264
+- Copy and Paste in Console (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Copy and Paste in Console v1.0.1 for Skyrim SE-30928-1-0-1-1615644554.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/30928
+- Console Commands Extender (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Console Commands Extender-28210-1-8-0-1596771552.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/28210
+- ConsoleUtilSSE NG (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\ConsoleUtilSSE NG-76649-1-5-1-1704108553.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/76649
+- Ultimate Immersion Toggle - UI Toggle - Hide Your HUD - Rebuild (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Ultimate Immersion Toggle - UI Toggle-62117-1-4-1748524122.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/62117
+- Immersive Load Screen Message Overhaul (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Immersive Load Screen Message Overhaul-67293-1-3-1687582413.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67293
+- Immersive Load Screens for ArteFakes (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Immersive Load Screens for ArteFakes-67376-1-1-1678976642.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67376
+- Too many notifications (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\TooManyNotifications-69924-1-0-1655671432.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/69924
+- Atlas Map Markers SE - Updated with MCM (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Atlas Map Markers-24104-2-7-1671496300.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/24104
+- Atlas Map Markers SE - Updated with MCM - Settings Loader (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Atlas Map Markers SE - Updated with MCM - Settings Loader-68573-1-0-1-1653481078.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/68573
+- Improved Help Command - SE - AE (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Improved Help Command SE-79692-1-0-1669823579.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/79692
+- Skyrim Souls RE for Skyrim 1.5 (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Skyrim Souls RE for Skyrim 1.5-120085-2-4-0-SE-2-1716509446.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/120085
+- Load Screen Shading Fix (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Load Screen Shading Fix-98647-0-1-1692446753.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/98647
+- CoMAP 4 for Skyrim 1.5 (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\CoMAP 4.0 for Skyrim 1.5-101421-4-1-0-SE-1716689338.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/101421
+- Dear Diary - RaceMenu Patch - DIP (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dear Diary - RaceMenu Patch - DIP-97355-v1-0-1690884137.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/97355
+- HelpExtender (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/74376 - expected: `HelpExtender-74376-1-2-1-1664274136.rar`
+- Knotwork for Skyrim 1.5 (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Knotwork for Skyrim 1.5-129164-2-0-0-1736720723.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/129164
+- Chanterelle - a savage world to explore (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\CW-Supplemental-32603-2-47-1736478571.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/32603
+- Chanterelle - Supplemental (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/32603 - expected: `Chanterelle Patch for Dynamic Things Woodpile and-32603-3-14-1684134877.7z`
+- Skyrim 2020 Smaller Packages (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\- Meshes - important-58370-1-0-1637050362.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/58370
+- Additional Skyland Parallax (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Additional Skyland Parallax-117791-2-5-1726976039.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/117791
+- High Poly Project Added Everything (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/12029 - expected: `E:/My Skyrim mods/Objects/High Poly Project-12029-v5-3-1634909383.zip`
+- LITTLE THINGS (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Ramccoid's AIO A.K.A. LITTLE THINGS-65959-1-0-7.7z` - Nexus: https://www.nexusmods.com/skyrim/mods/65959
+- ERM - Enhanced Rocks and Mountains (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\ERM - Optional Rock Texture Replacer (4K)-85196-1-2-1681527392.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/85196
+- ERM - Enhanced Rocks and Mountains - DynDOLOD Add-On (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\ERM - Enhanced Rocks and Mountains - DynDOLOD-88754-1-0-1-1692033180.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/88754
+- Medieval Bridges (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Medieval Bridges-8834-1-31.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/8834
+- Skyrim3DTrees and Plants 3dLOD Resources (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/12371 - expected: `E:/My Skyrim mods/TexGen and DynDOLOD Settings/Skyrim3DTrees and Plants 3dLOD Resources-12371-5-0-1-1592182291.7z`
+- Skyrim Battle Aftermath SE (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Nordic Wanderer Equipment SSE - Patch-4742-1-0-1558913137.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/4742
+- Skyrim Battle Aftermath SE - Missing meshes Patch (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Skyrim Battle Aftermath SE - Missing meshes Patch-102365-1-0-1697082484.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/102365
+- ERM - Complex Parallax Materials (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\ERM - Complex Parallax Material-121336-2-1-1719984829.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/121336
+- 2-4k. New Dragonpriests. v2 Clean (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/116525 - expected: `E:/My Skyrim mods/Objects/2-4k. New Dragonpriests. v2 Clean-116525-1-0-0-1712922953.zip`
+- 2-4k. New Shaman Falmer (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/84533 - expected: `E:/My Skyrim mods/Objects/2-4k. New Shaman Falmer v2-84533-1-0-0-1675872621.zip`
+- 2-4k. New Hagraven and Glenmoril Witch (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/72425 - expected: `E:/My Skyrim mods/Objects/2-4k. New Hagraven and Glenmoril Witch-72425-1-0-0-1659550459.zip`
+- The Streets of Whiterun in HD (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\The Streets of Whiterun in HD - 2k Mossier-20396-1-0.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/20396
+- FYX - Jorrvaskr (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\A) FYX - Jorrvaskr-77355-1-0-4-1677410367.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/77355
+- FYX - 3D Whiterun Drawbridge Gate (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\FYX - 3D Whiterun Drawbridge Gate - SMIM-64645-1-0-2-1647976998.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/64645
+- FYX - Candlehearth Hall Chimney (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\FYX - Candlehearth Hall Chimney - Icy Windhelm-65533-1-0-1648314944.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/65533
+- Improved Dwemer Glass (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\ENB Lights For Aetherium Shards Patch-44553-1-1-1630558790.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/44553
+- Dwemer Automatons Glowmapped (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dwemer Automatons Glowmapped 3-48724-3-1633235968.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/48724
+- Dwemer Tech Glowmapped (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Dwemer Tech Glowmapped 2.2-47802-2-2-1618240357.rar` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/47802
+- Markarth Fixed AF (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/82728 - expected: `C:/Users/lesli/Downloads/Markarth Fixed AF-82728-1-4-1-1706640280.rar`
+- Stony AF Markarth and Dwemer Ruins 4K (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/68815 - expected: `C:/Users/lesli/Downloads/Stony AF Markarth and Dwemer Ruins 4K-68815-2-2-1685892893.zip`
+- Northern Roads Resculpted Reach Bridge Fix (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/101694 - expected: `Northern Roads Resculpted - Reach Bridge Fix-101694-1-0-1696721732.zip`
+- JS Dwemer Kitchenware SE - 2k Textures (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67026 - expected: `E:/My Skyrim mods/Objects/JS Dwemer Kitchenware SE - 2k Textures-67026-1-0-1650800588.7z`
+- JS Dwemer Ichor Barrels SE (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67162 - expected: `E:/My Skyrim mods/Objects/JS Dwemer Ichor Barrels SE - 2k Textures-67162-1-01-1651062610.7z`
+- Ancient Dwemer Metal (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\1_Ancient Dwemer Metal 2K-75610-1-01.7z` - Nexus: https://www.nexusmods.com/skyrim/mods/75610
+- Ancient Dwemer Metal - My patches - Converted meshes to SE and AE (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845 - expected: `1_Ancient Dwemer Metal - My patches - Converted meshes-38845-Update-Final-v5-1646766980.7z`
+- Ancient Dwemer Metal - My patches - ANNIVERSARY EDITION (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845 - expected: `Ancient Dwemer Metal - My patches - ANNIVERSARY EDITION-38845-AE-v3-1655122805.7z`
+- Ancient Dwemer Metal - My patches - FINAL SE VERSION (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845 - expected: `Ancient Dwemer Metal - My patches - FINAL SE VERSION Update v6-38845-Update-Final-v6-1668798404.7z`
+- Ancient Dwemer Metal - My patches - Mrf's Markarth (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Ancient Dwemer Metal - My patches - Mrf's Markarth-38845-MrfsM-v1-1659391449.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845
+- Ancient Dwemer Metal - My patches - Skyrim Sewers (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Ancient Dwemer Metal - My patches - Skyrim Sewers-38845-SS-v1-1617631860.7z` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/38845
+- Capital Windhelm Expansion Eastern gate blackscreen and other fixes (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\CWE bug fixes-93778-1-3-5-1744394713.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/93778
+- RYFTEN DOWN - 1A FULL (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/60670 - expected: `E:/My Skyrim mods/Town, City, Places/RYFTEN DOWN - 1A FULL-60670-1-1-4-1770195521.7z`
+- Project Porthole - Unique Doors For Unique Cities (User Interface) - archive candidate (1.000): `E:\Games\Tsukiro2\Downloads\Project Porthole-149931-2-2-1747765932.zip` - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/149931
+- Homes Under the Warhammer (User Interface) - Nexus: https://www.nexusmods.com/skyrimspecialedition/mods/67444 - expected: `Tundra Homestead-67444-1-0-0-1655329015.7z`
+

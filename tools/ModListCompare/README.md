@@ -1,6 +1,6 @@
 # Mod List Compare
 
-Compares an external MO2 `modlist.txt` against the local NEFARAM MO2 install with fuzzy matching.
+Compares an external MO2 `modlist.txt` or MO2 CSV export against the local NEFARAM MO2 install with fuzzy matching.
 
 Default comparison:
 
@@ -28,3 +28,4 @@ Manifest notes:
 - If a high-confidence archive match is found in `C:\Users\antho\Downloads` or `E:\Games\Tsukiro2\Downloads`, the manifest uses a `local path="..."` entry.
 - Lower-confidence archive matches are written as `# review archive-candidate` comments so they can be checked before install.
 - If no archive is found, the manifest leaves an `# unresolved:` comment because the source `modlist.txt` does not contain Nexus IDs or file IDs.
+- CSV exports with Nexus URLs and download filenames add those values to the review comments, but unresolved Nexus rows are not converted to installable Nexus lines unless a local archive is found because the export does not include Nexus file IDs.

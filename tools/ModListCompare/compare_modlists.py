@@ -3,7 +3,9 @@ import argparse
 import csv
 import difflib
 import re
+from collections import defaultdict
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 
 
@@ -12,6 +14,10 @@ DEFAULT_DOWNLOAD_DIRS = [
     Path.home() / "Downloads",
     Path(r"E:\Games\Tsukiro2\Downloads"),
 ]
+LOW_VALUE_TOKENS = {
+    "skyrim", "special", "edition", "mod", "mods", "patch", "fix", "fixed", "update", "updated",
+    "version", "main", "file", "files", "all", "one", "vanilla", "optimized", "remastered",
+}
 
 
 @dataclass
@@ -21,6 +27,10 @@ class ModEntry:
     name: str
     category: str
     raw: str
+    nexus_id: str = ""
+    nexus_url: str = ""
+    version: str = ""
+    download_file: str = ""
 
 
 @dataclass
@@ -34,6 +44,7 @@ class MatchResult:
     bucket: str
 
 
+@lru_cache(maxsize=200_000)
 def normalize_name(value: str) -> str:
     value = value.lower()
     value = re.sub(r"\[[^\]]+\]", " ", value)
@@ -45,10 +56,12 @@ def normalize_name(value: str) -> str:
     return value.strip()
 
 
+@lru_cache(maxsize=200_000)
 def token_sort(value: str) -> str:
     return " ".join(sorted(normalize_name(value).split()))
 
 
+@lru_cache(maxsize=1_000_000)
 def fuzzy_score(a: str, b: str) -> float:
     na = normalize_name(a)
     nb = normalize_name(b)
@@ -69,6 +82,49 @@ def clean_mod_name(value: str) -> str:
     value = re.sub(r"^\d+(\.\d+)?\s+", "", value)
     value = re.sub(r'^"|"$', "", value)
     return value.strip()
+
+
+def parse_source_entries(path: Path) -> list[ModEntry]:
+    first_line = path.read_text(encoding="utf-8-sig", errors="replace").splitlines()[0]
+    if "," in first_line and "#Mod_Name" in first_line:
+        return parse_csv_export(path)
+    return parse_modlist(path)
+
+
+def parse_csv_export(path: Path) -> list[ModEntry]:
+    entries: list[ModEntry] = []
+    category = "Uncategorized"
+    with path.open("r", encoding="utf-8-sig", errors="replace", newline="") as f:
+        reader = csv.DictReader(f)
+        for fallback_priority, row in enumerate(reader):
+            name = clean_mod_name(row.get("#Mod_Name", "") or row.get("Mod_Name", ""))
+            if not name:
+                continue
+
+            row_category = (row.get("#Primary_Category", "") or row.get("Primary_Category", "")).strip()
+            if name.lower().endswith("_separator"):
+                category = name[:-10].strip() or row_category or category
+                continue
+
+            priority_text = row.get("#Mod_Priority", "") or row.get("Mod_Priority", "")
+            try:
+                priority = int(priority_text)
+            except ValueError:
+                priority = fallback_priority
+
+            status = row.get("#Mod_Status", "") or row.get("Mod_Status", "")
+            entries.append(ModEntry(
+                priority=priority,
+                enabled=not status.startswith("-"),
+                name=name,
+                category=category if category != "Uncategorized" else row_category or category,
+                raw=",".join(row.values()),
+                nexus_id=(row.get("#Nexus_ID", "") or row.get("Nexus_ID", "")).strip(),
+                nexus_url=(row.get("#Mod_Nexus_URL", "") or row.get("Mod_Nexus_URL", "")).strip(),
+                version=(row.get("#Mod_Version", "") or row.get("Mod_Version", "")).strip(),
+                download_file=(row.get("#Download_File_Name", "") or row.get("Download_File_Name", "")).strip(),
+            ))
+    return entries
 
 
 def parse_modlist(path: Path) -> list[ModEntry]:
@@ -124,6 +180,12 @@ def index_archives(download_dirs: list[Path]) -> list[Path]:
 
 
 def find_archive(entry: ModEntry, archives: list[Path], threshold: float) -> tuple[Path | None, float]:
+    if entry.download_file:
+        for archive in archives:
+            if archive.name.casefold() == entry.download_file.casefold():
+                return archive, 1.0
+        return None, 0.0
+
     best_path = None
     best_score = 0.0
     for archive in archives:
@@ -159,6 +221,12 @@ def slugify(value: str) -> str:
 
 def compare(source_entries: list[ModEntry], local_names: list[str], archives: list[Path], match_threshold: float, archive_threshold: float) -> list[MatchResult]:
     normalized_local = {normalize_name(name): name for name in local_names}
+    token_index: dict[str, set[str]] = defaultdict(set)
+    for local in local_names:
+        for token in normalize_name(local).split():
+            if len(token) > 2 and token not in LOW_VALUE_TOKENS:
+                token_index[token].add(local)
+
     results: list[MatchResult] = []
     for entry in source_entries:
         norm = normalize_name(entry.name)
@@ -168,7 +236,12 @@ def compare(source_entries: list[ModEntry], local_names: list[str], archives: li
 
         best_name = ""
         best_score = 0.0
-        for local in local_names:
+        candidate_names: set[str] = set()
+        for token in norm.split():
+            if len(token) > 2 and token not in LOW_VALUE_TOKENS:
+                candidate_names.update(token_index.get(token, set()))
+
+        for local in candidate_names:
             score = fuzzy_score(entry.name, local)
             if score > best_score:
                 best_score = score
@@ -188,7 +261,7 @@ def write_outputs(results: list[MatchResult], out_dir: Path, manifest_archive_th
     csv_path = out_dir / "comparison.csv"
     with csv_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(["Priority", "Enabled", "Status", "SourceMod", "Category", "Bucket", "MatchedLocal", "Score", "ArchivePath", "ArchiveScore"])
+        writer.writerow(["Priority", "Enabled", "Status", "SourceMod", "Category", "Bucket", "MatchedLocal", "Score", "ArchivePath", "ArchiveScore", "NexusID", "NexusURL", "DownloadFile"])
         for result in results:
             writer.writerow([
                 result.entry.priority,
@@ -201,6 +274,9 @@ def write_outputs(results: list[MatchResult], out_dir: Path, manifest_archive_th
                 f"{result.score:.3f}",
                 result.archive_path,
                 f"{result.archive_score:.3f}" if result.archive_path else "",
+                result.entry.nexus_id,
+                result.entry.nexus_url,
+                result.entry.download_file,
             ])
 
     missing = [result for result in results if result.status.startswith("Missing")]
@@ -212,11 +288,16 @@ def write_outputs(results: list[MatchResult], out_dir: Path, manifest_archive_th
             f.write(f"## {bucket} ({len(group)})\n\n")
             for result in group:
                 suffix = f" - archive candidate ({result.archive_score:.3f}): `{result.archive_path}`" if result.archive_path else ""
-                f.write(f"- {result.entry.name} ({result.entry.category}){suffix}\n")
+                nexus = f" - Nexus: {result.entry.nexus_url}" if result.entry.nexus_url else ""
+                expected = f" - expected: `{result.entry.download_file}`" if result.entry.download_file and not result.archive_path else ""
+                f.write(f"- {result.entry.name} ({result.entry.category}){suffix}{nexus}{expected}\n")
             f.write("\n")
 
     manifests_dir = out_dir / "manifests"
     manifests_dir.mkdir(exist_ok=True)
+    for old_manifest in manifests_dir.glob("*.mods.txt"):
+        old_manifest.unlink()
+
     for bucket in sorted({result.bucket for result in missing}):
         group = [result for result in missing if result.bucket == bucket]
         if not group:
@@ -231,6 +312,10 @@ def write_outputs(results: list[MatchResult], out_dir: Path, manifest_archive_th
                     f.write(f'# review archive-candidate score={result.archive_score:.3f}: {result.archive_path}\n')
                     f.write(f'# unresolved: {result.entry.name} ({result.entry.category})\n')
                 else:
+                    if result.entry.nexus_url:
+                        f.write(f'# nexus page: {result.entry.nexus_url}\n')
+                    if result.entry.download_file:
+                        f.write(f'# expected archive: {result.entry.download_file}\n')
                     f.write(f'# unresolved: {result.entry.name} ({result.entry.category})\n')
 
 
@@ -246,7 +331,7 @@ def main() -> int:
     parser.add_argument("--download-dir", action="append", default=[])
     args = parser.parse_args()
 
-    source_entries = parse_modlist(Path(args.source_modlist))
+    source_entries = parse_source_entries(Path(args.source_modlist))
     local_names = local_names_from_mo2(Path(args.mo2_root), args.profile)
     download_dirs = [Path(path) for path in args.download_dir] if args.download_dir else DEFAULT_DOWNLOAD_DIRS
     archives = index_archives(download_dirs)

@@ -1,0 +1,183 @@
+separator "armor-clothing"
++ local path="E:\Games\Tsukiro2\Downloads\Dynamic Armor Variants for Skyrim 1.5-88302-1-0-5-SE-2-1739481651.7z" install="Dynamic Armor Variants for Skyrim 1.5"
++ local path="E:\Games\Tsukiro2\Downloads\Ancient Dwemer Metal - My patches - Guards Armor Replacer-38845-GAR-v2-1635335565.7z" install="Ancient Dwemer Metal - My patches - Guards Armor Replacer"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/124613
+# expected archive: E:/skyrim mods/Skyrim Clothing Mods/New folder/Vindicator Armor 8k Complex Material-124613-1-0-1721579046.7z
+# unresolved: Vindicator Armor 8k Complex Material (Quests - New)
++ local path="E:\Games\Tsukiro2\Downloads\RAW SSE - 4K-2K-19666-3-0-1539568268.7z" install="RUSTIC ARMOR and WEAPONS SE"
++ local path="E:\Games\Tsukiro2\Downloads\Thieves Guild Armors Retexture SE - Half Res-98561-1-0-1692363044.rar" install="Thieves Guild Armors Retexture SE"
++ local path="E:\Games\Tsukiro2\Downloads\Dark Brotherhood Armors Retexture SE - Half Res-93890-1-0-1687267159.rar" install="Dark Brotherhood Armors Retexture SE"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/19663
+# expected archive: Frankly HD Dawnguard Armor CBBE SE-19663-1-2.7z
+# unresolved: Frankly HD Dawnguard Armor and Weapons (Quests - New)
++ local path="E:\Games\Tsukiro2\Downloads\Bruma Outfits for Skyrim Imperials-48783-1-0-1618860792.rar" install="Bruma Outfits for Skyrim Imperials (SPID Version)"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/50446
+# expected archive: Deze Clothing - Update-50446-2-1-1638008882.7z
+# unresolved: Deze Clothing - Update (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/81321
+# expected archive: Deze Clothing Set - CBBE 3BA UniString Edits-81321-1-5-1674787604.7z
+# unresolved: [A] Deze Clothing Set - CBBE 3BA UniString Edits (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/112927
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/(Update) HDT-SMP Einherjr Dress Patch for 3BA-112927-1-1-1709529306.rar
+# unresolved: (Update) HDT-SMP Einherjr Dress Patch for 3BA (Quests - New)
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/[COCO] Lace Lingerie [SE] - 3BA.7z
+# unresolved: [COCO] Lace Lingerie [SE] - 3BA (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/114859
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Ashtoreth - Silent Woods Outfit - 3BA-114859-1-0-1711231616.zip
+# unresolved: Ashtoreth - Silent Woods Outfit - 3BA (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/135729
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Chronomancer Armor-135729-1-4-1744532506.7z
+# unresolved: Chronomancer Armor (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/135392
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Cimmerian Armor 3BA-135392-1-0-1733156690.zip
+# unresolved: Cimmerian Armor 3BA (Quests - New)
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Cimmerian Armor 3BA - SMP Bodyslides no Top fix.zip
+# unresolved: Cimmerian Armor 3BA - SMP Bodyslides no Top fix (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/120373
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Royal Vanguard Armor-120373-1-0-1716922388.7z
+# unresolved: Royal Vanguard Armor (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/120373
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Royal Vanguard Armor 8k Complex Material-120373-1-0-1718297453.7z
+# unresolved: Royal Vanguard Armor 8k Complex Material (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/126983
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Rover Armor-126983-1-1-1725377263.7z
+# unresolved: Rover Armor (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/126983
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Rover Armor 8k Complex Material-126983-1-0-1724599313.7z
+# unresolved: Rover Armor 8k Complex Material (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/128683
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Dracania Armor 8k Complex Material-128683-1-0-1726330769.7z
+# unresolved: Dracania Armor 8k Complex Material (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/131645
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Lavatera Armor-131645-1-2-1746257470.7z
+# unresolved: Lavatera Armor (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/131645
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Lavatera Armor 8k Complex Material-131645-1-0-1729328662.7z
+# unresolved: Lavatera Armor 8k Complex Material (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/133720
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Senecio Armor-133720-1-2-1732131400.7z
+# unresolved: Senecio Armor (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/133720
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Senecio Armor 8k Complex Material-133720-1-0-1731860865.7z
+# unresolved: Senecio Armor 8k Complex Material (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/141457
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Volkihar Assasin-141457-1-0-1739730489.7z
+# unresolved: Volkihar Assasin Outfit (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/143045
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Iron Rose Armor-143045-1-0-1741366253.7z
+# unresolved: Iron Rose Armor (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/143045
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Iron Rose Armor 8k Complex Material-143045-1-0-1741366422.7z
+# unresolved: Iron Rose Armor 8k Complex Material (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/73331
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/ROS DDDA Bikini Armor - CBBE 3BA-73331-1-0-1660457928.7z
+# unresolved: ROS DDDA Bikini Armor - CBBE 3BA (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/96357
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Casual Outfit 2K 3BA-96357-1-0-1690071404.zip
+# unresolved: Obi's Casual Outfit 2K 3BA (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/140366
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Eve's Sunfire Armor Main File-140366-1-0-1738428193.zip
+# unresolved: Eve's Sunfire Armor Main File (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/140366
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Eve's Sunfire Armor 3BA Bodyslide Files-140366-1-0-1738335060.zip
+# unresolved: Eve's Sunfire Armor 3BA Bodyslide Files (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/138207
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Gladiator Armor Main File-138207-1-0-1736159606.zip
+# unresolved: Obi's Gladiator Armor Main File (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/99549
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Rogue Outfit 3BA 2k-99549-1-1-1693409162.zip
+# unresolved: Obi's Rogue Outfit 3BA 2k (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/117511
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Cozy Classic Outfit-117511-1-0-1713865856.zip
+# unresolved: Obi's Cozy Classic Outfit (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/136388
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Hood and Steel Armor Main File CBBE 3BA-136388-1-0-1734245549.zip
+# unresolved: Obi's Hood and Steel Armor Main File CBBE 3BA (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/136388
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Hood and Steel Armor 3BA bodyslide files-136388-1-0-1734370019.zip
+# unresolved: Obi's Hood and Steel Armor 3BA bodyslide files (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/137642
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/Obi's Derketo Priestess Outfit 4K MAIN FILE-137642-1-0-1735544359.zip
+# unresolved: Obi's Derketo Priestess Outfit 4K MAIN FILE (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/135910
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/HDT-SMP Templar Assassin Armor Patch-135910-1-0-1733674383.rar
+# unresolved: HDT-SMP Templar Assassin Armor Patch (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/104551
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/OCO Lace Lingerie Pack - CBBE 3BA-104551-1-0-1699980114.7z
+# unresolved: [COCO] Lace Lingerie Pack (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/132109
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/New folder/FB - Manticore Armor 4k 3BA-132109-1-0-1730723635.zip
+# unresolved: FB - Manticore Armor 4k 3BA (Quests - New)
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/[NINI] Heart Bikini [SE] - CBBE.7z
+# unresolved: [NINI] Heart Bikini [SE] - CBBE (Quests - New)
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Clothing Assembly 5 [SE] - CBBE - BHUNP.7z
+# unresolved: Clothing Assembly 5 [SE] - CBBE - BHUNP (Quests - New)
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/H2135s Halloween Outfit 2020 [SE] - 3BA.7z
+# unresolved: H2135's Halloween Outfit 2020 [SE] - 3BA (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/72381
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/TheMilkDrinker - Kinnari Armor CBBE 3BA-72381-2-0-1662595213.7z
+# unresolved: Kinnari Armor - CBBE 3BA (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/71999
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Kinnari Armor SE Textures - Resources-71999-1-0-1658631933.7z
+# unresolved: Kinnari Armor SE Textures - Resources (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/76305
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Imperial Centurion Battle Dress Evolution 3BA Remastered-76305-1-3-1665222616.7z
+# unresolved: Imperial Centurion Battle Dress Evolution 3BA Remastered (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/63099
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Tifa Lockhart Remake Outfit - CBBE 3BA-63099-1-02-1644210021.7z
+# unresolved: Tifa Lockhart Remake Outfit - CBBE 3BA (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/44838
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Vtaw Wardrobe 5 - CBBE SE - CBBE SMP - BodySlide-44838-1-0-1612017028.7z
+# unresolved: Vtaw Wardrobe 5 - CBBE SE - CBBE SMP - BodySlide (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/44838
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/Vtaw Wardrobe 5 4K Textures (BC7)-44838-1-0-1611613719.7z
+# unresolved: Vtaw Wardrobe 5 4K Textures (BC7) (Quests - New)
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/01 Main File Clothes Pack 5 - 4K Textures --66964-2-0-1651439453.7z
+# unresolved: Main File Clothes Pack 5 - 4K Textures (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/66964
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Skyrim Clothing Mods/clothes pack 5 02 Bodyslide Files for CBBE 3BAv2-66964-2-0-1651445027.7z
+# unresolved: clothes pack 5 02 Bodyslide Files for CBBE 3BAv2 (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/149729
+# expected archive: E:/skyrim mods/Skyrim Clothing Mods/New folder/Armor Of The Deep-149729-1-0-1750598234.7z
+# unresolved: Armor of the Deep (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/149729
+# expected archive: E:/skyrim mods/Skyrim Clothing Mods/New folder/Armor Of The Deep 8k-149729-1-0-1750598327.7z
+# unresolved: Armor Of The Deep 8k (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/84029
+# expected archive: E:/skyrim mods/Skyrim Clothing Mods/New folder/Melodic Bikini Armor - CBBE 3BA-84029-1-0-1675415718.7z
+# unresolved: [Melodic] Bikini Armor (Quests - New)
+# expected archive: E:/skyrim mods/Skyrim Clothing Mods/New folder/_Fuse00_ArmorMelonyCBBE.rar
+# unresolved: ArmorMelonyCBBE (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/166376
+# expected archive: E:/skyrim mods/Skyrim Clothing Mods/New folder/Obi's Twilight Bikini 3BA Main file-166376-1-2-1-1766523080.zip
+# unresolved: Obi's Twilight Bikini 3BA Main file (Quests - New)
+# expected archive: E:/skyrim mods/Skyrim Clothing Mods/New folder/[TalesOfStar] First Descendant Bikinis AE - v1.0.2.7z
+# unresolved: [TalesOfStar] First Descendant Bikinis AE - v1.0.2 (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/170921
+# expected archive: E:/skyrim mods/Skyrim Clothing Mods/New folder/HDT-SMP Bishop Armor Patch for 3BA-170921-1-0-1769521898.rar
+# unresolved: HDT-SMP Bishop Armor Patch for 3BA (Quests - New)
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Corsair Outfit.7z
+# unresolved: Corsair Outfit (Quests - New)
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Corsair Outfit 8k.7z
+# unresolved: Corsair Outfit 8k (Quests - New)
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Cyber Outfit SelectionA.7z
+# unresolved: Cyber Outfit Selection A (Quests - New)
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Cyber Outfit SelectionA 8K.7z
+# unresolved: Cyber Outfit SelectionA 8K (Quests - New)
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Cute Adventurer Outfit.7z
+# unresolved: Cute Adventurer Outfit (Quests - New)
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Cute Adventurer Outfit 8k.7z
+# unresolved: Cute Adventurer Outfit 8k (Quests - New)
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/[dint999] BDOr Guardian Kharoxia Clothes v.1.01.7z
+# unresolved: [dint999] BDOr Guardian Kharoxia Clothes v.1.01 (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/176951
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Obi - Traveler's Romper Outfit 3BA Main-176951-1-1-1776435304.zip
+# unresolved: Obi - Traveler's Romper Outfit 3BA Main (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/168091
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Obi's Zamorian Thief Armor 3BA Main-168091-1-0-1767126104.zip
+# unresolved: Obi's Zamorian Thief Armor 3BA Main (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/148867
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/Obi's Druchii Armor MAIN FILE 3Ba-148867-1-31-1746266168.zip
+# unresolved: Obi's Druchii Armor MAIN FILE 3Ba (Quests - New)
+# expected archive: E:/My Skyrim mods/Clothing & Armor/Even More Clothing/FE Armor - CBBE 3BA.7z
+# unresolved: FE Armor - CBBE 3BA (Quests - New)

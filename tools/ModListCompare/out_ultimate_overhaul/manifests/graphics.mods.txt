@@ -1,0 +1,5 @@
+separator "graphics"
++ local path="E:\Games\Tsukiro2\Downloads\ENB Helper SE 1.5 for SSE 1.5.97-23174-1-5-1574569443.7z" install="ENB Helper SE"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/97720
+# expected archive: E:/My Skyrim mods/DynDOLOD DLL NG and Scripts 3.00-97720-Alpha-41-1778434637.7z
+# unresolved: DynDOLOD DLL NG and Scripts 3.00 (SKSE Utility Mods)

@@ -1,0 +1,34 @@
+separator "adult-frameworks"
+# expected archive: C:/Users/tld/Downloads/Sexlab BJ Sound FX replacerv0.1.rar
+# unresolved: Sexlab BJ Sound FX replacerv (Quests - New)
+# expected archive: C:/Users/tld/Downloads/Sexlab Sound FX Hip flap replacer 0.2.rar
+# unresolved: Sexlab Sound FX Hip flap replacer (Quests - New)
+# expected archive: Deviously Enchanted Chests SE-LE 3.218.7z
+# unresolved: Deviously Enchanted Chests SE (Quests - New)
++ local path="E:\Games\Tsukiro2\Downloads\SexLab Dibella Sisterhood SE 2022-01-31.7z" install="SexLab Dibella Sisterhood SE"
++ local path="E:\Games\Tsukiro2\Downloads\SexLab Dibella Sisterhood Sisters SE 2022-01-31.7z" install="SexLab Dibella Sisterhood Sisters SE"
+# expected archive: C:/Users/lesli/Downloads/SexLab Aroused Creatures SE v04.16.7z
+# unresolved: SexLab Aroused Creatures SE v04.16 (Quests - New)
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Nolvus Creature/Not Used/SexLabMatchMaker.Rev7.zip
+# unresolved: SexLabMatchMaker.Rev7 (Quests - New)
+# expected archive: E:/My Skyrim mods/Immersions/Wintersun - SexLab Integration SE v1.3.3.7z
+# unresolved: Wintersun - SexLab Integration SE v1.3.3 (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/89810
+# expected archive: C:/Users/lesli/Downloads/Xelzaz Follower Core DBVO 1.8.2-89810-1-0-1683301169.rar
+# unresolved: Xelzaz Follower Core DBVO 1.8.2 (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/89810
+# expected archive: C:/Users/lesli/Downloads/SexLab Solutions - Revisited DBVO 1.15-89810-1-0-1683886728.rar
+# unresolved: SexLab Solutions - Revisited DBVO 1.15 (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/89810
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Voice Pack/Voice Bella DBVO SL Aroused Creatures.7z
+# unresolved: Voice Bella DBVO SL Aroused Creatures (Quests - New)
+# expected archive: E:/skyrim mods/Nolvus 6 Mods/Voice Pack/Aroused Creatures v04.14 Voice Lines.7z
+# unresolved: Aroused Creatures v04.14 Voice Lines (Quests - New)
+# expected archive: E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Alpia Slavetats SE.7z
+# unresolved: Alpia Slavetats Pack (Quests - New)
+# expected archive: E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Alpia Slavetats Riek SE-LE.7z
+# unresolved: Alpia Slavetats Riek (Quests - New)
+# expected archive: E:/My Skyrim mods/Skin, Body, Hair & Presets/Tats/Alpia Slavetats Orc SE-LE.7z
+# unresolved: Alpia Slavetats Orc (Quests - New)
+# expected archive: E:/My Skyrim mods/Icons/SlaveTatsGUI-0.2.0.7z
+# unresolved: SlaveTatsGUI (Quests - New)

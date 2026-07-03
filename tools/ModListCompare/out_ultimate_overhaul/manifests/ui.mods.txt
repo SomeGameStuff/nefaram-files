@@ -1,0 +1,95 @@
+separator "ui"
++ local path="E:\Games\Tsukiro2\Downloads\Item Equip Restrictor-108665-1-4-0-1706306497.7z" install="Item Equip Restrictor"
++ local path="E:\Games\Tsukiro2\Downloads\NL_MCM_SSE-49127-1-1-4-1717208748.zip" install="NL_MCM - A Modular MCM Framework"
++ local path="E:\Games\Tsukiro2\Downloads\Mannequin Management-38221-4-1-1694792205.7z" install="Mannequin Management"
++ local path="E:\Games\Tsukiro2\Downloads\RaceMenu 0.4.16 Memory Leak Hotfix (SE)-70161-1-0-0-1656002259.zip" install="RaceMenu 0.4.16 Memory Leak Hotfix (SE)"
++ local path="E:\Games\Tsukiro2\Downloads\Player Rotation in ShowRaceMenu v1.0.0 for SkyrimSE-36095-1-0-0-1589710499.7z" install="Player Rotation in ShowRaceMenu"
++ local path="E:\Games\Tsukiro2\Downloads\Heels Fix - Settings Loader-77264-1-2-0-1676991246.zip" install="Heels Fix - Settings Loader"
++ local path="E:\Games\Tsukiro2\Downloads\Copy and Paste in Console v1.0.1 for Skyrim SE-30928-1-0-1-1615644554.7z" install="Copy and Paste in Console"
++ local path="E:\Games\Tsukiro2\Downloads\Console Commands Extender-28210-1-8-0-1596771552.zip" install="Console Commands Extender"
++ local path="E:\Games\Tsukiro2\Downloads\ConsoleUtilSSE NG-76649-1-5-1-1704108553.7z" install="ConsoleUtilSSE NG"
++ local path="E:\Games\Tsukiro2\Downloads\Ultimate Immersion Toggle - UI Toggle-62117-1-4-1748524122.zip" install="Ultimate Immersion Toggle - UI Toggle - Hide Your HUD - Rebuild"
++ local path="E:\Games\Tsukiro2\Downloads\Immersive Load Screen Message Overhaul-67293-1-3-1687582413.7z" install="Immersive Load Screen Message Overhaul"
++ local path="E:\Games\Tsukiro2\Downloads\Immersive Load Screens for ArteFakes-67376-1-1-1678976642.7z" install="Immersive Load Screens for ArteFakes"
++ local path="E:\Games\Tsukiro2\Downloads\TooManyNotifications-69924-1-0-1655671432.zip" install="Too many notifications"
++ local path="E:\Games\Tsukiro2\Downloads\Atlas Map Markers-24104-2-7-1671496300.7z" install="Atlas Map Markers SE - Updated with MCM"
++ local path="E:\Games\Tsukiro2\Downloads\Atlas Map Markers SE - Updated with MCM - Settings Loader-68573-1-0-1-1653481078.zip" install="Atlas Map Markers SE - Updated with MCM - Settings Loader"
++ local path="E:\Games\Tsukiro2\Downloads\Improved Help Command SE-79692-1-0-1669823579.zip" install="Improved Help Command - SE - AE"
++ local path="E:\Games\Tsukiro2\Downloads\Skyrim Souls RE for Skyrim 1.5-120085-2-4-0-SE-2-1716509446.7z" install="Skyrim Souls RE for Skyrim 1.5"
++ local path="E:\Games\Tsukiro2\Downloads\Load Screen Shading Fix-98647-0-1-1692446753.7z" install="Load Screen Shading Fix"
++ local path="E:\Games\Tsukiro2\Downloads\CoMAP 4.0 for Skyrim 1.5-101421-4-1-0-SE-1716689338.7z" install="CoMAP 4 for Skyrim 1.5"
++ local path="E:\Games\Tsukiro2\Downloads\Dear Diary - RaceMenu Patch - DIP-97355-v1-0-1690884137.7z" install="Dear Diary - RaceMenu Patch - DIP"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/74376
+# expected archive: HelpExtender-74376-1-2-1-1664274136.rar
+# unresolved: HelpExtender (User Interface)
++ local path="E:\Games\Tsukiro2\Downloads\Knotwork for Skyrim 1.5-129164-2-0-0-1736720723.7z" install="Knotwork for Skyrim 1.5"
++ local path="E:\Games\Tsukiro2\Downloads\CW-Supplemental-32603-2-47-1736478571.zip" install="Chanterelle - a savage world to explore"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/32603
+# expected archive: Chanterelle Patch for Dynamic Things Woodpile and-32603-3-14-1684134877.7z
+# unresolved: Chanterelle - Supplemental (User Interface)
++ local path="E:\Games\Tsukiro2\Downloads\- Meshes - important-58370-1-0-1637050362.7z" install="Skyrim 2020 Smaller Packages"
++ local path="E:\Games\Tsukiro2\Downloads\Additional Skyland Parallax-117791-2-5-1726976039.rar" install="Additional Skyland Parallax"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/12029
+# expected archive: E:/My Skyrim mods/Objects/High Poly Project-12029-v5-3-1634909383.zip
+# unresolved: High Poly Project Added Everything (User Interface)
++ local path="E:\Games\Tsukiro2\Downloads\Ramccoid's AIO A.K.A. LITTLE THINGS-65959-1-0-7.7z" install="LITTLE THINGS"
++ local path="E:\Games\Tsukiro2\Downloads\ERM - Optional Rock Texture Replacer (4K)-85196-1-2-1681527392.7z" install="ERM - Enhanced Rocks and Mountains"
++ local path="E:\Games\Tsukiro2\Downloads\ERM - Enhanced Rocks and Mountains - DynDOLOD-88754-1-0-1-1692033180.7z" install="ERM - Enhanced Rocks and Mountains - DynDOLOD Add-On"
++ local path="E:\Games\Tsukiro2\Downloads\Medieval Bridges-8834-1-31.7z" install="Medieval Bridges"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/12371
+# expected archive: E:/My Skyrim mods/TexGen and DynDOLOD Settings/Skyrim3DTrees and Plants 3dLOD Resources-12371-5-0-1-1592182291.7z
+# unresolved: Skyrim3DTrees and Plants 3dLOD Resources (User Interface)
++ local path="E:\Games\Tsukiro2\Downloads\Nordic Wanderer Equipment SSE - Patch-4742-1-0-1558913137.7z" install="Skyrim Battle Aftermath SE"
++ local path="E:\Games\Tsukiro2\Downloads\Skyrim Battle Aftermath SE - Missing meshes Patch-102365-1-0-1697082484.zip" install="Skyrim Battle Aftermath SE - Missing meshes Patch"
++ local path="E:\Games\Tsukiro2\Downloads\ERM - Complex Parallax Material-121336-2-1-1719984829.rar" install="ERM - Complex Parallax Materials"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/116525
+# expected archive: E:/My Skyrim mods/Objects/2-4k. New Dragonpriests. v2 Clean-116525-1-0-0-1712922953.zip
+# unresolved: 2-4k. New Dragonpriests. v2 Clean (User Interface)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/84533
+# expected archive: E:/My Skyrim mods/Objects/2-4k. New Shaman Falmer v2-84533-1-0-0-1675872621.zip
+# unresolved: 2-4k. New Shaman Falmer (User Interface)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/72425
+# expected archive: E:/My Skyrim mods/Objects/2-4k. New Hagraven and Glenmoril Witch-72425-1-0-0-1659550459.zip
+# unresolved: 2-4k. New Hagraven and Glenmoril Witch (User Interface)
++ local path="E:\Games\Tsukiro2\Downloads\The Streets of Whiterun in HD - 2k Mossier-20396-1-0.rar" install="The Streets of Whiterun in HD"
++ local path="E:\Games\Tsukiro2\Downloads\A) FYX - Jorrvaskr-77355-1-0-4-1677410367.7z" install="FYX - Jorrvaskr"
++ local path="E:\Games\Tsukiro2\Downloads\FYX - 3D Whiterun Drawbridge Gate - SMIM-64645-1-0-2-1647976998.7z" install="FYX - 3D Whiterun Drawbridge Gate"
++ local path="E:\Games\Tsukiro2\Downloads\FYX - Candlehearth Hall Chimney - Icy Windhelm-65533-1-0-1648314944.7z" install="FYX - Candlehearth Hall Chimney"
++ local path="E:\Games\Tsukiro2\Downloads\ENB Lights For Aetherium Shards Patch-44553-1-1-1630558790.7z" install="Improved Dwemer Glass"
++ local path="E:\Games\Tsukiro2\Downloads\Dwemer Automatons Glowmapped 3-48724-3-1633235968.rar" install="Dwemer Automatons Glowmapped"
++ local path="E:\Games\Tsukiro2\Downloads\Dwemer Tech Glowmapped 2.2-47802-2-2-1618240357.rar" install="Dwemer Tech Glowmapped"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/82728
+# expected archive: C:/Users/lesli/Downloads/Markarth Fixed AF-82728-1-4-1-1706640280.rar
+# unresolved: Markarth Fixed AF (User Interface)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/68815
+# expected archive: C:/Users/lesli/Downloads/Stony AF Markarth and Dwemer Ruins 4K-68815-2-2-1685892893.zip
+# unresolved: Stony AF Markarth and Dwemer Ruins 4K (User Interface)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/101694
+# expected archive: Northern Roads Resculpted - Reach Bridge Fix-101694-1-0-1696721732.zip
+# unresolved: Northern Roads Resculpted Reach Bridge Fix (User Interface)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/67026
+# expected archive: E:/My Skyrim mods/Objects/JS Dwemer Kitchenware SE - 2k Textures-67026-1-0-1650800588.7z
+# unresolved: JS Dwemer Kitchenware SE - 2k Textures (User Interface)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/67162
+# expected archive: E:/My Skyrim mods/Objects/JS Dwemer Ichor Barrels SE - 2k Textures-67162-1-01-1651062610.7z
+# unresolved: JS Dwemer Ichor Barrels SE (User Interface)
++ local path="E:\Games\Tsukiro2\Downloads\1_Ancient Dwemer Metal 2K-75610-1-01.7z" install="Ancient Dwemer Metal"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/38845
+# expected archive: 1_Ancient Dwemer Metal - My patches - Converted meshes-38845-Update-Final-v5-1646766980.7z
+# unresolved: Ancient Dwemer Metal - My patches - Converted meshes to SE and AE (User Interface)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/38845
+# expected archive: Ancient Dwemer Metal - My patches - ANNIVERSARY EDITION-38845-AE-v3-1655122805.7z
+# unresolved: Ancient Dwemer Metal - My patches - ANNIVERSARY EDITION (User Interface)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/38845
+# expected archive: Ancient Dwemer Metal - My patches - FINAL SE VERSION Update v6-38845-Update-Final-v6-1668798404.7z
+# unresolved: Ancient Dwemer Metal - My patches - FINAL SE VERSION (User Interface)
++ local path="E:\Games\Tsukiro2\Downloads\Ancient Dwemer Metal - My patches - Mrf's Markarth-38845-MrfsM-v1-1659391449.7z" install="Ancient Dwemer Metal - My patches - Mrf's Markarth"
++ local path="E:\Games\Tsukiro2\Downloads\Ancient Dwemer Metal - My patches - Skyrim Sewers-38845-SS-v1-1617631860.7z" install="Ancient Dwemer Metal - My patches - Skyrim Sewers"
++ local path="E:\Games\Tsukiro2\Downloads\CWE bug fixes-93778-1-3-5-1744394713.zip" install="Capital Windhelm Expansion Eastern gate blackscreen and other fixes"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/60670
+# expected archive: E:/My Skyrim mods/Town, City, Places/RYFTEN DOWN - 1A FULL-60670-1-1-4-1770195521.7z
+# unresolved: RYFTEN DOWN - 1A FULL (User Interface)
++ local path="E:\Games\Tsukiro2\Downloads\Project Porthole-149931-2-2-1747765932.zip" install="Project Porthole - Unique Doors For Unique Cities"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/67444
+# expected archive: Tundra Homestead-67444-1-0-0-1655329015.7z
+# unresolved: Homes Under the Warhammer (User Interface)
