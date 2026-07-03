@@ -1,0 +1,3 @@
+separator "Nexus Two File Test"
++ nexus skyrimspecialedition 170576 file_id=713025 url="https://www.nexusmods.com/skyrimspecialedition/mods/170576?tab=files&file_id=713025" install="Bishop Armor 3BA-BHUNP-CBBE-UNP"
++ nexus skyrimspecialedition 170449 file_id=712493 url="https://www.nexusmods.com/skyrimspecialedition/mods/170449?tab=files&file_id=712493" install="ELLE - Wayfarer Navi"

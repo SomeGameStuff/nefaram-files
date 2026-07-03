@@ -1,0 +1,4 @@
+# Example manifest for dry-run testing.
+separator "Shared Group"
+- nexus skyrimspecialedition 16495 file_id=123456 install="JContainers SE"
++ manual url="https://example.com/Example.zip" install="Manual Example"
