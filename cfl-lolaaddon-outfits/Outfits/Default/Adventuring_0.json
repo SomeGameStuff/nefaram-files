@@ -2,20 +2,20 @@
 	"formList": {
 		"1": [
 			"0x89f|[COCO] RONIN.esp",
-			"0x89e|[COCO] RONIN.esp",
 			"0x899|[COCO] RONIN.esp",
-			"0x8c4|[COCO] RONIN.esp"
+			"0x8b6|[COCO] RONIN.esp",
+			"0x8b5|[COCO] RONIN.esp"
 		],
 		"2": [
 			"0x855|[COCO]Goddess War v2.esp",
 			"0x856|[COCO]Goddess War v2.esp",
 			"0x859|[COCO]Goddess War v2.esp",
-			"0x85c|[COCO]Goddess War v2.esp",
 			"0x85e|[COCO]Goddess War v2.esp"
 		],
 		"3": [
 			"0x869|[COCO] Mulan.esp",
 			"0x86b|[COCO] Mulan.esp",
+			"0x857|[COCO] Mulan.esp",
 			"0x84b|[COCO] Mulan.esp"
 		]
 	},
@@ -30,8 +30,8 @@
 		]
 	},
 	"string": {
-		"1": "ronin",
-		"2": "goddess",
+		"1": "ronin black",
+		"2": "goddessV2",
 		"3": "mulan"
 	}
 }
