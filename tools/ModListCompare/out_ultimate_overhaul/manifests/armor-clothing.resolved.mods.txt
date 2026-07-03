@@ -1,12 +1,16 @@
 ﻿separator "armor-clothing"
-+ local path="E:\Games\Tsukiro2\Downloads\Dynamic Armor Variants for Skyrim 1.5-88302-1-0-5-SE-2-1739481651.7z" install="Dynamic Armor Variants for Skyrim 1.5"
-+ local path="E:\Games\Tsukiro2\Downloads\Ancient Dwemer Metal - My patches - Guards Armor Replacer-38845-GAR-v2-1635335565.7z" install="Ancient Dwemer Metal - My patches - Guards Armor Replacer"
++ nexus skyrimspecialedition 88302 file_id=374241 url="https://www.nexusmods.com/skyrimspecialedition/mods/88302?tab=files&file_id=374241" install="Dynamic Armor Variants for Skyrim 1.5" download_file="Dynamic Armor Variants for Skyrim 1.5-88302-1-0-5-SE-2-1739481651.7z"
++ nexus skyrimspecialedition 38845 file_id=235994 url="https://www.nexusmods.com/skyrimspecialedition/mods/38845?tab=files&file_id=235994" install="Ancient Dwemer Metal - My patches - Guards Armor Replacer" download_file="Ancient Dwemer Metal - My patches - Guards Armor Replacer-38845-GAR-v2-1635335565.7z"
 + nexus skyrimspecialedition 124613 file_id=523476 url="https://www.nexusmods.com/skyrimspecialedition/mods/124613?tab=files&file_id=523476" install="Vindicator Armor 8k Complex Material" download_file="Vindicator Armor 8k Complex Material-124613-1-0-1721579046.7z"
-+ local path="E:\Games\Tsukiro2\Downloads\RAW SSE - 4K-2K-19666-3-0-1539568268.7z" install="RUSTIC ARMOR and WEAPONS SE"
-+ local path="E:\Games\Tsukiro2\Downloads\Thieves Guild Armors Retexture SE - Half Res-98561-1-0-1692363044.rar" install="Thieves Guild Armors Retexture SE"
-+ local path="E:\Games\Tsukiro2\Downloads\Dark Brotherhood Armors Retexture SE - Half Res-93890-1-0-1687267159.rar" install="Dark Brotherhood Armors Retexture SE"
++ nexus skyrimspecialedition 19666 file_id=69262 url="https://www.nexusmods.com/skyrimspecialedition/mods/19666?tab=files&file_id=69262" install="RUSTIC ARMOR and WEAPONS SE" download_file="RAW SSE - 4K-2K-19666-3-0-1539568268.7z"
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/98561
+# expected archive: Thieves Guild Armors Retexture SE - Half Res-98561-1-0-1692363044.rar
+# unresolved (no files returned by Nexus): Thieves Guild Armors Retexture SE (Quests - New)
+# nexus page: https://www.nexusmods.com/skyrimspecialedition/mods/93890
+# expected archive: Dark Brotherhood Armors Retexture SE - Half Res-93890-1-0-1687267159.rar
+# unresolved (no files returned by Nexus): Dark Brotherhood Armors Retexture SE (Quests - New)
 + nexus skyrimspecialedition 19663 file_id=64544 url="https://www.nexusmods.com/skyrimspecialedition/mods/19663?tab=files&file_id=64544" install="Frankly HD Dawnguard Armor and Weapons" download_file="Frankly HD Dawnguard Armor CBBE SE-19663-1-2.7z"
-+ local path="E:\Games\Tsukiro2\Downloads\Bruma Outfits for Skyrim Imperials-48783-1-0-1618860792.rar" install="Bruma Outfits for Skyrim Imperials (SPID Version)"
++ nexus skyrimspecialedition 48783 file_id=199107 url="https://www.nexusmods.com/skyrimspecialedition/mods/48783?tab=files&file_id=199107" install="Bruma Outfits for Skyrim Imperials (SPID Version)" download_file="Bruma Outfits for Skyrim Imperials-48783-1-0-1618860792.rar"
 + nexus skyrimspecialedition 50446 file_id=244770 url="https://www.nexusmods.com/skyrimspecialedition/mods/50446?tab=files&file_id=244770" install="Deze Clothing - Update" download_file="Deze Clothing - Update-50446-2-1-1638008882.7z"
 + nexus skyrimspecialedition 81321 file_id=353417 url="https://www.nexusmods.com/skyrimspecialedition/mods/81321?tab=files&file_id=353417" install="[A] Deze Clothing Set - CBBE 3BA UniString Edits" download_file="Deze Clothing Set - CBBE 3BA UniString Edits-81321-1-5-1674787604.7z"
 + nexus skyrimspecialedition 112927 file_id=476822 url="https://www.nexusmods.com/skyrimspecialedition/mods/112927?tab=files&file_id=476822" install="(Update) HDT-SMP Einherjr Dress Patch for 3BA" download_file="(Update) HDT-SMP Einherjr Dress Patch for 3BA-112927-1-1-1709529306.rar"

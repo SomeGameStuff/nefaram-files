@@ -42,18 +42,18 @@ foreach (var row in rows)
 {
     var installName = row.Get("SourceMod");
     var archivePath = row.Get("ArchivePath");
-    if (!string.IsNullOrWhiteSpace(archivePath))
-    {
-        output.AppendLine($"+ local path=\"{archivePath}\" install=\"{Escape(installName)}\"");
-        local++;
-        continue;
-    }
-
     var nexusId = row.Get("NexusID");
     var nexusUrl = row.Get("NexusURL");
     var expectedFile = ExpectedFileName(row.Get("DownloadFile"));
     if (!long.TryParse(nexusId, NumberStyles.Integer, CultureInfo.InvariantCulture, out var modId) || modId <= 0)
     {
+        if (!string.IsNullOrWhiteSpace(archivePath))
+        {
+            output.AppendLine($"+ local path=\"{archivePath}\" install=\"{Escape(installName)}\"");
+            local++;
+            continue;
+        }
+
         WriteUnresolved(output, row, "missing Nexus mod id");
         unresolved++;
         continue;
