@@ -393,6 +393,10 @@ internal sealed class Installer(IInstallLog log)
             if (!request.Overwrite)
             {
                 log.Info($"Skip existing mod folder: {mod.InstallName}");
+                if (!request.DryRun && mod.Source == ModSource.Nexus)
+                {
+                    WriteNexusMetaIni(destination, mod);
+                }
                 return true;
             }
 
@@ -426,6 +430,7 @@ internal sealed class Installer(IInstallLog log)
                 Directory.CreateDirectory(destination);
                 await ArchiveExtractor.ExtractAsync(archive, destination, wabbajackCli, token);
                 NormalizeExtractedModFolder(destination);
+                WriteNexusMetaIni(destination, mod);
             }
 
             return true;
@@ -470,6 +475,55 @@ internal sealed class Installer(IInstallLog log)
         }
 
         return true;
+    }
+
+    private static void WriteNexusMetaIni(string destination, ModEntry mod)
+    {
+        var modId = mod.Fields.GetValueOrDefault("mod_id");
+        var fileId = mod.Fields.GetValueOrDefault("file_id");
+        if (string.IsNullOrWhiteSpace(modId) || string.IsNullOrWhiteSpace(fileId))
+        {
+            return;
+        }
+
+        var version = mod.Fields.GetValueOrDefault("version") ?? "";
+        var installationFile = mod.Fields.GetValueOrDefault("download_file") ?? mod.FileName ?? "";
+        if (!string.IsNullOrWhiteSpace(installationFile))
+        {
+            installationFile = Path.GetFileName(installationFile.Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar));
+        }
+
+        var lines = new[]
+        {
+            "[General]",
+            "gameName=SkyrimSE",
+            $"modid={modId}",
+            $"version={version}",
+            $"newestVersion={version}",
+            "category=\"\"",
+            "nexusFileStatus=1",
+            $"installationFile={installationFile}",
+            "repository=Nexus",
+            "ignoredVersion=",
+            "comments=",
+            "notes=",
+            "url=",
+            "hasCustomURL=false",
+            $"lastNexusQuery={DateTime.UtcNow:yyyy-MM-ddTHH:mm:ssZ}",
+            "converted=false",
+            "validated=false",
+            "tracked=0",
+            "endorsed=0",
+            "nexusCategory=0",
+            "",
+            "[installedFiles]",
+            $"1\\modid={modId}",
+            $"1\\fileid={fileId}",
+            "size=1",
+            ""
+        };
+
+        File.WriteAllLines(Path.Combine(destination, "meta.ini"), lines, Encoding.UTF8);
     }
 
     private static void NormalizeExtractedModFolder(string destination)
