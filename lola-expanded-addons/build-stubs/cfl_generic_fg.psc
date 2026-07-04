@@ -1,0 +1,1 @@
+Scriptname cfl_generic_fg extends Quest

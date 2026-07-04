@@ -134,6 +134,19 @@ Function SetReferences()
     cfg = cfl_config.GetConfig()
 EndFunction
 
+Function Init()
+    SetReferences()
+    ResetModEvents()
+    if IsSubmissiveLolaRunning()
+        LolaStartDetected()
+    endif
+    LME_StartScheduler()
+    LBP_StartScheduler()
+    LCC_StartScheduler()
+    LBT_StartScheduler()
+    LCL_StartScheduler()
+EndFunction
+
 Function RegisterEvents()
     cfg.Log("Register Events for Lola Monitor")
     RegisterForModEvent("cfeLola_TechReloadReferences", "OnReloadReferences")

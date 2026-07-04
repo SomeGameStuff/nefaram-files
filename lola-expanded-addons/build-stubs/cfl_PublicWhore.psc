@@ -1,0 +1,1 @@
+Scriptname cfl_PublicWhore extends Quest
