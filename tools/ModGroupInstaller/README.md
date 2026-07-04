@@ -23,7 +23,7 @@ dotnet publish .\tools\ModGroupInstaller\ModGroupInstaller.csproj `
   --self-contained true `
   -p:PublishSingleFile=true `
   -p:IncludeNativeLibrariesForSelfExtract=true `
-  -o artifacts\ModGroupInstaller-v0.1.0-win-x64
+  -o artifacts\ModGroupInstaller-v0.2.0-win-x64
 ```
 
 ## CLI
@@ -32,7 +32,7 @@ Dry-run the included Nexus example:
 
 ```powershell
 .\tools\ModGroupInstaller\bin\Release\net9.0-windows\ModGroupInstaller.exe `
-  --mo2 C:\Games\nefaram `
+  --mo2 "D:\Modding\MO2" `
   --manifest .\tools\ModGroupInstaller\examples\nexus-two-file-test.mods.txt `
   --dry-run
 ```
@@ -41,7 +41,7 @@ Run the install:
 
 ```powershell
 .\tools\ModGroupInstaller\bin\Release\net9.0-windows\ModGroupInstaller.exe `
-  --mo2 C:\Games\nefaram `
+  --mo2 "D:\Modding\MO2" `
   --manifest .\tools\ModGroupInstaller\examples\nexus-two-file-test.mods.txt
 ```
 
