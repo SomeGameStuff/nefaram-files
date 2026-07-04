@@ -13,6 +13,7 @@ Bool Property LME_AssignmentActive = False Auto
 Float Property LME_AssignmentStarted = 0.0 Auto
 Float Property LME_NextEventTime = 0.0 Auto
 Int Property LME_RequiredMilk = 0 Auto
+Float Property LME_LastReminderTime = 0.0 Auto
 
 Float Property LBP_NextEventTime = 0.0 Auto
 Float Property LCC_NextEventTime = 0.0 Auto
@@ -78,6 +79,7 @@ Event OnInit()
     LCC_StartScheduler()
     LBT_StartScheduler()
     LCL_StartScheduler()
+    LEA_ShowOwnerLine("I have some new uses for you. When I decide you need changing, you will obey.", LBP_GetBool("body.showNotifications", true) || LME_GetBool("milk.showNotifications", true))
 EndEvent
 
 Event OnReloadReferences()
@@ -89,6 +91,7 @@ Event OnReloadReferences()
     LCC_StartScheduler()
     LBT_StartScheduler()
     LCL_StartScheduler()
+    LEA_ShowOwnerLine("I have some new uses for you. When I decide you need changing, you will obey.", LBP_GetBool("body.showNotifications", true) || LME_GetBool("milk.showNotifications", true))
 EndEvent
 
 Event OnSLTR_Exit(String eventName, Form ownerActor, float score, float daysEnslaved)
@@ -145,6 +148,13 @@ Function Init()
     LCC_StartScheduler()
     LBT_StartScheduler()
     LCL_StartScheduler()
+EndFunction
+
+Function LEA_ShowOwnerLine(string lineText, bool showLine = true)
+    if !showLine || lineText == ""
+        return
+    endif
+    Debug.Notification("Owner: \"" + lineText + "\"")
 EndFunction
 
 Function RegisterEvents()
@@ -853,6 +863,7 @@ EndFunction
 Function LME_StopScheduler()
     UnregisterForUpdateGameTime()
     LME_AssignmentActive = False
+    LME_LastReminderTime = 0.0
 EndFunction
 
 Function LCC_StartScheduler()
@@ -1060,9 +1071,7 @@ bool Function LME_ShouldOwnerMilkPlayer()
 EndFunction
 
 Function LME_DoOwnerMilking()
-    if LME_GetBool("milk.showNotifications", true)
-        Debug.Notification("Your owner notices how full you are and decides to milk you.")
-    endif
+    LEA_ShowOwnerLine("You are full enough. Come here and let me milk you.", LME_GetBool("milk.showNotifications", true))
     LME_StartMilkingNow()
 EndFunction
 
@@ -1073,9 +1082,7 @@ Function LME_DoLactacidDose()
         return
     endif
 
-    if LME_GetBool("milk.showNotifications", true)
-        Debug.Notification("Your owner decides you should be more productive and makes you drink Lactacid.")
-    endif
+    LEA_ShowOwnerLine("Drink this. I expect you to be more productive for me.", LME_GetBool("milk.showNotifications", true))
 
     Debug.SendAnimationEvent(playerRef, "IdleDrinkPotion")
     playerRef.AddItem(lactacid, 1, True)
@@ -1108,9 +1115,12 @@ Function LME_StartMilkAssignment()
 
     LME_AssignmentActive = True
     LME_AssignmentStarted = Utility.GetCurrentGameTime()
+    LME_LastReminderTime = LME_AssignmentStarted
 
     if LME_GetBool("milk.showNotifications", true)
-        Debug.Notification("Your owner orders you to bring back " + LME_RequiredMilk + " bottle(s) of your milk.")
+        int timeoutHours = LME_GetAssignmentTimeoutHours()
+        LEA_ShowOwnerLine("You are going to be my milk maid. Bring me " + LME_RequiredMilk + " bottle(s) of your milk within " + timeoutHours + " hours.", true)
+        Debug.Notification("Milk quota: 0/" + LME_RequiredMilk + " bottle(s), " + timeoutHours + "h remaining. Return to your owner.")
     endif
 
     if LME_GetBool("milk.forceStartMilking", false)
@@ -1140,13 +1150,17 @@ Function LME_CheckAssignment()
     endif
 
     float timeoutDays = LME_GetFloat("milk.assignmentTimeoutHours", 48.0) / 24.0
-    if Utility.GetCurrentGameTime() > LME_AssignmentStarted + timeoutDays
+    float now = Utility.GetCurrentGameTime()
+    if now > LME_AssignmentStarted + timeoutDays
         LME_AssignmentActive = False
+        LME_LastReminderTime = 0.0
         if LME_GetBool("milk.showNotifications", true)
-            Debug.Notification("You failed to deliver your owner's milk quota in time.")
+            LEA_ShowOwnerLine("You missed your milk quota. I will remember that.", true)
         endif
         return
     endif
+
+    LME_ShowAssignmentReminder()
 
     if playerRef.GetDistance(ownerRef) > LME_GetFloat("milk.turnInDistance", 500.0)
         return
@@ -1155,11 +1169,72 @@ Function LME_CheckAssignment()
     if LME_CountMilkItems(playerRef) >= LME_RequiredMilk
         LME_RemoveMilkItems(playerRef, LME_RequiredMilk)
         LME_AssignmentActive = False
+        LME_LastReminderTime = 0.0
         if LME_GetBool("milk.showNotifications", true)
-            Debug.Notification("Your owner accepts the milk and seems satisfied with your usefulness.")
+            LEA_ShowOwnerLine("Good. You can be useful when you remember what you are for.", true)
         endif
     elseif LME_GetBool("milk.showProgressNotifications", false)
-        Debug.Notification("Milk quota: " + LME_CountMilkItems(playerRef) + "/" + LME_RequiredMilk)
+        Debug.Notification(LME_GetAssignmentStatusText())
+    endif
+EndFunction
+
+int Function LME_GetAssignmentTimeoutHours()
+    int timeoutHours = LME_GetFloat("milk.assignmentTimeoutHours", 48.0) as int
+    if timeoutHours < 1
+        timeoutHours = 1
+    endif
+    return timeoutHours
+EndFunction
+
+int Function LME_GetAssignmentHoursRemaining()
+    if !LME_AssignmentActive
+        return 0
+    endif
+    float timeoutDays = LME_GetFloat("milk.assignmentTimeoutHours", 48.0) / 24.0
+    float endTime = LME_AssignmentStarted + timeoutDays
+    float remaining = endTime - Utility.GetCurrentGameTime()
+    if remaining <= 0.0
+        return 0
+    endif
+    int hours = (remaining * 24.0) as int
+    if hours < 1
+        return 1
+    endif
+    return hours
+EndFunction
+
+string Function LME_GetAssignmentStatusText()
+    if !LME_GetBool("milk.enabled", true)
+        return "Milk Economy disabled"
+    endif
+    if !LME_IsReady()
+        return "Milk Economy missing or waiting"
+    endif
+    if !LME_AssignmentActive
+        return "No active quota"
+    endif
+    return "Milk quota: " + LME_CountMilkItems(cfg.Player) + "/" + LME_RequiredMilk + ", " + LME_GetAssignmentHoursRemaining() + "h remaining"
+EndFunction
+
+string Function LME_GetAssignmentDetailText()
+    if !LME_AssignmentActive
+        return "No active milk quota.\n\nWhen the owner assigns one, this page will show the required bottles and time remaining."
+    endif
+    return LME_GetAssignmentStatusText() + "\n\nBring that many milk bottles back to your owner before the timer expires. You can milk yourself through Milk Mod Economy, or let owner milking start when you are nearby and full enough."
+EndFunction
+
+Function LME_ShowAssignmentReminder()
+    if !LME_GetBool("milk.showNotifications", true)
+        return
+    endif
+    float reminderDays = LME_GetFloat("milk.assignmentReminderHours", 6.0) / 24.0
+    if reminderDays <= 0.0
+        return
+    endif
+    float now = Utility.GetCurrentGameTime()
+    if LME_LastReminderTime <= 0.0 || now >= LME_LastReminderTime + reminderDays
+        LME_LastReminderTime = now
+        Debug.Notification(LME_GetAssignmentStatusText())
     endif
 EndFunction
 
@@ -1389,9 +1464,9 @@ Function LBP_SayNewMood(bool shrink)
     endif
 
     if shrink
-        Debug.Notification("Your owner has settled into a mood for making you smaller.")
+        LEA_ShowOwnerLine("I think I want you smaller for a while. Easier to handle.", true)
     else
-        Debug.Notification("Your owner has settled into a mood for making you bigger.")
+        LEA_ShowOwnerLine("I think I want you bigger for a while. More of you to admire and use.", true)
     endif
 EndFunction
 
@@ -1403,20 +1478,20 @@ Function LBP_SayOwnerIntent(bool shrink)
     if shrink
         int line = Utility.RandomInt(0, 2)
         if line == 0
-            Debug.Notification("Your owner decides you have gotten much too big.")
+            LEA_ShowOwnerLine("You have gotten much too big. We will fix that.", true)
         elseif line == 1
-            Debug.Notification("Your owner makes you drink something to reduce you.")
+            LEA_ShowOwnerLine("Drink this. I want you reduced.", true)
         else
-            Debug.Notification("Your owner wants you smaller and easier to manage.")
+            LEA_ShowOwnerLine("Smaller will suit you. Easier to manage, easier to keep.", true)
         endif
     else
         int lineBig = Utility.RandomInt(0, 2)
         if lineBig == 0
-            Debug.Notification("Your owner decides you should be much bigger.")
+            LEA_ShowOwnerLine("You should be much bigger for me.", true)
         elseif lineBig == 1
-            Debug.Notification("Your owner smiles and feeds you a growth elixir.")
+            LEA_ShowOwnerLine("Open your mouth. This should make you grow nicely.", true)
         else
-            Debug.Notification("Your owner wants your body to become harder to ignore.")
+            LEA_ShowOwnerLine("I want your body harder to ignore.", true)
         endif
     endif
 EndFunction

@@ -22,6 +22,7 @@ int OID_LEA_FertilityChance
 int OID_LEA_FertilityCooldown
 int OID_LEA_FertilityDirect
 int OID_LEA_MilkEnabled
+int OID_LEA_MilkStatus
 int OID_LEA_MilkChance
 int OID_LEA_MilkCooldown
 int OID_LEA_MilkQuota
@@ -507,6 +508,37 @@ string Function LEA_GetBodyStatusText()
     return "Ready/checking"
 EndFunction
 
+string Function LEA_GetMilkStatusText()
+    if !LEA_GetBool("milk.enabled", true)
+        return "Disabled"
+    endif
+    if Game.GetFormFromFile(0x0343F2, "MilkModNEW.esp") == None
+        return "Missing Milk Mod Economy"
+    endif
+    if config == None
+        return "Config missing"
+    endif
+    if !config.cflLolaActive
+        return "Waiting for Lola"
+    endif
+    if config.Owner == None || config.Player == None
+        return "Owner/player missing; reinit"
+    endif
+    cfl_LolaMonitor monitor = Quest.GetQuest("cfl_Config") as cfl_LolaMonitor
+    if monitor == None
+        return "Monitor missing; reinit"
+    endif
+    return monitor.LME_GetAssignmentStatusText()
+EndFunction
+
+string Function LEA_GetMilkDetailText()
+    cfl_LolaMonitor monitor = Quest.GetQuest("cfl_Config") as cfl_LolaMonitor
+    if monitor == None
+        return "Milk Economy monitor is missing. Use Reinit All Scripts while Lola ownership is active."
+    endif
+    return monitor.LME_GetAssignmentDetailText()
+EndFunction
+
 Function LEA_Page_Addons()
     LEA_InitMenus()
     AddHeaderOption("Forced Adventuring", OPTION_FLAG_NONE)
@@ -527,6 +559,7 @@ Function LEA_Page_Addons()
 
     AddHeaderOption("Milk Economy", OPTION_FLAG_NONE)
     OID_LEA_MilkEnabled = AddToggleOption("Enabled", LEA_GetBool("milk.enabled", true), OPTION_FLAG_NONE)
+    OID_LEA_MilkStatus = AddTextOption("Status", LEA_GetMilkStatusText(), OPTION_FLAG_NONE)
     OID_LEA_MilkChance = AddSliderOption("Chance", LEA_GetFloat("milk.dailyChance", 35.0), "{0}%", OPTION_FLAG_NONE)
     OID_LEA_MilkCooldown = AddSliderOption("Cooldown hours", LEA_GetFloat("milk.cooldownHours", 24.0), "{0}", OPTION_FLAG_NONE)
     OID_LEA_MilkQuota = AddSliderOption("Milk quota", LEA_GetFloat("milk.assignmentMilkCount", 2.0), "{0}", OPTION_FLAG_NONE)
@@ -600,6 +633,8 @@ bool Function LEA_OnHighlight(int option)
         SetInfoText("Shows whether the fertility drug hook is ready, cooling down, missing Fertility Mode, or needs script reinit.")
     elseif option == OID_LEA_FertilityDirect
         SetInfoText("Uses Fertility Mode's direct pregnancy spell instead of insemination. Leave off for normal Fertility Mode chance.")
+    elseif option == OID_LEA_MilkStatus
+        SetInfoText("Shows the active milk quota, current bottles, and remaining time.")
     elseif option == OID_LEA_MilkQuota
         SetInfoText("Number of milk bottles required for owner milk quota assignments.")
     elseif option == OID_LEA_MilkOwnerMilking
@@ -693,6 +728,8 @@ bool Function LEA_OnSelect(int option)
         Debug.MessageBox("Fertility Drug Trick: " + LEA_GetFertilityStatusText() + "\n\nIf this says hook missing or remains wrong after enabling Lola, use Reinit All Scripts.")
     elseif option == OID_LEA_BodyStatus
         Debug.MessageBox("Body Potion Routine: " + LEA_GetBodyStatusText() + "\n\nIf this says not scheduled while Lola ownership is active, use Reinit All Scripts.")
+    elseif option == OID_LEA_MilkStatus
+        Debug.MessageBox("Milk Economy: " + LEA_GetMilkStatusText() + "\n\n" + LEA_GetMilkDetailText())
     elseif option == OID_LEA_FertilityEnabled
         bool valueFertility = !LEA_GetBool("fertility.enabled", true)
         LEA_SetBool("fertility.enabled", valueFertility)
