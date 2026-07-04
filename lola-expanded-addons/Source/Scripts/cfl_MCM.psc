@@ -17,6 +17,7 @@ int OID_LEA_TreasureFallbackMode
 int OID_LEA_TreasureMinGold
 int OID_LEA_TreasureMinValue
 int OID_LEA_FertilityEnabled
+int OID_LEA_FertilityStatus
 int OID_LEA_FertilityChance
 int OID_LEA_FertilityCooldown
 int OID_LEA_FertilityDirect
@@ -29,6 +30,7 @@ int OID_LEA_MilkOwnerChance
 int OID_LEA_MilkOwnerThreshold
 int OID_LEA_MilkOwnerDistance
 int OID_LEA_BodyEnabled
+int OID_LEA_BodyStatus
 int OID_LEA_BodyChance
 int OID_LEA_BodyCooldown
 int OID_LEA_BodyMoodPolicy
@@ -47,6 +49,22 @@ int OID_LEA_BathCumThreshold
 int OID_LEA_BathDirtStage
 int OID_LEA_BathTimeout
 int OID_LEA_BathRequireTown
+int OID_LEA_ClothesEnabled
+int OID_LEA_ClothesTownRule
+int OID_LEA_ClothesBoredom
+int OID_LEA_ClothesBoredomChance
+int OID_LEA_ClothesBoredomCooldown
+int OID_LEA_ClothesDeadline
+int OID_LEA_ClothesOwnerDistance
+int OID_LEA_ClothesStrictArmor
+int OID_LEA_ClothesAutoEquip
+int OID_LEA_ClothesPunish
+int OID_LEA_ClothesLoaner
+int OID_LEA_ClothesLoanerChance
+int OID_LEA_ClothesLoanerDays
+int OID_LEA_ClothesLoanerRecall
+int OID_LEA_ClothesLoanerLingerie
+int OID_LEA_ClothesLoanerPunishMissing
 int OID_LEA_HairStatus
 int OID_LEA_HairSeed
 int OID_LEA_HairClear
@@ -424,6 +442,71 @@ string Function LEA_GetTreasureFallbackModeName()
     return "Valuable Loot"
 EndFunction
 
+string Function LEA_GetFertilityStatusText()
+    if !LEA_GetBool("fertility.enabled", true)
+        return "Disabled"
+    endif
+    if !LEA_GetBool("fertility.allowPotionTrigger", true)
+        return "Potion trigger off"
+    endif
+    if Game.GetFormFromFile(0x0156C0, "Fertility Mode.esm") == None
+        return "Missing Fertility Mode"
+    endif
+    if config == None
+        return "Config missing"
+    endif
+    if config.Drugs == None
+        return "Drug hook missing; reinit"
+    endif
+    if !config.cflLolaActive
+        return "Waiting for Lola"
+    endif
+    int chance = LEA_GetInt("fertility.triggerChance", 15)
+    if chance < 1
+        return "Chance is 0%"
+    endif
+    float now = Utility.GetCurrentGameTime()
+    float nextAllowed = JsonUtil.GetFloatValue(LEAConfigPath, "fertility.nextAllowedGameDay", 0.0)
+    if now < nextAllowed
+        return "Cooldown " + (((nextAllowed - now) * 24.0) as int) + "h"
+    endif
+    return "Ready on drug trick"
+EndFunction
+
+string Function LEA_GetBodyStatusText()
+    if !LEA_GetBool("body.enabled", true)
+        return "Disabled"
+    endif
+    if Game.GetFormFromFile(0x000806, "TransformativeElixirs.esp") == None
+        return "Missing elixirs"
+    endif
+    if config == None
+        return "Config missing"
+    endif
+    if !config.cflLolaActive
+        return "Waiting for Lola"
+    endif
+    if config.Owner == None || config.Player == None
+        return "Owner/player missing; reinit"
+    endif
+    cfl_LolaMonitor monitor = Quest.GetQuest("cfl_Config") as cfl_LolaMonitor
+    if monitor == None
+        return "Monitor missing; reinit"
+    endif
+    if monitor.LBP_NextEventTime <= 0.0
+        return "Not scheduled; reinit"
+    endif
+    int chance = LEA_GetInt("body.eventChance", 35)
+    if chance < 1
+        return "Chance is 0%"
+    endif
+    float now = Utility.GetCurrentGameTime()
+    if now < monitor.LBP_NextEventTime
+        return "Next check " + (((monitor.LBP_NextEventTime - now) * 24.0) as int) + "h"
+    endif
+    return "Ready/checking"
+EndFunction
+
 Function LEA_Page_Addons()
     LEA_InitMenus()
     AddHeaderOption("Forced Adventuring", OPTION_FLAG_NONE)
@@ -437,6 +520,7 @@ Function LEA_Page_Addons()
 
     AddHeaderOption("Fertility Drug Trick", OPTION_FLAG_NONE)
     OID_LEA_FertilityEnabled = AddToggleOption("Enabled", LEA_GetBool("fertility.enabled", true), OPTION_FLAG_NONE)
+    OID_LEA_FertilityStatus = AddTextOption("Status", LEA_GetFertilityStatusText(), OPTION_FLAG_NONE)
     OID_LEA_FertilityChance = AddSliderOption("Chance", LEA_GetFloat("fertility.triggerChance", 15.0), "{0}%", OPTION_FLAG_NONE)
     OID_LEA_FertilityCooldown = AddSliderOption("Cooldown hours", LEA_GetFloat("fertility.cooldownHours", 72.0), "{0}", OPTION_FLAG_NONE)
     OID_LEA_FertilityDirect = AddToggleOption("Direct pregnancy", LEA_GetBool("fertility.allowDirectPregnancy", false), OPTION_FLAG_NONE)
@@ -453,6 +537,7 @@ Function LEA_Page_Addons()
 
     AddHeaderOption("Body Potion Routine", OPTION_FLAG_NONE)
     OID_LEA_BodyEnabled = AddToggleOption("Enabled", LEA_GetBool("body.enabled", true), OPTION_FLAG_NONE)
+    OID_LEA_BodyStatus = AddTextOption("Status", LEA_GetBodyStatusText(), OPTION_FLAG_NONE)
     OID_LEA_BodyChance = AddSliderOption("Chance", LEA_GetFloat("body.eventChance", 35.0), "{0}%", OPTION_FLAG_NONE)
     OID_LEA_BodyCooldown = AddSliderOption("Cooldown hours", LEA_GetFloat("body.cooldownHours", 8.0), "{0}", OPTION_FLAG_NONE)
     OID_LEA_BodyMoodPolicy = AddMenuOption("Mood policy", LEA_GetBodyMoodPolicyName(), OPTION_FLAG_NONE)
@@ -476,6 +561,24 @@ Function LEA_Page_Addons()
     OID_LEA_BathTimeout = AddSliderOption("Cleanup deadline hours", LEA_GetFloat("bath.assignmentTimeoutHours", 1.0), "{0}", OPTION_FLAG_NONE)
     OID_LEA_BathRequireTown = AddToggleOption("Only in town", LEA_GetBool("bath.requireTown", true), OPTION_FLAG_NONE)
 
+    AddHeaderOption("Clothing Discipline", OPTION_FLAG_NONE)
+    OID_LEA_ClothesEnabled = AddToggleOption("Owner checks clothes", LEA_GetBool("clothes.enabled", true), OPTION_FLAG_NONE)
+    OID_LEA_ClothesTownRule = AddToggleOption("Clothes in town", LEA_GetBool("clothes.townRuleEnabled", true), OPTION_FLAG_NONE)
+    OID_LEA_ClothesBoredom = AddToggleOption("Owner gets bored", LEA_GetBool("clothes.boredomEnabled", true), OPTION_FLAG_NONE)
+    OID_LEA_ClothesBoredomChance = AddSliderOption("Boredom chance", LEA_GetFloat("clothes.boredomChance", 20.0), "{0}%", OPTION_FLAG_NONE)
+    OID_LEA_ClothesBoredomCooldown = AddSliderOption("Boredom cooldown hours", LEA_GetFloat("clothes.boredomCooldownHours", 72.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_ClothesDeadline = AddSliderOption("Change deadline hours", LEA_GetFloat("clothes.changeDeadlineHours", 2.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_ClothesOwnerDistance = AddSliderOption("Owner distance", LEA_GetFloat("clothes.ownerDistance", 700.0), "{0}", OPTION_FLAG_NONE)
+    OID_LEA_ClothesStrictArmor = AddToggleOption("Strict armor check", LEA_GetBool("clothes.strictArmorSlots", false), OPTION_FLAG_NONE)
+    OID_LEA_ClothesAutoEquip = AddToggleOption("Auto-equip outfit task", LEA_GetBool("clothes.autoEquipTownOutfit", false), OPTION_FLAG_NONE)
+    OID_LEA_ClothesPunish = AddToggleOption("Punish clothing failure", LEA_GetBool("clothes.punishOnFail", true), OPTION_FLAG_NONE)
+    OID_LEA_ClothesLoaner = AddToggleOption("Owner loans clothes", LEA_GetBool("clothes.loanerEnabled", true), OPTION_FLAG_NONE)
+    OID_LEA_ClothesLoanerChance = AddSliderOption("Loaner chance", LEA_GetFloat("clothes.loanerChance", 45.0), "{0}%", OPTION_FLAG_NONE)
+    OID_LEA_ClothesLoanerDays = AddSliderOption("Loaner wear days", LEA_GetFloat("clothes.loanerMinWearDays", 2.0), "{1}", OPTION_FLAG_NONE)
+    OID_LEA_ClothesLoanerRecall = AddSliderOption("Loaner recall chance", LEA_GetFloat("clothes.loanerRecallChance", 70.0), "{0}%", OPTION_FLAG_NONE)
+    OID_LEA_ClothesLoanerLingerie = AddToggleOption("Include lingerie loaners", LEA_GetBool("clothes.loanerIncludeLingerie", false), OPTION_FLAG_NONE)
+    OID_LEA_ClothesLoanerPunishMissing = AddToggleOption("Punish missing loaners", LEA_GetBool("clothes.loanerPunishMissing", true), OPTION_FLAG_NONE)
+
     AddHeaderOption("Hair Style Pool", OPTION_FLAG_NONE)
     OID_LEA_HairStatus = AddTextOption("Hair styles available", LEA_GetHairStatusText(), OPTION_FLAG_NONE)
     OID_LEA_HairSeed = AddTextOption("Seed Lola hair styles", "Click", OPTION_FLAG_NONE)
@@ -493,6 +596,8 @@ bool Function LEA_OnHighlight(int option)
         SetInfoText("Valuable Loot mode completes the treasure quest when this much gold is taken from a non-owned source container.")
     elseif option == OID_LEA_TreasureMinValue
         SetInfoText("Valuable Loot mode completes the treasure quest when the taken item stack is worth at least this much gold.")
+    elseif option == OID_LEA_FertilityStatus
+        SetInfoText("Shows whether the fertility drug hook is ready, cooling down, missing Fertility Mode, or needs script reinit.")
     elseif option == OID_LEA_FertilityDirect
         SetInfoText("Uses Fertility Mode's direct pregnancy spell instead of insemination. Leave off for normal Fertility Mode chance.")
     elseif option == OID_LEA_MilkQuota
@@ -507,6 +612,8 @@ bool Function LEA_OnHighlight(int option)
         SetInfoText("Maximum distance from the owner before automatic owner milking can start.")
     elseif option == OID_LEA_BodyMoodPolicy
         SetInfoText("Dynamic uses current size override. Bigger/Smaller forces the owner's weekly mood.")
+    elseif option == OID_LEA_BodyStatus
+        SetInfoText("Shows whether the Body Potion scheduler is active, waiting, missing Transformative Elixirs, or needs script reinit.")
     elseif option == OID_LEA_BodySizeOverride
         SetInfoText("-100 means very small, 0 neutral, 100 very large. Dynamic mood tends to push back toward the opposite direction.")
     elseif option == OID_LEA_BodyMoodDuration
@@ -535,6 +642,38 @@ bool Function LEA_OnHighlight(int option)
         SetInfoText("In-game hours the player has to clean up when ordered to do it themselves.")
     elseif option == OID_LEA_BathRequireTown
         SetInfoText("Requires Lola's town check before bathing orders can start.")
+    elseif option == OID_LEA_ClothesEnabled
+        SetInfoText("Lets the owner enforce town clothing and occasional changes of clothes.")
+    elseif option == OID_LEA_ClothesTownRule
+        SetInfoText("Requires a clothing body item, not light or heavy armor, while in towns.")
+    elseif option == OID_LEA_ClothesBoredom
+        SetInfoText("Lets the owner periodically decide your current clothes are stale and demand a different outfit.")
+    elseif option == OID_LEA_ClothesBoredomChance
+        SetInfoText("Chance that the owner demands a new outfit when the boredom cooldown expires.")
+    elseif option == OID_LEA_ClothesBoredomCooldown
+        SetInfoText("In-game hours between possible bored-of-your-clothes orders.")
+    elseif option == OID_LEA_ClothesDeadline
+        SetInfoText("In-game hours allowed to obey a clothing order before punishment can repeat.")
+    elseif option == OID_LEA_ClothesOwnerDistance
+        SetInfoText("Maximum distance from the owner before clothing checks can start or progress.")
+    elseif option == OID_LEA_ClothesStrictArmor
+        SetInfoText("When enabled, any worn light or heavy armor piece violates the town clothing rule. When disabled, only the body slot is checked.")
+    elseif option == OID_LEA_ClothesAutoEquip
+        SetInfoText("When the existing Outfit Task is already running, clothing orders can ask it to pick and equip a new outfit. This does not start the Outfit Task.")
+    elseif option == OID_LEA_ClothesPunish
+        SetInfoText("Applies a minimal Lola punishment when a clothing order is ignored past the deadline.")
+    elseif option == OID_LEA_ClothesLoaner
+        SetInfoText("Lets the owner loan a matching clothing set when ordering town clothes or a change of clothes.")
+    elseif option == OID_LEA_ClothesLoanerChance
+        SetInfoText("Chance that a clothing order includes a loaned outfit from the generated clothing pool.")
+    elseif option == OID_LEA_ClothesLoanerDays
+        SetInfoText("Minimum in-game days the player is expected to wear a loaned clothing set before recall can happen.")
+    elseif option == OID_LEA_ClothesLoanerRecall
+        SetInfoText("Chance per clothing check that the owner asks for loaned clothes back after the minimum wear time.")
+    elseif option == OID_LEA_ClothesLoanerLingerie
+        SetInfoText("Allows the loaner pool to include lingerie and humiliating tagged sets as well as ordinary revealing fashion.")
+    elseif option == OID_LEA_ClothesLoanerPunishMissing
+        SetInfoText("Applies a minimal Lola punishment if the owner recalls loaned clothes and pieces are missing.")
     elseif option == OID_LEA_HairStatus
         SetInfoText("Generated pool count / current Lola style count / styles seeded by this addon.")
     elseif option == OID_LEA_HairSeed
@@ -550,6 +689,10 @@ EndFunction
 bool Function LEA_OnSelect(int option)
     if option == OID_LEA_MissivesDetail
         Debug.MessageBox(LEA_GetMissivesDetailText())
+    elseif option == OID_LEA_FertilityStatus
+        Debug.MessageBox("Fertility Drug Trick: " + LEA_GetFertilityStatusText() + "\n\nIf this says hook missing or remains wrong after enabling Lola, use Reinit All Scripts.")
+    elseif option == OID_LEA_BodyStatus
+        Debug.MessageBox("Body Potion Routine: " + LEA_GetBodyStatusText() + "\n\nIf this says not scheduled while Lola ownership is active, use Reinit All Scripts.")
     elseif option == OID_LEA_FertilityEnabled
         bool valueFertility = !LEA_GetBool("fertility.enabled", true)
         LEA_SetBool("fertility.enabled", valueFertility)
@@ -582,6 +725,42 @@ bool Function LEA_OnSelect(int option)
         bool valueBathTown = !LEA_GetBool("bath.requireTown", true)
         LEA_SetBool("bath.requireTown", valueBathTown)
         SetToggleOptionValue(option, valueBathTown, false)
+    elseif option == OID_LEA_ClothesEnabled
+        bool valueClothes = !LEA_GetBool("clothes.enabled", true)
+        LEA_SetBool("clothes.enabled", valueClothes)
+        SetToggleOptionValue(option, valueClothes, false)
+    elseif option == OID_LEA_ClothesTownRule
+        bool valueTownClothes = !LEA_GetBool("clothes.townRuleEnabled", true)
+        LEA_SetBool("clothes.townRuleEnabled", valueTownClothes)
+        SetToggleOptionValue(option, valueTownClothes, false)
+    elseif option == OID_LEA_ClothesBoredom
+        bool valueBoredom = !LEA_GetBool("clothes.boredomEnabled", true)
+        LEA_SetBool("clothes.boredomEnabled", valueBoredom)
+        SetToggleOptionValue(option, valueBoredom, false)
+    elseif option == OID_LEA_ClothesStrictArmor
+        bool valueStrictArmor = !LEA_GetBool("clothes.strictArmorSlots", false)
+        LEA_SetBool("clothes.strictArmorSlots", valueStrictArmor)
+        SetToggleOptionValue(option, valueStrictArmor, false)
+    elseif option == OID_LEA_ClothesAutoEquip
+        bool valueAutoEquip = !LEA_GetBool("clothes.autoEquipTownOutfit", false)
+        LEA_SetBool("clothes.autoEquipTownOutfit", valueAutoEquip)
+        SetToggleOptionValue(option, valueAutoEquip, false)
+    elseif option == OID_LEA_ClothesPunish
+        bool valueClothesPunish = !LEA_GetBool("clothes.punishOnFail", true)
+        LEA_SetBool("clothes.punishOnFail", valueClothesPunish)
+        SetToggleOptionValue(option, valueClothesPunish, false)
+    elseif option == OID_LEA_ClothesLoaner
+        bool valueLoaner = !LEA_GetBool("clothes.loanerEnabled", true)
+        LEA_SetBool("clothes.loanerEnabled", valueLoaner)
+        SetToggleOptionValue(option, valueLoaner, false)
+    elseif option == OID_LEA_ClothesLoanerLingerie
+        bool valueLoanerLingerie = !LEA_GetBool("clothes.loanerIncludeLingerie", false)
+        LEA_SetBool("clothes.loanerIncludeLingerie", valueLoanerLingerie)
+        SetToggleOptionValue(option, valueLoanerLingerie, false)
+    elseif option == OID_LEA_ClothesLoanerPunishMissing
+        bool valueLoanerPunishMissing = !LEA_GetBool("clothes.loanerPunishMissing", true)
+        LEA_SetBool("clothes.loanerPunishMissing", valueLoanerPunishMissing)
+        SetToggleOptionValue(option, valueLoanerPunishMissing, false)
     elseif option == OID_LEA_HairSeed
         LEA_SeedHairStyles()
         ForcePageReset()
@@ -715,6 +894,20 @@ bool Function LEA_OnSliderOpen(int option)
         LEA_OpenSlider(LEA_GetFloat("bath.dirtMinStage", 3.0), 2.0, 5.0, 1.0, 3.0)
     elseif option == OID_LEA_BathTimeout
         LEA_OpenSlider(LEA_GetFloat("bath.assignmentTimeoutHours", 1.0), 0.25, 24.0, 0.25, 1.0)
+    elseif option == OID_LEA_ClothesBoredomChance
+        LEA_OpenSlider(LEA_GetFloat("clothes.boredomChance", 20.0), 0.0, 100.0, 5.0, 20.0)
+    elseif option == OID_LEA_ClothesBoredomCooldown
+        LEA_OpenSlider(LEA_GetFloat("clothes.boredomCooldownHours", 72.0), 1.0, 720.0, 1.0, 72.0)
+    elseif option == OID_LEA_ClothesDeadline
+        LEA_OpenSlider(LEA_GetFloat("clothes.changeDeadlineHours", 2.0), 0.25, 24.0, 0.25, 2.0)
+    elseif option == OID_LEA_ClothesOwnerDistance
+        LEA_OpenSlider(LEA_GetFloat("clothes.ownerDistance", 700.0), 100.0, 3000.0, 50.0, 700.0)
+    elseif option == OID_LEA_ClothesLoanerChance
+        LEA_OpenSlider(LEA_GetFloat("clothes.loanerChance", 45.0), 0.0, 100.0, 5.0, 45.0)
+    elseif option == OID_LEA_ClothesLoanerDays
+        LEA_OpenSlider(LEA_GetFloat("clothes.loanerMinWearDays", 2.0), 0.25, 14.0, 0.25, 2.0)
+    elseif option == OID_LEA_ClothesLoanerRecall
+        LEA_OpenSlider(LEA_GetFloat("clothes.loanerRecallChance", 70.0), 0.0, 100.0, 5.0, 70.0)
     else
         return false
     endif
@@ -803,6 +996,27 @@ bool Function LEA_OnSliderAccept(int option, float value)
     elseif option == OID_LEA_BathTimeout
         LEA_SetFloat("bath.assignmentTimeoutHours", value)
         SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_ClothesBoredomChance
+        LEA_SetInt("clothes.boredomChance", value as int)
+        SetSliderOptionValue(option, value, "{0}%", false)
+    elseif option == OID_LEA_ClothesBoredomCooldown
+        LEA_SetFloat("clothes.boredomCooldownHours", value)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_ClothesDeadline
+        LEA_SetFloat("clothes.changeDeadlineHours", value)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_ClothesOwnerDistance
+        LEA_SetFloat("clothes.ownerDistance", value)
+        SetSliderOptionValue(option, value, "{0}", false)
+    elseif option == OID_LEA_ClothesLoanerChance
+        LEA_SetInt("clothes.loanerChance", value as int)
+        SetSliderOptionValue(option, value, "{0}%", false)
+    elseif option == OID_LEA_ClothesLoanerDays
+        LEA_SetFloat("clothes.loanerMinWearDays", value)
+        SetSliderOptionValue(option, value, "{1}", false)
+    elseif option == OID_LEA_ClothesLoanerRecall
+        LEA_SetInt("clothes.loanerRecallChance", value as int)
+        SetSliderOptionValue(option, value, "{0}%", false)
     else
         return false
     endif
@@ -989,7 +1203,7 @@ EndFunction
 
 Function ToggleManualAddonStart()
 
-    If !Config.LolaQuestRunning
+    If !IsSubmissiveLolaRunning()
         Debug.MessageBox("Error: Submissive Lola is not running")
         return
     endif
@@ -1000,6 +1214,15 @@ Function ToggleManualAddonStart()
     endif
     SimulateLolaStart()
     Debug.MessageBox("Send Startup event. Close the MCM Menu and wait for the Finish Notification")
+EndFunction
+
+Bool Function IsSubmissiveLolaRunning()
+    If Config != None && Config.LolaQuestRunning
+        return True
+    EndIf
+
+    Quest lolaQuest = Quest.GetQuest("vkjMQ")
+    return lolaQuest != None && lolaQuest.IsRunning()
 EndFunction
 
 Function SimulateLolaStop()

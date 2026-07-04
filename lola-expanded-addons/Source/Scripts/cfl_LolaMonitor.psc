@@ -6,6 +6,8 @@ String Property LMEConfigPath = "../LolaExpandedAddons/Config.json" Auto
 String Property LBPConfigPath = "../LolaExpandedAddons/Config.json" Auto
 String Property LCCConfigPath = "../LolaExpandedAddons/Config.json" Auto
 String Property LBTConfigPath = "../LolaExpandedAddons/Config.json" Auto
+String Property LCLConfigPath = "../LolaExpandedAddons/Config.json" Auto
+String Property LCLLoanerPoolPath = "../LolaExpandedAddons/LoanerOutfitPool.json" Auto
 
 Bool Property LME_AssignmentActive = False Auto
 Float Property LME_AssignmentStarted = 0.0 Auto
@@ -17,6 +19,15 @@ Float Property LCC_NextEventTime = 0.0 Auto
 Float Property LBT_NextEventTime = 0.0 Auto
 Bool Property LBT_AssignmentActive = False Auto
 Float Property LBT_AssignmentStarted = 0.0 Auto
+Bool Property LCL_AssignmentActive = False Auto
+Int Property LCL_AssignmentType = 0 Auto
+Float Property LCL_AssignmentStarted = 0.0 Auto
+Float Property LCL_NextBoredomTime = 0.0 Auto
+Armor Property LCL_StaleBodyItem = None Auto
+Bool Property LCL_LoanerActive = False Auto
+Int Property LCL_LoanerSetId = 0 Auto
+Float Property LCL_LoanerStarted = 0.0 Auto
+Float Property LCL_LoanerLastEnforced = 0.0 Auto
 
 Function LolaStopDetected()
     int handle = ModEvent.Create("cfeLola_LolaStop")
@@ -59,10 +70,14 @@ Event OnInit()
     SetReferences()
     RegisterEvents()
     cfg.Log("Lola Monitor Stated")
+    If IsSubmissiveLolaRunning()
+        LolaStartDetected()
+    EndIf
     LME_StartScheduler()
     LBP_StartScheduler()
     LCC_StartScheduler()
     LBT_StartScheduler()
+    LCL_StartScheduler()
 EndEvent
 
 Event OnReloadReferences()
@@ -73,6 +88,7 @@ Event OnReloadReferences()
     LBP_StartScheduler()
     LCC_StartScheduler()
     LBT_StartScheduler()
+    LCL_StartScheduler()
 EndEvent
 
 Event OnSLTR_Exit(String eventName, Form ownerActor, float score, float daysEnslaved)
@@ -81,6 +97,7 @@ Event OnSLTR_Exit(String eventName, Form ownerActor, float score, float daysEnsl
     LBP_StopScheduler()
     LCC_StopScheduler()
     LBT_StopScheduler()
+    LCL_StopScheduler()
 EndEvent
 
 Event OnSLTR_Start(string eventName, string argStr, float argNum, form sender)
@@ -89,6 +106,7 @@ Event OnSLTR_Start(string eventName, string argStr, float argNum, form sender)
     LBP_StartScheduler()
     LCC_StartScheduler()
     LBT_StartScheduler()
+    LCL_StartScheduler()
 EndEvent
 
 Event OnSLTR_OwnerChange(string eventName, string argStr, float argNum, form sender)
@@ -97,6 +115,7 @@ Event OnSLTR_OwnerChange(string eventName, string argStr, float argNum, form sen
     LBP_StartScheduler()
     LCC_StartScheduler()
     LBT_StartScheduler()
+    LCL_StartScheduler()
 EndEvent
 
 Event OnSLTR_PlaymateChange(string eventName, string argStr, float argNum, form sender)
@@ -108,6 +127,7 @@ Event OnUpdateGameTime()
     LBP_Tick()
     LCC_Tick()
     LBT_Tick()
+    LCL_Tick()
 EndEvent
 
 Function SetReferences()
@@ -134,6 +154,18 @@ EndFunction
 Function ResetModEvents()
     UnregisterEvents()
     RegisterEvents()
+    If IsSubmissiveLolaRunning()
+        LolaStartDetected()
+    EndIf
+EndFunction
+
+Bool Function IsSubmissiveLolaRunning()
+    If cfg != None && cfg.LolaQuestRunning
+        return True
+    EndIf
+
+    Quest lolaQuest = Quest.GetQuest("vkjMQ")
+    return lolaQuest != None && lolaQuest.IsRunning()
 EndFunction
 
 int Function LME_GetInt(string keyName, int defaultValue)
@@ -182,6 +214,430 @@ bool Function LBT_GetBool(string keyName, bool defaultValue)
         fallback = 1
     endif
     return JsonUtil.GetIntValue(LBTConfigPath, keyName, fallback) != 0
+EndFunction
+
+int Function LCL_GetInt(string keyName, int defaultValue)
+    return JsonUtil.GetIntValue(LCLConfigPath, keyName, defaultValue)
+EndFunction
+
+float Function LCL_GetFloat(string keyName, float defaultValue)
+    return JsonUtil.GetFloatValue(LCLConfigPath, keyName, defaultValue)
+EndFunction
+
+bool Function LCL_GetBool(string keyName, bool defaultValue)
+    int fallback = 0
+    if defaultValue
+        fallback = 1
+    endif
+    return JsonUtil.GetIntValue(LCLConfigPath, keyName, fallback) != 0
+EndFunction
+
+Function LCL_StartScheduler()
+    if !LCL_GetBool("clothes.enabled", true)
+        return
+    endif
+    if !LCL_IsReady()
+        return
+    endif
+    if LCL_NextBoredomTime <= 0.0
+        LCL_NextBoredomTime = Utility.GetCurrentGameTime() + LCL_GetFloat("clothes.initialDelayHours", 4.0) / 24.0
+    endif
+    RegisterForSingleUpdateGameTime(LCL_GetFloat("clothes.pollHours", 0.5))
+EndFunction
+
+Function LCL_StopScheduler()
+    LCL_AssignmentActive = False
+    LCL_AssignmentType = 0
+    LCL_AssignmentStarted = 0.0
+    LCL_NextBoredomTime = 0.0
+    LCL_StaleBodyItem = None
+EndFunction
+
+bool Function LCL_IsReady()
+    if cfg == None
+        return false
+    endif
+    if !cfg.cflLolaActive
+        return false
+    endif
+    if cfg.Owner == None || cfg.Player == None || cfg.lola == None
+        return false
+    endif
+    return true
+EndFunction
+
+Function LCL_Tick()
+    if !LCL_GetBool("clothes.enabled", true)
+        return
+    endif
+    if !LCL_IsReady()
+        RegisterForSingleUpdateGameTime(LCL_GetFloat("clothes.pollHours", 0.5))
+        return
+    endif
+
+    if LCL_LoanerActive
+        LCL_CheckLoaner()
+    endif
+
+    if LCL_AssignmentActive
+        LCL_CheckAssignment()
+        RegisterForSingleUpdateGameTime(LCL_GetFloat("clothes.pollHours", 0.5))
+        return
+    endif
+
+    if LCL_GetBool("clothes.townRuleEnabled", true) && LCL_IsInTown() && !LCL_ShouldSkipCheck()
+        if LCL_IsBodyBlockedByDevice()
+            RegisterForSingleUpdateGameTime(LCL_GetFloat("clothes.pollHours", 0.5))
+            return
+        endif
+        if !LCL_IsClothingCompliant()
+            LCL_StartTownAssignment()
+            RegisterForSingleUpdateGameTime(LCL_GetFloat("clothes.pollHours", 0.5))
+            return
+        endif
+    endif
+
+    float now = Utility.GetCurrentGameTime()
+    if LCL_GetBool("clothes.boredomEnabled", true) && now >= LCL_NextBoredomTime && !LCL_ShouldSkipCheck()
+        LCL_NextBoredomTime = now + LCL_GetFloat("clothes.boredomCooldownHours", 72.0) / 24.0
+        int chance = LCL_GetInt("clothes.boredomChance", 20)
+        if chance >= 100 || (chance > 0 && Utility.RandomInt(1, 100) <= chance)
+            LCL_TryStartBoredomAssignment()
+        endif
+    endif
+
+    RegisterForSingleUpdateGameTime(LCL_GetFloat("clothes.pollHours", 0.5))
+EndFunction
+
+bool Function LCL_ShouldSkipCheck()
+    Actor playerRef = cfg.Player
+    Actor ownerRef = cfg.Owner
+    if playerRef == None || ownerRef == None
+        return true
+    endif
+    if cfg.lola.SuspendAll || cfg.lola.BlockEvents
+        return true
+    endif
+    if playerRef.IsInCombat() || playerRef.IsOnMount()
+        return true
+    endif
+    if playerRef.GetDistance(ownerRef) > LCL_GetFloat("clothes.ownerDistance", 700.0)
+        return true
+    endif
+    return false
+EndFunction
+
+bool Function LCL_IsInTown()
+    vkjmq lolaMain = cfg.lola
+    if lolaMain != None
+        return lolaMain.IsInTown()
+    endif
+    return false
+EndFunction
+
+Armor Function LCL_GetBodyItem()
+    if cfg == None || cfg.Player == None
+        return None
+    endif
+    return cfg.Player.GetWornForm(0x00000004) as Armor
+EndFunction
+
+bool Function LCL_IsBodyBlockedByDevice()
+    Armor bodyItem = LCL_GetBodyItem()
+    if bodyItem == None || cfg == None || cfg.dd == None
+        return false
+    endif
+    return bodyItem.HasKeyword(cfg.dd.zad_Lockable) || bodyItem.HasKeyword(cfg.dd.zad_DeviousPlug)
+EndFunction
+
+bool Function LCL_IsClothingCompliant()
+    Actor playerRef = cfg.Player
+    Armor bodyItem = LCL_GetBodyItem()
+    if playerRef == None || bodyItem == None || cfg.TaskOutfit == None
+        return false
+    endif
+    if LCL_IsBodyBlockedByDevice()
+        return true
+    endif
+    if !bodyItem.HasKeyword(cfg.TaskOutfit.ArmorClothing)
+        return false
+    endif
+    if bodyItem.HasKeyword(cfg.TaskOutfit.ArmorHeavy) || bodyItem.HasKeyword(cfg.TaskOutfit.ArmorLight)
+        return false
+    endif
+    if LCL_GetBool("clothes.strictArmorSlots", false)
+        if playerRef.WornHasKeyword(cfg.TaskOutfit.ArmorHeavy) || playerRef.WornHasKeyword(cfg.TaskOutfit.ArmorLight)
+            return false
+        endif
+    endif
+    return true
+EndFunction
+
+Function LCL_StartTownAssignment()
+    LCL_AssignmentActive = True
+    LCL_AssignmentType = 1
+    LCL_AssignmentStarted = Utility.GetCurrentGameTime()
+    LCL_StaleBodyItem = None
+    if LCL_GetBool("clothes.showNotifications", true)
+        Debug.Notification("Your owner orders you to wear proper clothes while in town.")
+    endif
+    LCL_TryStartLoaner()
+    if !LCL_LoanerActive
+        LCL_TryAutoEquipTownOutfit()
+    endif
+EndFunction
+
+Function LCL_TryStartBoredomAssignment()
+    if !LCL_IsClothingCompliant()
+        return
+    endif
+
+    Armor bodyItem = LCL_GetBodyItem()
+    if bodyItem == None
+        return
+    endif
+
+    LCL_AssignmentActive = True
+    LCL_AssignmentType = 2
+    LCL_AssignmentStarted = Utility.GetCurrentGameTime()
+    LCL_StaleBodyItem = bodyItem
+    if LCL_GetBool("clothes.showNotifications", true)
+        Debug.Notification("Your owner is bored of your clothes and orders you to change.")
+    endif
+    LCL_TryStartLoaner()
+    if !LCL_LoanerActive
+        LCL_TryAutoEquipTownOutfit()
+    endif
+EndFunction
+
+Function LCL_TryAutoEquipTownOutfit()
+    if !LCL_GetBool("clothes.autoEquipTownOutfit", false)
+        return
+    endif
+    if cfg == None || cfg.TaskOutfit == None || !cfg.TaskOutfit.IsRunning()
+        return
+    endif
+    cfg.TaskOutfit.RequestNewOutfit()
+EndFunction
+
+Function LCL_TryStartLoaner()
+    if !LCL_GetBool("clothes.loanerEnabled", true)
+        return
+    endif
+    if LCL_LoanerActive
+        return
+    endif
+    int chance = LCL_GetInt("clothes.loanerChance", 45)
+    if chance < 1
+        return
+    endif
+    if chance < 100 && Utility.RandomInt(1, 100) > chance
+        return
+    endif
+
+    int setId = LCL_PickLoanerSet()
+    if setId <= 0
+        return
+    endif
+    Form[] loanerForms = JsonUtil.FormListToArray(LCLLoanerPoolPath, setId as string)
+    if loanerForms.Length < 1
+        return
+    endif
+
+    Actor playerRef = cfg.Player
+    if playerRef == None
+        return
+    endif
+    int i = 0
+    while i < loanerForms.Length
+        Armor item = loanerForms[i] as Armor
+        if item != None
+            if playerRef.GetItemCount(item) < 1
+                playerRef.AddItem(item, 1, True)
+            endif
+            playerRef.EquipItem(item, false, true)
+        endif
+        i += 1
+    endwhile
+
+    LCL_LoanerActive = True
+    LCL_LoanerSetId = setId
+    LCL_LoanerStarted = Utility.GetCurrentGameTime()
+    LCL_LoanerLastEnforced = LCL_LoanerStarted
+
+    if LCL_GetBool("clothes.showNotifications", true)
+        Debug.Notification("Your owner gives you " + JsonUtil.GetStringValue(LCLLoanerPoolPath, setId as string, "loaned clothes") + " and expects you to wear it.")
+    endif
+EndFunction
+
+int Function LCL_PickLoanerSet()
+    int count = JsonUtil.IntListCount(LCLLoanerPoolPath, "ids")
+    if count <= 0
+        return 0
+    endif
+
+    int attempts = 0
+    while attempts < 30
+        int index = Utility.RandomInt(0, count - 1)
+        int setId = JsonUtil.IntListGet(LCLLoanerPoolPath, "ids", index)
+        if LCL_LoanerSetAllowed(setId) && JsonUtil.FormListCount(LCLLoanerPoolPath, setId as string) > 0
+            return setId
+        endif
+        attempts += 1
+    endwhile
+    return JsonUtil.IntListGet(LCLLoanerPoolPath, "ids", Utility.RandomInt(0, count - 1))
+EndFunction
+
+bool Function LCL_LoanerSetAllowed(int setId)
+    string tags = JsonUtil.GetStringValue(LCLLoanerPoolPath, (setId as string) + ".tags", "")
+    if !LCL_GetBool("clothes.loanerIncludeLingerie", false)
+        if StringUtil.Find(tags, "lingerie") >= 0 || StringUtil.Find(tags, "humiliating") >= 0
+            return false
+        endif
+    endif
+    return true
+EndFunction
+
+Function LCL_CheckLoaner()
+    if !LCL_LoanerActive || LCL_LoanerSetId <= 0
+        return
+    endif
+    float now = Utility.GetCurrentGameTime()
+    float requiredDays = LCL_GetFloat("clothes.loanerMinWearDays", 2.0)
+    if requiredDays < 0.1
+        requiredDays = 0.1
+    endif
+
+    if now < LCL_LoanerStarted + requiredDays
+        if !LCL_PlayerWearsLoanerBody()
+            float enforceDays = LCL_GetFloat("clothes.changeDeadlineHours", 2.0) / 24.0
+            if now > LCL_LoanerLastEnforced + enforceDays
+                LCL_LoanerLastEnforced = now
+                if LCL_GetBool("clothes.showNotifications", true)
+                    Debug.Notification("Your owner notices you are not wearing the clothes you were given.")
+                endif
+                if LCL_GetBool("clothes.punishOnFail", true)
+                    cfg.lola.PunishMinimal()
+                endif
+            endif
+        endif
+        return
+    endif
+
+    int recallChance = LCL_GetInt("clothes.loanerRecallChance", 70)
+    if recallChance >= 100 || (recallChance > 0 && Utility.RandomInt(1, 100) <= recallChance)
+        LCL_RecallLoaner()
+    endif
+EndFunction
+
+bool Function LCL_PlayerWearsLoanerBody()
+    Actor playerRef = cfg.Player
+    if playerRef == None
+        return false
+    endif
+    Armor bodyItem = LCL_GetBodyItem()
+    if bodyItem == None
+        return false
+    endif
+    Form[] loanerForms = JsonUtil.FormListToArray(LCLLoanerPoolPath, LCL_LoanerSetId as string)
+    int i = 0
+    while i < loanerForms.Length
+        Armor item = loanerForms[i] as Armor
+        if item != None && Math.LogicalAnd(item.GetSlotMask(), 0x00000004) != 0 && bodyItem == item
+            return true
+        endif
+        i += 1
+    endwhile
+    return false
+EndFunction
+
+Function LCL_RecallLoaner()
+    Actor playerRef = cfg.Player
+    if playerRef == None
+        return
+    endif
+    Form[] loanerForms = JsonUtil.FormListToArray(LCLLoanerPoolPath, LCL_LoanerSetId as string)
+    int missing = 0
+    int i = 0
+    while i < loanerForms.Length
+        Armor item = loanerForms[i] as Armor
+        if item != None
+            if playerRef.GetItemCount(item) > 0
+                playerRef.UnequipItem(item, abSilent = True)
+                playerRef.RemoveItem(item, 1, True, cfg.Owner)
+            else
+                missing += 1
+            endif
+        endif
+        i += 1
+    endwhile
+
+    if LCL_GetBool("clothes.showNotifications", true)
+        if missing > 0
+            Debug.Notification("Your owner asks for the loaned clothes back and notices pieces are missing.")
+        else
+            Debug.Notification("Your owner takes back the clothes they loaned you.")
+        endif
+    endif
+    if missing > 0 && LCL_GetBool("clothes.loanerPunishMissing", true)
+        cfg.lola.PunishMinimal()
+    endif
+
+    LCL_ClearLoaner()
+EndFunction
+
+Function LCL_ClearLoaner()
+    LCL_LoanerActive = False
+    LCL_LoanerSetId = 0
+    LCL_LoanerStarted = 0.0
+    LCL_LoanerLastEnforced = 0.0
+EndFunction
+
+Function LCL_CheckAssignment()
+    if LCL_ShouldSkipCheck()
+        return
+    endif
+
+    if LCL_IsBodyBlockedByDevice()
+        LCL_ClearAssignment()
+        return
+    endif
+
+    if LCL_AssignmentType == 1
+        if !LCL_IsInTown() || LCL_IsClothingCompliant()
+            if LCL_GetBool("clothes.showNotifications", true)
+                Debug.Notification("Your owner accepts your town clothes.")
+            endif
+            LCL_ClearAssignment()
+            return
+        endif
+    elseif LCL_AssignmentType == 2
+        if LCL_IsClothingCompliant() && LCL_GetBodyItem() != LCL_StaleBodyItem
+            if LCL_GetBool("clothes.showNotifications", true)
+                Debug.Notification("Your owner accepts your change of clothes.")
+            endif
+            LCL_ClearAssignment()
+            return
+        endif
+    endif
+
+    float timeoutDays = LCL_GetFloat("clothes.changeDeadlineHours", 2.0) / 24.0
+    if Utility.GetCurrentGameTime() > LCL_AssignmentStarted + timeoutDays
+        if LCL_GetBool("clothes.showNotifications", true)
+            Debug.Notification("You failed your owner's clothing order.")
+        endif
+        if LCL_GetBool("clothes.punishOnFail", true)
+            cfg.lola.PunishMinimal()
+        endif
+        LCL_AssignmentStarted = Utility.GetCurrentGameTime()
+    endif
+EndFunction
+
+Function LCL_ClearAssignment()
+    LCL_AssignmentActive = False
+    LCL_AssignmentType = 0
+    LCL_AssignmentStarted = 0.0
+    LCL_StaleBodyItem = None
 EndFunction
 
 Function LBT_StartScheduler()
@@ -754,16 +1210,20 @@ bool Function LBP_GetBool(string keyName, bool defaultValue)
 EndFunction
 
 Function LBP_StartScheduler()
-    if !LBP_GetBool("body.enabled", true)
-        return
-    endif
-    if !LBP_IsReady()
+    string blockReason = LBP_GetBlockReason()
+    if blockReason != ""
+        if cfg != None
+            cfg.Log("LEA Body Potion scheduler not started: " + blockReason)
+        endif
         return
     endif
     if LBP_NextEventTime <= 0.0
         LBP_NextEventTime = Utility.GetCurrentGameTime() + LBP_GetFloat("body.initialDelayHours", 6.0) / 24.0
     endif
     RegisterForSingleUpdateGameTime(LBP_GetFloat("body.pollHours", 1.0))
+    if cfg != None
+        cfg.Log("LEA Body Potion scheduler active. Next check in " + (((LBP_NextEventTime - Utility.GetCurrentGameTime()) * 24.0) as int) + "h")
+    endif
 EndFunction
 
 Function LBP_StopScheduler()
@@ -771,19 +1231,26 @@ Function LBP_StopScheduler()
 EndFunction
 
 bool Function LBP_IsReady()
+    return LBP_GetBlockReason() == ""
+EndFunction
+
+string Function LBP_GetBlockReason()
+    if !LBP_GetBool("body.enabled", true)
+        return "body.enabled is off"
+    endif
     if cfg == None
-        return false
+        return "config is missing"
     endif
     if !cfg.cflLolaActive
-        return false
+        return "Lola ownership is not active"
     endif
     if cfg.Owner == None || cfg.Player == None
-        return false
+        return "owner or player reference is missing"
     endif
     if Game.GetFormFromFile(0x000806, "TransformativeElixirs.esp") == None
-        return false
+        return "TransformativeElixirs.esp is not loaded"
     endif
-    return true
+    return ""
 EndFunction
 
 Function LBP_Tick()
