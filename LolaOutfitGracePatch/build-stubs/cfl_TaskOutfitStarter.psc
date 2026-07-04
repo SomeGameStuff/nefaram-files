@@ -1,0 +1,1 @@
+Scriptname cfl_TaskOutfitStarter extends Quest
