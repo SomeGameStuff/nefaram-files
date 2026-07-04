@@ -1162,20 +1162,32 @@ Function LME_CheckAssignment()
 
     LME_ShowAssignmentReminder()
 
-    if playerRef.GetDistance(ownerRef) > LME_GetFloat("milk.turnInDistance", 500.0)
-        return
-    endif
-
-    if LME_CountMilkItems(playerRef) >= LME_RequiredMilk
-        LME_RemoveMilkItems(playerRef, LME_RequiredMilk)
-        LME_AssignmentActive = False
-        LME_LastReminderTime = 0.0
-        if LME_GetBool("milk.showNotifications", true)
-            LEA_ShowOwnerLine("Good. You can be useful when you remember what you are for.", true)
-        endif
-    elseif LME_GetBool("milk.showProgressNotifications", false)
+    if LME_CanTurnInMilk()
+        LME_TurnInMilk()
+    elseif playerRef.GetDistance(ownerRef) <= LME_GetFloat("milk.turnInDistance", 500.0) && LME_GetBool("milk.showProgressNotifications", false)
         Debug.Notification(LME_GetAssignmentStatusText())
     endif
+EndFunction
+
+bool Function LME_CanTurnInMilk()
+    if !LME_AssignmentActive || cfg == None || cfg.Player == None || cfg.Owner == None
+        return false
+    endif
+    if cfg.Player.GetDistance(cfg.Owner) > LME_GetFloat("milk.turnInDistance", 500.0)
+        return false
+    endif
+    return LME_CountMilkItems(cfg.Player) >= LME_RequiredMilk
+EndFunction
+
+bool Function LME_TurnInMilk()
+    if !LME_CanTurnInMilk()
+        return false
+    endif
+    LME_RemoveMilkItems(cfg.Player, LME_RequiredMilk)
+    LME_AssignmentActive = False
+    LME_LastReminderTime = 0.0
+    LEA_ShowOwnerLine("Good. You can be useful when you remember what you are for.", LME_GetBool("milk.showNotifications", true))
+    return true
 EndFunction
 
 int Function LME_GetAssignmentTimeoutHours()
@@ -1220,7 +1232,7 @@ string Function LME_GetAssignmentDetailText()
     if !LME_AssignmentActive
         return "No active milk quota.\n\nWhen the owner assigns one, this page will show the required bottles and time remaining."
     endif
-    return LME_GetAssignmentStatusText() + "\n\nBring that many milk bottles back to your owner before the timer expires. You can milk yourself through Milk Mod Economy, or let owner milking start when you are nearby and full enough."
+    return LME_GetAssignmentStatusText() + "\n\nBring that many milk bottles back to your owner before the timer expires. For now, the bottles turn in automatically when you stand close enough to your owner. You can milk yourself through Milk Mod Economy, or let owner milking start when you are nearby and full enough."
 EndFunction
 
 Function LME_ShowAssignmentReminder()

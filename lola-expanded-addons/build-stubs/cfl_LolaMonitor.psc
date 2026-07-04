@@ -12,3 +12,11 @@ EndFunction
 String Function LME_GetAssignmentDetailText()
     Return ""
 EndFunction
+
+Bool Function LME_CanTurnInMilk()
+    Return False
+EndFunction
+
+Bool Function LME_TurnInMilk()
+    Return False
+EndFunction
