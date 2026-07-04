@@ -1,0 +1,1 @@
+Scriptname vkjstronghand extends Quest

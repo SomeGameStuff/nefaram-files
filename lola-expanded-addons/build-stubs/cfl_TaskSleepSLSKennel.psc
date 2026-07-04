@@ -1,0 +1,1 @@
+Scriptname cfl_TaskSleepSLSKennel extends Quest

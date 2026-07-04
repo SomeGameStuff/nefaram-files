@@ -1,0 +1,1 @@
+Scriptname SexLabFramework extends Quest
