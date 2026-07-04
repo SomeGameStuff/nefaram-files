@@ -700,12 +700,30 @@ internal sealed class Installer(IInstallLog log)
         if (mod.LocalPath is not null)
         {
             var path = Path.GetFullPath(mod.LocalPath);
-            if (!File.Exists(path))
+            if (File.Exists(path))
             {
-                throw new FileNotFoundException($"Local archive not found for {mod.InstallName}.", path);
+                return path;
             }
 
-            return path;
+            var localFileName = Path.GetFileName(path);
+            if (!string.IsNullOrWhiteSpace(localFileName))
+            {
+                var cached = FindArchiveByFileName(mo2.DownloadSearchPaths, localFileName);
+                if (cached is not null)
+                {
+                    log.Warn($"Manifest local path was not found: {path}");
+                    log.Info($"Using matching archive from downloads: {cached}");
+                    return cached;
+                }
+            }
+
+            log.Warn($"Local archive not found for {mod.InstallName}: {path}");
+            if (!string.IsNullOrWhiteSpace(localFileName))
+            {
+                log.Warn($"  Put {localFileName} in one of these folders and rerun: {FormatPathListForLog(mo2.DownloadSearchPaths)}");
+            }
+
+            return null;
         }
 
         if (mod.Url is null)
@@ -740,6 +758,34 @@ internal sealed class Installer(IInstallLog log)
         await using var output = File.Create(destination);
         await input.CopyToAsync(output, token);
         return destination;
+    }
+
+    private static string? FindArchiveByFileName(IEnumerable<string> downloadPaths, string fileName)
+    {
+        return downloadPaths
+            .Where(Directory.Exists)
+            .Select(path => Path.Combine(path, fileName))
+            .FirstOrDefault(File.Exists);
+    }
+
+    private static string FormatPathListForLog(IEnumerable<string> paths)
+    {
+        return string.Join("; ", paths.Select(FormatPathForLog));
+    }
+
+    private static string FormatPathForLog(string path)
+    {
+        var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        if (!string.IsNullOrWhiteSpace(userProfile) &&
+            path.StartsWith(userProfile, StringComparison.OrdinalIgnoreCase))
+        {
+            var suffix = path[userProfile.Length..].TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            return string.IsNullOrWhiteSpace(suffix)
+                ? "%USERPROFILE%"
+                : Path.Combine("%USERPROFILE%", suffix);
+        }
+
+        return path;
     }
 
     private async Task UpdateModlistAsync(string modlistPath, IReadOnlyList<ModlistEntry> desiredEntries, bool dryRun, CancellationToken token)
@@ -795,7 +841,7 @@ internal sealed class Installer(IInstallLog log)
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", bearerToken);
         }
 
-        client.DefaultRequestHeaders.UserAgent.ParseAdd("ModGroupInstaller/0.1");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("ModGroupInstaller/0.2");
         return client;
     }
 
@@ -1585,7 +1631,7 @@ internal static class WabbajackNexusAuth
         try
         {
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.UserAgent.ParseAdd("ModGroupInstaller/0.1");
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("ModGroupInstaller/0.2");
             using var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 ["grant_type"] = "refresh_token",
