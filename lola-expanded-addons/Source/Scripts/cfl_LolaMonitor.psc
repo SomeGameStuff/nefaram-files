@@ -20,6 +20,7 @@ Float Property LBP_NextEventTime = 0.0 Auto
 Bool Property LBP_PotionPending = False Auto
 Bool Property LBP_PendingShrink = False Auto
 Int Property LBP_PendingCount = 0 Auto
+Bool Property LBP_ForceGreetStarted = False Auto
 Float Property LCC_NextEventTime = 0.0 Auto
 Float Property LBT_NextEventTime = 0.0 Auto
 Bool Property LBT_AssignmentActive = False Auto
@@ -162,6 +163,9 @@ Function LEA_ShowOwnerLine(string lineText, bool showLine = true)
 EndFunction
 
 bool Function LEA_StartOwnerForceGreet()
+    if LBP_ForceGreetStarted
+        return true
+    endif
     if cfg == None
         SetReferences()
     endif
@@ -170,10 +174,15 @@ bool Function LEA_StartOwnerForceGreet()
     endif
 
     cfg.GenericFG.Start()
-    return cfg.GenericFG.StartForceGreet(cfg.Owner)
+    bool result = cfg.GenericFG.StartForceGreet(cfg.Owner)
+    if result
+        LBP_ForceGreetStarted = True
+    endif
+    return result
 EndFunction
 
 Function LEA_StopOwnerForceGreet()
+    LBP_ForceGreetStarted = False
     if cfg != None && cfg.GenericFG != None
         cfg.GenericFG.StopFG()
     endif
@@ -1471,6 +1480,7 @@ bool Function LBP_AcceptPotionEvent()
     endif
     LBP_PotionPending = False
     LBP_PendingCount = 0
+    LBP_ForceGreetStarted = False
     LBP_UpdateDialogueFlags()
     LEA_StopOwnerForceGreet()
     LBP_DoPotionEvent(shrink, count)

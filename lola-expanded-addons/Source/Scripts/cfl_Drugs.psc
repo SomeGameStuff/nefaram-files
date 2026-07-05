@@ -8,6 +8,7 @@ String Property LEAPluginName = "LolaExpandedAddons.esp" Auto
 
 Bool Property LFMA_FertilityPending = False Auto
 Bool Property LFMA_PendingDirectPregnancy = False Auto
+Bool Property LFMA_ForceGreetStarted = False Auto
 
 int Function GetCfgInt(string configPath, string keyName, int defaultValue)
     return JsonUtil.GetIntValue(configPath, keyName, defaultValue)
@@ -167,6 +168,9 @@ Function SayFertilityPending()
 EndFunction
 
 bool Function LFMA_StartOwnerForceGreet()
+    if LFMA_ForceGreetStarted
+        return true
+    endif
     if cfg == None
         cfg = cfl_config.GetConfig()
     endif
@@ -175,10 +179,15 @@ bool Function LFMA_StartOwnerForceGreet()
     endif
 
     cfg.GenericFG.Start()
-    return cfg.GenericFG.StartForceGreet(cfg.Owner)
+    bool result = cfg.GenericFG.StartForceGreet(cfg.Owner)
+    if result
+        LFMA_ForceGreetStarted = True
+    endif
+    return result
 EndFunction
 
 Function LFMA_StopOwnerForceGreet()
+    LFMA_ForceGreetStarted = False
     if cfg != None && cfg.GenericFG != None
         cfg.GenericFG.StopFG()
     endif
