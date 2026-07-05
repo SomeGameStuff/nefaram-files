@@ -302,7 +302,8 @@ internal sealed class MainForm : Form
             SaveSettings();
             var log = new TextBoxInstallLog(_log);
             var request = new InstallRequest(_mo2Root.Text, _manifest.Text, _profile.SelectedItem?.ToString(), dryRun, _overwrite.Checked, string.IsNullOrWhiteSpace(_wabbajack.Text) ? null : _wabbajack.Text, string.IsNullOrWhiteSpace(_nexusApiKey.Text) ? null : _nexusApiKey.Text);
-            var result = await new Installer(log).RunAsync(request, _runCancellation.Token);
+            var token = _runCancellation.Token;
+            var result = await Task.Run(() => new Installer(log).RunAsync(request, token), token);
             foreach (var message in result.Messages)
             {
                 log.Info(message);
