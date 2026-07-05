@@ -27,6 +27,7 @@ zadLibs Property dd Auto
 cfl_TaskOutfit Property TaskOutfit Auto
 cfl_TaskSleepDeny Property TaskSleepDeny Auto
 cfl_LolaForSale Property lolaForSale Auto
+cfl_generic_fg Property GenericFG Auto
 Quest Property cflStylishOwner Auto
 
 Function Log(String text, Int level = 0)

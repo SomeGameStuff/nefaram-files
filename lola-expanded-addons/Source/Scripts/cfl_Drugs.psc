@@ -82,6 +82,7 @@ Function TryOwnerFertilityEvent(Actor who, bool animate = True)
 
     if LFMA_FertilityPending
         SayFertilityPending()
+        LFMA_StartOwnerForceGreet()
         return
     endif
 
@@ -89,6 +90,7 @@ Function TryOwnerFertilityEvent(Actor who, bool animate = True)
     LFMA_FertilityPending = True
     LFMA_UpdateDialogueFlag()
     SayFertilityPending()
+    LFMA_StartOwnerForceGreet()
 EndFunction
 
 bool Function LFMA_AcceptFertilityEvent()
@@ -121,6 +123,7 @@ bool Function LFMA_AcceptFertilityEvent()
     LFMA_FertilityPending = False
     LFMA_PendingDirectPregnancy = False
     LFMA_UpdateDialogueFlag()
+    LFMA_StopOwnerForceGreet()
     return true
 EndFunction
 
@@ -160,7 +163,25 @@ Function SayFertilityPending()
         return
     endif
     Debug.Notification("Owner: \"Come here. I have a fertile little addition for you.\"")
-    Debug.Notification("Ask your owner about the fertility dose to obey.")
+    Debug.Notification("Your owner is calling you over for the fertility dose.")
+EndFunction
+
+bool Function LFMA_StartOwnerForceGreet()
+    if cfg == None
+        cfg = cfl_config.GetConfig()
+    endif
+    if cfg == None || cfg.GenericFG == None || cfg.Owner == None
+        return false
+    endif
+
+    cfg.GenericFG.Start()
+    return cfg.GenericFG.StartForceGreet(cfg.Owner)
+EndFunction
+
+Function LFMA_StopOwnerForceGreet()
+    if cfg != None && cfg.GenericFG != None
+        cfg.GenericFG.StopFG()
+    endif
 EndFunction
 
 Function LFMA_UpdateDialogueFlag()
