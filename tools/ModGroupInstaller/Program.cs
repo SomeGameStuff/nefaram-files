@@ -150,6 +150,7 @@ internal sealed record CliOptions(
 
 internal sealed class MainForm : Form
 {
+    private readonly AppSettings _settings = AppSettings.Load();
     private readonly TextBox _mo2Root = new() { Anchor = AnchorStyles.Left | AnchorStyles.Right };
     private readonly TextBox _manifest = new() { Anchor = AnchorStyles.Left | AnchorStyles.Right };
     private readonly ComboBox _profile = new() { Anchor = AnchorStyles.Left | AnchorStyles.Right, DropDownStyle = ComboBoxStyle.DropDownList };
@@ -159,6 +160,8 @@ internal sealed class MainForm : Form
     private readonly TextBox _log = new() { Multiline = true, ScrollBars = ScrollBars.Vertical, ReadOnly = true, Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right };
     private readonly Button _dryRun = new() { Text = "Dry Run" };
     private readonly Button _install = new() { Text = "Install" };
+    private readonly Button _cancel = new() { Text = "Cancel", Enabled = false };
+    private CancellationTokenSource? _runCancellation;
 
     public MainForm()
     {
@@ -193,17 +196,27 @@ internal sealed class MainForm : Form
         var buttons = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft, Dock = DockStyle.Fill };
         buttons.Controls.Add(_install);
         buttons.Controls.Add(_dryRun);
+        buttons.Controls.Add(_cancel);
         root.Controls.Add(buttons, 0, 7);
         root.SetColumnSpan(buttons, 3);
 
         Controls.Add(root);
 
-        _mo2Root.Text = Mo2Instance.FindNearestRoot(Directory.GetCurrentDirectory()) ?? Directory.GetCurrentDirectory();
-        _wabbajack.Text = WabbajackCli.FindDefault(_mo2Root.Text) ?? "";
+        _mo2Root.Text = !string.IsNullOrWhiteSpace(_settings.Mo2Root) ? _settings.Mo2Root : Mo2Instance.FindNearestRoot(Directory.GetCurrentDirectory()) ?? Directory.GetCurrentDirectory();
+        _manifest.Text = _settings.Manifest ?? "";
+        _wabbajack.Text = !string.IsNullOrWhiteSpace(_settings.Wabbajack) ? _settings.Wabbajack : WabbajackCli.FindDefault(_mo2Root.Text) ?? "";
+        _nexusApiKey.Text = _settings.NexusApiKey ?? "";
+        _overwrite.Checked = _settings.Overwrite;
         RefreshProfiles();
+        if (!string.IsNullOrWhiteSpace(_settings.Profile) && _profile.Items.Contains(_settings.Profile))
+        {
+            _profile.SelectedItem = _settings.Profile;
+        }
 
         _dryRun.Click += async (_, _) => await ExecuteAsync(dryRun: true);
         _install.Click += async (_, _) => await ExecuteAsync(dryRun: false);
+        _cancel.Click += (_, _) => _runCancellation?.Cancel();
+        FormClosing += (_, _) => SaveSettings();
     }
 
     private static void AddRow(TableLayoutPanel root, int row, string label, Control input, Control button)
@@ -283,15 +296,21 @@ internal sealed class MainForm : Form
     {
         ToggleButtons(false);
         _log.Clear();
+        _runCancellation = new CancellationTokenSource();
         try
         {
+            SaveSettings();
             var log = new TextBoxInstallLog(_log);
             var request = new InstallRequest(_mo2Root.Text, _manifest.Text, _profile.SelectedItem?.ToString(), dryRun, _overwrite.Checked, string.IsNullOrWhiteSpace(_wabbajack.Text) ? null : _wabbajack.Text, string.IsNullOrWhiteSpace(_nexusApiKey.Text) ? null : _nexusApiKey.Text);
-            var result = await new Installer(log).RunAsync(request, CancellationToken.None);
+            var result = await new Installer(log).RunAsync(request, _runCancellation.Token);
             foreach (var message in result.Messages)
             {
                 log.Info(message);
             }
+        }
+        catch (OperationCanceledException)
+        {
+            _log.AppendText("Cancelled." + Environment.NewLine);
         }
         catch (Exception ex)
         {
@@ -299,7 +318,10 @@ internal sealed class MainForm : Form
         }
         finally
         {
+            _runCancellation.Dispose();
+            _runCancellation = null;
             ToggleButtons(true);
+            SaveSettings();
         }
     }
 
@@ -307,6 +329,56 @@ internal sealed class MainForm : Form
     {
         _dryRun.Enabled = enabled;
         _install.Enabled = enabled;
+        _cancel.Enabled = !enabled;
+    }
+
+    private void SaveSettings()
+    {
+        _settings.Mo2Root = _mo2Root.Text;
+        _settings.Manifest = _manifest.Text;
+        _settings.Profile = _profile.SelectedItem?.ToString();
+        _settings.Wabbajack = _wabbajack.Text;
+        _settings.NexusApiKey = _nexusApiKey.Text;
+        _settings.Overwrite = _overwrite.Checked;
+        _settings.Save();
+    }
+}
+
+internal sealed class AppSettings
+{
+    public string? Mo2Root { get; set; }
+    public string? Manifest { get; set; }
+    public string? Profile { get; set; }
+    public string? Wabbajack { get; set; }
+    public string? NexusApiKey { get; set; }
+    public bool Overwrite { get; set; }
+
+    private static string SettingsPath =>
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NEFARAM", "ModGroupInstaller", "settings.json");
+
+    public static AppSettings Load()
+    {
+        try
+        {
+            return File.Exists(SettingsPath)
+                ? JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(SettingsPath)) ?? new AppSettings()
+                : new AppSettings();
+        }
+        catch
+        {
+            return new AppSettings();
+        }
+    }
+
+    public void Save()
+    {
+        var directory = Path.GetDirectoryName(SettingsPath);
+        if (!string.IsNullOrWhiteSpace(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        File.WriteAllText(SettingsPath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));
     }
 }
 
@@ -678,6 +750,7 @@ internal sealed class Installer(IInstallLog log)
         log.Info("Use the Nexus page to download the file. The installer will continue when a new complete archive appears.");
 
         var deadline = DateTimeOffset.UtcNow.AddMinutes(20);
+        var nextProgress = DateTimeOffset.UtcNow.AddSeconds(30);
         while (DateTimeOffset.UtcNow < deadline)
         {
             token.ThrowIfCancellationRequested();
@@ -686,6 +759,13 @@ internal sealed class Installer(IInstallLog log)
             {
                 log.Info($"Detected manual download: {candidate}");
                 return candidate;
+            }
+
+            if (DateTimeOffset.UtcNow >= nextProgress)
+            {
+                var remaining = deadline - DateTimeOffset.UtcNow;
+                log.Info($"Still waiting for manual download: {mod.InstallName} ({Math.Max(0, (int)Math.Ceiling(remaining.TotalMinutes))} min left)");
+                nextProgress = DateTimeOffset.UtcNow.AddSeconds(30);
             }
 
             await Task.Delay(TimeSpan.FromSeconds(3), token);
@@ -1776,7 +1856,14 @@ internal sealed class TextBoxInstallLog(TextBox textBox) : IInstallLog
     {
         if (textBox.InvokeRequired)
         {
-            textBox.Invoke(() => Append(message));
+            try
+            {
+                textBox.BeginInvoke(() => Append(message));
+            }
+            catch (InvalidOperationException)
+            {
+            }
+
             return;
         }
 
