@@ -430,6 +430,7 @@ internal sealed class Installer(IInstallLog log)
                     log.Info($"Separator: {separator.Name}");
                     break;
                 case ModEntry mod:
+                    log.Info($"Processing: {mod.InstallName}");
                     if (await ProcessModAsync(mo2, mod, request, wabbajackCli, token))
                     {
                         if (pendingSeparators.Count > 0)
@@ -662,7 +663,8 @@ internal sealed class Installer(IInstallLog log)
             throw new FormatException($"Nexus entry requires game/mod_id/file_id: {mod.InstallName}");
         }
 
-        var cached = FindCachedNexusArchive(mo2.DownloadSearchPaths, modId, fileId, mod.Fields.GetValueOrDefault("download_file"));
+        log.Info($"Checking cached downloads for: {mod.InstallName}");
+        var cached = FindCachedNexusArchive(mo2.DownloadSearchPaths, modId, fileId, mod.Fields.GetValueOrDefault("download_file"), log);
         if (cached is not null)
         {
             log.Info($"Using cached Nexus archive: {cached}");
@@ -831,7 +833,7 @@ internal sealed class Installer(IInstallLog log)
         }
 
         Directory.CreateDirectory(mo2.DownloadsPath);
-        using var client = new HttpClient();
+        using var client = CreateHttpClient();
         using var response = await client.GetAsync(mod.Url, HttpCompletionOption.ResponseHeadersRead, token);
         response.EnsureSuccessStatusCode();
         await using var input = await response.Content.ReadAsStreamAsync(token);
@@ -909,9 +911,14 @@ internal sealed class Installer(IInstallLog log)
             || extension.Equals(".fomod", StringComparison.OrdinalIgnoreCase);
     }
 
+    private static HttpClient CreateHttpClient()
+    {
+        return new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
+    }
+
     private static HttpClient CreateNexusClient(string? apiKey, string? bearerToken)
     {
-        var client = new HttpClient();
+        var client = CreateHttpClient();
         if (!string.IsNullOrWhiteSpace(apiKey))
         {
             client.DefaultRequestHeaders.TryAddWithoutValidation("apikey", apiKey);
@@ -938,11 +945,34 @@ internal sealed class Installer(IInstallLog log)
             || responseBody.Contains("token is expired", StringComparison.OrdinalIgnoreCase);
     }
 
+    private static IEnumerable<string> EnumerateArchiveFiles(IEnumerable<string> downloadPaths, IInstallLog? log = null)
+    {
+        foreach (var root in downloadPaths.Where(Directory.Exists).Distinct(StringComparer.OrdinalIgnoreCase))
+        {
+            IEnumerable<string> files;
+            try
+            {
+                files = Directory.EnumerateFiles(root);
+            }
+            catch (Exception ex)
+            {
+                log?.Warn($"Could not scan downloads folder: {root} ({ex.Message})");
+                continue;
+            }
+
+            foreach (var file in files)
+            {
+                if (IsArchivePath(file))
+                {
+                    yield return file;
+                }
+            }
+        }
+    }
+
     private static Dictionary<string, (long Length, DateTime LastWrite)> SnapshotDownloads(IEnumerable<string> downloadPaths)
     {
-        return downloadPaths
-            .Where(Directory.Exists)
-            .SelectMany(Directory.EnumerateFiles)
+        return EnumerateArchiveFiles(downloadPaths)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToDictionary(path => path, path =>
             {
@@ -953,10 +983,7 @@ internal sealed class Installer(IInstallLog log)
 
     private static string? FindNewCompleteArchive(IEnumerable<string> downloadPaths, IReadOnlyDictionary<string, (long Length, DateTime LastWrite)> before, DateTime waitStarted)
     {
-        var candidates = downloadPaths
-            .Where(Directory.Exists)
-            .SelectMany(Directory.EnumerateFiles)
-            .Where(IsArchivePath)
+        var candidates = EnumerateArchiveFiles(downloadPaths)
             .Select(path => new FileInfo(path))
             .Where(info => !before.ContainsKey(info.FullName))
             .Where(info => info.CreationTimeUtc >= waitStarted.AddSeconds(-5) || info.LastWriteTimeUtc >= waitStarted.AddSeconds(-5))
@@ -1013,18 +1040,12 @@ internal sealed class Installer(IInstallLog log)
         });
     }
 
-    private static string? FindCachedNexusArchive(IEnumerable<string> downloadPaths, string modId, string fileId, string? downloadFile)
+    private static string? FindCachedNexusArchive(IEnumerable<string> downloadPaths, string modId, string fileId, string? downloadFile, IInstallLog? log = null)
     {
         var expectedFileName = string.IsNullOrWhiteSpace(downloadFile) ? null : Path.GetFileName(downloadFile.Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar));
         if (!string.IsNullOrWhiteSpace(expectedFileName))
         {
-            var exact = downloadPaths
-                .Where(Directory.Exists)
-                .SelectMany(Directory.EnumerateFiles)
-                .Where(IsArchivePath)
-                .Where(path => Path.GetFileName(path).Equals(expectedFileName, StringComparison.OrdinalIgnoreCase))
-                .OrderByDescending(File.GetLastWriteTimeUtc)
-                .FirstOrDefault();
+            var exact = FindArchiveByFileName(downloadPaths, expectedFileName);
 
             if (exact is not null)
             {
@@ -1032,11 +1053,9 @@ internal sealed class Installer(IInstallLog log)
             }
         }
 
+        log?.Info($"Exact archive was not found; scanning downloads by Nexus IDs for mod {modId}, file {fileId}");
         var idPattern = $"-{modId}-";
-        var candidates = downloadPaths
-            .Where(Directory.Exists)
-            .SelectMany(Directory.EnumerateFiles)
-            .Where(IsArchivePath)
+        var candidates = EnumerateArchiveFiles(downloadPaths, log)
             .Where(path =>
             {
                 var name = Path.GetFileName(path);
