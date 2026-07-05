@@ -8,7 +8,7 @@ String Property LEAPluginName = "LolaExpandedAddons.esp" Auto
 
 Bool Property LFMA_FertilityPending = False Auto
 Bool Property LFMA_PendingDirectPregnancy = False Auto
-Bool Property LFMA_ForceGreetStarted = False Auto
+Bool Property LFMA_OwnerDialogueStarted = False Auto
 
 int Function GetCfgInt(string configPath, string keyName, int defaultValue)
     return JsonUtil.GetIntValue(configPath, keyName, defaultValue)
@@ -83,7 +83,7 @@ Function TryOwnerFertilityEvent(Actor who, bool animate = True)
 
     if LFMA_FertilityPending
         SayFertilityPending()
-        LFMA_StartOwnerForceGreet()
+        LFMA_StartOwnerDialogue()
         return
     endif
 
@@ -91,7 +91,7 @@ Function TryOwnerFertilityEvent(Actor who, bool animate = True)
     LFMA_FertilityPending = True
     LFMA_UpdateDialogueFlag()
     SayFertilityPending()
-    LFMA_StartOwnerForceGreet()
+    LFMA_StartOwnerDialogue()
 EndFunction
 
 bool Function LFMA_AcceptFertilityEvent()
@@ -124,7 +124,7 @@ bool Function LFMA_AcceptFertilityEvent()
     LFMA_FertilityPending = False
     LFMA_PendingDirectPregnancy = False
     LFMA_UpdateDialogueFlag()
-    LFMA_StopOwnerForceGreet()
+    LFMA_StopOwnerDialogue()
     return true
 EndFunction
 
@@ -167,27 +167,28 @@ Function SayFertilityPending()
     Debug.Notification("Your owner is calling you over for the fertility dose.")
 EndFunction
 
-bool Function LFMA_StartOwnerForceGreet()
-    if LFMA_ForceGreetStarted
+bool Function LFMA_StartOwnerDialogue()
+    if LFMA_OwnerDialogueStarted
         return true
     endif
     if cfg == None
         cfg = cfl_config.GetConfig()
     endif
-    if cfg == None || cfg.GenericFG == None || cfg.Owner == None
+    if cfg == None || cfg.Owner == None || cfg.Player == None
         return false
     endif
 
-    cfg.GenericFG.Start()
-    bool result = cfg.GenericFG.StartForceGreet(cfg.Owner)
-    if result
-        LFMA_ForceGreetStarted = True
+    if cfg.GenericFG != None
+        cfg.GenericFG.StopFG()
     endif
-    return result
+
+    cfg.Owner.Activate(cfg.Player)
+    LFMA_OwnerDialogueStarted = True
+    return true
 EndFunction
 
-Function LFMA_StopOwnerForceGreet()
-    LFMA_ForceGreetStarted = False
+Function LFMA_StopOwnerDialogue()
+    LFMA_OwnerDialogueStarted = False
     if cfg != None && cfg.GenericFG != None
         cfg.GenericFG.StopFG()
     endif

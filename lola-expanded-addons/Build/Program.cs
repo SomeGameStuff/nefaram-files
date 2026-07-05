@@ -85,18 +85,6 @@ var fertilityStatusTopic = AddTopic(
         Info("000811", "LEA_FertilityStatusInfo", "When I mix that into your dose, you will know. Until then, keep yourself ready for me.", null),
     });
 
-AddForceGreetStartTopic(
-    "000812",
-    "LEA_BodyPotionForceGreetStart",
-    Info("000813", "LEA_BodyPotionForceGreetInfo", "Come here. I have chosen an elixir, and you are going to drink it for me.", null, Condition(bodyPending, 1f)),
-    bodyAcceptTopic);
-
-AddForceGreetStartTopic(
-    "000814",
-    "LEA_FertilityForceGreetStart",
-    Info("000815", "LEA_FertilityForceGreetInfo", "Come here. I have a fertile little addition for you.", null, Condition(fertilityPending, 1f)),
-    fertilityAcceptTopic);
-
 patch.DialogTopics.Add(ownerHub);
 
 patch.WriteToBinary(projectOutput);
@@ -140,12 +128,6 @@ DialogTopic AddTopic(string localFormId, string editorId, string prompt, IEnumer
         ownerHubInfo.LinkTo.Add(topic.ToLinkGetter());
     patch.DialogTopics.Add(topic);
     return topic;
-}
-
-void AddForceGreetStartTopic(string localFormId, string editorId, DialogResponses info, DialogTopic linkedTopic)
-{
-    info.LinkTo.Add(linkedTopic.ToLinkGetter());
-    AddTopic(localFormId, editorId, "", new[] { info }, linkFromOwnerHub: false);
 }
 
 DialogResponses Info(string localFormId, string editorId, string responseText, string? scriptName, params ConditionFloat[] conditions)
@@ -264,8 +246,8 @@ static void PatchLeaTopicSubtype(string pluginPath)
         patched++;
     });
 
-    if (patched != 8)
-        throw new InvalidOperationException($"Expected to patch 8 LEA dialogue topic subtypes, patched {patched}.");
+    if (patched != 6)
+        throw new InvalidOperationException($"Expected to patch 6 LEA dialogue topic subtypes, patched {patched}.");
 
     File.WriteAllBytes(pluginPath, data);
     return;
