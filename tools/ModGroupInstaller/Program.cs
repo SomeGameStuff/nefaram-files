@@ -763,28 +763,64 @@ internal sealed class Installer(IInstallLog log)
     {
         var files = Directory.EnumerateFiles(destination).ToList();
         var directories = Directory.EnumerateDirectories(destination).ToList();
-        if (files.Count != 0 || directories.Count != 1)
+        if (files.Count == 0 && directories.Count == 1)
+        {
+            var wrapper = directories[0];
+            if (!LooksLikeModDataRoot(wrapper))
+            {
+                return;
+            }
+
+            foreach (var childFile in Directory.EnumerateFiles(wrapper))
+            {
+                File.Move(childFile, Path.Combine(destination, Path.GetFileName(childFile)));
+            }
+
+            foreach (var childDirectory in Directory.EnumerateDirectories(wrapper))
+            {
+                Directory.Move(childDirectory, Path.Combine(destination, Path.GetFileName(childDirectory)));
+            }
+
+            Directory.Delete(wrapper);
+        }
+
+        CopyFomodDefaultFolder(destination, "BaseFiles");
+        CopyFomodDefaultFolder(destination, Path.Combine("Body", "3BA"));
+        CopyFomodDefaultFolder(destination, Path.Combine("SliderSets", "3BA"));
+        CopyFomodDefaultFolder(destination, Path.Combine("Cubemaps", "None"));
+    }
+
+    private static void CopyFomodDefaultFolder(string destination, string relativeSource)
+    {
+        var source = Path.Combine(destination, relativeSource);
+        if (!Directory.Exists(source))
         {
             return;
         }
 
-        var wrapper = directories[0];
-        if (!LooksLikeModDataRoot(wrapper))
+        CopyDirectoryContents(source, destination);
+    }
+
+    private static void CopyDirectoryContents(string source, string destination)
+    {
+        foreach (var directory in Directory.EnumerateDirectories(source, "*", SearchOption.AllDirectories))
         {
-            return;
+            var relative = Path.GetRelativePath(source, directory);
+            Directory.CreateDirectory(Path.Combine(destination, relative));
         }
 
-        foreach (var childFile in Directory.EnumerateFiles(wrapper))
+        foreach (var file in Directory.EnumerateFiles(source, "*", SearchOption.AllDirectories))
         {
-            File.Move(childFile, Path.Combine(destination, Path.GetFileName(childFile)));
-        }
+            if (Path.GetFileName(file).Equals("meta.ini", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
 
-        foreach (var childDirectory in Directory.EnumerateDirectories(wrapper))
-        {
-            Directory.Move(childDirectory, Path.Combine(destination, Path.GetFileName(childDirectory)));
+            var relative = Path.GetRelativePath(source, file);
+            var target = Path.Combine(destination, relative);
+            Directory.CreateDirectory(Path.GetDirectoryName(target)!);
+            File.Copy(file, target, overwrite: true);
         }
-
-        Directory.Delete(wrapper);
     }
 
     private static bool LooksLikeModDataRoot(string path)
