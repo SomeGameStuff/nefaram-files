@@ -1152,11 +1152,7 @@ Function LME_CheckAssignment()
     float timeoutDays = LME_GetFloat("milk.assignmentTimeoutHours", 48.0) / 24.0
     float now = Utility.GetCurrentGameTime()
     if now > LME_AssignmentStarted + timeoutDays
-        LME_AssignmentActive = False
-        LME_LastReminderTime = 0.0
-        if LME_GetBool("milk.showNotifications", true)
-            LEA_ShowOwnerLine("You missed your milk quota. I will remember that.", true)
-        endif
+        LME_FailMilkAssignment()
         return
     endif
 
@@ -1166,6 +1162,15 @@ Function LME_CheckAssignment()
         LME_TurnInMilk()
     elseif playerRef.GetDistance(ownerRef) <= LME_GetFloat("milk.turnInDistance", 500.0) && LME_GetBool("milk.showProgressNotifications", false)
         Debug.Notification(LME_GetAssignmentStatusText())
+    endif
+EndFunction
+
+Function LME_FailMilkAssignment()
+    LME_AssignmentActive = False
+    LME_LastReminderTime = 0.0
+    LEA_ShowOwnerLine("You missed your milk quota. You are going to learn what happens when you waste my patience.", LME_GetBool("milk.showNotifications", true))
+    if LME_GetBool("milk.punishOnFail", true) && cfg != None && cfg.lola != None
+        cfg.lola.PunishMinimal()
     endif
 EndFunction
 
