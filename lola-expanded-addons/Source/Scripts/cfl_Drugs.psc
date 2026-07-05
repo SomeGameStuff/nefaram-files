@@ -8,7 +8,7 @@ String Property LEAPluginName = "LolaExpandedAddons.esp" Auto
 
 Bool Property LFMA_FertilityPending = False Auto
 Bool Property LFMA_PendingDirectPregnancy = False Auto
-Bool Property LFMA_OwnerDialogueStarted = False Auto
+Bool Property LFMA_ForceGreetStarted = False Auto
 
 int Function GetCfgInt(string configPath, string keyName, int defaultValue)
     return JsonUtil.GetIntValue(configPath, keyName, defaultValue)
@@ -83,7 +83,7 @@ Function TryOwnerFertilityEvent(Actor who, bool animate = True)
 
     if LFMA_FertilityPending
         SayFertilityPending()
-        LFMA_StartOwnerDialogue()
+        LFMA_StartOwnerForceGreet()
         return
     endif
 
@@ -91,7 +91,7 @@ Function TryOwnerFertilityEvent(Actor who, bool animate = True)
     LFMA_FertilityPending = True
     LFMA_UpdateDialogueFlag()
     SayFertilityPending()
-    LFMA_StartOwnerDialogue()
+    LFMA_StartOwnerForceGreet()
 EndFunction
 
 bool Function LFMA_AcceptFertilityEvent()
@@ -124,7 +124,7 @@ bool Function LFMA_AcceptFertilityEvent()
     LFMA_FertilityPending = False
     LFMA_PendingDirectPregnancy = False
     LFMA_UpdateDialogueFlag()
-    LFMA_StopOwnerDialogue()
+    LFMA_StopOwnerForceGreet()
     return true
 EndFunction
 
@@ -167,30 +167,42 @@ Function SayFertilityPending()
     Debug.Notification("Your owner is calling you over for the fertility dose.")
 EndFunction
 
-bool Function LFMA_StartOwnerDialogue()
-    if LFMA_OwnerDialogueStarted
+Quest Function LFMA_GetPromptQuest()
+    return Game.GetFormFromFile(0x000812, LEAPluginName) as Quest
+EndFunction
+
+bool Function LFMA_StartOwnerForceGreet()
+    if LFMA_ForceGreetStarted
         return true
     endif
     if cfg == None
         cfg = cfl_config.GetConfig()
     endif
-    if cfg == None || cfg.Owner == None || cfg.Player == None
+    Quest promptQuest = LFMA_GetPromptQuest()
+    if cfg == None || cfg.GenericFG == None || cfg.Owner == None || promptQuest == None
         return false
     endif
 
-    if cfg.GenericFG != None
-        cfg.GenericFG.StopFG()
+    promptQuest.Start()
+    cfg.GenericFG.Start()
+    bool result = cfg.GenericFG.StartForceGreet(cfg.Owner)
+    if result
+        LFMA_ForceGreetStarted = True
+    else
+        promptQuest.Stop()
     endif
 
-    cfg.Owner.Activate(cfg.Player)
-    LFMA_OwnerDialogueStarted = True
-    return true
+    return result
 EndFunction
 
-Function LFMA_StopOwnerDialogue()
-    LFMA_OwnerDialogueStarted = False
+Function LFMA_StopOwnerForceGreet()
+    LFMA_ForceGreetStarted = False
     if cfg != None && cfg.GenericFG != None
         cfg.GenericFG.StopFG()
+    endif
+    Quest promptQuest = LFMA_GetPromptQuest()
+    if promptQuest != None
+        promptQuest.Stop()
     endif
 EndFunction
 
