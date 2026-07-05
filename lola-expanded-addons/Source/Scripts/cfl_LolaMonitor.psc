@@ -20,7 +20,7 @@ Float Property LBP_NextEventTime = 0.0 Auto
 Bool Property LBP_PotionPending = False Auto
 Bool Property LBP_PendingShrink = False Auto
 Int Property LBP_PendingCount = 0 Auto
-Bool Property LBP_ForceGreetStarted = False Auto
+Bool Property LBP_OwnerDialogueStarted = False Auto
 Float Property LCC_NextEventTime = 0.0 Auto
 Float Property LBT_NextEventTime = 0.0 Auto
 Bool Property LBT_AssignmentActive = False Auto
@@ -162,27 +162,28 @@ Function LEA_ShowOwnerLine(string lineText, bool showLine = true)
     Debug.Notification("Owner: \"" + lineText + "\"")
 EndFunction
 
-bool Function LEA_StartOwnerForceGreet()
-    if LBP_ForceGreetStarted
+bool Function LEA_StartOwnerDialogue()
+    if LBP_OwnerDialogueStarted
         return true
     endif
     if cfg == None
         SetReferences()
     endif
-    if cfg == None || cfg.GenericFG == None || cfg.Owner == None
+    if cfg == None || cfg.Owner == None || cfg.Player == None
         return false
     endif
 
-    cfg.GenericFG.Start()
-    bool result = cfg.GenericFG.StartForceGreet(cfg.Owner)
-    if result
-        LBP_ForceGreetStarted = True
+    if cfg.GenericFG != None
+        cfg.GenericFG.StopFG()
     endif
-    return result
+
+    cfg.Owner.Activate(cfg.Player)
+    LBP_OwnerDialogueStarted = True
+    return true
 EndFunction
 
-Function LEA_StopOwnerForceGreet()
-    LBP_ForceGreetStarted = False
+Function LEA_StopOwnerDialogue()
+    LBP_OwnerDialogueStarted = False
     if cfg != None && cfg.GenericFG != None
         cfg.GenericFG.StopFG()
     endif
@@ -1393,7 +1394,9 @@ Function LBP_StopScheduler()
     LBP_NextEventTime = 0.0
     LBP_PotionPending = False
     LBP_PendingCount = 0
+    LBP_OwnerDialogueStarted = False
     LBP_UpdateDialogueFlags()
+    LEA_StopOwnerDialogue()
 EndFunction
 
 bool Function LBP_IsReady()
@@ -1454,7 +1457,7 @@ Function LBP_RequestPotionEvent()
     if LBP_PotionPending
         LBP_UpdateDialogueFlags()
         LEA_ShowOwnerLine("Do not make me repeat myself. Come here and drink what I chose for you.", LBP_GetBool("body.showNotifications", true))
-        LEA_StartOwnerForceGreet()
+        LEA_StartOwnerDialogue()
         return
     endif
 
@@ -1466,7 +1469,7 @@ Function LBP_RequestPotionEvent()
     if LBP_GetBool("body.showNotifications", true)
         Debug.Notification("Your owner is calling you over with a transformative elixir.")
     endif
-    LEA_StartOwnerForceGreet()
+    LEA_StartOwnerDialogue()
 EndFunction
 
 bool Function LBP_AcceptPotionEvent()
@@ -1480,9 +1483,9 @@ bool Function LBP_AcceptPotionEvent()
     endif
     LBP_PotionPending = False
     LBP_PendingCount = 0
-    LBP_ForceGreetStarted = False
+    LBP_OwnerDialogueStarted = False
     LBP_UpdateDialogueFlags()
-    LEA_StopOwnerForceGreet()
+    LEA_StopOwnerDialogue()
     LBP_DoPotionEvent(shrink, count)
     return true
 EndFunction
