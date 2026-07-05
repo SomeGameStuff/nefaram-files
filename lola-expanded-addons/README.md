@@ -3,9 +3,10 @@
 Merged NEFARAM add-on for Submissive Lola, Custom Framework Lola Addon,
 Transformative Elixirs, Fertility Mode, and Milk Mod Economy.
 
-This is a pluginless MO2 mod. It does not edit the original mod folders and does
-not add an ESP. Instead, it ships loose Papyrus overrides for existing Lola
-scripts and adds integration behavior through JSON-configurable checks.
+This is an MO2 addon mod. It does not edit the original mod folders. It ships
+loose Papyrus overrides for existing Lola scripts, JSON-configurable checks, and
+`LolaExpandedAddons.esp` for owner dialogue topics used by the milk, body, and
+fertility interactions.
 
 ## What This Replaces
 
@@ -24,7 +25,12 @@ Those separate mods should stay disabled when this merged mod is enabled.
 - `Scripts/cfl_LolaMonitor.pex`
 - `Scripts/cfl_MCM.pex`
 - `Scripts/cfl_Missives.pex`
+- `Scripts/LEA_TIF_BodyPotionAccept.pex`
+- `Scripts/LEA_TIF_FertilityAccept.pex`
+- `Scripts/LEA_TIF_MilkStatus.pex`
+- `Scripts/LEA_TIF_MilkTurnIn.pex`
 - `Scripts/vkjPlayerAliasScript.pex`
+- `LolaExpandedAddons.esp`
 - `Source/Scripts/cfl_Drugs.psc`
 - `Source/Scripts/cfl_lolaMain.psc`
 - `Source/Scripts/cfl_LolaMonitor.psc`
@@ -39,7 +45,7 @@ Those separate mods should stay disabled when this merged mod is enabled.
 
 The goal is to make Lola's owner feel more active in systems that already exist
 in the modlist. The owner can interfere with the player's body, fertility, and
-milk economy without adding new quests, dialogue records, or plugins.
+milk economy through scheduled checks and owner dialogue.
 
 The mod is intentionally conservative by default. Events are chance-based,
 cooldown-limited, and use the target mods' own potions/spells where possible.
@@ -132,7 +138,10 @@ Default behavior:
 
 - 15% chance after the drug trick.
 - 72 in-game hour cooldown.
-- Casts Fertility Mode's `_JSW_BB_Inseminate` spell from the owner to the player.
+- Queues an owner dialogue demand. The player must ask the owner about the
+  fertile dose before the Fertility Mode spell is cast.
+- Casts Fertility Mode's `_JSW_BB_Inseminate` spell from the owner to the player
+  when the dialogue is accepted.
 - Does not force guaranteed pregnancy by default.
 
 Fertility Mode still handles its own cycle, conception chance, pregnancy
@@ -156,7 +165,8 @@ Default behavior:
   - having the owner start milking the player when the player is full.
 
 For milk quota assignments, the player must return near the owner with enough
-MME milk bottles. The milk is removed and the assignment completes automatically.
+MME milk bottles. The owner dialogue hub includes a milk quota status topic while
+the quota is active and a turn-in topic when enough milk is ready.
 
 The default quota is 2 bottles, with a 48-hour timeout.
 
@@ -196,7 +206,9 @@ Default behavior:
 - 8 in-game hour cooldown.
 - Default mood policy is dynamic.
 - Default mood duration is 168 in-game hours.
-- Gives and equips one Transformative Elixir.
+- Queues an owner dialogue demand instead of silently giving a potion.
+- The player must ask the owner about the elixir, then the dialogue fragment
+  gives and equips the Transformative Elixir.
 
 `body.moodPolicy` controls how the owner chooses a mood:
 
@@ -535,10 +547,12 @@ Restore normal values after testing.
 
 ## Development Notes
 
-This mod uses loose-script overrides rather than a plugin:
+This mod uses loose-script overrides plus a small dialogue ESP:
 
 - `cfl_Drugs.psc` handles the rare Lola drug trick Fertility Mode integration.
 - `cfl_LolaMonitor.psc` handles ownership-time scheduled events.
+- `LolaExpandedAddons.esp` adds the owner dialogue topics for milk turn-in, milk
+  quota status, body elixir acceptance/status, and fertility acceptance/status.
 - `cfl_MCM.psc` adds the Addons page to the existing Submissive Lola Extension
   MCM.
 - `cfl_Missives.psc` exposes the currently selected Forced Adventuring Missives
@@ -548,6 +562,6 @@ This mod uses loose-script overrides rather than a plugin:
 - `tools/generate-hair-pool.mjs` regenerates `HairPool.json` from active
   hair-related plugins in the selected MO2 profile.
 
-Because this is pluginless, it cannot add new dialogue topics or quests on its
-own. Behavior is surfaced through existing events, owner notifications, and the
-MCM/JSON config.
+Existing saves should use the addon reinit/reload path after updating so the new
+Papyrus properties and dialogue globals are initialized. `LolaExpandedAddons.esp`
+must be enabled after `cfl_LolaAddon.esp`.

@@ -17,6 +17,9 @@ Int Property LME_RequiredMilk = 0 Auto
 Float Property LME_LastReminderTime = 0.0 Auto
 
 Float Property LBP_NextEventTime = 0.0 Auto
+Bool Property LBP_PotionPending = False Auto
+Bool Property LBP_PendingShrink = False Auto
+Int Property LBP_PendingCount = 0 Auto
 Float Property LCC_NextEventTime = 0.0 Auto
 Float Property LBT_NextEventTime = 0.0 Auto
 Bool Property LBT_AssignmentActive = False Auto
@@ -1163,7 +1166,7 @@ Function LME_CheckAssignment()
     LME_ShowAssignmentReminder()
 
     if LME_CanTurnInMilk()
-        LME_TurnInMilk()
+        Debug.Notification("You have enough milk. Talk to your owner to hand it over.")
     elseif playerRef.GetDistance(ownerRef) <= LME_GetFloat("milk.turnInDistance", 500.0) && LME_GetBool("milk.showProgressNotifications", false)
         Debug.Notification(LME_GetAssignmentStatusText())
     endif
@@ -1203,13 +1206,22 @@ EndFunction
 
 Function LME_UpdateTurnInReadyFlag()
     GlobalVariable readyFlag = Game.GetFormFromFile(0x000800, LEAPluginName) as GlobalVariable
-    if readyFlag == None
+    if readyFlag != None
+        if LME_CanTurnInMilk()
+            readyFlag.SetValue(1.0)
+        else
+            readyFlag.SetValue(0.0)
+        endif
+    endif
+
+    GlobalVariable activeFlag = Game.GetFormFromFile(0x000806, LEAPluginName) as GlobalVariable
+    if activeFlag == None
         return
     endif
-    if LME_CanTurnInMilk()
-        readyFlag.SetValue(1.0)
+    if LME_AssignmentActive
+        activeFlag.SetValue(1.0)
     else
-        readyFlag.SetValue(0.0)
+        activeFlag.SetValue(0.0)
     endif
 EndFunction
 
@@ -1255,7 +1267,7 @@ string Function LME_GetAssignmentDetailText()
     if !LME_AssignmentActive
         return "No active milk quota.\n\nWhen the owner assigns one, this page will show the required bottles and time remaining."
     endif
-    return LME_GetAssignmentStatusText() + "\n\nBring that many milk bottles back to your owner before the timer expires. For now, the bottles turn in automatically when you stand close enough to your owner. You can milk yourself through Milk Mod Economy, or let owner milking start when you are nearby and full enough."
+    return LME_GetAssignmentStatusText() + "\n\nBring that many milk bottles back to your owner before the timer expires. When you have enough milk and are close enough, ask your owner to take it. You can milk yourself through Milk Mod Economy, or let owner milking start when you are nearby and full enough."
 EndFunction
 
 Function LME_ShowAssignmentReminder()
@@ -1333,6 +1345,7 @@ bool Function LBP_GetBool(string keyName, bool defaultValue)
 EndFunction
 
 Function LBP_StartScheduler()
+    LBP_UpdateDialogueFlags()
     string blockReason = LBP_GetBlockReason()
     if blockReason != ""
         if cfg != None
@@ -1351,6 +1364,9 @@ EndFunction
 
 Function LBP_StopScheduler()
     LBP_NextEventTime = 0.0
+    LBP_PotionPending = False
+    LBP_PendingCount = 0
+    LBP_UpdateDialogueFlags()
 EndFunction
 
 bool Function LBP_IsReady()
@@ -1403,31 +1419,54 @@ Function LBP_Tick()
         return
     endif
 
-    LBP_DoPotionEvent()
+    LBP_RequestPotionEvent()
     RegisterForSingleUpdateGameTime(LBP_GetFloat("body.pollHours", 1.0))
 EndFunction
 
-Function LBP_DoPotionEvent()
+Function LBP_RequestPotionEvent()
+    if LBP_PotionPending
+        LBP_UpdateDialogueFlags()
+        LEA_ShowOwnerLine("Do not make me repeat myself. Come here and drink what I chose for you.", LBP_GetBool("body.showNotifications", true))
+        return
+    endif
+
+    LBP_PendingShrink = LBP_GetMoodShrink()
+    LBP_PendingCount = LBP_GetPotionCount()
+    LBP_PotionPending = True
+    LBP_UpdateDialogueFlags()
+    LBP_SayOwnerIntent(LBP_PendingShrink)
+    Debug.Notification("Your owner has a transformative elixir ready. Ask about it to obey.")
+EndFunction
+
+bool Function LBP_AcceptPotionEvent()
+    if !LBP_PotionPending
+        return false
+    endif
+    bool shrink = LBP_PendingShrink
+    int count = LBP_PendingCount
+    if count < 1
+        count = LBP_GetPotionCount()
+    endif
+    LBP_PotionPending = False
+    LBP_PendingCount = 0
+    LBP_UpdateDialogueFlags()
+    LBP_DoPotionEvent(shrink, count)
+    return true
+EndFunction
+
+Function LBP_DoPotionEvent(bool shrink, int count)
     Actor playerRef = cfg.Player
     if playerRef == None
         return
     endif
 
-    bool shrink = LBP_GetMoodShrink()
-
-    int count = LBP_GetInt("body.potionsPerEvent", 1)
-    int maxCount = LBP_GetInt("body.maxPotionsPerEvent", 2)
     if count < 1
         count = 1
-    endif
-    if count > maxCount
-        count = maxCount
     endif
     if count > 3
         count = 3
     endif
 
-    LBP_SayOwnerIntent(shrink)
     Debug.SendAnimationEvent(playerRef, "IdleDrinkPotion")
 
     int i = 0
@@ -1444,6 +1483,41 @@ Function LBP_DoPotionEvent()
         endif
         i += 1
     endwhile
+EndFunction
+
+int Function LBP_GetPotionCount()
+    int count = LBP_GetInt("body.potionsPerEvent", 1)
+    int maxCount = LBP_GetInt("body.maxPotionsPerEvent", 2)
+    if count < 1
+        count = 1
+    endif
+    if count > maxCount
+        count = maxCount
+    endif
+    if count > 3
+        count = 3
+    endif
+    return count
+EndFunction
+
+Function LBP_UpdateDialogueFlags()
+    GlobalVariable pendingFlag = Game.GetFormFromFile(0x000803, LEAPluginName) as GlobalVariable
+    if pendingFlag != None
+        if LBP_PotionPending
+            pendingFlag.SetValue(1.0)
+        else
+            pendingFlag.SetValue(0.0)
+        endif
+    endif
+
+    GlobalVariable shrinkFlag = Game.GetFormFromFile(0x000804, LEAPluginName) as GlobalVariable
+    if shrinkFlag != None
+        if LBP_PendingShrink
+            shrinkFlag.SetValue(1.0)
+        else
+            shrinkFlag.SetValue(0.0)
+        endif
+    endif
 EndFunction
 
 bool Function LBP_GetMoodShrink()
