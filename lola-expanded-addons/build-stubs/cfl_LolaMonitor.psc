@@ -20,3 +20,7 @@ EndFunction
 Bool Function LME_TurnInMilk()
     Return False
 EndFunction
+
+Bool Function LBP_AcceptPotionEvent()
+    Return False
+EndFunction

@@ -4,6 +4,10 @@ cfl_config Property cfg Auto
 Formlist Property AvailableDrugs Auto
 
 String Property LFMAConfigPath = "../LolaExpandedAddons/Config.json" Auto
+String Property LEAPluginName = "LolaExpandedAddons.esp" Auto
+
+Bool Property LFMA_FertilityPending = False Auto
+Bool Property LFMA_PendingDirectPregnancy = False Auto
 
 int Function GetCfgInt(string configPath, string keyName, int defaultValue)
     return JsonUtil.GetIntValue(configPath, keyName, defaultValue)
@@ -76,30 +80,48 @@ Function TryOwnerFertilityEvent(Actor who, bool animate = True)
         return
     endif
 
-    Actor owner = cfg.Owner
-    if owner == None
-        owner = who
+    if LFMA_FertilityPending
+        SayFertilityPending()
+        return
     endif
 
-    bool directPregnancy = GetCfgBool(LFMAConfigPath, "fertility.allowDirectPregnancy", false)
+    LFMA_PendingDirectPregnancy = GetCfgBool(LFMAConfigPath, "fertility.allowDirectPregnancy", false)
+    LFMA_FertilityPending = True
+    LFMA_UpdateDialogueFlag()
+    SayFertilityPending()
+EndFunction
+
+bool Function LFMA_AcceptFertilityEvent()
+    if !LFMA_FertilityPending
+        return false
+    endif
+
+    Actor playerRef = Game.GetPlayer()
+    Actor owner = cfg.Owner
+    if owner == None
+        owner = playerRef
+    endif
+
     Spell fertilitySpell = None
-    if directPregnancy
+    if LFMA_PendingDirectPregnancy
         fertilitySpell = Game.GetFormFromFile(0x0156C1, "Fertility Mode.esm") as Spell
     else
         fertilitySpell = Game.GetFormFromFile(0x0156C0, "Fertility Mode.esm") as Spell
     endif
 
     if fertilitySpell == None
-        return
+        return false
     endif
 
-    if animate
-        Debug.SendAnimationEvent(who, "IdleDrinkPotion")
-    endif
-
-    fertilitySpell.Cast(owner, who)
+    Debug.SendAnimationEvent(playerRef, "IdleDrinkPotion")
+    fertilitySpell.Cast(owner, playerRef)
+    float now = Utility.GetCurrentGameTime()
     SetNextFertilityTime(now)
-    SayFertilityMood(directPregnancy)
+    SayFertilityMood(LFMA_PendingDirectPregnancy)
+    LFMA_FertilityPending = False
+    LFMA_PendingDirectPregnancy = False
+    LFMA_UpdateDialogueFlag()
+    return true
 EndFunction
 
 Function SetNextFertilityTime(float now)
@@ -133,8 +155,29 @@ Function SayFertilityMood(bool directPregnancy)
     endif
 EndFunction
 
+Function SayFertilityPending()
+    if !GetCfgBool(LFMAConfigPath, "fertility.showNotifications", true)
+        return
+    endif
+    Debug.Notification("Owner: \"Come here. I have a fertile little addition for you.\"")
+    Debug.Notification("Ask your owner about the fertility dose to obey.")
+EndFunction
+
+Function LFMA_UpdateDialogueFlag()
+    GlobalVariable pendingFlag = Game.GetFormFromFile(0x000805, LEAPluginName) as GlobalVariable
+    if pendingFlag == None
+        return
+    endif
+    if LFMA_FertilityPending
+        pendingFlag.SetValue(1.0)
+    else
+        pendingFlag.SetValue(0.0)
+    endif
+EndFunction
+
 Function Init()
     cfg = cfl_config.GetConfig()
     LoadDrugs()
+    LFMA_UpdateDialogueFlag()
 Endfunction
 
