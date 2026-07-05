@@ -8,6 +8,7 @@ String Property LCCConfigPath = "../LolaExpandedAddons/Config.json" Auto
 String Property LBTConfigPath = "../LolaExpandedAddons/Config.json" Auto
 String Property LCLConfigPath = "../LolaExpandedAddons/Config.json" Auto
 String Property LCLLoanerPoolPath = "../LolaExpandedAddons/LoanerOutfitPool.json" Auto
+String Property LEAPluginName = "LolaExpandedAddons.esp" Auto
 
 Bool Property LME_AssignmentActive = False Auto
 Float Property LME_AssignmentStarted = 0.0 Auto
@@ -864,6 +865,7 @@ Function LME_StopScheduler()
     UnregisterForUpdateGameTime()
     LME_AssignmentActive = False
     LME_LastReminderTime = 0.0
+    LME_UpdateTurnInReadyFlag()
 EndFunction
 
 Function LCC_StartScheduler()
@@ -1116,6 +1118,7 @@ Function LME_StartMilkAssignment()
     LME_AssignmentActive = True
     LME_AssignmentStarted = Utility.GetCurrentGameTime()
     LME_LastReminderTime = LME_AssignmentStarted
+    LME_UpdateTurnInReadyFlag()
 
     if LME_GetBool("milk.showNotifications", true)
         int timeoutHours = LME_GetAssignmentTimeoutHours()
@@ -1156,6 +1159,7 @@ Function LME_CheckAssignment()
         return
     endif
 
+    LME_UpdateTurnInReadyFlag()
     LME_ShowAssignmentReminder()
 
     if LME_CanTurnInMilk()
@@ -1168,6 +1172,7 @@ EndFunction
 Function LME_FailMilkAssignment()
     LME_AssignmentActive = False
     LME_LastReminderTime = 0.0
+    LME_UpdateTurnInReadyFlag()
     LEA_ShowOwnerLine("You missed your milk quota. You are going to learn what happens when you waste my patience.", LME_GetBool("milk.showNotifications", true))
     if LME_GetBool("milk.punishOnFail", true) && cfg != None && cfg.lola != None
         cfg.lola.PunishMinimal()
@@ -1191,8 +1196,21 @@ bool Function LME_TurnInMilk()
     LME_RemoveMilkItems(cfg.Player, LME_RequiredMilk)
     LME_AssignmentActive = False
     LME_LastReminderTime = 0.0
+    LME_UpdateTurnInReadyFlag()
     LEA_ShowOwnerLine("Good. You can be useful when you remember what you are for.", LME_GetBool("milk.showNotifications", true))
     return true
+EndFunction
+
+Function LME_UpdateTurnInReadyFlag()
+    GlobalVariable readyFlag = Game.GetFormFromFile(0x000800, LEAPluginName) as GlobalVariable
+    if readyFlag == None
+        return
+    endif
+    if LME_CanTurnInMilk()
+        readyFlag.SetValue(1.0)
+    else
+        readyFlag.SetValue(0.0)
+    endif
 EndFunction
 
 int Function LME_GetAssignmentTimeoutHours()
