@@ -18,6 +18,7 @@
   "milk.maxAssignmentMilkCount": 5,
   "milk.assignmentTimeoutHours": 48.0,
   "milk.assignmentReminderHours": 6.0,
+  "milk.punishOnFail": 1,
   "milk.turnInDistance": 500.0,
   "milk.giveLactacidIfNeeded": 1,
   "milk.forceStartMilking": 0,
