@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ModGroupInstaller;
 
@@ -388,6 +389,14 @@ internal sealed record InstallRequest(string Mo2Root, string ManifestPath, strin
 
 internal sealed record InstallResult(bool Success, IReadOnlyList<string> Messages);
 
+internal enum ModProcessStatus
+{
+    Installed,
+    SkippedExisting,
+    DryRunWouldInstall,
+    Failed
+}
+
 internal sealed class Installer(IInstallLog log)
 {
     public async Task<InstallResult> RunAsync(InstallRequest request, CancellationToken token)
@@ -422,6 +431,9 @@ internal sealed class Installer(IInstallLog log)
 
         var desiredModlistEntries = new List<ModlistEntry>();
         var pendingSeparators = new List<ModlistEntry>();
+        var failedMods = new List<string>();
+        var bodySlideCandidateMods = new List<string>();
+        var manifestGroupName = GetManifestGroupName(request.ManifestPath);
         foreach (var entry in manifest)
         {
             token.ThrowIfCancellationRequested();
@@ -433,7 +445,8 @@ internal sealed class Installer(IInstallLog log)
                     break;
                 case ModEntry mod:
                     log.Info($"Processing: {mod.InstallName}");
-                    if (await ProcessModAsync(mo2, mod, request, wabbajackCli, token))
+                    var status = await ProcessModAsync(mo2, mod, request, wabbajackCli, token);
+                    if (status is ModProcessStatus.Installed or ModProcessStatus.SkippedExisting or ModProcessStatus.DryRunWouldInstall)
                     {
                         if (pendingSeparators.Count > 0)
                         {
@@ -442,9 +455,24 @@ internal sealed class Installer(IInstallLog log)
                         }
 
                         desiredModlistEntries.Add(new ModlistEntry(mod.Enabled, mod.InstallName));
+                        if (status is ModProcessStatus.Installed or ModProcessStatus.SkippedExisting)
+                        {
+                            bodySlideCandidateMods.Add(mod.InstallName);
+                        }
+                    }
+                    else
+                    {
+                        failedMods.Add(mod.InstallName);
                     }
                     break;
             }
+        }
+
+        var generatedBodySlideGroup = GenerateBodySlideGroup(mo2, manifestGroupName, bodySlideCandidateMods, request.DryRun);
+        if (generatedBodySlideGroup is not null)
+        {
+            desiredModlistEntries.Insert(0, new ModlistEntry(true, BodySlideGeneratedGroupModName));
+            messages.Add($"BodySlide group: {generatedBodySlideGroup}");
         }
 
         if (desiredModlistEntries.Count > 0)
@@ -456,11 +484,34 @@ internal sealed class Installer(IInstallLog log)
             log.Info("No installed or existing mods from this manifest; modlist was not changed.");
         }
 
-        messages.Add(request.DryRun ? "Dry run completed. No files were changed." : "Install completed.");
+        AddBodySlideInstructions(mo2, messages, generatedBodySlideGroup);
+
+        if (failedMods.Count > 0)
+        {
+            messages.Add($"Install completed with {failedMods.Count} failed or timed-out entr{(failedMods.Count == 1 ? "y" : "ies")}.");
+            foreach (var failed in failedMods)
+            {
+                messages.Add($"  FAILED: {failed}");
+            }
+
+            return new InstallResult(false, messages);
+        }
+
+        messages.Add(request.DryRun ? "Dry run completed. No files were changed." : "Install completed successfully.");
         return new InstallResult(true, messages);
     }
 
-    private async Task<bool> ProcessModAsync(Mo2Instance mo2, ModEntry mod, InstallRequest request, string? wabbajackCli, CancellationToken token)
+    private const string BodySlideGeneratedGroupModName = "NEFARAM BodySlide Generated Groups";
+
+    private static string GetManifestGroupName(string manifestPath)
+    {
+        var name = Path.GetFileNameWithoutExtension(manifestPath);
+        return name.EndsWith(".mods", StringComparison.OrdinalIgnoreCase)
+            ? name[..^".mods".Length]
+            : name;
+    }
+
+    private async Task<ModProcessStatus> ProcessModAsync(Mo2Instance mo2, ModEntry mod, InstallRequest request, string? wabbajackCli, CancellationToken token)
     {
         var destination = Path.Combine(mo2.ModsPath, SafePathName(mod.InstallName));
         if (Directory.Exists(destination))
@@ -472,7 +523,7 @@ internal sealed class Installer(IInstallLog log)
                 {
                     WriteNexusMetaIni(destination, mod);
                 }
-                return true;
+                return ModProcessStatus.SkippedExisting;
             }
 
             log.Info(request.DryRun ? $"Would overwrite: {mod.InstallName}" : $"Overwriting: {mod.InstallName}");
@@ -487,7 +538,7 @@ internal sealed class Installer(IInstallLog log)
             var archive = await ResolveNexusArchiveAsync(mo2, mod, request, token);
             if (archive is null)
             {
-                return request.DryRun;
+                return request.DryRun ? ModProcessStatus.DryRunWouldInstall : ModProcessStatus.Failed;
             }
 
             if (mod.Sha256 is not null && !request.DryRun)
@@ -508,28 +559,28 @@ internal sealed class Installer(IInstallLog log)
                 WriteNexusMetaIni(destination, mod);
             }
 
-            return true;
+            return request.DryRun ? ModProcessStatus.DryRunWouldInstall : ModProcessStatus.Installed;
         }
 
         if (mod.Source == ModSource.LoversLab)
         {
             log.Warn($"{mod.Source} entry requires manual acquisition in v1: {mod.InstallName}");
             log.Warn($"  {mod.Url ?? mod.Describe()}");
-            return request.DryRun;
+            return request.DryRun ? ModProcessStatus.DryRunWouldInstall : ModProcessStatus.Failed;
         }
 
         if (mod.Source == ModSource.Manual && mod.Url is not null && !IsDirectDownload(mod.Url))
         {
             log.Warn($"Manual browser download required: {mod.InstallName}");
             log.Warn($"  {mod.Url}");
-            return request.DryRun;
+            return request.DryRun ? ModProcessStatus.DryRunWouldInstall : ModProcessStatus.Failed;
         }
 
         var archivePath = await ResolveArchiveAsync(mo2, mod, request.DryRun, token);
         if (archivePath is null)
         {
             log.Warn($"No installable archive for: {mod.InstallName}");
-            return request.DryRun;
+            return request.DryRun ? ModProcessStatus.DryRunWouldInstall : ModProcessStatus.Failed;
         }
 
         if (mod.Sha256 is not null && !request.DryRun)
@@ -549,7 +600,114 @@ internal sealed class Installer(IInstallLog log)
             NormalizeExtractedModFolder(destination);
         }
 
-        return true;
+        return request.DryRun ? ModProcessStatus.DryRunWouldInstall : ModProcessStatus.Installed;
+    }
+
+    private string? GenerateBodySlideGroup(Mo2Instance mo2, string manifestGroupName, IReadOnlyList<string> modNames, bool dryRun)
+    {
+        var sliderSetNames = modNames
+            .Select(name => Path.Combine(mo2.ModsPath, SafePathName(name)))
+            .Where(Directory.Exists)
+            .SelectMany(ReadBodySlideSliderSetNames)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Order(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        if (sliderSetNames.Count == 0)
+        {
+            return null;
+        }
+
+        var groupName = $"NEFARAM {manifestGroupName}";
+        var groupRoot = Path.Combine(mo2.ModsPath, BodySlideGeneratedGroupModName, "CalienteTools", "BodySlide", "SliderGroups");
+        var groupPath = Path.Combine(groupRoot, $"{SafePathName(groupName)}.xml");
+        log.Info($"{(dryRun ? "Would update" : "Updating")} BodySlide group '{groupName}' with {sliderSetNames.Count} slider set(s).");
+
+        if (!dryRun)
+        {
+            Directory.CreateDirectory(groupRoot);
+            var doc = new XDocument(
+                new XDeclaration("1.0", "UTF-8", null),
+                new XElement("SliderGroups",
+                    new XElement("Group",
+                        new XAttribute("name", groupName),
+                        sliderSetNames.Select(name => new XElement("Member", new XAttribute("name", name))))));
+            doc.Save(groupPath);
+        }
+
+        return groupName;
+    }
+
+    private static IEnumerable<string> ReadBodySlideSliderSetNames(string modPath)
+    {
+        foreach (var sliderSetsDir in Directory.EnumerateDirectories(modPath, "SliderSets", SearchOption.AllDirectories))
+        {
+            foreach (var path in Directory.EnumerateFiles(sliderSetsDir, "*.osp"))
+            {
+                XDocument doc;
+                try
+                {
+                    doc = XDocument.Load(path);
+                }
+                catch
+                {
+                    continue;
+                }
+
+                foreach (var name in doc.Descendants("SliderSet")
+                    .Select(element => element.Attribute("name")?.Value)
+                    .Where(name => !string.IsNullOrWhiteSpace(name)))
+                {
+                    yield return name!;
+                }
+            }
+        }
+    }
+
+    private static void AddBodySlideInstructions(Mo2Instance mo2, List<string> messages, string? preferredGroup)
+    {
+        var groupRoot = Path.Combine(mo2.ModsPath, "NEFARAM BodySlide Generated Groups", "CalienteTools", "BodySlide", "SliderGroups");
+        if (!Directory.Exists(groupRoot))
+        {
+            return;
+        }
+
+        var groups = Directory.EnumerateFiles(groupRoot, "*.xml")
+            .SelectMany(ReadBodySlideGroupNames)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Order(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        if (groups.Count == 0)
+        {
+            return;
+        }
+
+        var groupToUse = preferredGroup ?? groups.Last();
+
+        messages.Add("BodySlide next steps:");
+        messages.Add("  1. In MO2, run BodySlide.");
+        messages.Add("  2. Select preset: - Zeroed Sliders -");
+        messages.Add("  3. Check Build Morphs.");
+        messages.Add($"  4. Select group: {groupToUse}");
+        messages.Add("  5. Click Batch Build. Output should go to your enabled Bodyslide Output mod.");
+    }
+
+    private static IEnumerable<string> ReadBodySlideGroupNames(string path)
+    {
+        try
+        {
+            var doc = XDocument.Load(path);
+            return doc.Root?.Elements("Group")
+                .Select(element => element.Attribute("name")?.Value)
+                .Where(name => !string.IsNullOrWhiteSpace(name))
+                .Select(name => name!)
+                .ToArray() ?? [];
+        }
+        catch
+        {
+            return [];
+        }
     }
 
     private static void WriteNexusMetaIni(string destination, ModEntry mod)
