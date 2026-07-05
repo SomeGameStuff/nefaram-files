@@ -23,6 +23,9 @@ var ownerHub = source.DialogTopics.First(x => x.EditorID == "cfl_Main_AskMasterI
 var ownerHubInfo = ownerHub.Responses.First();
 var responseExemplarTopic = source.DialogTopics.First(x => x.EditorID == "cfl_TaskOutfit_StartTopic");
 var exemplarInfo = responseExemplarTopic.Responses.First();
+var trickQuest = source.Quests.First(x => x.EditorID == "cfl_TrickDrug");
+var trickBranch = source.DialogBranches.First(x => x.EditorID == "cfl_TrickDrug_FG");
+var trickStartTopic = source.DialogTopics.First(x => x.EditorID == "cfl_TrickDrug_FGStartTopic");
 
 var milkReady = AddGlobal("000800", "LEA_MilkTurnInReady");
 var bodyPending = AddGlobal("000803", "LEA_BodyPotionPending");
@@ -85,6 +88,110 @@ var fertilityStatusTopic = AddTopic(
         Info("000811", "LEA_FertilityStatusInfo", "When I mix that into your dose, you will know. Until then, keep yourself ready for me.", null),
     });
 
+var promptQuest = AddPromptQuest("000812", "LEA_PotionPromptQuest");
+var promptBranch = AddPromptBranch("000813", "LEA_PotionPromptBranch", promptQuest);
+
+var bodyActionTopic = AddForceTopic(
+    "000820",
+    "LEA_BodyPotionForceAction",
+    "",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        Info("000821", "LEA_BodyPotionForceActionInfo", "Open your mouth. We are going to see what this elixir makes of you.", "LEA_TIF_BodyPotionAccept", Condition(bodyPending, 1f)),
+    });
+
+var bodySubmitTopic = AddForceTopic(
+    "000816",
+    "LEA_BodyPotionForceSubmit",
+    "Yes. I'll drink the elixir you chose.",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        LinkedInfoOne("000817", "LEA_BodyPotionForceSubmitInfo", "Good. Take it properly, and let it reshape you for me.", null, bodyActionTopic, Condition(bodyPending, 1f)),
+    });
+
+var bodyAskTopic = AddForceTopic(
+    "000818",
+    "LEA_BodyPotionForceAsk",
+    "What is it going to do to me?",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        LinkedInfoOne("000819", "LEA_BodyPotionForceAskInfo", "It will make you closer to the shape I want. That is all you need to know.", null, bodyActionTopic, Condition(bodyPending, 1f)),
+    });
+
+var bodyRefuseTopic = AddForceTopic(
+    "00081A",
+    "LEA_BodyPotionForceRefuse",
+    "No. I don't want that.",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        LinkedInfoOne("00081B", "LEA_BodyPotionForceRefuseInfo", "I was not asking. Drink it.", null, bodyActionTopic, Condition(bodyPending, 1f)),
+    });
+
+var fertilityActionTopic = AddForceTopic(
+    "000828",
+    "LEA_FertilityForceAction",
+    "",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        Info("000829", "LEA_FertilityForceActionInfo", "Now take the dose, and let Fertility Mode decide what becomes of you.", "LEA_TIF_FertilityAccept", Condition(fertilityPending, 1f)),
+    });
+
+var fertilitySubmitTopic = AddForceTopic(
+    "000822",
+    "LEA_FertilityForceSubmit",
+    "Yes. I'll take the fertile dose.",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        LinkedInfoOne("000823", "LEA_FertilityForceSubmitInfo", "Good. Keep yourself useful and ready for what follows.", null, fertilityActionTopic, Condition(fertilityPending, 1f)),
+    });
+
+var fertilityAskTopic = AddForceTopic(
+    "000824",
+    "LEA_FertilityForceAsk",
+    "What are you giving me?",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        LinkedInfoOne("000825", "LEA_FertilityForceAskInfo", "A fertile little addition. You will drink it and let your body answer.", null, fertilityActionTopic, Condition(fertilityPending, 1f)),
+    });
+
+var fertilityRefuseTopic = AddForceTopic(
+    "000826",
+    "LEA_FertilityForceRefuse",
+    "No. I don't want that.",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        LinkedInfoOne("000827", "LEA_FertilityForceRefuseInfo", "You do not get to refuse this dose. Open your mouth.", null, fertilityActionTopic, Condition(fertilityPending, 1f)),
+    });
+
+var startTopic = AddForceTopic(
+    "000814",
+    "LEA_PotionPromptStartTopic",
+    "",
+    promptQuest,
+    promptBranch,
+    new[]
+    {
+        LinkedInfoMany("000815", "LEA_BodyPotionPromptStartInfo", "Come here. I have chosen an elixir, and you are going to drink it for me.", null, new[] { bodySubmitTopic, bodyAskTopic, bodyRefuseTopic }, Condition(bodyPending, 1f)),
+        LinkedInfoMany("00081C", "LEA_FertilityPromptStartInfo", "Come here. I have a fertile little addition for you.", null, new[] { fertilitySubmitTopic, fertilityAskTopic, fertilityRefuseTopic }, Condition(fertilityPending, 1f)),
+    });
+promptBranch.StartingTopic.SetTo(startTopic.FormKey);
+
 patch.DialogTopics.Add(ownerHub);
 
 patch.WriteToBinary(projectOutput);
@@ -104,6 +211,31 @@ GlobalFloat AddGlobal(string localFormId, string editorId)
     };
     patch.Globals.Add(global);
     return global;
+}
+
+Quest AddPromptQuest(string localFormId, string editorId)
+{
+    var quest = new Quest(FormKey.Factory(localFormId + ":" + PatchName), SkyrimRelease.SkyrimSE)
+    {
+        EditorID = editorId,
+        Name = "Lola Expanded Addons Potion Prompt",
+        Flags = trickQuest.Flags,
+        Priority = trickQuest.Priority,
+    };
+    patch.Quests.Add(quest);
+    return quest;
+}
+
+DialogBranch AddPromptBranch(string localFormId, string editorId, Quest quest)
+{
+    var branch = new DialogBranch(FormKey.Factory(localFormId + ":" + PatchName), SkyrimRelease.SkyrimSE)
+    {
+        EditorID = editorId,
+        Flags = trickBranch.Flags,
+    };
+    branch.Quest.SetTo(quest.FormKey);
+    patch.DialogBranches.Add(branch);
+    return branch;
 }
 
 DialogTopic AddTopic(string localFormId, string editorId, string prompt, IEnumerable<DialogResponses> infos, bool linkFromOwnerHub = true)
@@ -128,6 +260,41 @@ DialogTopic AddTopic(string localFormId, string editorId, string prompt, IEnumer
         ownerHubInfo.LinkTo.Add(topic.ToLinkGetter());
     patch.DialogTopics.Add(topic);
     return topic;
+}
+
+DialogTopic AddForceTopic(string localFormId, string editorId, string prompt, Quest quest, DialogBranch branch, IEnumerable<DialogResponses> infos)
+{
+    var topic = new DialogTopic(FormKey.Factory(localFormId + ":" + PatchName), SkyrimRelease.SkyrimSE)
+    {
+        EditorID = editorId,
+        Name = prompt,
+        Category = trickStartTopic.Category,
+        Subtype = trickStartTopic.Subtype,
+        Priority = trickStartTopic.Priority,
+        TopicFlags = trickStartTopic.TopicFlags,
+        Unknown = trickStartTopic.Unknown,
+    };
+    topic.Quest.SetTo(quest.FormKey);
+    topic.Branch.SetTo(branch.FormKey);
+
+    foreach (var info in infos)
+        topic.Responses.Add(info);
+
+    patch.DialogTopics.Add(topic);
+    return topic;
+}
+
+DialogResponses LinkedInfoOne(string localFormId, string editorId, string responseText, string? scriptName, DialogTopic linkedTopic, params ConditionFloat[] conditions)
+{
+    return LinkedInfoMany(localFormId, editorId, responseText, scriptName, new[] { linkedTopic }, conditions);
+}
+
+DialogResponses LinkedInfoMany(string localFormId, string editorId, string responseText, string? scriptName, IEnumerable<DialogTopic> linkedTopics, params ConditionFloat[] conditions)
+{
+    var info = Info(localFormId, editorId, responseText, scriptName, conditions);
+    foreach (var topic in linkedTopics)
+        info.LinkTo.Add(topic.ToLinkGetter());
+    return info;
 }
 
 DialogResponses Info(string localFormId, string editorId, string responseText, string? scriptName, params ConditionFloat[] conditions)
@@ -246,8 +413,8 @@ static void PatchLeaTopicSubtype(string pluginPath)
         patched++;
     });
 
-    if (patched != 6)
-        throw new InvalidOperationException($"Expected to patch 6 LEA dialogue topic subtypes, patched {patched}.");
+    if (patched != 15)
+        throw new InvalidOperationException($"Expected to patch 15 LEA dialogue topic subtypes, patched {patched}.");
 
     File.WriteAllBytes(pluginPath, data);
     return;
