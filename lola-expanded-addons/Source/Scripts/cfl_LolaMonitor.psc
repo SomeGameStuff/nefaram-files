@@ -83,7 +83,7 @@ Event OnInit()
     LCC_StartScheduler()
     LBT_StartScheduler()
     LCL_StartScheduler()
-    LEA_ShowOwnerLine("I have some new uses for you. When I decide you need changing, you will obey.", LBP_GetBool("body.showNotifications", true) || LME_GetBool("milk.showNotifications", true))
+    LEA_ShowOwnerLine("I have found new draughts for shaping you. When I choose one, you will come when called.", LBP_GetBool("body.showNotifications", true) || LME_GetBool("milk.showNotifications", true))
 EndEvent
 
 Event OnReloadReferences()
@@ -95,7 +95,7 @@ Event OnReloadReferences()
     LCC_StartScheduler()
     LBT_StartScheduler()
     LCL_StartScheduler()
-    LEA_ShowOwnerLine("I have some new uses for you. When I decide you need changing, you will obey.", LBP_GetBool("body.showNotifications", true) || LME_GetBool("milk.showNotifications", true))
+    LEA_ShowOwnerLine("I have found new draughts for shaping you. When I choose one, you will come when called.", LBP_GetBool("body.showNotifications", true) || LME_GetBool("milk.showNotifications", true))
 EndEvent
 
 Event OnSLTR_Exit(String eventName, Form ownerActor, float score, float daysEnslaved)
@@ -159,6 +159,24 @@ Function LEA_ShowOwnerLine(string lineText, bool showLine = true)
         return
     endif
     Debug.Notification("Owner: \"" + lineText + "\"")
+EndFunction
+
+bool Function LEA_StartOwnerForceGreet()
+    if cfg == None
+        SetReferences()
+    endif
+    if cfg == None || cfg.GenericFG == None || cfg.Owner == None
+        return false
+    endif
+
+    cfg.GenericFG.Start()
+    return cfg.GenericFG.StartForceGreet(cfg.Owner)
+EndFunction
+
+Function LEA_StopOwnerForceGreet()
+    if cfg != None && cfg.GenericFG != None
+        cfg.GenericFG.StopFG()
+    endif
 EndFunction
 
 Function RegisterEvents()
@@ -1427,6 +1445,7 @@ Function LBP_RequestPotionEvent()
     if LBP_PotionPending
         LBP_UpdateDialogueFlags()
         LEA_ShowOwnerLine("Do not make me repeat myself. Come here and drink what I chose for you.", LBP_GetBool("body.showNotifications", true))
+        LEA_StartOwnerForceGreet()
         return
     endif
 
@@ -1435,7 +1454,10 @@ Function LBP_RequestPotionEvent()
     LBP_PotionPending = True
     LBP_UpdateDialogueFlags()
     LBP_SayOwnerIntent(LBP_PendingShrink)
-    Debug.Notification("Your owner has a transformative elixir ready. Ask about it to obey.")
+    if LBP_GetBool("body.showNotifications", true)
+        Debug.Notification("Your owner is calling you over with a transformative elixir.")
+    endif
+    LEA_StartOwnerForceGreet()
 EndFunction
 
 bool Function LBP_AcceptPotionEvent()
@@ -1450,6 +1472,7 @@ bool Function LBP_AcceptPotionEvent()
     LBP_PotionPending = False
     LBP_PendingCount = 0
     LBP_UpdateDialogueFlags()
+    LEA_StopOwnerForceGreet()
     LBP_DoPotionEvent(shrink, count)
     return true
 EndFunction
@@ -1573,9 +1596,9 @@ Function LBP_SayNewMood(bool shrink)
     endif
 
     if shrink
-        LEA_ShowOwnerLine("I think I want you smaller for a while. Easier to handle.", true)
+        LEA_ShowOwnerLine("The next elixir should make you neater, lighter, easier to present.", true)
     else
-        LEA_ShowOwnerLine("I think I want you bigger for a while. More of you to admire and use.", true)
+        LEA_ShowOwnerLine("The next elixir should make you fuller, softer, harder to overlook.", true)
     endif
 EndFunction
 
@@ -1587,20 +1610,20 @@ Function LBP_SayOwnerIntent(bool shrink)
     if shrink
         int line = Utility.RandomInt(0, 2)
         if line == 0
-            LEA_ShowOwnerLine("You have gotten much too big. We will fix that.", true)
+            LEA_ShowOwnerLine("You have grown past the shape I want. This draught will correct that.", true)
         elseif line == 1
-            LEA_ShowOwnerLine("Drink this. I want you reduced.", true)
+            LEA_ShowOwnerLine("Drink this. I want the elixir to pare you down into something easier to keep.", true)
         else
-            LEA_ShowOwnerLine("Smaller will suit you. Easier to manage, easier to keep.", true)
+            LEA_ShowOwnerLine("Smaller will suit you. Easier to dress, easier to display, easier to keep.", true)
         endif
     else
         int lineBig = Utility.RandomInt(0, 2)
         if lineBig == 0
-            LEA_ShowOwnerLine("You should be much bigger for me.", true)
+            LEA_ShowOwnerLine("This elixir should give me more of you to show off.", true)
         elseif lineBig == 1
-            LEA_ShowOwnerLine("Open your mouth. This should make you grow nicely.", true)
+            LEA_ShowOwnerLine("Open your mouth. I want to see what this growth draught makes of you.", true)
         else
-            LEA_ShowOwnerLine("I want your body harder to ignore.", true)
+            LEA_ShowOwnerLine("I want the change obvious enough that no one can miss whose body shaped you.", true)
         endif
     endif
 EndFunction
