@@ -21,8 +21,8 @@ patch.ModHeader.MasterReferences.Add(new MasterReference { Master = ModKey.FromN
 
 var ownerHub = source.DialogTopics.First(x => x.EditorID == "cfl_Main_AskMasterIntro").DeepCopy();
 var ownerHubInfo = ownerHub.Responses.First();
-var exemplarTopic = source.DialogTopics.First(x => x.EditorID == "cfl_TaskOutfit_StartTopic");
-var exemplarInfo = exemplarTopic.Responses.First();
+var responseExemplarTopic = source.DialogTopics.First(x => x.EditorID == "cfl_TaskOutfit_StartTopic");
+var exemplarInfo = responseExemplarTopic.Responses.First();
 
 var milkReady = AddGlobal("000800", "LEA_MilkTurnInReady");
 var bodyPending = AddGlobal("000803", "LEA_BodyPotionPending");
@@ -88,6 +88,7 @@ AddTopic(
 patch.DialogTopics.Add(ownerHub);
 
 patch.WriteToBinary(projectOutput);
+PatchLeaTopicSubtype(projectOutput);
 Directory.CreateDirectory(Path.GetDirectoryName(runtimeOutput)!);
 File.Copy(projectOutput, runtimeOutput, overwrite: true);
 
@@ -111,14 +112,14 @@ void AddTopic(string localFormId, string editorId, string prompt, IEnumerable<Di
     {
         EditorID = editorId,
         Name = prompt,
-        Category = exemplarTopic.Category,
-        Subtype = exemplarTopic.Subtype,
-        Priority = exemplarTopic.Priority,
-        TopicFlags = exemplarTopic.TopicFlags,
-        Unknown = exemplarTopic.Unknown,
+        Category = ownerHub.Category,
+        Subtype = responseExemplarTopic.Subtype,
+        Priority = ownerHub.Priority,
+        TopicFlags = ownerHub.TopicFlags,
+        Unknown = ownerHub.Unknown,
     };
-    topic.Quest.SetTo(exemplarTopic.Quest.FormKey);
-    topic.Branch.SetTo(exemplarTopic.Branch.FormKey);
+    topic.Quest.SetTo(ownerHub.Quest.FormKey);
+    topic.Branch.SetTo(ownerHub.Branch.FormKey);
 
     foreach (var info in infos)
         topic.Responses.Add(info);
@@ -197,4 +198,85 @@ static string FindProjectRoot()
     }
 
     return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
+}
+
+static void PatchLeaTopicSubtype(string pluginPath)
+{
+    var data = File.ReadAllBytes(pluginPath);
+    var patched = 0;
+
+    WalkRecords(0, data.Length, record =>
+    {
+        if (ReadTag(data, record.Offset) != "DIAL")
+            return;
+
+        var recordDataStart = record.Offset + 24;
+        var recordDataEnd = recordDataStart + record.Size;
+        var editorId = "";
+        int? subtypeValueOffset = null;
+
+        for (var pos = recordDataStart; pos + 6 <= recordDataEnd;)
+        {
+            var fieldType = ReadTag(data, pos);
+            var fieldSize = BitConverter.ToUInt16(data, pos + 4);
+            var valueOffset = pos + 6;
+            var next = valueOffset + fieldSize;
+            if (next > recordDataEnd)
+                break;
+
+            if (fieldType == "EDID")
+                editorId = ReadZString(data, valueOffset, fieldSize);
+            else if (fieldType == "SNAM" && fieldSize == 4)
+                subtypeValueOffset = valueOffset;
+
+            pos = next;
+        }
+
+        if (!editorId.StartsWith("LEA_", StringComparison.Ordinal))
+            return;
+        if (subtypeValueOffset == null)
+            throw new InvalidOperationException($"Generated topic {editorId} has no SNAM field.");
+
+        data[subtypeValueOffset.Value + 0] = (byte)'C';
+        data[subtypeValueOffset.Value + 1] = (byte)'U';
+        data[subtypeValueOffset.Value + 2] = (byte)'S';
+        data[subtypeValueOffset.Value + 3] = (byte)'T';
+        patched++;
+    });
+
+    if (patched != 6)
+        throw new InvalidOperationException($"Expected to patch 6 LEA dialogue topic subtypes, patched {patched}.");
+
+    File.WriteAllBytes(pluginPath, data);
+    return;
+
+    void WalkRecords(int start, int end, Action<(int Offset, uint Size)> handleRecord)
+    {
+        for (var pos = start; pos + 24 <= end;)
+        {
+            var type = ReadTag(data, pos);
+            var size = BitConverter.ToUInt32(data, pos + 4);
+            if (type == "GRUP")
+            {
+                WalkRecords(pos + 24, pos + checked((int)size), handleRecord);
+                pos += checked((int)size);
+            }
+            else
+            {
+                handleRecord((pos, size));
+                pos += 24 + checked((int)size);
+            }
+        }
+    }
+
+    static string ReadTag(byte[] bytes, int offset) => System.Text.Encoding.ASCII.GetString(bytes, offset, 4);
+
+    static string ReadZString(byte[] bytes, int offset, int length)
+    {
+        var end = offset;
+        var max = offset + length;
+        while (end < max && bytes[end] != 0)
+            end++;
+        return System.Text.Encoding.UTF8.GetString(bytes, offset, end - offset);
+    }
 }
