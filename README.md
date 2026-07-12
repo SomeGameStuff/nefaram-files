@@ -2,6 +2,8 @@
 
 Source and packaged files for local NEFARAM add-on mods.
 
+Source of record: use this repository at `C:\Users\antho\nefaram-files` for source edits, commits, tags, and GitHub releases. Treat `C:\games\nefaram` as an installed MO2 runtime/reference tree, not the release source.
+
 | Mod | Folder | Purpose | Source | Build | Install |
 | --- | --- | --- | --- | --- | --- |
 | RaceMenu Appearance Slots | `RaceMenu Appearance Slots` | Stores two player-authored RaceMenu appearance slots and toggles between them. | `Source/Scripts` plus `RMAppSlots.esp`. | Compile the Papyrus sources against RaceMenu, SkyUI, PapyrusUtil, and PO3 Papyrus Extender sources; current `.pex` files are included. | Copy the folder to MO2 `mods`, enable it, and enable `RMAppSlots.esp`. |

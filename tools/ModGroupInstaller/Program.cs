@@ -399,6 +399,8 @@ internal enum ModProcessStatus
 
 internal sealed class Installer(IInstallLog log)
 {
+    private const string BodySlideGeneratedGroupModName = "ModGroupInstaller Generated BodySlide Groups";
+
     public async Task<InstallResult> RunAsync(InstallRequest request, CancellationToken token)
     {
         var messages = new List<string>();
@@ -501,14 +503,17 @@ internal sealed class Installer(IInstallLog log)
         return new InstallResult(true, messages);
     }
 
-    private const string BodySlideGeneratedGroupModName = "NEFARAM BodySlide Generated Groups";
-
     private static string GetManifestGroupName(string manifestPath)
     {
         var name = Path.GetFileNameWithoutExtension(manifestPath);
-        return name.EndsWith(".mods", StringComparison.OrdinalIgnoreCase)
-            ? name[..^".mods".Length]
-            : name;
+        if (name.EndsWith(".mods", StringComparison.OrdinalIgnoreCase))
+        {
+            name = name[..^".mods".Length];
+        }
+
+        name = name.Replace('_', ' ').Replace('-', ' ');
+        name = Regex.Replace(name, @"\s+", " ").Trim();
+        return string.IsNullOrWhiteSpace(name) ? "BodySlide" : name;
     }
 
     private async Task<ModProcessStatus> ProcessModAsync(Mo2Instance mo2, ModEntry mod, InstallRequest request, string? wabbajackCli, CancellationToken token)
@@ -523,6 +528,12 @@ internal sealed class Installer(IInstallLog log)
                 {
                     WriteNexusMetaIni(destination, mod);
                 }
+
+                if (!request.DryRun)
+                {
+                    InspectInstalledDataRoot(destination, mod.InstallName);
+                }
+
                 return ModProcessStatus.SkippedExisting;
             }
 
@@ -557,6 +568,7 @@ internal sealed class Installer(IInstallLog log)
                 await ArchiveExtractor.ExtractAsync(archive, destination, wabbajackCli, token);
                 NormalizeExtractedModFolder(destination);
                 WriteNexusMetaIni(destination, mod);
+                InspectInstalledDataRoot(destination, mod.InstallName);
             }
 
             return request.DryRun ? ModProcessStatus.DryRunWouldInstall : ModProcessStatus.Installed;
@@ -598,6 +610,7 @@ internal sealed class Installer(IInstallLog log)
             Directory.CreateDirectory(destination);
             await ArchiveExtractor.ExtractAsync(archivePath, destination, wabbajackCli, token);
             NormalizeExtractedModFolder(destination);
+            InspectInstalledDataRoot(destination, mod.InstallName);
         }
 
         return request.DryRun ? ModProcessStatus.DryRunWouldInstall : ModProcessStatus.Installed;
@@ -618,7 +631,7 @@ internal sealed class Installer(IInstallLog log)
             return null;
         }
 
-        var groupName = $"NEFARAM {manifestGroupName}";
+        var groupName = $"ModGroupInstaller - {manifestGroupName}";
         var groupRoot = Path.Combine(mo2.ModsPath, BodySlideGeneratedGroupModName, "CalienteTools", "BodySlide", "SliderGroups");
         var groupPath = Path.Combine(groupRoot, $"{SafePathName(groupName)}.xml");
         log.Info($"{(dryRun ? "Would update" : "Updating")} BodySlide group '{groupName}' with {sliderSetNames.Count} slider set(s).");
@@ -666,7 +679,7 @@ internal sealed class Installer(IInstallLog log)
 
     private static void AddBodySlideInstructions(Mo2Instance mo2, List<string> messages, string? preferredGroup)
     {
-        var groupRoot = Path.Combine(mo2.ModsPath, "NEFARAM BodySlide Generated Groups", "CalienteTools", "BodySlide", "SliderGroups");
+        var groupRoot = Path.Combine(mo2.ModsPath, BodySlideGeneratedGroupModName, "CalienteTools", "BodySlide", "SliderGroups");
         if (!Directory.Exists(groupRoot))
         {
             return;
@@ -763,64 +776,103 @@ internal sealed class Installer(IInstallLog log)
     {
         var files = Directory.EnumerateFiles(destination).ToList();
         var directories = Directory.EnumerateDirectories(destination).ToList();
-        if (files.Count == 0 && directories.Count == 1)
-        {
-            var wrapper = directories[0];
-            if (!LooksLikeModDataRoot(wrapper))
-            {
-                return;
-            }
-
-            foreach (var childFile in Directory.EnumerateFiles(wrapper))
-            {
-                File.Move(childFile, Path.Combine(destination, Path.GetFileName(childFile)));
-            }
-
-            foreach (var childDirectory in Directory.EnumerateDirectories(wrapper))
-            {
-                Directory.Move(childDirectory, Path.Combine(destination, Path.GetFileName(childDirectory)));
-            }
-
-            Directory.Delete(wrapper);
-        }
-
-        CopyFomodDefaultFolder(destination, "BaseFiles");
-        CopyFomodDefaultFolder(destination, Path.Combine("Body", "3BA"));
-        CopyFomodDefaultFolder(destination, Path.Combine("SliderSets", "3BA"));
-        CopyFomodDefaultFolder(destination, Path.Combine("Cubemaps", "None"));
-    }
-
-    private static void CopyFomodDefaultFolder(string destination, string relativeSource)
-    {
-        var source = Path.Combine(destination, relativeSource);
-        if (!Directory.Exists(source))
+        if (files.Count != 0 || directories.Count != 1)
         {
             return;
         }
 
-        CopyDirectoryContents(source, destination);
+        var wrapper = directories[0];
+        if (!LooksLikeModDataRoot(wrapper))
+        {
+            return;
+        }
+
+        var plannedTargets = Directory.EnumerateFileSystemEntries(wrapper)
+            .Select(entry => Path.Combine(destination, Path.GetFileName(entry)))
+            .ToList();
+        if (plannedTargets.Any(File.Exists) || plannedTargets.Any(Directory.Exists))
+        {
+            return;
+        }
+
+        foreach (var childFile in Directory.EnumerateFiles(wrapper))
+        {
+            File.Move(childFile, Path.Combine(destination, Path.GetFileName(childFile)));
+        }
+
+        foreach (var childDirectory in Directory.EnumerateDirectories(wrapper))
+        {
+            Directory.Move(childDirectory, Path.Combine(destination, Path.GetFileName(childDirectory)));
+        }
+
+        Directory.Delete(wrapper);
     }
 
-    private static void CopyDirectoryContents(string source, string destination)
+    private void InspectInstalledDataRoot(string destination, string installName)
     {
-        foreach (var directory in Directory.EnumerateDirectories(source, "*", SearchOption.AllDirectories))
+        if (HasStrictGameDataRoot(destination))
         {
-            var relative = Path.GetRelativePath(source, directory);
-            Directory.CreateDirectory(Path.Combine(destination, relative));
+            return;
         }
 
-        foreach (var file in Directory.EnumerateFiles(source, "*", SearchOption.AllDirectories))
+        if (HasTopLevelDirectory(destination, "CalienteTools"))
         {
-            if (Path.GetFileName(file).Equals("meta.ini", StringComparison.OrdinalIgnoreCase))
-            {
-                continue;
-            }
-
-            var relative = Path.GetRelativePath(source, file);
-            var target = Path.Combine(destination, relative);
-            Directory.CreateDirectory(Path.GetDirectoryName(target)!);
-            File.Copy(file, target, overwrite: true);
+            AddBodySlideOnlyMarker(destination);
+            log.Info($"BodySlide-only mod detected: {installName}. Added an MO2 marker; use its presets/projects in BodySlide as applicable.");
+            return;
         }
+
+        var topLevel = Directory.Exists(destination)
+            ? Directory.EnumerateFileSystemEntries(destination).Select(Path.GetFileName).Where(name => !string.IsNullOrWhiteSpace(name)).ToList()
+            : [];
+        var topLevelDirectoryCount = topLevel.Count(name => Directory.Exists(Path.Combine(destination, name!)));
+
+        if (topLevel.Any(name => name!.Contains("fomod", StringComparison.OrdinalIgnoreCase)) || topLevelDirectoryCount > 1)
+        {
+            log.Warn($"No valid game data at root for {installName}. This looks like an option-based FOMOD/BAIN archive. Open it in MO2 or add explicit manifest choices before installing. Top-level entries: {string.Join(", ", topLevel)}");
+            return;
+        }
+
+        log.Warn($"No valid game data at root for {installName}. Top-level entries: {string.Join(", ", topLevel)}");
+    }
+
+    private static bool HasStrictGameDataRoot(string destination)
+    {
+        var knownDirectories = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "Meshes", "Textures", "Scripts", "SKSE", "Interface", "Sound", "Seq", "MCM", "Music", "Video", "Grass", "DynDOLOD"
+        };
+
+        return Directory.Exists(destination) &&
+            (Directory.EnumerateFiles(destination).Any(file => IsGameDataFile(Path.GetExtension(file))) ||
+             Directory.EnumerateDirectories(destination).Select(Path.GetFileName).Any(name => name is not null && knownDirectories.Contains(name)));
+    }
+
+    private static bool IsGameDataFile(string extension)
+    {
+        return extension.Equals(".esp", StringComparison.OrdinalIgnoreCase) ||
+            extension.Equals(".esm", StringComparison.OrdinalIgnoreCase) ||
+            extension.Equals(".esl", StringComparison.OrdinalIgnoreCase) ||
+            extension.Equals(".bsa", StringComparison.OrdinalIgnoreCase) ||
+            extension.Equals(".ini", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool HasTopLevelDirectory(string destination, string name)
+    {
+        return Directory.Exists(destination) &&
+            Directory.EnumerateDirectories(destination)
+                .Select(Path.GetFileName)
+                .Any(child => child is not null && child.Equals(name, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static void AddBodySlideOnlyMarker(string destination)
+    {
+        var markerDirectory = Path.Combine(destination, "meshes");
+        Directory.CreateDirectory(markerDirectory);
+        File.WriteAllText(
+            Path.Combine(markerDirectory, "_modgroupinstaller_mo2_valid_data_marker.txt"),
+            "This harmless marker prevents MO2 from flagging BodySlide-preset-only mods as no valid game data." + Environment.NewLine,
+            Encoding.UTF8);
     }
 
     private static bool LooksLikeModDataRoot(string path)
@@ -854,13 +906,34 @@ internal sealed class Installer(IInstallLog log)
         var game = mod.Fields.GetValueOrDefault("game") ?? "skyrimspecialedition";
         var modId = mod.Fields.GetValueOrDefault("mod_id");
         var fileId = mod.Fields.GetValueOrDefault("file_id");
-        if (string.IsNullOrWhiteSpace(modId) || string.IsNullOrWhiteSpace(fileId))
+        var expectedFileName = mod.FileName ?? mod.Fields.GetValueOrDefault("download_file");
+        if (string.IsNullOrWhiteSpace(modId))
         {
-            throw new FormatException($"Nexus entry requires game/mod_id/file_id: {mod.InstallName}");
+            throw new FormatException($"Nexus entry requires game/mod_id: {mod.InstallName}");
+        }
+
+        if (!string.IsNullOrWhiteSpace(expectedFileName))
+        {
+            var cachedByName = FindArchiveByFileName(mo2.DownloadSearchPaths, expectedFileName);
+            if (cachedByName is not null)
+            {
+                log.Info($"Using cached Nexus archive: {cachedByName}");
+                return cachedByName;
+            }
+        }
+
+        if (string.IsNullOrWhiteSpace(fileId))
+        {
+            if (string.IsNullOrWhiteSpace(expectedFileName))
+            {
+                throw new FormatException($"Nexus entry requires file_id=... or file=\"...\": {mod.InstallName}");
+            }
+
+            fileId = await ResolveNexusFileIdByFileNameAsync(game, modId, expectedFileName, mod, apiKey, bearerToken, wabbajackOAuth, token);
         }
 
         log.Info($"Checking cached downloads for: {mod.InstallName}");
-        var cached = FindCachedNexusArchive(mo2.DownloadSearchPaths, modId, fileId, mod.Fields.GetValueOrDefault("download_file"), log);
+        var cached = FindCachedNexusArchive(mo2.DownloadSearchPaths, modId, fileId, expectedFileName, log);
         if (cached is not null)
         {
             log.Info($"Using cached Nexus archive: {cached}");
@@ -899,7 +972,7 @@ internal sealed class Installer(IInstallLog log)
             if ((linkResponse.StatusCode == System.Net.HttpStatusCode.Forbidden && IsManualNexusDownloadRequired(linkBody)) ||
                 (linkResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized && IsExpiredNexusToken(linkBody)))
             {
-                return await WaitForManualNexusDownloadAsync(mo2, mod, game, modId, fileId, request.DryRun, token);
+                return await WaitForManualNexusDownloadAsync(mo2, mod, game, modId, fileId, expectedFileName, request.DryRun, token);
             }
 
             throw new InvalidOperationException($"Nexus download-link request failed for {mod.InstallName}: {(int)linkResponse.StatusCode} {linkResponse.ReasonPhrase}{Environment.NewLine}{linkBody}");
@@ -907,7 +980,7 @@ internal sealed class Installer(IInstallLog log)
 
         var downloadUrl = NexusJson.FindFirstHttpUri(linkBody) ?? throw new InvalidOperationException($"Nexus did not return a download URI for {mod.InstallName}.");
         linkResponse.Dispose();
-        var fileName = mod.FileName;
+        var fileName = expectedFileName;
         log.Info($"Downloading Nexus archive for {mod.InstallName}");
         using var archiveResponse = await client.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead, token);
         archiveResponse.EnsureSuccessStatusCode();
@@ -924,16 +997,60 @@ internal sealed class Installer(IInstallLog log)
         return archivePath;
     }
 
-    private async Task<string?> WaitForManualNexusDownloadAsync(Mo2Instance mo2, ModEntry mod, string game, string modId, string fileId, bool dryRun, CancellationToken token)
+    private async Task<string> ResolveNexusFileIdByFileNameAsync(string game, string modId, string expectedFileName, ModEntry mod, string? apiKey, string? bearerToken, WabbajackOAuth? wabbajackOAuth, CancellationToken token)
     {
-        var pageUrl = mod.Url ?? $"https://www.nexusmods.com/{game}/mods/{modId}?tab=files&file_id={fileId}";
+        var filesEndpoint = $"https://api.nexusmods.com/v1/games/{Uri.EscapeDataString(game)}/mods/{Uri.EscapeDataString(modId)}/files.json";
+        log.Info($"Resolving Nexus file ID by archive name: {expectedFileName}");
+        using var client = CreateNexusClient(apiKey, bearerToken);
+        var response = await client.GetAsync(filesEndpoint, token);
+        var body = await response.Content.ReadAsStringAsync(token);
+        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized &&
+            string.IsNullOrWhiteSpace(apiKey) &&
+            !string.IsNullOrWhiteSpace(wabbajackOAuth?.RefreshToken))
+        {
+            response.Dispose();
+            log.Info("Wabbajack Nexus token is expired; refreshing OAuth token.");
+            bearerToken = await WabbajackNexusAuth.TryRefreshAccessTokenAsync(wabbajackOAuth.RefreshToken, token);
+            if (!string.IsNullOrWhiteSpace(bearerToken))
+            {
+                using var refreshedClient = CreateNexusClient(null, bearerToken);
+                response = await refreshedClient.GetAsync(filesEndpoint, token);
+                body = await response.Content.ReadAsStringAsync(token);
+            }
+        }
+
+        using (response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new InvalidOperationException($"Nexus files request failed for {mod.InstallName}: {(int)response.StatusCode} {response.ReasonPhrase}{Environment.NewLine}{body}");
+            }
+        }
+
+        var match = NexusJson.FindFileIdByFileName(body, expectedFileName, mod.InstallName);
+        if (match is null)
+        {
+            throw new InvalidOperationException($"Could not find Nexus file ID for {mod.InstallName} using archive name '{expectedFileName}'.");
+        }
+
+        log.Info($"Resolved Nexus file ID for {mod.InstallName}: {match}");
+        return match;
+    }
+
+    private async Task<string?> WaitForManualNexusDownloadAsync(Mo2Instance mo2, ModEntry mod, string game, string modId, string fileId, string? expectedFileName, bool dryRun, CancellationToken token)
+    {
+        var pageUrl = BuildNexusFilePageUrl(mod.Url, game, modId, fileId);
         log.Warn($"Nexus requires browser/manual download for non-premium account: {mod.InstallName}");
         log.Warn($"  {pageUrl}");
+        if (!string.IsNullOrWhiteSpace(expectedFileName))
+        {
+            log.Warn($"  Download exact archive: {expectedFileName}");
+        }
 
         if (dryRun)
         {
             log.Info($"Would open browser and wait for archive in: {string.Join("; ", mo2.DownloadSearchPaths)}");
-            return Path.Combine(mo2.DownloadsPath, $"nexus-{modId}-{fileId}.archive");
+            return Path.Combine(mo2.DownloadsPath, expectedFileName ?? $"nexus-{modId}-{fileId}.archive");
         }
 
         foreach (var path in mo2.DownloadSearchPaths)
@@ -971,6 +1088,17 @@ internal sealed class Installer(IInstallLog log)
 
         log.Warn($"Timed out waiting for manual Nexus download: {mod.InstallName}");
         return null;
+    }
+
+    private static string BuildNexusFilePageUrl(string? manifestUrl, string game, string modId, string fileId)
+    {
+        if (!string.IsNullOrWhiteSpace(manifestUrl) &&
+            manifestUrl.Contains("file_id=", StringComparison.OrdinalIgnoreCase))
+        {
+            return manifestUrl;
+        }
+
+        return $"https://www.nexusmods.com/{game}/mods/{modId}?tab=files&file_id={fileId}";
     }
 
     private async Task<string?> ResolveArchiveAsync(Mo2Instance mo2, ModEntry mod, bool dryRun, CancellationToken token)
@@ -1124,7 +1252,7 @@ internal sealed class Installer(IInstallLog log)
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", bearerToken);
         }
 
-        client.DefaultRequestHeaders.UserAgent.ParseAdd("ModGroupInstaller/0.2");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("ModGroupInstaller/0.3");
         return client;
     }
 
@@ -1776,17 +1904,63 @@ internal static class ArchiveExtractor
     {
         if (wabbajackCli is not null && File.Exists(wabbajackCli))
         {
-            await RunWabbajackExtractAsync(wabbajackCli, archive, destination, token);
-            return;
+            try
+            {
+                await RunWabbajackExtractAsync(wabbajackCli, archive, destination, token);
+                return;
+            }
+            catch when (Path.GetExtension(archive).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+            {
+                ExtractZipTolerant(archive, destination);
+                return;
+            }
         }
 
         if (Path.GetExtension(archive).Equals(".zip", StringComparison.OrdinalIgnoreCase))
         {
-            ZipFile.ExtractToDirectory(archive, destination, overwriteFiles: true);
+            ExtractZipTolerant(archive, destination);
             return;
         }
 
         throw new InvalidOperationException($"Cannot extract {archive}. Configure Wabbajack CLI for non-ZIP archives.");
+    }
+
+    private static void ExtractZipTolerant(string archive, string destination)
+    {
+        var destinationRoot = Path.GetFullPath(destination);
+        if (!destinationRoot.EndsWith(Path.DirectorySeparatorChar))
+        {
+            destinationRoot += Path.DirectorySeparatorChar;
+        }
+
+        using var zip = ZipFile.OpenRead(archive);
+        foreach (var entry in zip.Entries)
+        {
+            if (string.IsNullOrWhiteSpace(entry.FullName))
+            {
+                continue;
+            }
+
+            var target = Path.GetFullPath(Path.Combine(destination, entry.FullName));
+            if (!target.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException($"Archive entry escapes destination: {entry.FullName}");
+            }
+
+            if (entry.FullName.EndsWith("/", StringComparison.Ordinal) || entry.FullName.EndsWith("\\", StringComparison.Ordinal))
+            {
+                Directory.CreateDirectory(target);
+                continue;
+            }
+
+            var parent = Path.GetDirectoryName(target);
+            if (!string.IsNullOrWhiteSpace(parent))
+            {
+                Directory.CreateDirectory(parent);
+            }
+
+            entry.ExtractToFile(target, overwrite: true);
+        }
     }
 
     private static async Task RunWabbajackExtractAsync(string cli, string archive, string destination, CancellationToken token)
@@ -1926,7 +2100,7 @@ internal static class WabbajackNexusAuth
         try
         {
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.UserAgent.ParseAdd("ModGroupInstaller/0.2");
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("ModGroupInstaller/0.3");
             using var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 ["grant_type"] = "refresh_token",
@@ -2037,6 +2211,122 @@ internal static class NexusJson
         }
 
         return null;
+    }
+
+    public static string? FindFileIdByFileName(string json, string expectedFileName, string installName)
+    {
+        using var document = JsonDocument.Parse(json);
+        var normalizedExpected = NormalizeFileName(expectedFileName);
+        var expectedTokens = SearchTokens(expectedFileName).Concat(SearchTokens(installName)).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var bestFileId = default(string);
+        var bestScore = 0.0;
+        var candidateCount = 0;
+        foreach (var element in EnumerateObjects(document.RootElement))
+        {
+            var fileId = GetPropertyString(element, "file_id");
+            if (string.IsNullOrWhiteSpace(fileId))
+            {
+                continue;
+            }
+
+            candidateCount++;
+            var candidateText = new StringBuilder();
+            foreach (var propertyName in new[] { "file_name", "name", "uploaded_file_name" })
+            {
+                var value = GetPropertyString(element, propertyName);
+                if (!string.IsNullOrWhiteSpace(value) &&
+                    string.Equals(NormalizeFileName(value), normalizedExpected, StringComparison.OrdinalIgnoreCase))
+                {
+                    return fileId;
+                }
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    candidateText.Append(' ').Append(value);
+                }
+            }
+
+            var candidateTokens = SearchTokens(candidateText.ToString());
+            if (expectedTokens.Count > 0 && candidateTokens.Count > 0)
+            {
+                var score = expectedTokens.Intersect(candidateTokens, StringComparer.OrdinalIgnoreCase).Count() / (double)Math.Min(expectedTokens.Count, candidateTokens.Count);
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    bestFileId = fileId;
+                }
+            }
+        }
+
+        if (bestScore >= 0.75 || (candidateCount == 1 && bestScore >= 0.50))
+        {
+            return bestFileId;
+        }
+
+        return null;
+    }
+
+    private static IEnumerable<JsonElement> EnumerateObjects(JsonElement element)
+    {
+        switch (element.ValueKind)
+        {
+            case JsonValueKind.Object:
+                yield return element;
+                foreach (var property in element.EnumerateObject())
+                {
+                    foreach (var nested in EnumerateObjects(property.Value))
+                    {
+                        yield return nested;
+                    }
+                }
+
+                break;
+            case JsonValueKind.Array:
+                foreach (var item in element.EnumerateArray())
+                {
+                    foreach (var nested in EnumerateObjects(item))
+                    {
+                        yield return nested;
+                    }
+                }
+
+                break;
+        }
+    }
+
+    private static string? GetPropertyString(JsonElement element, string propertyName)
+    {
+        if (!element.TryGetProperty(propertyName, out var property))
+        {
+            return null;
+        }
+
+        return property.ValueKind switch
+        {
+            JsonValueKind.String => property.GetString(),
+            JsonValueKind.Number => property.GetRawText(),
+            _ => null
+        };
+    }
+
+    private static string NormalizeFileName(string value)
+    {
+        value = Uri.UnescapeDataString(value);
+        return Path.GetFileName(value.Replace('\\', '/')).Trim();
+    }
+
+    private static HashSet<string> SearchTokens(string value)
+    {
+        value = Uri.UnescapeDataString(value);
+        value = Regex.Replace(value, @"\[[^\]]+\]", " ");
+        value = Regex.Replace(value, @"\b(NoDelete|skyrimspecialedition|skyrim|special|edition|main|file|archive)\b", " ", RegexOptions.IgnoreCase);
+        value = Regex.Replace(value, @"\b\d+\b", " ");
+        value = Regex.Replace(value, @"[^A-Za-z0-9]+", " ");
+        return value.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Where(token => token.Length >= 3)
+            .Where(token => !Regex.IsMatch(token, @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{8,}$"))
+            .Select(token => token.ToLowerInvariant())
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
     }
 }
 
