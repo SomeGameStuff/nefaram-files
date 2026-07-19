@@ -1,0 +1,19 @@
+{
+  "normalDependency": "disenchantments.esl",
+  "adultDependency": "SLER.esp",
+  "normalPool": [
+    { "name": "Drain Armor Rating", "localFormId": "000846", "editorId": "ZZ180drainbaseDUPLICATE003" },
+    { "name": "Drain Speed", "localFormId": "000845", "editorId": "ZZ180drainbaseDUPLICATE002" },
+    { "name": "Drain Stamina Rate", "localFormId": "00084D", "editorId": "ZZ180drainbaseDUPLICATE010" },
+    { "name": "Drain Sneak", "localFormId": "00081A", "editorId": "ZZ180enchdrainsneak" },
+    { "name": "Drain Speechcraft", "localFormId": "00084F", "editorId": "ZZ180drainbaseDUPLICATE012" }
+  ],
+  "adultPool": [
+    { "name": "Unending Desire", "localFormId": "03FC00", "editorId": "SLEREnchAoT" },
+    { "name": "Shamelessness", "localFormId": "0406CB", "editorId": "SLEREnchShamelessness" },
+    { "name": "Free Use", "localFormId": "0416F4", "editorId": "SLEREnchFreeUse" },
+    { "name": "Mortal Pleasure", "localFormId": "041C5F", "editorId": "SLEREnchMortalPleasure" },
+    { "name": "Feral", "localFormId": "041C66", "editorId": "SLEREnchFeral" }
+  ],
+  "verification": "Parsed directly from the installed plugin binaries on 2026-07-18; use local FormIDs with Game.GetFormFromFile or xEdit masters."
+}

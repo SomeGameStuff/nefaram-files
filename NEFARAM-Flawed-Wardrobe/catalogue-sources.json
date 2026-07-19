@@ -1,0 +1,37 @@
+{
+  "targetCount": 300,
+  "selectionPolicy": "Select up to 12 eligible wearable ARMO records per source in source order, then fill remaining slots from additional eligible records in source order. Exclude shields, invisible/dummy/placeholder helpers, records without a display name, and records without an armature.",
+  "shards": [
+    "NEFARAM_FlawedWardrobe_CatalogueA.esl",
+    "NEFARAM_FlawedWardrobe_CatalogueB.esl",
+    "NEFARAM_FlawedWardrobe_CatalogueC.esl",
+    "NEFARAM_FlawedWardrobe_CatalogueD.esl"
+  ],
+  "sources": [
+    "The Amazing World of Bikini Armors REMASTERED.esp",
+    "(Pumpkin)-TEWOBA-TheExpandedWorldofBikiniArmor.esp",
+    "TAWOBA_dawn.esp",
+    "TAWOBA_guards_addon.esp",
+    "TAWOBA_sons.esp",
+    "Ghaan Revealing Outfit Craftable.esp",
+    "GirlHeavyArmor.esp",
+    "StormcloakWarmaidenArmor.esp",
+    "StalhrimBikini.esp",
+    "Demon Hunter Armour.esp",
+    "ralfetas-deze-armor.esp",
+    "ralfetas-deze-clothing.esp",
+    "Twilight Princess Armor.esp",
+    "Elven Sentry Armor.esp",
+    "Azure Knight Armor.esp",
+    "DracaniaArmor.esp",
+    "C5Kevs_Yumiko_Light_Tank_Armor_CBBE.esp",
+    "[FB] Bishop Armor.esp",
+    "ObiDruchiiArmor.esp",
+    "Obi's Gladiator Armor.esp",
+    "Iron Rose Armor.esp",
+    "RoverArmor.esp",
+    "ChronomancerArmor.esp",
+    "RoyalVanguardArmor.esp",
+    "[Enovilum] Vampire Temptress Armor.esp"
+  ]
+}
