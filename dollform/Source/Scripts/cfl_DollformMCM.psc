@@ -596,7 +596,7 @@ String Function ActiveFormName()
 	ElseIf activeForm == 106
 		Return "Feral Mudcrab"
 	ElseIf activeForm == 107
-		Return "Feral Horse"
+		Return "Feral Stag"
 	ElseIf activeForm == 108
 		Return "Feral Troll"
 	EndIf

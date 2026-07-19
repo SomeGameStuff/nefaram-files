@@ -21,6 +21,8 @@ Float Property Tier3Seconds = 900.0 Auto
 Float Property Tier4Seconds = 1800.0 Auto
 
 Bool _running = false
+Bool _ownsForm = false
+Int _activeToken = 0
 Int _tier = 0
 Int _milkPulseCounter = 0
 Int _startupRefreshes = 0
@@ -48,27 +50,32 @@ Armor _cowHorns
 Bool _addedCowHorns = false
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
+	Debug.Trace("[BodymorphAlterations][Cowform] Start target=" + akTarget + " caster=" + akCaster + " active=" + cfl_BodymorphActiveForm.GetValueInt())
 	If akTarget != PlayerRef
+		Debug.Trace("[BodymorphAlterations][Cowform] Rejected non-player target.")
 		Dispel()
 		Return
 	EndIf
 
-	Int activeForm = cfl_BodymorphActiveForm.GetValueInt()
+	Int activeForm = ActiveFormId(cfl_BodymorphActiveForm.GetValueInt())
 	If activeForm != 0
 		If activeForm == 3
-			Debug.Notification("Cowform is already active.")
-			Dispel()
+			Debug.Trace("[BodymorphAlterations][Cowform] Recast requests normal cleanup.")
+			Debug.Notification("Cowform fades.")
+			PlayerRef.DispelSpell(cfl_SpellCowform)
 			Return
 		EndIf
+		Debug.Trace("[BodymorphAlterations][Cowform] Rejected because form " + activeForm + " owns the lock.")
 		Debug.Notification("Another bodymorph alteration is already active.")
 		Dispel()
 		Return
 	EndIf
 
 	_running = true
+	_ownsForm = true
 	_startedAt = Utility.GetCurrentRealTime()
 	_startupRefreshes = 2
-	cfl_BodymorphActiveForm.SetValue(3)
+	BeginActiveForm(3)
 	_tier = cfl_CowformMarkTier.GetValueInt()
 
 	EnsureMCMQuestStarted()
@@ -82,8 +89,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	ApplyCosmetics(PlayerRef)
 	SetupMilkMod(PlayerRef)
 	EnforceRestrictions(PlayerRef)
+	TraceMorphState("Applied")
 
-	Debug.Notification("Your body softens into Cowform.")
 	RegisterForSingleUpdate(1.0)
 EndEvent
 
@@ -91,11 +98,16 @@ Event OnUpdate()
 	If !_running
 		Return
 	EndIf
+	If !IsActiveInstance(3)
+		_running = false
+		Return
+	EndIf
 
 	EnforceRestrictions(PlayerRef)
 	If _startupRefreshes > 0
 		RefreshAppearance(PlayerRef)
 		ApplyHorns(PlayerRef)
+		Debug.Trace("[BodymorphAlterations][Cowform] Startup refresh remaining=" + _startupRefreshes)
 		_startupRefreshes -= 1
 		RegisterForSingleUpdate(1.0)
 		Return
@@ -109,6 +121,7 @@ Event OnUpdate()
 	_milkPulseCounter += 1
 	If _milkPulseCounter >= MilkPulseUpdates
 		_milkPulseCounter = 0
+		Debug.Trace("[BodymorphAlterations][Cowform] Running MME pulse at tier=" + _tier)
 		PulseMilkMod(PlayerRef)
 	EndIf
 
@@ -118,23 +131,53 @@ EndEvent
 Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	_running = false
 	UnregisterForUpdate()
+	Debug.Trace("[BodymorphAlterations][Cowform] Finish target=" + akTarget + " elapsed=" + (Utility.GetCurrentRealTime() - _startedAt))
 
-	If akTarget == PlayerRef
-		If Utility.GetCurrentRealTime() - _startedAt < 10.0
-			Debug.Notification("Cowform cleanup skipped because the effect ended immediately.")
-			Return
+	If akTarget == PlayerRef && _ownsForm
+		Bool ownsActiveInstance = IsActiveInstance(3)
+		If ownsActiveInstance
+			RestoreMorphs(PlayerRef)
+			RestoreHairColor(PlayerRef)
+			RemoveHorns(PlayerRef)
+			RemoveCosmetics(PlayerRef)
+			RestoreActorValueChanges(PlayerRef)
 		EndIf
-		RestoreMorphs(PlayerRef)
-		RestoreHairColor(PlayerRef)
-		RemoveHorns(PlayerRef)
-		RemoveCosmetics(PlayerRef)
-		RestoreActorValueChanges(PlayerRef)
-		If cfl_BodymorphActiveForm.GetValueInt() == 3
+		If ownsActiveInstance
 			cfl_BodymorphActiveForm.SetValue(0)
 		EndIf
-		Debug.Notification("Your Cowform fades.")
+		TraceMorphState("Restored")
+		Debug.Trace("[BodymorphAlterations][Cowform] Cleanup complete; active=" + cfl_BodymorphActiveForm.GetValueInt())
+		_ownsForm = false
 	EndIf
 EndEvent
+
+Function BeginActiveForm(Int aiFormId)
+	_activeToken = StorageUtil.GetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken") + 1
+	If _activeToken > 90000
+		_activeToken = 1
+	EndIf
+	StorageUtil.SetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken", _activeToken)
+	cfl_BodymorphActiveForm.SetValue((aiFormId * 100000) + _activeToken)
+EndFunction
+
+Bool Function IsActiveInstance(Int aiFormId)
+	Int activeValue = cfl_BodymorphActiveForm.GetValueInt()
+	Return ActiveFormId(activeValue) == aiFormId && ActiveToken(activeValue) == _activeToken
+EndFunction
+
+Int Function ActiveFormId(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue / 100000
+	EndIf
+	Return aiActiveValue
+EndFunction
+
+Int Function ActiveToken(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue - ((aiActiveValue / 100000) * 100000)
+	EndIf
+	Return 0
+EndFunction
 
 Function SaveMorphs(Actor akActor)
 	_breasts = NiOverride.GetMorphValue(akActor, "Breasts")
@@ -170,24 +213,24 @@ Function RestoreHairColor(Actor akActor)
 EndFunction
 
 Function ApplyCowMorphs(Actor akActor)
-	Float scale = (1.0 + (_tier * 0.30)) * MorphScale()
+	Float scale = (1.0 + (_tier * 0.15)) * MorphScale()
 
-	SetMorph(akActor, "Breasts", 1.00 * scale)
-	SetMorph(akActor, "BreastsSH", 0.75 * scale)
-	SetMorph(akActor, "BreastsNewSH", 0.75 * scale)
-	SetMorph(akActor, "DoubleMelon", 0.55 * scale)
-	SetMorph(akActor, "BreastsFantasy", 0.35 * scale)
-	SetMorph(akActor, "BreastWidth", 0.45 * scale)
-	SetMorph(akActor, "BreastUnderDepth", 0.45 * scale)
-	SetMorph(akActor, "BreastGravity", 0.35 * scale)
-	SetMorph(akActor, "BreastGravity2", 0.35 * scale)
-	SetMorph(akActor, "NippleAreola", 0.30 * scale)
-	SetMorph(akActor, "NippleSize", 0.35 * scale)
-	SetMorph(akActor, "AreolaSize", 0.30 * scale)
-	SetMorph(akActor, "NippleLength", 0.20 * scale)
-	SetMorph(akActor, "Belly", 0.35 * scale)
-	SetMorph(akActor, "BigBelly", 0.25 * scale)
-	SetMorph(akActor, "PregnancyBelly", 0.25 * scale)
+	SetMorph(akActor, "Breasts", 0.35 * scale)
+	SetMorph(akActor, "BreastsSH", 0.25 * scale)
+	SetMorph(akActor, "BreastsNewSH", 0.25 * scale)
+	SetMorph(akActor, "DoubleMelon", 0.18 * scale)
+	SetMorph(akActor, "BreastsFantasy", 0.12 * scale)
+	SetMorph(akActor, "BreastWidth", 0.18 * scale)
+	SetMorph(akActor, "BreastUnderDepth", 0.18 * scale)
+	SetMorph(akActor, "BreastGravity", 0.15 * scale)
+	SetMorph(akActor, "BreastGravity2", 0.15 * scale)
+	SetMorph(akActor, "NippleAreola", 0.15 * scale)
+	SetMorph(akActor, "NippleSize", 0.18 * scale)
+	SetMorph(akActor, "AreolaSize", 0.15 * scale)
+	SetMorph(akActor, "NippleLength", 0.10 * scale)
+	SetMorph(akActor, "Belly", 0.20 * scale)
+	SetMorph(akActor, "BigBelly", 0.15 * scale)
+	SetMorph(akActor, "PregnancyBelly", 0.15 * scale)
 	SetMorph(akActor, "BellyFrontUpFat_v2", 0.20 * scale)
 	SetMorph(akActor, "BellyFrontDownFat_v2", 0.20 * scale)
 	SetMorph(akActor, "BellySideUpFat_v2", 0.16 * scale)
@@ -208,6 +251,10 @@ Function ApplyCowMorphs(Actor akActor)
 	RefreshAppearance(akActor)
 EndFunction
 
+Function TraceMorphState(String asPhase)
+	Debug.Trace("[BodymorphAlterations][Cowform] " + asPhase + " tier=" + _tier + " active=" + cfl_BodymorphActiveForm.GetValueInt() + " breasts=" + NiOverride.GetMorphValue(PlayerRef, "Breasts") + " belly=" + NiOverride.GetMorphValue(PlayerRef, "Belly") + " hips=" + NiOverride.GetMorphValue(PlayerRef, "Hips") + " butt=" + NiOverride.GetMorphValue(PlayerRef, "Butt") + " nipples=" + NiOverride.GetMorphValue(PlayerRef, "NippleSize"))
+EndFunction
+
 Function RestoreMorphs(Actor akActor)
 	NiOverride.ClearBodyMorphKeys(akActor, MorphKey)
 	NiOverride.ClearBodyMorphKeys(akActor, VisibleMorphKey)
@@ -224,19 +271,19 @@ Function RestoreMorphs(Actor akActor)
 EndFunction
 
 Function ApplyDirectCowMorphs(Actor akActor, Float afScale)
-	SetDirectMorph(akActor, "Breasts", _breasts, 1.60 * afScale)
-	SetDirectMorph(akActor, "BreastsSH", 0.0, 1.10 * afScale)
-	SetDirectMorph(akActor, "BreastsNewSH", 0.0, 1.10 * afScale)
-	SetDirectMorph(akActor, "DoubleMelon", 0.0, 0.90 * afScale)
-	SetDirectMorph(akActor, "BreastsFantasy", 0.0, 0.60 * afScale)
-	SetDirectMorph(akActor, "BreastGravity", 0.0, 0.45 * afScale)
-	SetDirectMorph(akActor, "BreastGravity2", 0.0, 0.45 * afScale)
-	SetDirectMorph(akActor, "NippleSize", _nippleSize, 0.45 * afScale)
-	SetDirectMorph(akActor, "NippleAreola", 0.0, 0.40 * afScale)
-	SetDirectMorph(akActor, "AreolaSize", _areolaSize, 0.40 * afScale)
-	SetDirectMorph(akActor, "Belly", _belly, 0.65 * afScale)
-	SetDirectMorph(akActor, "BigBelly", 0.0, 0.45 * afScale)
-	SetDirectMorph(akActor, "PregnancyBelly", 0.0, 0.40 * afScale)
+	SetDirectMorph(akActor, "Breasts", _breasts, 0.45 * afScale)
+	SetDirectMorph(akActor, "BreastsSH", 0.0, 0.30 * afScale)
+	SetDirectMorph(akActor, "BreastsNewSH", 0.0, 0.30 * afScale)
+	SetDirectMorph(akActor, "DoubleMelon", 0.0, 0.25 * afScale)
+	SetDirectMorph(akActor, "BreastsFantasy", 0.0, 0.18 * afScale)
+	SetDirectMorph(akActor, "BreastGravity", 0.0, 0.20 * afScale)
+	SetDirectMorph(akActor, "BreastGravity2", 0.0, 0.20 * afScale)
+	SetDirectMorph(akActor, "NippleSize", _nippleSize, 0.22 * afScale)
+	SetDirectMorph(akActor, "NippleAreola", 0.0, 0.20 * afScale)
+	SetDirectMorph(akActor, "AreolaSize", _areolaSize, 0.20 * afScale)
+	SetDirectMorph(akActor, "Belly", _belly, 0.30 * afScale)
+	SetDirectMorph(akActor, "BigBelly", 0.0, 0.22 * afScale)
+	SetDirectMorph(akActor, "PregnancyBelly", 0.0, 0.20 * afScale)
 	SetDirectMorph(akActor, "BellyFrontUpFat_v2", 0.0, 0.35 * afScale)
 	SetDirectMorph(akActor, "BellyFrontDownFat_v2", 0.0, 0.35 * afScale)
 	SetDirectMorph(akActor, "BellySideUpFat_v2", 0.0, 0.28 * afScale)
@@ -330,11 +377,10 @@ Function ApplyProgressTattoo(Actor akActor)
 	Float alpha = PapyrusUtil.ClampFloat(0.35 + (_tier * 0.15), 0.35, 0.95)
 	SlaveTats.simple_remove_tattoo(akActor, "Cowform", "Cowform Milk Drops", true, false)
 	SlaveTats.simple_add_tattoo(akActor, "Cowform", "Cowform Milk Drops", 0xFFFFF2E2, true, false, alpha)
-	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
 Function ApplyCosmetics(Actor akActor)
-	RemoveCosmetics(akActor)
+	RemoveCosmetics(akActor, false)
 	SlaveTats.simple_add_tattoo(akActor, "Cowform Cosmetics", "Cow Body Spots", 0xFFFFFFFF, true, true, 0.55)
 	If _tier >= 2
 		SlaveTats.simple_add_tattoo(akActor, "Cowform Cosmetics", "Cow Hoof Tint", 0xFF1D120D, true, true, 0.50)
@@ -345,14 +391,16 @@ Function ApplyCosmetics(Actor akActor)
 	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
-Function RemoveCosmetics(Actor akActor)
+Function RemoveCosmetics(Actor akActor, Bool abSynchronize = true)
 	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Body Spots", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Udder Mark", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Face Mark", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Hand Mark", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Hoof Tint", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Heavy Spots", true, true)
-	SlaveTats.synchronize_tattoos(akActor, true)
+	If abSynchronize
+		SlaveTats.synchronize_tattoos(akActor, true)
+	EndIf
 EndFunction
 
 Function ApplyHorns(Actor akActor)
