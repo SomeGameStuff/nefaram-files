@@ -55,6 +55,7 @@ $scripts = @(
     'cfl_FeralAspxEffect.psc',
     'cfl_FeralPassiveEffect.psc',
     'cfl_FeralShapeEffect.psc',
+    'cfl_FeralTechniqueEffect.psc',
     'cfl_FeralRevertEffect.psc'
 )
 
@@ -81,7 +82,8 @@ foreach ($required in @('GetConfiguredFamily', 'RefreshShapePowers', 'Experience
     'RecoverExperienceSettingsIfNeeded', 'CompleteClaim', 'EndActiveShape', 'GetExpressionScale',
     'StartFeralFatigue', 'IsFeralActiveValue', 'MasteryPointsForNextLevel',
     'MasteryAwardForHarvest', 'GrantMastery', 'AddActivityMastery', 'AddShapeTime',
-    'RankForLevel', 'GetMarkOpacity', 'Feral.MasteryLevel')) {
+    'RankForLevel', 'GetMarkOpacity', 'Feral.MasteryLevel', 'RefreshTechniquePowers',
+    'GetActiveFamily', 'GetNotoriety', 'RecordWitnessedTransformation', 'SpawnHunterGroup')) {
     if ($controller -notmatch [regex]::Escape($required)) { throw "Missing controller feature: $required" }
 }
 if ($controller -notmatch 'If !IsFeralEnabled\(\) \|\| akKiller != Game.GetPlayer\(\)') {
@@ -93,6 +95,9 @@ if ($actorKilledBody -match 'PendingEssence|FormListAdd') {
 }
 if ($controller -match 'QueueNiNodeUpdate') {
     throw 'Controller still requests a redundant full NiNode rebuild.'
+}
+if ($controller -match 'RegisterFor(?:Single)?Update') {
+    throw 'Controller contains a recurring Papyrus update registration.'
 }
 $rankForLevelBody = [regex]::Match($controller, 'Int Function RankForLevel[\s\S]*?EndFunction').Value
 if ($rankForLevelBody -match '34|67|Return 2|Return 3') {
@@ -122,4 +127,15 @@ if ($shapeEffect -match 'ApplyCosmetic\(player\)|0\.15 \* Rank') {
     throw 'Shape visuals still contain a discrete rank-gated application path.'
 }
 
-Write-Output "Feral v7 build validation passed: automatic harvest, 100-level mastery ($masteryCurveTotal points), continuous visuals, low-overhead shape use, XP modes, JSON configs, and 8 Papyrus scripts."
+$techniqueEffect = Get-Content -Raw -LiteralPath (Join-Path $sourceRoot 'cfl_FeralTechniqueEffect.psc')
+foreach ($required in @('Feral.TechniqueReady.', 'GetActiveFamily', 'GetMasteryLevel', 'OnEffectFinish')) {
+    if ($techniqueEffect -notmatch [regex]::Escape($required)) { throw "Missing technique feature: $required" }
+}
+if ($controller -notmatch 'remaining > 15\.0' -or $techniqueEffect -notmatch 'remaining > 60\.0') {
+    throw 'Cross-session real-time timer recovery is missing.'
+}
+if ($techniqueEffect -match 'RegisterFor(?:Single)?Update') {
+    throw 'Technique effect contains a Papyrus update registration.'
+}
+
+Write-Output "Feral v9 build validation passed: automatic harvest, 100-level mastery ($masteryCurveTotal points), continuous visuals, milestone kits, event-driven notoriety, XP modes, JSON configs, and 9 Papyrus scripts."

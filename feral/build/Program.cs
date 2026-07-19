@@ -3,6 +3,31 @@ using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Plugins.Records;
 using Mutagen.Bethesda.Skyrim;
 
+if (args.Length > 1 && args[0] == "--inspect-magics")
+{
+    var terms = args.Skip(1).ToArray();
+    var inspected = ModFactory<ISkyrimModGetter>.Importer(
+        ModPath.FromPath(@"C:\Games\nefaram\Game Root\Data\Skyrim.esm"), GameRelease.SkyrimSE);
+    foreach (var effect in inspected.MagicEffects.OrderBy(x => x.FormKey.ID))
+        if (terms.Any(term => (effect.EditorID ?? "").Contains(term, StringComparison.OrdinalIgnoreCase)))
+            Console.WriteLine($"MGEF|{effect.FormKey.ID:X6}|{effect.EditorID}|{effect.Archetype.Type}|{effect.Archetype.ActorValue}|{effect.CastType}|{effect.TargetType}|{effect.Flags}");
+    foreach (var spell in inspected.Spells.OrderBy(x => x.FormKey.ID))
+        if (terms.Any(term => (spell.EditorID ?? "").Contains(term, StringComparison.OrdinalIgnoreCase)))
+            Console.WriteLine($"SPEL|{spell.FormKey.ID:X6}|{spell.EditorID}|{spell.Type}|{spell.TargetType}|{spell.Effects.Count}");
+    return;
+}
+
+if (args.Length > 1 && args[0] == "--inspect-npcs")
+{
+    var terms = args.Skip(1).ToArray();
+    var inspected = ModFactory<ISkyrimModGetter>.Importer(
+        ModPath.FromPath(@"C:\Games\nefaram\Game Root\Data\Skyrim.esm"), GameRelease.SkyrimSE);
+    foreach (var npc in inspected.Npcs.OrderBy(x => x.FormKey.ID))
+        if (terms.Any(term => (npc.EditorID ?? "").Contains(term, StringComparison.OrdinalIgnoreCase)))
+            Console.WriteLine($"NPC_|{npc.FormKey.ID:X6}|{npc.EditorID}|{npc.Name?.String}|{npc.Configuration.Flags}");
+    return;
+}
+
 if (args.Length > 1 && args[0] == "--inspect-armors")
 {
     var inspected = ModFactory<ISkyrimModGetter>.Importer(ModPath.FromPath(args[1]), GameRelease.SkyrimSE);
@@ -137,6 +162,13 @@ VirtualMachineAdapter ShapeScriptAdapter(int family, int rank)
     var script = adapter.Scripts.Single();
     script.Properties.Add(new ScriptIntProperty { Name = "Family", Data = family });
     script.Properties.Add(new ScriptIntProperty { Name = "Rank", Data = rank });
+    return adapter;
+}
+
+VirtualMachineAdapter TechniqueScriptAdapter(int family)
+{
+    var adapter = ScriptAdapter("cfl_FeralTechniqueEffect");
+    adapter.Scripts.Single().Properties.Add(new ScriptIntProperty { Name = "Family", Data = family });
     return adapter;
 }
 
@@ -313,6 +345,86 @@ mod.Spells.Add(new Spell(Local(0x9C1), SkyrimRelease.SkyrimSE)
     Effects = { Effect(0x9C0) }
 });
 
+var techniqueNames = new[]
+{
+    "Dread Howl", "Vanish and Pounce", "Maul", "Plague Spit",
+    "Web Snare", "Fortress", "Stampede", "Monstrous Regeneration"
+};
+
+mod.MagicEffects.Add(new MagicEffect(Local(0xA20), SkyrimRelease.SkyrimSE)
+{
+    EditorID = "cfl_MGEFFeralWitnessFear",
+    Name = "Feral Dread",
+    CastType = CastType.FireAndForget,
+    TargetType = TargetType.TargetActor,
+    MagicSkill = ActorValue.None,
+    Archetype = new MagicEffectArchetype
+    {
+        Type = MagicEffectArchetype.TypeEnum.Demoralize,
+        ActorValue = ActorValue.Confidence
+    },
+    Flags = MagicEffect.Flag.Recover | MagicEffect.Flag.NoArea |
+            MagicEffect.Flag.PowerAffectsDuration
+});
+mod.Spells.Add(new Spell(Local(0xA21), SkyrimRelease.SkyrimSE)
+{
+    EditorID = "cfl_SpellFeralWitnessFear",
+    Name = "Feral Dread",
+    Type = SpellType.Spell,
+    CastType = CastType.FireAndForget,
+    TargetType = TargetType.TargetActor,
+    ChargeTime = 0,
+    BaseCost = 0,
+    Effects =
+    {
+        new Effect
+        {
+            BaseEffect = LocalLink<IMagicEffectGetter>(0xA20),
+            Data = new EffectData { Magnitude = 50, Area = 0, Duration = 10 }
+        }
+    }
+});
+var techniqueDescriptions = new[]
+{
+    "Terrifies nearby living enemies. Apex mastery strengthens the howl.",
+    "Vanishes and greatly increases attack damage for 20 seconds.",
+    "Greatly increases unarmed damage and stagger resistance for 20 seconds.",
+    "Launches a concentrated poison attack; apex mastery uses stronger venom.",
+    "Launches a paralysis snare at the target under the crosshair.",
+    "Becomes nearly immovable for 20 seconds, trading speed for armor and Block.",
+    "Surges forward with greatly increased speed, stamina recovery, and Archery for 20 seconds.",
+    "Regenerates with monstrous speed for 20 seconds while becoming severely vulnerable to fire."
+};
+for (var family = 1; family <= 8; family++)
+{
+    var index = family - 1;
+    var effectId = 0xA00u + (uint)index;
+    var spellId = 0xA10u + (uint)index;
+    mod.MagicEffects.Add(new MagicEffect(Local(effectId), SkyrimRelease.SkyrimSE)
+    {
+        EditorID = $"cfl_MGEFFeralTechnique{familyNames[index].Replace(" ", "")}",
+        Name = techniqueNames[index],
+        Description = techniqueDescriptions[index] + " Requires the matching active shape at mastery level 50; 60-second cooldown.",
+        CastType = CastType.FireAndForget,
+        TargetType = TargetType.Self,
+        MagicSkill = ActorValue.None,
+        Archetype = new MagicEffectArchetype { Type = MagicEffectArchetype.TypeEnum.Script },
+        Flags = MagicEffect.Flag.Recover | MagicEffect.Flag.NoArea | MagicEffect.Flag.NoMagnitude,
+        VirtualMachineAdapter = TechniqueScriptAdapter(family)
+    });
+    mod.Spells.Add(new Spell(Local(spellId), SkyrimRelease.SkyrimSE)
+    {
+        EditorID = $"cfl_SpellFeralTechnique{familyNames[index].Replace(" ", "")}",
+        Name = $"Feral: {techniqueNames[index]}",
+        Type = SpellType.LesserPower,
+        CastType = CastType.FireAndForget,
+        TargetType = TargetType.Self,
+        ChargeTime = 0,
+        BaseCost = 0,
+        Effects = { Effect(effectId, 20) }
+    });
+}
+
 // Keep the original quest record as an inert compatibility shell.  Saves made
 // with the early build can retain its already-initialized VM instance, so the
 // corrected MCM must use a fresh form to guarantee that OnInit runs.
@@ -354,7 +466,7 @@ mod.WriteToBinary(outputPath);
 
 var built = ModFactory<ISkyrimModGetter>.Importer(
     ModPath.FromPath(outputPath), GameRelease.SkyrimSE);
-if (built.MagicEffects.Count != 51 || built.Spells.Count != 51 || built.Quests.Count != 2)
+if (built.MagicEffects.Count != 60 || built.Spells.Count != 60 || built.Quests.Count != 2)
     throw new InvalidOperationException("Feral record-count validation failed.");
 var builtLegacyQuest = built.Quests.Single(x => x.FormKey.ID == 0x81E);
 var builtQuest = built.Quests.Single(x => x.FormKey.ID == 0x950);
@@ -368,6 +480,9 @@ if (builtQuest.EditorID != "cfl_FeralMCMQuest" ||
 if (built.Spells.Single(x => x.FormKey.ID == 0x81B).Name?.String != "Claim Soul (Retired)" ||
     built.Spells.Single(x => x.FormKey.ID == 0x81D).Name?.String != "Feral Act")
     throw new InvalidOperationException("Feral power validation failed.");
+if (built.MagicEffects.Single(x => x.FormKey.ID == 0xA20).Archetype.Type != MagicEffectArchetype.TypeEnum.Demoralize ||
+    built.Spells.Single(x => x.FormKey.ID == 0xA21).Effects.Single().Data?.Duration != 10)
+    throw new InvalidOperationException("Human witness fear validation failed.");
 
 for (var family = 1; family <= 8; family++)
 {
@@ -385,6 +500,19 @@ for (var family = 1; family <= 8; family++)
             spell.Type != SpellType.Ability || spell.Effects.Single().BaseEffect.FormKey != effect.FormKey)
             throw new InvalidOperationException($"Passive validation failed for family {family}, rank {rank}.");
     }
+}
+
+for (var family = 1; family <= 8; family++)
+{
+    var effect = built.MagicEffects.Single(x => x.FormKey.ID == 0xA00u + (uint)(family - 1));
+    var spell = built.Spells.Single(x => x.FormKey.ID == 0xA10u + (uint)(family - 1));
+    var script = effect.VirtualMachineAdapter?.Scripts.SingleOrDefault();
+    var scriptFamily = script?.Properties.OfType<IScriptIntPropertyGetter>()
+        .SingleOrDefault(x => x.Name == "Family")?.Data;
+    if (script?.Name != "cfl_FeralTechniqueEffect" || scriptFamily != family ||
+        spell.Type != SpellType.LesserPower || spell.Effects.Single().Data?.Duration != 20 ||
+        spell.Effects.Single().BaseEffect.FormKey != effect.FormKey)
+        throw new InvalidOperationException($"Technique validation failed for family {family}.");
 }
 
 for (var family = 1; family <= 8; family++)
@@ -462,4 +590,4 @@ using (var raceConfig = System.Text.Json.JsonDocument.Parse(File.ReadAllText(
     }
 }
 
-Console.WriteLine($"Validated {outputPath}: 51 MGEF, 51 SPEL, 1 start-game QUST.");
+Console.WriteLine($"Validated {outputPath}: 60 MGEF, 60 SPEL, 1 start-game QUST.");

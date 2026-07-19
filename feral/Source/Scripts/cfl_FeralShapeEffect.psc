@@ -19,6 +19,11 @@ Float _third
 Float _fourth
 Float _fifth
 Float _expression
+Float _milestoneFirst
+Float _milestoneSecond
+Float _milestoneThird
+Float _milestoneFourth
+Int _masteryLevel
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 	Actor player = Game.GetPlayer()
@@ -54,9 +59,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	StorageUtil.SetIntValue(player, "Feral.ActiveRank", Rank)
 	StorageUtil.SetIntValue(player, "Feral.ActiveToken", _activeToken)
 	_expression = feral.GetExpressionScale(Family)
+	_masteryLevel = feral.GetMasteryLevel(Family)
 	StorageUtil.SetFloatValue(player, "Feral.ActiveExpression", _expression)
 	_ownsShape = true
 	ApplyStats(player)
+	ApplyMilestoneTraits(player)
 	ApplyMorphs(player)
 	ApplyMark(player)
 	EffectShader entryShader = Game.GetForm(0x000EBEC5) as EffectShader
@@ -68,6 +75,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		transformSound.Play(player)
 	EndIf
 	Game.ShakeCamera(player, 0.35, 0.45)
+	feral.RecordWitnessedTransformation(Family, _activeToken)
 	Debug.Notification("Feral " + feral.FamilyName(Family) + " shape takes hold.")
 EndEvent
 
@@ -76,7 +84,12 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 	_ownsShape = false
+	Spell activeTechnique = Game.GetFormFromFile(0x000A10 + (Family - 1), "Feral.esp") as Spell
+	If activeTechnique
+		akTarget.DispelSpell(activeTechnique)
+	EndIf
 	RemoveStats(akTarget)
+	RemoveMilestoneTraits(akTarget)
 	GlobalVariable activeForm = Game.GetFormFromFile(0x000801, "Dollform.esp") as GlobalVariable
 	Bool ownsCurrentShape = IsActiveInstance(activeForm)
 	If ownsCurrentShape
@@ -110,6 +123,110 @@ Function BeginActiveShape(Actor player, GlobalVariable activeForm)
 	EndIf
 	StorageUtil.SetIntValue(player, "Feral.LastShapeToken", _activeToken)
 	activeForm.SetValue(((100 + Family) * 100000) + _activeToken)
+EndFunction
+
+Function ApplyMilestoneTraits(Actor player)
+	If _masteryLevel >= 25
+		If Family == 1
+			_milestoneFirst = 20.0
+			player.ModActorValue("StaminaRateMult", _milestoneFirst)
+		ElseIf Family == 2
+			_milestoneFirst = -50.0
+			player.ModActorValue("MovementNoiseMult", _milestoneFirst)
+		ElseIf Family == 3
+			_milestoneFirst = 50.0
+			player.ModActorValue("DamageResist", _milestoneFirst)
+		ElseIf Family == 4
+			_milestoneFirst = 100.0
+			player.ModActorValue("DiseaseResist", _milestoneFirst)
+		ElseIf Family == 5
+			_milestoneFirst = 10.0
+			_milestoneSecond = 20.0
+			player.ModActorValue("UnarmedDamage", _milestoneFirst)
+			player.ModActorValue("PoisonResist", _milestoneSecond)
+		ElseIf Family == 6
+			_milestoneFirst = 50.0
+			player.ModActorValue("DamageResist", _milestoneFirst)
+		ElseIf Family == 7
+			_milestoneFirst = 25.0
+			_milestoneSecond = -0.50
+			player.ModActorValue("StaminaRateMult", _milestoneFirst)
+			player.ModActorValue("FallDamageMod", _milestoneSecond)
+		ElseIf Family == 8
+			_milestoneFirst = 1.0
+			player.ModActorValue("HealRate", _milestoneFirst)
+		EndIf
+	EndIf
+	If _masteryLevel >= 75
+		If Family == 1
+			_milestoneSecond = 75.0
+			player.ModActorValue("DetectLifeRange", _milestoneSecond)
+		ElseIf Family == 2
+			_milestoneSecond = 0.25
+			player.ModActorValue("AttackDamageMult", _milestoneSecond)
+		ElseIf Family == 3
+			_milestoneSecond = 100.0
+			player.ModActorValue("StaggerResist", _milestoneSecond)
+		ElseIf Family == 4
+			_milestoneSecond = 20.0
+			_milestoneThird = 10.0
+			player.ModActorValue("Sneak", _milestoneSecond)
+			player.ModActorValue("SpeedMult", _milestoneThird)
+		ElseIf Family == 5
+			_milestoneThird = 15.0
+			player.ModActorValue("MagicResist", _milestoneThird)
+		ElseIf Family == 6
+			_milestoneSecond = 20.0
+			_milestoneThird = 20.0
+			player.ModActorValue("Block", _milestoneSecond)
+			player.ModActorValue("StaggerResist", _milestoneThird)
+		ElseIf Family == 7
+			_milestoneThird = 20.0
+			player.ModActorValue("Marksman", _milestoneThird)
+		ElseIf Family == 8
+			_milestoneSecond = 50.0
+			_milestoneThird = 25.0
+			player.ModActorValue("DamageResist", _milestoneSecond)
+			player.ModActorValue("MeleeDamage", _milestoneThird)
+		EndIf
+	EndIf
+	player.ModActorValue("CarryWeight", 0.01)
+	player.ModActorValue("CarryWeight", -0.01)
+EndFunction
+
+Function RemoveMilestoneTraits(Actor player)
+	If Family == 1
+		player.ModActorValue("StaminaRateMult", -_milestoneFirst)
+		player.ModActorValue("DetectLifeRange", -_milestoneSecond)
+	ElseIf Family == 2
+		player.ModActorValue("MovementNoiseMult", -_milestoneFirst)
+		player.ModActorValue("AttackDamageMult", -_milestoneSecond)
+	ElseIf Family == 3
+		player.ModActorValue("DamageResist", -_milestoneFirst)
+		player.ModActorValue("StaggerResist", -_milestoneSecond)
+	ElseIf Family == 4
+		player.ModActorValue("DiseaseResist", -_milestoneFirst)
+		player.ModActorValue("Sneak", -_milestoneSecond)
+		player.ModActorValue("SpeedMult", -_milestoneThird)
+	ElseIf Family == 5
+		player.ModActorValue("UnarmedDamage", -_milestoneFirst)
+		player.ModActorValue("PoisonResist", -_milestoneSecond)
+		player.ModActorValue("MagicResist", -_milestoneThird)
+	ElseIf Family == 6
+		player.ModActorValue("DamageResist", -_milestoneFirst)
+		player.ModActorValue("Block", -_milestoneSecond)
+		player.ModActorValue("StaggerResist", -_milestoneThird)
+	ElseIf Family == 7
+		player.ModActorValue("StaminaRateMult", -_milestoneFirst)
+		player.ModActorValue("FallDamageMod", -_milestoneSecond)
+		player.ModActorValue("Marksman", -_milestoneThird)
+	ElseIf Family == 8
+		player.ModActorValue("HealRate", -_milestoneFirst)
+		player.ModActorValue("DamageResist", -_milestoneSecond)
+		player.ModActorValue("MeleeDamage", -_milestoneThird)
+	EndIf
+	player.ModActorValue("CarryWeight", 0.01)
+	player.ModActorValue("CarryWeight", -0.01)
 EndFunction
 
 Bool Function IsActiveInstance(GlobalVariable activeForm)
