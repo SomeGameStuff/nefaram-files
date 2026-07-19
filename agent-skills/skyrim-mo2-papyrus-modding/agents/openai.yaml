@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skyrim MO2 Papyrus Modding"
+  short_description: "Build safe MO2 Papyrus patch mods."
+  default_prompt: "Use $skyrim-mo2-papyrus-modding to build or patch a Skyrim MO2 mod with Papyrus scripts."

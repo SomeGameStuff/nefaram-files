@@ -1,0 +1,4 @@
+interface:
+  display_name: "NEFARAM Mod Release"
+  short_description: "Package NEFARAM mod projects and publish GitHub releases."
+  default_prompt: "Package a NEFARAM mod project, create a release archive, and publish it as a GitHub release."

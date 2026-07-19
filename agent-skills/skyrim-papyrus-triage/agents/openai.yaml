@@ -1,0 +1,7 @@
+interface:
+  display_name: "Skyrim Papyrus Triage"
+  short_description: "Diagnose Skyrim Papyrus script lag."
+  default_prompt: "Use $skyrim-papyrus-triage to diagnose this Skyrim save or modlist for Papyrus script lag and propose a targeted mitigation."
+
+policy:
+  allow_implicit_invocation: true
