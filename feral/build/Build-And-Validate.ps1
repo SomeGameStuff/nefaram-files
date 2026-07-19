@@ -81,7 +81,7 @@ foreach ($required in @('GetConfiguredFamily', 'RefreshShapePowers', 'Experience
     'RecoverExperienceSettingsIfNeeded', 'CompleteClaim', 'EndActiveShape', 'GetExpressionScale',
     'StartFeralFatigue', 'IsFeralActiveValue', 'MasteryPointsForNextLevel',
     'MasteryAwardForHarvest', 'GrantMastery', 'AddActivityMastery', 'AddShapeTime',
-    'RankForLevel', 'Feral.MasteryLevel')) {
+    'RankForLevel', 'GetMarkOpacity', 'Feral.MasteryLevel')) {
     if ($controller -notmatch [regex]::Escape($required)) { throw "Missing controller feature: $required" }
 }
 if ($controller -notmatch 'If !IsFeralEnabled\(\) \|\| akKiller != Game.GetPlayer\(\)') {
@@ -94,6 +94,13 @@ if ($actorKilledBody -match 'PendingEssence|FormListAdd') {
 if ($controller -match 'QueueNiNodeUpdate') {
     throw 'Controller still requests a redundant full NiNode rebuild.'
 }
+$rankForLevelBody = [regex]::Match($controller, 'Int Function RankForLevel[\s\S]*?EndFunction').Value
+if ($rankForLevelBody -match '34|67|Return 2|Return 3') {
+    throw 'Transformation power acquisition is still coupled to retired visual stages.'
+}
+if ($controller -notmatch 'Return 0\.25 \+ \(\(level - 1\) \* \(0\.75 / 99\.0\)\)') {
+    throw 'Continuous level 1-100 expression curve is missing.'
+}
 $masteryCurveTotal = 0
 for ($level = 0; $level -lt 100; $level++) {
     $masteryCurveTotal += 5 + [Math]::Ceiling($level * 0.45)
@@ -104,11 +111,15 @@ if ($masteryCurveTotal -lt 2700 -or $masteryCurveTotal -gt 2900) {
 
 $shapeEffect = Get-Content -Raw -LiteralPath (Join-Path $sourceRoot 'cfl_FeralShapeEffect.psc')
 foreach ($required in @('BeginActiveShape', 'IsActiveInstance', 'Feral.LastShapeToken',
-    'Feral.ActiveToken', 'ownsCurrentShape', 'AddShapeTime', 'GetTimeElapsed')) {
+    'Feral.ActiveToken', 'ownsCurrentShape', 'AddShapeTime', 'GetTimeElapsed',
+    'MarkOpacity', 'Return baseMark + " III"')) {
     if ($shapeEffect -notmatch [regex]::Escape($required)) { throw "Missing owner-safe shape feature: $required" }
 }
 if ($shapeEffect -match 'RegisterFor(?:Single)?Update|QueueNiNodeUpdate') {
     throw 'Shape effect contains polling or a redundant full NiNode rebuild.'
 }
+if ($shapeEffect -match 'ApplyCosmetic\(player\)|0\.15 \* Rank') {
+    throw 'Shape visuals still contain a discrete rank-gated application path.'
+}
 
-Write-Output "Feral v6 build validation passed: automatic harvest, 100-level mastery ($masteryCurveTotal points), low-overhead shape use, staged transformations, XP modes, JSON configs, and 8 Papyrus scripts."
+Write-Output "Feral v7 build validation passed: automatic harvest, 100-level mastery ($masteryCurveTotal points), continuous visuals, low-overhead shape use, XP modes, JSON configs, and 8 Papyrus scripts."

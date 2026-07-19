@@ -1,6 +1,6 @@
 # Feral - Bodymorph Alterations add-on
 
-Feral v6 turns hunting and transformation use into eight long-form mastery paths. Personally kill supported creatures to absorb their essence automatically, then spend time in the unlocked shape to deepen it from mastery level 1 to 100. Combat bonuses exist only while transformed.
+Feral v7 turns hunting and transformation use into eight long-form mastery paths. Personally kill supported creatures to absorb their essence automatically, then spend time in the unlocked shape to deepen it from mastery level 1 to 100. Combat bonuses exist only while transformed.
 
 ## Requirements
 
@@ -31,7 +31,7 @@ One common-family path takes about 278 harvests if trained only through hunting;
 
 ## Visual progression
 
-Every family has a default 10-12 slider silhouette, three progressively richer 2K SlaveTats body textures, a transformation shader, sound, and camera pulse. Stage I covers levels 1-33, Stage II levels 34-66, and Stage III levels 67-100. Expression begins at 50% on level 1 and increases by roughly half a percentage point every level until reaching 100% at level 100.
+Every family has a default 10-12 slider silhouette, a detailed 2K SlaveTats body marking, a transformation shader, sound, and camera pulse. There are no visual stage boundaries: body proportions, combat effects, and marking opacity all grow at every mastery level. Expression begins at 25% on level 1 and increases linearly to 100% at level 100. Each family uses one transformation power from level 1 onward, leaving later milestone levels available for genuinely new powers instead of replacement copies of the same morph.
 
 | Family | Default silhouette at full expression | Marking |
 |---|---|---|
@@ -48,16 +48,16 @@ The source atlas shows the intended creature identities:
 
 ![Feral source pattern atlas](assets/FeralPatternAtlas-v5.png)
 
-This transparency contact sheet shows the actual three shipped marking stages after tint and alpha processing. It is a flat UV/art preview, not an in-game body screenshot; checkerboard areas are transparent:
+This transparency contact sheet shows the three source densities retained for save compatibility and art comparison. Normal v7 transformations use the most detailed texture and scale its opacity continuously. This is a flat UV/art preview, not an in-game body screenshot; checkerboard areas are transparent:
 
 ![Feral marking stages](assets/FeralMarkingStages-v5.png)
 
-Actual proportions depend on the installed RaceMenu/3BA slider set and the player's preset. The current markings are pre-release art and still require front/side/back in-game screenshots to judge seams, stretching, and body coverage honestly. Stage III can equip a configured optional cosmetic without redistributing its assets. The included `Cosmetics.json` detects TDN Equipable Horns and uses its elk horns for the Stage III Stag shape; missing plugins are ignored safely.
+Actual proportions depend on the installed RaceMenu/3BA slider set and the player's preset. The current markings are pre-release art and still require front/side/back in-game screenshots to judge seams, stretching, and body coverage honestly. Discrete horns, ears, tails, and similar armor cosmetics are no longer attached to visual stages; they are reserved for future milestone powers because Skyrim cannot continuously scale ordinary equipped armor.
 
 ## MCM and Experience
 
 - **Status:** automatic harvesting, fatigue, XP mode, active expression, and harvest/mastery totals for all eight families.
-- **Instincts:** level progress, next visual stage, harvest value, shape-use rate, exact combat kit, morph direction, marking stage, and cosmetic availability.
+- **Instincts:** level progress, continuous expression and marking opacity, harvest value, shape-use rate, exact combat kit, morph direction, and future-power status.
 - **Settings:** repair/cleanup, config reload, Experience restoration, and developer mastery milestones.
 
 Feral Path has three modes:
@@ -86,7 +86,7 @@ There is not yet a human fear or hunter-response system. It should not be implem
 
 ## Save compatibility and custom content
 
-Version 6 preserves all historical harvest counts, converts them into rarity-weighted mastery points, converts family slot 7 Horse progress into Stag progress, removes Claim Soul, clears old pending-corpse references, and keeps legacy records inert for save compatibility. Custom races belong in `SKSE\Plugins\Feral\Races.json`; optional Stage III armor cosmetics belong in `Cosmetics.json` as plugin names plus decimal plugin-local FormIDs.
+Version 7 preserves all historical harvest counts and mastery, converts family slot 7 Horse progress into Stag progress on older saves, removes Claim Soul, clears old pending-corpse references, replaces staged powers with one continuously scaling power per family, and keeps legacy records inert for save compatibility. Custom races belong in `SKSE\Plugins\Feral\Races.json`. The existing cosmetic configuration is retained as future adapter data but is not automatically equipped by the base shape.
 
 ## Transformation safety
 

@@ -59,7 +59,6 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	ApplyStats(player)
 	ApplyMorphs(player)
 	ApplyMark(player)
-	ApplyCosmetic(player)
 	EffectShader entryShader = Game.GetForm(0x000EBEC5) as EffectShader
 	If entryShader
 		entryShader.Play(player, 1.2)
@@ -144,7 +143,7 @@ Float Function RankScale()
 	If feral
 		Return feral.GetExpressionScale(Family)
 	EndIf
-	Return 0.50
+	Return 0.25
 EndFunction
 
 Function ApplyCosmetic(Actor player)
@@ -423,9 +422,11 @@ Function ClearVisuals(Actor player)
 	NiOverride.ClearBodyMorphKeys(player, MorphKey)
 	NiOverride.ClearBodyMorphKeys(player, VisibleMorphKey)
 	NiOverride.UpdateModelWeight(player)
-	String mark = MarkName()
-	If mark != ""
-		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", mark, true, true)
+	String baseMark = BaseMarkName()
+	If baseMark != ""
+		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseMark + " I", true, true)
+		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseMark + " II", true, true)
+		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseMark + " III", true, true)
 		SlaveTats.synchronize_tattoos(player, true)
 	EndIf
 EndFunction
@@ -433,36 +434,42 @@ EndFunction
 Function ApplyMark(Actor player)
 	String mark = MarkName()
 	If mark != ""
-		SlaveTats.simple_add_tattoo(player, "Feral Shapes", mark, MarkColor(), true, true, 0.35 + (0.15 * Rank))
+		SlaveTats.simple_add_tattoo(player, "Feral Shapes", mark, MarkColor(), true, true, MarkOpacity())
 		SlaveTats.synchronize_tattoos(player, true)
 	EndIf
 EndFunction
 
 String Function MarkName()
-	String suffix = " I"
-	If Rank == 2
-		suffix = " II"
-	ElseIf Rank == 3
-		suffix = " III"
+	String baseMark = BaseMarkName()
+	If baseMark == ""
+		Return ""
 	EndIf
+	Return baseMark + " III"
+EndFunction
+
+String Function BaseMarkName()
 	If Family == 1
-		Return "Wolf Pelt" + suffix
+		Return "Wolf Pelt"
 	ElseIf Family == 2
-		Return "Sabre Stripes" + suffix
+		Return "Sabre Stripes"
 	ElseIf Family == 3
-		Return "Bear Mantle" + suffix
+		Return "Bear Mantle"
 	ElseIf Family == 4
-		Return "Skeever Mottle" + suffix
+		Return "Skeever Mottle"
 	ElseIf Family == 5
-		Return "Spider Chitin" + suffix
+		Return "Spider Chitin"
 	ElseIf Family == 6
-		Return "Mudcrab Carapace" + suffix
+		Return "Mudcrab Carapace"
 	ElseIf Family == 7
-		Return "Stag Dappling" + suffix
+		Return "Stag Dappling"
 	ElseIf Family == 8
-		Return "Troll Hide" + suffix
+		Return "Troll Hide"
 	EndIf
 	Return ""
+EndFunction
+
+Float Function MarkOpacity()
+	Return 0.25 + (0.65 * RankScale())
 EndFunction
 
 Int Function MarkColor()
