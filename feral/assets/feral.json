@@ -1,0 +1,10 @@
+[
+  { "name": "Wolf Pelt", "section": "Feral Shapes", "texture": "Feral\\wolf_pelt.dds", "area": "Body" },
+  { "name": "Sabre Stripes", "section": "Feral Shapes", "texture": "Feral\\sabre_stripes.dds", "area": "Body" },
+  { "name": "Bear Mantle", "section": "Feral Shapes", "texture": "Feral\\bear_mantle.dds", "area": "Body" },
+  { "name": "Skeever Mottle", "section": "Feral Shapes", "texture": "Feral\\skeever_mottle.dds", "area": "Body" },
+  { "name": "Spider Chitin", "section": "Feral Shapes", "texture": "Feral\\spider_chitin.dds", "area": "Body" },
+  { "name": "Mudcrab Carapace", "section": "Feral Shapes", "texture": "Feral\\mudcrab_carapace.dds", "area": "Body" },
+  { "name": "Horse Stride", "section": "Feral Shapes", "texture": "Feral\\horse_stride.dds", "area": "Body" },
+  { "name": "Troll Hide", "section": "Feral Shapes", "texture": "Feral\\troll_hide.dds", "area": "Body" }
+]

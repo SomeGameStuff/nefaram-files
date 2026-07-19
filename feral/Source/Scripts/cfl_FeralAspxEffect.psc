@@ -1,0 +1,1 @@
+Scriptname cfl_FeralAspxEffect extends cfl_FeralAspectEffect
