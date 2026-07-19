@@ -3,3 +3,9 @@ obj/
 feral/build-backups/
 feral/build-output/texture-inspect/
 feral/build-output/Textures/Actors/Character/slavetats/Feral/png-source/
+
+# Agent-doc links (managed by tools/New-AgentDocLinks.ps1; AGENTS.md is the tracked canonical file)
+CLAUDE.md
+
+# Local copy of vanilla Papyrus sources (~100 MB, re-extractable from Data/Scripts.zip)
+tools/vanilla-source/
