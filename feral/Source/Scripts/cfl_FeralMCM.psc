@@ -20,7 +20,7 @@ Int _testClaimOption
 Int _testResetOption
 
 Int Function GetVersion()
-	Return 5
+	Return 6
 EndFunction
 
 Event OnConfigInit()
@@ -109,7 +109,7 @@ Function InitializeFeral()
 	Spell aspect = Game.GetFormFromFile(0x00081D, "Feral.esp") as Spell
 	Spell revertPower = Game.GetFormFromFile(0x0009C1, "Feral.esp") as Spell
 	If claim
-		player.AddSpell(claim, false)
+		player.RemoveSpell(claim)
 	EndIf
 	If aspect
 		player.RemoveSpell(aspect)
@@ -118,6 +118,7 @@ Function InitializeFeral()
 		player.AddSpell(revertPower, false)
 	EndIf
 	RefreshShapePowers()
+	ClearPendingEssence()
 	RegisterForFeralKills()
 EndFunction
 
@@ -136,6 +137,8 @@ Function HandleFeralReload()
 	RepairAspectState()
 	If IsFeralEnabled()
 		InitializeFeral()
+	Else
+		RemoveAllShapePowers()
 	EndIf
 	If GetFeralPathMode() > 0 && IsFeralEnabled()
 		SaveExperienceSettings()
@@ -190,14 +193,12 @@ Function RegisterForFeralKills()
 EndFunction
 
 Event OnActorKilled(Actor akVictim, Actor akKiller)
+	If !IsFeralEnabled() || akKiller != Game.GetPlayer()
+		Return
+	EndIf
 	Int family = GetFamily(akVictim)
-	If IsFeralEnabled() && akKiller == Game.GetPlayer() && family > 0
-		Actor player = Game.GetPlayer()
-		StorageUtil.SetFloatValue(akVictim, "Feral.KilledAt", Utility.GetCurrentRealTime())
-		StorageUtil.SetIntValue(akVictim, "Feral.Eligible", family)
-		StorageUtil.SetIntValue(akVictim, "Feral.Claimed", 0)
-		StorageUtil.FormListAdd(player, "Feral.PendingEssence", akVictim, false)
-		Debug.Notification("Feral: " + FamilyName(family) + " essence is waiting. Cast Claim Soul within " + GetClaimWindowSeconds() + " seconds.")
+	If family > 0
+		CompleteClaim(family)
 	EndIf
 EndEvent
 
@@ -221,21 +222,20 @@ Function BuildStatusPage()
 		Return
 	EndIf
 	_feralPathOption = AddTextOption("Feral Path XP mode", FeralPathModeName(), OPTION_FLAG_NONE)
-	AddTextOption("Current claim window", GetClaimWindowStatus(), OPTION_FLAG_DISABLED)
-	AddTextOption("Pending essences", GetPendingEssenceCount(), OPTION_FLAG_DISABLED)
+	AddTextOption("Essence harvesting", "Automatic on player kill", OPTION_FLAG_DISABLED)
 	AddTextOption("Transformation fatigue", FatigueStatus(), OPTION_FLAG_DISABLED)
 	Int activeFamily = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.ActiveFamily")
 	If activeFamily > 0
-		AddTextOption("Active transformation", FamilyName(activeFamily) + " / rank " + StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.ActiveRank") + " / " + FormatShapeValue(StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.ActiveExpression") * 100.0) + "%", OPTION_FLAG_DISABLED)
+		AddTextOption("Active transformation", FamilyName(activeFamily) + " / level " + GetMasteryLevel(activeFamily) + " / " + FormatShapeValue(StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.ActiveExpression") * 100.0) + "%", OPTION_FLAG_DISABLED)
 		_endShapeOption = AddTextOption("Return to Self", "End shape", OPTION_FLAG_NONE)
 	Else
 		AddTextOption("Active transformation", "None", OPTION_FLAG_DISABLED)
 	EndIf
 	AddTextOption("Feral Path rewards", "30 / 45 / 70 XP", OPTION_FLAG_DISABLED)
-	AddHeaderOption("Claim totals / ranks")
+	AddHeaderOption("Harvests / mastery levels")
 	Int i = 1
 	While i <= 8
-		AddTextOption(FamilyName(i), StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + i) + " / rank " + GetRank(i), OPTION_FLAG_DISABLED)
+		AddTextOption(FamilyName(i), StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + i) + " / level " + GetMasteryLevel(i), OPTION_FLAG_DISABLED)
 		i += 1
 	EndWhile
 EndFunction
@@ -244,12 +244,15 @@ Function BuildInstinctsPage()
 	Int family = GetFocusFamily()
 	Int count = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + family)
 	Int rank = GetRank(family)
+	Int level = GetMasteryLevel(family)
 	AddHeaderOption("Transformation")
 	_focusFamilyOption = AddTextOption("Selected family", FamilyName(family), OPTION_FLAG_NONE)
-	AddTextOption("Claims / rank", count + " / " + rank, OPTION_FLAG_DISABLED)
-	AddTextOption("Next rank", NextRankText(family, count), OPTION_FLAG_DISABLED)
+	AddTextOption("Harvests / mastery", count + " / level " + level, OPTION_FLAG_DISABLED)
+	AddTextOption("Level progress", MasteryProgressText(family), OPTION_FLAG_DISABLED)
+	AddTextOption("Next visual stage", NextRankText(family, level), OPTION_FLAG_DISABLED)
 	AddTextOption("Current expression", FormatShapeValue(GetExpressionScale(family) * 100.0) + "%", OPTION_FLAG_DISABLED)
-	AddTextOption("Next claim improvement", NextClaimImprovementText(family), OPTION_FLAG_DISABLED)
+	AddTextOption("Next harvest", "+" + MasteryAwardForHarvest(family) + " mastery", OPTION_FLAG_DISABLED)
+	AddTextOption("Shape use", "+1 mastery / 10 seconds", OPTION_FLAG_DISABLED)
 	Spell shape = GetShapeSpell(family, rank)
 	AddTextOption("Power known", YesNo(shape && Game.GetPlayer().HasSpell(shape)), OPTION_FLAG_DISABLED)
 	AddHeaderOption("Changes while transformed")
@@ -262,7 +265,7 @@ EndFunction
 
 String Function CosmeticStatus(Int family, Int rank)
 	If rank < 3
-		Return "Unlocks at rank 3 when configured"
+		Return "Unlocks at mastery level 67 when configured"
 	EndIf
 	String configKey = "Family" + family + "Rank3"
 	String pluginName = JsonUtil.GetStringValue("../Feral/Cosmetics", configKey + "Plugin")
@@ -277,7 +280,7 @@ EndFunction
 
 Function BuildSettingsPage()
 	AddHeaderOption("Hunting")
-	_claimWindowOption = AddSliderOption("Claim window", GetClaimWindowSeconds(), "{0} seconds")
+	AddTextOption("Essence collection", "Automatic", OPTION_FLAG_DISABLED)
 	AddHeaderOption("Maintenance")
 	_recalculateOption = AddTextOption("Rebuild transformation powers", "Repair", OPTION_FLAG_NONE)
 	_endShapeOption = AddTextOption("Clear active Feral shape", "Clean", OPTION_FLAG_NONE)
@@ -290,10 +293,10 @@ Function BuildSettingsPage()
 		AddTextOption("Ordinary XP suppressed", YesNo(ExperienceRewardsAreSuppressed()), OPTION_FLAG_DISABLED)
 		AddTextOption("XP restore snapshot", YesNo(JsonUtil.GetIntValue(GetExperienceStateFile(), "OwnerActive") > 0), OPTION_FLAG_DISABLED)
 		_testFamilyOption = AddTextOption("Test family", FamilyName(testFamily), OPTION_FLAG_NONE)
-		_testSetTwoOption = AddTextOption("Set one below rank 1", "Set", OPTION_FLAG_NONE)
-		_testSetNineOption = AddTextOption("Set one below rank 2", "Set", OPTION_FLAG_NONE)
-		_testSetTwentyFourOption = AddTextOption("Set one below rank 3", "Set", OPTION_FLAG_NONE)
-		_testClaimOption = AddTextOption("Simulate one successful claim", "Run", OPTION_FLAG_NONE)
+		_testSetTwoOption = AddTextOption("Set mastery level 0", "Set", OPTION_FLAG_NONE)
+		_testSetNineOption = AddTextOption("Set mastery level 33", "Set", OPTION_FLAG_NONE)
+		_testSetTwentyFourOption = AddTextOption("Set mastery level 66", "Set", OPTION_FLAG_NONE)
+		_testClaimOption = AddTextOption("Simulate one automatic harvest", "Run", OPTION_FLAG_NONE)
 		_testResetOption = AddTextOption("Reset test family", "Reset", OPTION_FLAG_NONE)
 	EndIf
 EndFunction
@@ -341,83 +344,138 @@ Int Function GetFocusFamily()
 	Return family
 EndFunction
 
-Int Function RankOneThreshold(Int family)
-	If family == 4
-		Return 3
-	ElseIf family == 1 || family == 5 || family == 6 || family == 7
-		Return 2
+Int Function MasteryPointsForNextLevel(Int level)
+	If level >= 100
+		Return 0
 	EndIf
-	Return 1
+	Return 5 + (Math.Ceiling(level * 0.45) as Int)
 EndFunction
 
-Int Function RankTwoThreshold(Int family)
-	If family == 4
-		Return 8
-	ElseIf family == 1 || family == 5 || family == 6
-		Return 7
-	ElseIf family == 7
-		Return 6
-	ElseIf family == 2
-		Return 5
-	ElseIf family == 3
-		Return 4
-	EndIf
-	Return 3
-EndFunction
-
-Int Function RankThreeThreshold(Int family)
-	If family == 4
+Int Function MasteryAwardForHarvest(Int family)
+	If family == 3 || family == 8
+		Return 28
+	ElseIf family == 2 || family == 7
 		Return 18
-	ElseIf family == 1 || family == 5 || family == 6
-		Return 16
-	ElseIf family == 7
-		Return 14
-	ElseIf family == 2
-		Return 12
-	ElseIf family == 3
-		Return 10
 	EndIf
-	Return 7
+	Return 10
 EndFunction
 
-String Function NextRankText(Int family, Int count)
-	If count < RankOneThreshold(family)
-		Return (RankOneThreshold(family) - count) + " more claims"
-	ElseIf count < RankTwoThreshold(family)
-		Return (RankTwoThreshold(family) - count) + " more claims"
-	ElseIf count < RankThreeThreshold(family)
-		Return (RankThreeThreshold(family) - count) + " more claims"
+Int Function GetMasteryLevel(Int family)
+	Return StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.MasteryLevel." + family)
+EndFunction
+
+Int Function GetMasteryProgress(Int family)
+	Return StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.MasteryProgress." + family)
+EndFunction
+
+String Function MasteryProgressText(Int family)
+	Int level = GetMasteryLevel(family)
+	If level >= 100
+		Return "Maximum mastery"
 	EndIf
-	Return "Maximum rank"
+	Return GetMasteryProgress(family) + " / " + MasteryPointsForNextLevel(level)
+EndFunction
+
+Int Function RankForLevel(Int level)
+	If level >= 67
+		Return 3
+	ElseIf level >= 34
+		Return 2
+	ElseIf level >= 1
+		Return 1
+	EndIf
+	Return 0
+EndFunction
+
+String Function NextRankText(Int family, Int level)
+	If level < 1
+		Return "Stage I at level 1"
+	ElseIf level < 34
+		Return "Stage II at level 34"
+	ElseIf level < 67
+		Return "Stage III at level 67"
+	EndIf
+	Return "All stages unlocked"
 EndFunction
 
 Float Function GetExpressionScale(Int family)
-	Int count = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + family)
-	Return ExpressionScaleForCount(family, count)
+	Return ExpressionScaleForLevel(GetMasteryLevel(family))
 EndFunction
 
-Float Function ExpressionScaleForCount(Int family, Int count)
-	Int first = RankOneThreshold(family)
-	Int second = RankTwoThreshold(family)
-	Int third = RankThreeThreshold(family)
-	If count < first
+Float Function ExpressionScaleForLevel(Int level)
+	If level < 1
 		Return 0.0
-	ElseIf count < second
-		Return 0.50 + (0.25 * (count - first) / (second - first))
-	ElseIf count < third
-		Return 0.75 + (0.25 * (count - second) / (third - second))
+	ElseIf level >= 100
+		Return 1.0
 	EndIf
-	Return 1.0
+	Return 0.50 + ((level - 1) * (0.50 / 99.0))
 EndFunction
 
-String Function NextClaimImprovementText(Int family)
-	Float current = GetExpressionScale(family)
-	If current >= 1.0
-		Return "Maximum expression"
+Function GrantMastery(Int family, Int amount, String source = "activity", Bool silent = false)
+	If family < 1 || family > 8 || amount < 1
+		Return
 	EndIf
-	Int count = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + family)
-	Float nextValue = ExpressionScaleForCount(family, count + 1)
-	Return "+" + FormatShapeValue((nextValue - current) * 100.0) + "% expression"
+	Actor player = Game.GetPlayer()
+	Int oldLevel = GetMasteryLevel(family)
+	Int level = oldLevel
+	Int progress = GetMasteryProgress(family) + amount
+	While level < 100 && progress >= MasteryPointsForNextLevel(level)
+		progress -= MasteryPointsForNextLevel(level)
+		level += 1
+	EndWhile
+	If level >= 100
+		level = 100
+		progress = 0
+	EndIf
+	StorageUtil.SetIntValue(player, "Feral.MasteryLevel." + family, level)
+	StorageUtil.SetIntValue(player, "Feral.MasteryProgress." + family, progress)
+	Int oldRank = StorageUtil.GetIntValue(player, "Feral.Rank." + family)
+	Int newRank = RankForLevel(level)
+	StorageUtil.SetIntValue(player, "Feral.Rank." + family, newRank)
+	If newRank != oldRank
+		ApplyShapeRank(family, newRank)
+	EndIf
+	If !silent
+		If level > oldLevel
+			Debug.Notification("Feral " + FamilyName(family) + " mastery reaches level " + level + " through " + source + ".")
+		ElseIf level < 100
+			Debug.Notification("Feral " + FamilyName(family) + ": +" + amount + " mastery (" + progress + "/" + MasteryPointsForNextLevel(level) + ").")
+		EndIf
+	EndIf
+EndFunction
+
+Function SetMasteryFromTotalPoints(Int family, Int totalPoints)
+	Actor player = Game.GetPlayer()
+	Int level = 0
+	Int progress = totalPoints
+	While level < 100 && progress >= MasteryPointsForNextLevel(level)
+		progress -= MasteryPointsForNextLevel(level)
+		level += 1
+	EndWhile
+	If level >= 100
+		level = 100
+		progress = 0
+	EndIf
+	StorageUtil.SetIntValue(player, "Feral.MasteryLevel." + family, level)
+	StorageUtil.SetIntValue(player, "Feral.MasteryProgress." + family, progress)
+	StorageUtil.SetIntValue(player, "Feral.Rank." + family, RankForLevel(level))
+EndFunction
+
+Function AddActivityMastery(Int family, Int points, String source = "activity")
+	GrantMastery(family, points, source)
+EndFunction
+
+Function AddShapeTime(Int family, Float seconds)
+	If seconds > 120.0
+		seconds = 120.0
+	EndIf
+	Int points = (seconds / 10.0) as Int
+	If points > 0
+		GrantMastery(family, points, "shape use")
+		If IsFeralPathEnabled()
+			Experience.AddExperience(points, true)
+		EndIf
+	EndIf
 EndFunction
 
 String Function MarkStageText(Int rank)
@@ -558,7 +616,7 @@ Event OnOptionSelect(Int option)
 	ElseIf option == _recalculateOption
 		RefreshShapePowers()
 		RepairAspectState()
-		Debug.Notification("Feral: transformation powers rebuilt from saved ranks.")
+		Debug.Notification("Feral: transformation powers rebuilt from saved mastery levels.")
 	ElseIf option == _endShapeOption
 		EndActiveShape()
 		ForcePageReset()
@@ -592,19 +650,19 @@ Event OnOptionSelect(Int option)
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.TestFamily", testFamily)
 		ForcePageReset()
 	ElseIf option == _testSetTwoOption
-		SetTestProgress(GetTestFamily(), RankOneThreshold(GetTestFamily()) - 1)
+		SetTestLevel(GetTestFamily(), 0)
 		ForcePageReset()
 	ElseIf option == _testSetNineOption
-		SetTestProgress(GetTestFamily(), RankTwoThreshold(GetTestFamily()) - 1)
+		SetTestLevel(GetTestFamily(), 33)
 		ForcePageReset()
 	ElseIf option == _testSetTwentyFourOption
-		SetTestProgress(GetTestFamily(), RankThreeThreshold(GetTestFamily()) - 1)
+		SetTestLevel(GetTestFamily(), 66)
 		ForcePageReset()
 	ElseIf option == _testClaimOption
 		CompleteClaim(GetTestFamily())
 		ForcePageReset()
 	ElseIf option == _testResetOption
-		SetTestProgress(GetTestFamily(), 0)
+		SetTestLevel(GetTestFamily(), 0)
 		ForcePageReset()
 	EndIf
 EndEvent
@@ -656,27 +714,28 @@ Int Function GetTestFamily()
 	Return family
 EndFunction
 
-Function SetTestProgress(Int family, Int count)
+Function SetTestLevel(Int family, Int level)
 	If family < 1 || family > 8
 		Return
 	EndIf
 	Actor player = Game.GetPlayer()
-	StorageUtil.SetIntValue(player, "Feral.Count." + family, count)
-	Int rank = RankForCount(family, count)
+	StorageUtil.SetIntValue(player, "Feral.MasteryLevel." + family, level)
+	StorageUtil.SetIntValue(player, "Feral.MasteryProgress." + family, 0)
+	Int rank = RankForLevel(level)
 	StorageUtil.SetIntValue(player, "Feral.Rank." + family, rank)
 	ApplyShapeRank(family, rank)
-	Debug.Notification("Feral test: " + FamilyName(family) + " set to " + count + " claims / rank " + rank + ".")
+	Debug.Notification("Feral test: " + FamilyName(family) + " set to mastery level " + level + " / stage " + rank + ".")
 EndFunction
 
 Int Function RankForCount(Int family, Int count)
-	If count >= RankThreeThreshold(family)
-		Return 3
-	ElseIf count >= RankTwoThreshold(family)
-		Return 2
-	ElseIf count >= RankOneThreshold(family)
-		Return 1
-	EndIf
-	Return 0
+	; Legacy v5 conversion only. New progression uses RankForLevel.
+	Int totalPoints = count * MasteryAwardForHarvest(family)
+	Int level = 0
+	While level < 100 && totalPoints >= MasteryPointsForNextLevel(level)
+		totalPoints -= MasteryPointsForNextLevel(level)
+		level += 1
+	EndWhile
+	Return RankForLevel(level)
 EndFunction
 
 Int Function GetFamily(Actor akActor)
@@ -760,35 +819,13 @@ String Function FamilyConfigKey(Int family)
 EndFunction
 
 Int Function ClaimLast()
-	Return ClaimPendingEssence()
+	ClearPendingEssence()
+	Debug.Notification("Feral: essence harvesting is automatic; Claim Soul is retired.")
+	Return 0
 EndFunction
 
 Int Function ClaimPendingEssence()
-	If !IsFeralEnabled()
-		Debug.Notification("Feral hunting is disabled. Enable it in the Feral MCM first.")
-		Return 0
-	EndIf
-	PurgeExpiredEssence()
-	Actor player = Game.GetPlayer()
-	Int i = StorageUtil.FormListCount(player, "Feral.PendingEssence") - 1
-	If i < 0
-		Debug.Notification("Feral: no recently hunted creature is ready to claim.")
-		Return 0
-	EndIf
-	Int claimed = 0
-	While i >= 0
-		Actor victim = StorageUtil.FormListGet(player, "Feral.PendingEssence", i) as Actor
-		If victim
-			Int family = StorageUtil.GetIntValue(victim, "Feral.Eligible")
-			StorageUtil.SetIntValue(victim, "Feral.Claimed", 1)
-			CompleteClaim(family, true)
-			claimed += 1
-		EndIf
-		StorageUtil.FormListRemoveAt(player, "Feral.PendingEssence", i)
-		i -= 1
-	EndWhile
-	Debug.Notification("Feral: claimed " + claimed + " waiting essence(s).")
-	Return claimed
+	Return ClaimLast()
 EndFunction
 
 Function CompleteClaim(Int family, Bool silent = false)
@@ -797,15 +834,7 @@ Function CompleteClaim(Int family, Bool silent = false)
 	EndIf
 	Int count = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + family) + 1
 	StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Count." + family, count)
-	Int oldRank = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Rank." + family)
-	Int newRank = RankForCount(family, count)
-	If newRank > oldRank
-		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Rank." + family, newRank)
-		ApplyShapeRank(family, newRank)
-		Debug.Notification("Feral " + FamilyName(family) + " transformation reaches rank " + newRank + ".")
-	ElseIf !silent
-		Debug.Notification("Feral: " + FamilyName(family) + " essence claimed (" + count + ").")
-	EndIf
+	GrantMastery(family, MasteryAwardForHarvest(family), "hunting", silent)
 	If IsFeralPathEnabled()
 		Int reward = GetEssenceXP(family)
 		Experience.AddExperience(reward, true)
@@ -856,7 +885,6 @@ Function ApplyShapeRank(Int family, Int rank)
 	While i <= 3
 		Spell shape = GetShapeSpell(family, i)
 		If shape
-			player.DispelSpell(shape)
 			player.RemoveSpell(shape)
 		EndIf
 		i += 1
@@ -947,7 +975,6 @@ Function ClearFeralVisuals()
 	NiOverride.ClearBodyMorphKeys(player, "Feral.Shapes")
 	NiOverride.ClearBodyMorphKeys(player, "Feral.Shapes.Visible")
 	NiOverride.UpdateModelWeight(player)
-	player.QueueNiNodeUpdate()
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", "Wolf Pelt", true, true)
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", "Sabre Stripes", true, true)
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", "Bear Mantle", true, true)
@@ -1039,10 +1066,19 @@ Function MigrateEconomy()
 		StorageUtil.UnsetFloatValue(player, "Feral.LastKillAt")
 		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 5)
 	EndIf
-	If IsFeralEnabled()
-		RefreshShapePowers()
-	Else
-		RemoveAllShapePowers()
+	If version < 6
+		Int masteryFamily = 1
+		While masteryFamily <= 8
+			Int historicalPoints = StorageUtil.GetIntValue(player, "Feral.Count." + masteryFamily) * MasteryAwardForHarvest(masteryFamily)
+			SetMasteryFromTotalPoints(masteryFamily, historicalPoints)
+			masteryFamily += 1
+		EndWhile
+		Spell retiredClaim = Game.GetFormFromFile(0x00081B, "Feral.esp") as Spell
+		If retiredClaim
+			player.RemoveSpell(retiredClaim)
+		EndIf
+		ClearPendingEssence()
+		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 6)
 	EndIf
 EndFunction
 

@@ -78,16 +78,37 @@ $controller = Get-Content -Raw -LiteralPath (Join-Path $sourceRoot 'cfl_FeralMCM
 $experienceSettingCount = [regex]::Matches($controller, 'settings\[\d+\] = "iXP(?:Quest|Disc|Clear)').Count
 if ($experienceSettingCount -ne 91) { throw "Expected 91 Experience reward settings, found $experienceSettingCount." }
 foreach ($required in @('GetConfiguredFamily', 'RefreshShapePowers', 'ExperienceRewardsAreSuppressed',
-    'RecoverExperienceSettingsIfNeeded', 'CompleteClaim', 'RankForCount', 'EndActiveShape',
-    'GetClaimWindowSeconds', 'ClaimPendingEssence', 'GetExpressionScale', 'StartFeralFatigue',
-    'IsFeralActiveValue')) {
+    'RecoverExperienceSettingsIfNeeded', 'CompleteClaim', 'EndActiveShape', 'GetExpressionScale',
+    'StartFeralFatigue', 'IsFeralActiveValue', 'MasteryPointsForNextLevel',
+    'MasteryAwardForHarvest', 'GrantMastery', 'AddActivityMastery', 'AddShapeTime',
+    'RankForLevel', 'Feral.MasteryLevel')) {
     if ($controller -notmatch [regex]::Escape($required)) { throw "Missing controller feature: $required" }
+}
+if ($controller -notmatch 'If !IsFeralEnabled\(\) \|\| akKiller != Game.GetPlayer\(\)') {
+    throw 'Actor-killed handler does not reject irrelevant kills before race matching.'
+}
+$actorKilledBody = [regex]::Match($controller, 'Event OnActorKilled[\s\S]*?EndEvent').Value
+if ($actorKilledBody -match 'PendingEssence|FormListAdd') {
+    throw 'Actor-killed handler still retains corpse references.'
+}
+if ($controller -match 'QueueNiNodeUpdate') {
+    throw 'Controller still requests a redundant full NiNode rebuild.'
+}
+$masteryCurveTotal = 0
+for ($level = 0; $level -lt 100; $level++) {
+    $masteryCurveTotal += 5 + [Math]::Ceiling($level * 0.45)
+}
+if ($masteryCurveTotal -lt 2700 -or $masteryCurveTotal -gt 2900) {
+    throw "Unexpected level-100 mastery curve total: $masteryCurveTotal"
 }
 
 $shapeEffect = Get-Content -Raw -LiteralPath (Join-Path $sourceRoot 'cfl_FeralShapeEffect.psc')
 foreach ($required in @('BeginActiveShape', 'IsActiveInstance', 'Feral.LastShapeToken',
-    'Feral.ActiveToken', 'ownsCurrentShape')) {
+    'Feral.ActiveToken', 'ownsCurrentShape', 'AddShapeTime', 'GetTimeElapsed')) {
     if ($shapeEffect -notmatch [regex]::Escape($required)) { throw "Missing owner-safe shape feature: $required" }
 }
+if ($shapeEffect -match 'RegisterFor(?:Single)?Update|QueueNiNodeUpdate') {
+    throw 'Shape effect contains polling or a redundant full NiNode rebuild.'
+}
 
-Write-Output 'Feral v5 build validation passed: rarity progression, staged transformations, pending essence, XP modes, JSON configs, and 8 Papyrus scripts.'
+Write-Output "Feral v6 build validation passed: automatic harvest, 100-level mastery ($masteryCurveTotal points), low-overhead shape use, staged transformations, XP modes, JSON configs, and 8 Papyrus scripts."
