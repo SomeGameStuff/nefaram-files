@@ -25,6 +25,8 @@ Float Property Tier3Seconds = 900.0 Auto
 Float Property Tier4Seconds = 1800.0 Auto
 
 Bool _running = false
+Bool _ownsForm = false
+Int _activeToken = 0
 Int _tier = 0
 Int _startupRefreshes = 0
 Actor[] _cooldownActors
@@ -56,11 +58,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
-	Int activeForm = cfl_BodymorphActiveForm.GetValueInt()
+	Int activeForm = ActiveFormId(cfl_BodymorphActiveForm.GetValueInt())
 	If activeForm != 0
 		If activeForm == 1
-			Debug.Notification("Dollform is already active.")
-			Dispel()
+			Debug.Notification("Dollform fades.")
+			PlayerRef.DispelSpell(cfl_SpellDollform)
 			Return
 		EndIf
 		Debug.Notification("Another bodymorph alteration is already active.")
@@ -69,9 +71,10 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	EndIf
 
 	_running = true
+	_ownsForm = true
 	_startedAt = Utility.GetCurrentRealTime()
 	_startupRefreshes = 2
-	cfl_BodymorphActiveForm.SetValue(1)
+	BeginActiveForm(1)
 	_tier = cfl_DollformMarkTier.GetValueInt()
 	_cooldownActors = New Actor[32]
 	_cooldownTimes = New Float[32]
@@ -92,6 +95,10 @@ EndEvent
 
 Event OnUpdate()
 	If !_running
+		Return
+	EndIf
+	If !IsActiveInstance(1)
+		_running = false
 		Return
 	EndIf
 
@@ -116,21 +123,49 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	_running = false
 	UnregisterForUpdate()
 
-	If akTarget == PlayerRef
-		If Utility.GetCurrentRealTime() - _startedAt < 10.0
-			Debug.Notification("Dollform cleanup skipped because the effect ended immediately.")
-			Return
+	If akTarget == PlayerRef && _ownsForm
+		Bool ownsActiveInstance = IsActiveInstance(1)
+		If ownsActiveInstance
+			RestoreMorphs(PlayerRef)
+			RestoreHairColor(PlayerRef)
+			RemoveCosmetics(PlayerRef)
+			RestoreActorValueChanges(PlayerRef)
 		EndIf
-		RestoreMorphs(PlayerRef)
-		RestoreHairColor(PlayerRef)
-		RemoveCosmetics(PlayerRef)
-		RestoreActorValueChanges(PlayerRef)
-		If cfl_BodymorphActiveForm.GetValueInt() == 1
+		If ownsActiveInstance
 			cfl_BodymorphActiveForm.SetValue(0)
 		EndIf
 		Debug.Notification("Your Dollform fades.")
+		_ownsForm = false
 	EndIf
 EndEvent
+
+Function BeginActiveForm(Int aiFormId)
+	_activeToken = StorageUtil.GetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken") + 1
+	If _activeToken > 90000
+		_activeToken = 1
+	EndIf
+	StorageUtil.SetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken", _activeToken)
+	cfl_BodymorphActiveForm.SetValue((aiFormId * 100000) + _activeToken)
+EndFunction
+
+Bool Function IsActiveInstance(Int aiFormId)
+	Int activeValue = cfl_BodymorphActiveForm.GetValueInt()
+	Return ActiveFormId(activeValue) == aiFormId && ActiveToken(activeValue) == _activeToken
+EndFunction
+
+Int Function ActiveFormId(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue / 100000
+	EndIf
+	Return aiActiveValue
+EndFunction
+
+Int Function ActiveToken(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue - ((aiActiveValue / 100000) * 100000)
+	EndIf
+	Return 0
+EndFunction
 
 Function SaveMorphs(Actor akActor)
 	_breasts = NiOverride.GetMorphValue(akActor, "Breasts")
@@ -305,23 +340,24 @@ Function ApplyProgressTattoo(Actor akActor)
 	Float alpha = PapyrusUtil.ClampFloat(0.35 + (_tier * 0.15), 0.35, 0.95)
 	SlaveTats.simple_remove_tattoo(akActor, "Dollform", "Dollform Attunement", true, false)
 	SlaveTats.simple_add_tattoo(akActor, "Dollform", "Dollform Attunement", 0xFFFFD6EE, true, false, alpha)
-	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
 Function ApplyCosmetics(Actor akActor)
 	; These are Dollform-owned SlaveTats aliases so removal does not target the user's normal makeup entries.
-	RemoveCosmetics(akActor)
+	RemoveCosmetics(akActor, false)
 	SlaveTats.simple_add_tattoo(akActor, "Dollform Cosmetics", "Doll Foot Polish", 0xFFFF66AA, true, true, 0.85)
 
 	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
-Function RemoveCosmetics(Actor akActor)
+Function RemoveCosmetics(Actor akActor, Bool abSynchronize = true)
 	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Blush", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Hand Polish", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Foot Polish", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Mascara", true, true)
-	SlaveTats.synchronize_tattoos(akActor, true)
+	If abSynchronize
+		SlaveTats.synchronize_tattoos(akActor, true)
+	EndIf
 EndFunction
 
 Function ApplyActorValueChanges(Actor akActor)

@@ -2,6 +2,56 @@
 
 This document expands `Dollform` into a broader Alteration spell family built around temporary RaceMenu/NiOverride bodymorph forms, visible cosmetic changes, gameplay tradeoffs, and optional integrations with installed NSFW systems.
 
+## Playtest Revision — 2026-07-11
+
+### Verified
+
+- The corrected NiOverride calling convention now applies and clears morphs for Dollform, Horseform, Cowform, Rabbitform, and Trollform.
+- Cowform/Horseform need only continued balance tuning; their earlier invisible morph issue is resolved.
+- Trollform is the strongest current visual identity. It needs broader shoulders and dedicated overlay art, not a redesign.
+- The shared active-form lock now stores a per-cast token in `cfl_BodymorphActiveForm`; its counter persists in `BodymorphAlterations.LastFormToken` instead of resetting when the lock clears. Form scripts decode old `0..5` values, ignore stale updates/finishes, and only clear overlays/morphs for the active effect instance.
+- All current form scripts now batch temporary SlaveTats apply/remove work to one synchronization per transition.
+- The MCM now has a single recovery action that dispels known form spells, clears mod-owned morph layers, removes temporary form overlays and active form marks, restores base hair color, removes Cowform horns, and clears the active token.
+- Rabbitform has a first-pass distinct base identity: stronger hip/calf emphasis, reduced thigh/bust overlap with Horseform, higher stamina recovery/sneak, and sharper health/armor/carry fragility.
+- Fertility Mode loose source was inspected. Its MCM exposes internal handler/storage operations for ovulation, sperm, and pregnancy debug actions, but no stable public adapter API has been confirmed from the loose source alone.
+- Stale finish handlers now skip actor-value restoration unless they still own the active token, preventing an old finish from subtracting stats from a newer same-form instance.
+- The current compiled `.pex` files have been synced into the enabled MO2 mod `C:\Games\nefaram\mods\[NoDelete] Bodymorph Alterations`.
+
+### Blocking Problems
+
+1. Recasting and rapid recasting needs another in-game pass after the tokenized active-form lock and recovery command changes. The remaining risk is runtime behavior under save/load or forced dispel, not compile-time coverage.
+2. SlaveTats cosmetics now batch to one synchronization per apply/fade for the current forms, but new cosmetic art should wait until recast, fade, recovery, and save/load cleanup pass in-game.
+3. Rabbitform's base silhouette/stat package has been differentiated, but it still needs in-game visual tuning and has no real Fertility Mode behavior. Do not write Fertility Mode storage arrays directly from Rabbitform without a confirmed public API or fully inspected runtime source.
+4. The UI exposes diagnostics and global scale only; it does not give the player safe, per-form/per-region morph configuration.
+
+### Priority Roadmap
+
+1. **Finish the shared form controller.** The first tokenized lock pass and MCM recovery command are implemented without requiring new ESP properties. Next, consolidate the duplicated helper code into a quest/controller when plugin records are being edited, then expand recovery only if in-game testing shows remaining stat or appearance residue.
+2. **Make cosmetics deterministic.** The current apply/remove synchronization pass is implemented. Next, use dedicated troll overlay DDS assets and expose form-cosmetic enable/disable options in the MCM. Do not add new markings until recast, fade, recovery, and save/load cleanup pass.
+3. **Create a real MCM configuration model.** Add per-form enable toggles, a strength slider, and sliders or presets for the form's major regions. Keep values under this mod's own keyed morph layers; include reset-to-default and a non-persistent preview action.
+4. **Tune Rabbitform before Fertility integration.** The first base redesign pass is implemented and loose Fertility Mode source has been inspected. In-game tune the compact hip/calf-forward silhouette, rabbit-specific marks, and fragile movement/stat package. Then inspect packaged Fertility Mode runtime scripts or plugin records enough to identify a stable spell/event contract; implement an optional adapter only with explicit effects, opt-in MCM setting, and no guessed globals or direct storage-array writes.
+5. **Replace vendor-only acquisition and passive time progression with immersion.** Rebuild safe acquisition through validated dialogue/quest records. Give each form themed use objectives: Dollform social attention/exposure, Horseform sprint/load/animal encounters, Cowform milk/milking, Rabbitform fertility/escape activity, Trollform melee/regen. Animal attraction should be a capped, opt-in nearby-NPC reaction system—not a broad scan or forced scene—and must be prototyped last.
+
+### Definition of Stable v1
+
+- A cast, same-form recast, natural expiry, forced dispel, save/load while active, and recovery action all leave: no mod-owned morph keys, no temporary form overlays, no form-owned gear/hair/stat residue, and active-form token `0`.
+- The Papyrus log has no Bodymorph Alterations errors for those scenarios.
+- The MCM explains acquisition, current tier, next tier threshold, active modifiers, and recovery status without relying on this plan file.
+
+### Immediate Playtest Matrix
+
+Run these for Dollform, Horseform, Cowform, Rabbitform, and Trollform before adding new cosmetic art or Fertility Mode writes:
+
+```text
+1. Cast form, wait for the first startup refresh, confirm MCM active form shows form/token and recovery status active.
+2. Let form expire naturally, confirm active token 0/0, morph residue clear, horns unequipped if Cowform, and no visible temporary overlays.
+3. Cast form, recast the same form quickly, confirm it fades and does not subtract stats from a later form instance.
+4. Cast form A, attempt form B, confirm form B is rejected and form A remains the active token owner.
+5. Cast form, use console/player dispel or remove spell effect, confirm cleanup matches natural expiry.
+6. Cast form, save, reload, wait one update pulse, then use recovery if needed; confirm active token 0/0 and morph residue clear.
+7. Cast form, run MCM recovery while active, confirm active token 0/0, morph residue clear, horns removed, and no Bodymorph Alterations errors in Papyrus.0.log.
+```
+
 The implementation should stay as a separate MO2 add-on under `mods/Dollform` unless renamed later. Base mods should not be edited directly.
 
 ## Design Goals
@@ -268,12 +318,13 @@ Tier 4:
 
 Fertility Mode integration:
 
-Needs inspection before implementation. Preferred approach:
+Loose source inspection started. The visible MCM script uses internal `Handler.Storage` arrays and internal event handler calls such as forced ovulation, sperm insertion/removal, and impregnation. Those are useful for understanding behavior but are not yet a safe external API. Preferred approach:
 
 - Read Fertility Mode source scripts.
 - Find safe APIs or globals for fertility chance, ovulation/fertile window, gem/offspring output.
 - Prefer temporary multipliers while active.
 - Avoid direct cycle rewrites unless the mod API clearly supports it.
+- If only debug spells/events are stable after runtime inspection, expose Rabbitform integration as an opt-in action or multiplier, not automatic pregnancy/cycle rewriting.
 
 Safe fallback if Fertility Mode API is unclear:
 

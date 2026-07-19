@@ -20,6 +20,8 @@ Float Property Tier3Seconds = 900.0 Auto
 Float Property Tier4Seconds = 1800.0 Auto
 
 Bool _running = false
+Bool _ownsForm = false
+Int _activeToken = 0
 Int _tier = 0
 Int _startupRefreshes = 0
 
@@ -38,6 +40,8 @@ Float _staminaRateMod
 Float _healthMod
 Float _carryWeightMod
 Float _magickaRateMod
+Float _sneakMod
+Float _damageResistMod
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 	If akTarget != PlayerRef
@@ -45,11 +49,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
-	Int activeForm = cfl_BodymorphActiveForm.GetValueInt()
+	Int activeForm = ActiveFormId(cfl_BodymorphActiveForm.GetValueInt())
 	If activeForm != 0
 		If activeForm == 4
-			Debug.Notification("Rabbitform is already active.")
-			Dispel()
+			Debug.Notification("Rabbitform fades.")
+			PlayerRef.DispelSpell(cfl_SpellRabbitform)
 			Return
 		EndIf
 		Debug.Notification("Another bodymorph alteration is already active.")
@@ -58,8 +62,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	EndIf
 
 	_running = true
+	_ownsForm = true
 	_startupRefreshes = 2
-	cfl_BodymorphActiveForm.SetValue(4)
+	BeginActiveForm(4)
 	_tier = cfl_RabbitformMarkTier.GetValueInt()
 
 	EnsureMCMQuestStarted()
@@ -78,6 +83,10 @@ EndEvent
 
 Event OnUpdate()
 	If !_running
+		Return
+	EndIf
+	If !IsActiveInstance(4)
+		_running = false
 		Return
 	EndIf
 
@@ -100,17 +109,49 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	_running = false
 	UnregisterForUpdate()
 
-	If akTarget == PlayerRef
-		RestoreMorphs(PlayerRef)
-		RestoreHairColor(PlayerRef)
-		RemoveCosmetics(PlayerRef)
-		RestoreActorValueChanges(PlayerRef)
-		If cfl_BodymorphActiveForm.GetValueInt() == 4
+	If akTarget == PlayerRef && _ownsForm
+		Bool ownsActiveInstance = IsActiveInstance(4)
+		If ownsActiveInstance
+			RestoreMorphs(PlayerRef)
+			RestoreHairColor(PlayerRef)
+			RemoveCosmetics(PlayerRef)
+			RestoreActorValueChanges(PlayerRef)
+		EndIf
+		If ownsActiveInstance
 			cfl_BodymorphActiveForm.SetValue(0)
 		EndIf
 		Debug.Notification("Your Rabbitform fades.")
+		_ownsForm = false
 	EndIf
 EndEvent
+
+Function BeginActiveForm(Int aiFormId)
+	_activeToken = StorageUtil.GetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken") + 1
+	If _activeToken > 90000
+		_activeToken = 1
+	EndIf
+	StorageUtil.SetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken", _activeToken)
+	cfl_BodymorphActiveForm.SetValue((aiFormId * 100000) + _activeToken)
+EndFunction
+
+Bool Function IsActiveInstance(Int aiFormId)
+	Int activeValue = cfl_BodymorphActiveForm.GetValueInt()
+	Return ActiveFormId(activeValue) == aiFormId && ActiveToken(activeValue) == _activeToken
+EndFunction
+
+Int Function ActiveFormId(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue / 100000
+	EndIf
+	Return aiActiveValue
+EndFunction
+
+Int Function ActiveToken(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue - ((aiActiveValue / 100000) * 100000)
+	EndIf
+	Return 0
+EndFunction
 
 Function SaveMorphs(Actor akActor)
 	_breasts = NiOverride.GetMorphValue(akActor, "Breasts")
@@ -144,24 +185,27 @@ Function RestoreHairColor(Actor akActor)
 EndFunction
 
 Function ApplyRabbitMorphs(Actor akActor)
-	Float scale = (1.0 + (_tier * 0.25)) * MorphScale()
+	Float scale = (1.0 + (_tier * 0.20)) * MorphScale()
 
-	SetMorph(akActor, "Thighs", 0.55 * scale)
-	SetMorph(akActor, "CalfSize", 0.35 * scale)
-	SetMorph(akActor, "Hips", 0.30 * scale)
-	SetMorph(akActor, "Butt", 0.45 * scale)
-	SetMorph(akActor, "BigButt", 0.30 * scale)
-	SetMorph(akActor, "Waist", -0.25 * scale)
-	SetMorph(akActor, "Belly", -0.20 * scale)
-	SetMorph(akActor, "Breasts", 0.18 * scale)
+	SetMorph(akActor, "Hips", 0.55 * scale)
+	SetMorph(akActor, "HipUpperWidth", 0.35 * scale)
+	SetMorph(akActor, "Butt", 0.50 * scale)
+	SetMorph(akActor, "BigButt", 0.20 * scale)
+	SetMorph(akActor, "Thighs", 0.38 * scale)
+	SetMorph(akActor, "ChubbyLegs", 0.12 * scale)
+	SetMorph(akActor, "CalfSize", 0.48 * scale)
+	SetMorph(akActor, "CalfFBThicc_v2", 0.42 * scale)
+	SetMorph(akActor, "Waist", -0.32 * scale)
+	SetMorph(akActor, "Belly", -0.22 * scale)
+	SetMorph(akActor, "Breasts", 0.10 * scale)
 
-	SetDirectMorph(akActor, "Thighs", _thighs, 0.75 * scale)
-	SetDirectMorph(akActor, "CalfSize", _calves, 0.45 * scale)
-	SetDirectMorph(akActor, "Hips", _hips, 0.35 * scale)
-	SetDirectMorph(akActor, "Butt", _butt, 0.60 * scale)
-	SetDirectMorph(akActor, "Waist", _waist, -0.30 * scale)
-	SetDirectMorph(akActor, "Belly", _belly, -0.20 * scale)
-	SetDirectMorph(akActor, "Breasts", _breasts, 0.18 * scale)
+	SetDirectMorph(akActor, "Hips", _hips, 0.65 * scale)
+	SetDirectMorph(akActor, "Butt", _butt, 0.55 * scale)
+	SetDirectMorph(akActor, "Thighs", _thighs, 0.42 * scale)
+	SetDirectMorph(akActor, "CalfSize", _calves, 0.62 * scale)
+	SetDirectMorph(akActor, "Waist", _waist, -0.35 * scale)
+	SetDirectMorph(akActor, "Belly", _belly, -0.22 * scale)
+	SetDirectMorph(akActor, "Breasts", _breasts, 0.10 * scale)
 
 	RefreshAppearance(akActor)
 EndFunction
@@ -244,11 +288,10 @@ Function ApplyProgressTattoo(Actor akActor)
 	Float alpha = PapyrusUtil.ClampFloat(0.35 + (_tier * 0.15), 0.35, 0.95)
 	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform", "Rabbitform Moon Mark", true, false)
 	SlaveTats.simple_add_tattoo(akActor, "Rabbitform", "Rabbitform Moon Mark", 0xFFE8E2F6, true, false, alpha)
-	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
 Function ApplyCosmetics(Actor akActor)
-	RemoveCosmetics(akActor)
+	RemoveCosmetics(akActor, false)
 	SlaveTats.simple_add_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Hip Mark", 0xFFE8E2F6, true, true, 0.45)
 	If _tier >= 2
 		SlaveTats.simple_add_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Leap Mark", 0xFFFFFFFF, true, true, 0.40)
@@ -256,19 +299,23 @@ Function ApplyCosmetics(Actor akActor)
 	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
-Function RemoveCosmetics(Actor akActor)
+Function RemoveCosmetics(Actor akActor, Bool abSynchronize = true)
 	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Hip Mark", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Leap Mark", true, true)
-	SlaveTats.synchronize_tattoos(akActor, true)
+	If abSynchronize
+		SlaveTats.synchronize_tattoos(akActor, true)
+	EndIf
 EndFunction
 
 Function ApplyActorValueChanges(Actor akActor)
-	_speedMod = 35.0 + (_tier * 8.0)
-	_staminaMod = 35.0 + (_tier * 15.0)
-	_staminaRateMod = 45.0 + (_tier * 15.0)
-	_healthMod = -30.0 - (_tier * 10.0)
-	_carryWeightMod = -25.0 - (_tier * 10.0)
-	_magickaRateMod = -8.0 - (_tier * 3.0)
+	_speedMod = 30.0 + (_tier * 7.0)
+	_staminaMod = 25.0 + (_tier * 10.0)
+	_staminaRateMod = 55.0 + (_tier * 15.0)
+	_healthMod = -35.0 - (_tier * 12.0)
+	_carryWeightMod = -35.0 - (_tier * 10.0)
+	_magickaRateMod = -5.0 - (_tier * 2.0)
+	_sneakMod = 15.0 + (_tier * 5.0)
+	_damageResistMod = -25.0 - (_tier * 8.0)
 
 	akActor.ModActorValue("SpeedMult", _speedMod)
 	akActor.ModActorValue("Stamina", _staminaMod)
@@ -276,6 +323,8 @@ Function ApplyActorValueChanges(Actor akActor)
 	akActor.ModActorValue("Health", _healthMod)
 	akActor.ModActorValue("CarryWeight", _carryWeightMod)
 	akActor.ModActorValue("MagickaRateMult", _magickaRateMod)
+	akActor.ModActorValue("Sneak", _sneakMod)
+	akActor.ModActorValue("DamageResist", _damageResistMod)
 EndFunction
 
 Function RestoreActorValueChanges(Actor akActor)
@@ -285,6 +334,8 @@ Function RestoreActorValueChanges(Actor akActor)
 	akActor.ModActorValue("Health", -_healthMod)
 	akActor.ModActorValue("CarryWeight", -_carryWeightMod)
 	akActor.ModActorValue("MagickaRateMult", -_magickaRateMod)
+	akActor.ModActorValue("Sneak", -_sneakMod)
+	akActor.ModActorValue("DamageResist", -_damageResistMod)
 EndFunction
 
 Function DetectFertilityMode()

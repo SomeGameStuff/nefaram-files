@@ -20,6 +20,8 @@ Float Property Tier3Seconds = 900.0 Auto
 Float Property Tier4Seconds = 1800.0 Auto
 
 Bool _running = false
+Bool _ownsForm = false
+Int _activeToken = 0
 Int _tier = 0
 Int _startupRefreshes = 0
 Int _regenSuppressionUpdates = 0
@@ -64,11 +66,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
-	Int activeForm = cfl_BodymorphActiveForm.GetValueInt()
+	Int activeForm = ActiveFormId(cfl_BodymorphActiveForm.GetValueInt())
 	If activeForm != 0
 		If activeForm == 5
-			Debug.Notification("Trollform is already active.")
-			Dispel()
+			Debug.Notification("Trollform fades.")
+			PlayerRef.DispelSpell(cfl_SpellTrollform)
 			Return
 		EndIf
 		Debug.Notification("Another bodymorph alteration is already active.")
@@ -77,8 +79,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	EndIf
 
 	_running = true
+	_ownsForm = true
 	_startupRefreshes = 2
-	cfl_BodymorphActiveForm.SetValue(5)
+	BeginActiveForm(5)
 	_tier = cfl_TrollformMarkTier.GetValueInt()
 
 	SaveMorphs(PlayerRef)
@@ -93,12 +96,15 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	ApplyActorValueChanges(PlayerRef)
 	EnforceRestrictions(PlayerRef)
 
-	Debug.Notification("Your body hulks into Trollform.")
 	RegisterForSingleUpdate(1.0)
 EndEvent
 
 Event OnUpdate()
 	If !_running
+		Return
+	EndIf
+	If !IsActiveInstance(5)
+		_running = false
 		Return
 	EndIf
 
@@ -123,6 +129,9 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 	If !_running
 		Return
 	EndIf
+	If !IsActiveInstance(5)
+		Return
+	EndIf
 
 	If IsFireSource(akSource)
 		SuppressRegeneration(PlayerRef)
@@ -133,18 +142,49 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	_running = false
 	UnregisterForUpdate()
 
-	If akTarget == PlayerRef
-		RestoreMorphs(PlayerRef)
-		RestoreHairColor(PlayerRef)
-		RestoreScale(PlayerRef)
-		RemoveCosmetics(PlayerRef)
-		RestoreActorValueChanges(PlayerRef)
-		If cfl_BodymorphActiveForm.GetValueInt() == 5
+	If akTarget == PlayerRef && _ownsForm
+		Bool ownsActiveInstance = IsActiveInstance(5)
+		If ownsActiveInstance
+			RestoreMorphs(PlayerRef)
+			RestoreHairColor(PlayerRef)
+			RestoreScale(PlayerRef)
+			RemoveCosmetics(PlayerRef)
+			RestoreActorValueChanges(PlayerRef)
+		EndIf
+		If ownsActiveInstance
 			cfl_BodymorphActiveForm.SetValue(0)
 		EndIf
-		Debug.Notification("Your Trollform fades.")
+		_ownsForm = false
 	EndIf
 EndEvent
+
+Function BeginActiveForm(Int aiFormId)
+	_activeToken = StorageUtil.GetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken") + 1
+	If _activeToken > 90000
+		_activeToken = 1
+	EndIf
+	StorageUtil.SetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken", _activeToken)
+	cfl_BodymorphActiveForm.SetValue((aiFormId * 100000) + _activeToken)
+EndFunction
+
+Bool Function IsActiveInstance(Int aiFormId)
+	Int activeValue = cfl_BodymorphActiveForm.GetValueInt()
+	Return ActiveFormId(activeValue) == aiFormId && ActiveToken(activeValue) == _activeToken
+EndFunction
+
+Int Function ActiveFormId(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue / 100000
+	EndIf
+	Return aiActiveValue
+EndFunction
+
+Int Function ActiveToken(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue - ((aiActiveValue / 100000) * 100000)
+	EndIf
+	Return 0
+EndFunction
 
 Function SaveMorphs(Actor akActor)
 	_breasts = NiOverride.GetMorphValue(akActor, "Breasts")
@@ -202,6 +242,7 @@ Function ApplyTrollMorphs(Actor akActor)
 
 	SetMorph(akActor, "Arms", 0.85 * scale)
 	SetMorph(akActor, "MuscleArms", 1.00 * scale)
+	SetMorph(akActor, "ChubbyArms", 0.40 * scale)
 	SetMorph(akActor, "MuscleAbs", 0.65 * scale)
 	SetMorph(akActor, "MuscleLegs", 0.80 * scale)
 	SetMorph(akActor, "ShoulderWidth", 0.75 * scale)
@@ -216,6 +257,7 @@ Function ApplyTrollMorphs(Actor akActor)
 
 	SetDirectMorph(akActor, "Arms", _arms, 1.10 * scale)
 	SetDirectMorph(akActor, "MuscleArms", _muscleArms, 1.10 * scale)
+	SetDirectMorph(akActor, "ChubbyArms", 0.0, 0.45 * scale)
 	SetDirectMorph(akActor, "MuscleAbs", _muscleAbs, 0.75 * scale)
 	SetDirectMorph(akActor, "MuscleLegs", _muscleLegs, 0.85 * scale)
 	SetDirectMorph(akActor, "Thighs", _thighs, 0.55 * scale)
@@ -313,11 +355,10 @@ Function ApplyProgressTattoo(Actor akActor)
 	Float alpha = PapyrusUtil.ClampFloat(0.35 + (_tier * 0.15), 0.35, 0.95)
 	SlaveTats.simple_remove_tattoo(akActor, "Trollform", "Trollform Grayhide Brand", true, false)
 	SlaveTats.simple_add_tattoo(akActor, "Trollform", "Trollform Grayhide Brand", 0xFF8A8F88, true, false, alpha)
-	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
 Function ApplyCosmetics(Actor akActor)
-	RemoveCosmetics(akActor)
+	RemoveCosmetics(akActor, false)
 	SlaveTats.simple_add_tattoo(akActor, "Trollform Cosmetics", "Troll Grayhide Patches", 0xFF7B817A, true, true, 0.50)
 	If _tier >= 2
 		SlaveTats.simple_add_tattoo(akActor, "Trollform Cosmetics", "Troll Stone Scars", 0xFFB8B9B0, true, true, 0.45)
@@ -325,10 +366,12 @@ Function ApplyCosmetics(Actor akActor)
 	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
-Function RemoveCosmetics(Actor akActor)
+Function RemoveCosmetics(Actor akActor, Bool abSynchronize = true)
 	SlaveTats.simple_remove_tattoo(akActor, "Trollform Cosmetics", "Troll Grayhide Patches", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Trollform Cosmetics", "Troll Stone Scars", true, true)
-	SlaveTats.synchronize_tattoos(akActor, true)
+	If abSynchronize
+		SlaveTats.synchronize_tattoos(akActor, true)
+	EndIf
 EndFunction
 
 Function ApplyActorValueChanges(Actor akActor)

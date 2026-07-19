@@ -4,6 +4,15 @@ Standalone MO2 add-on for self-cast NSFW Alteration bodymorph transformations.
 
 The MO2 mod folder and user-facing MCM name are `Bodymorph Alterations`. The plugin remains `Dollform.esp` for save compatibility with existing test saves and Papyrus properties.
 
+## Current Development State — 2026-07-19
+
+- RaceMenu body morph calls now work with the installed NiOverride runtime. All five forms visibly apply and clear their mod-owned morph keys.
+- Cowform and Horseform were retuned downward after tier-4 testing; Trollform received additional arm thickness. These values are still development tuning, not final balance.
+- The form lifecycle has been rewritten around per-cast ownership tokens. Updates and finish handlers act only for the instance that owns the shared lock, temporary tattoos are synchronized once per transition, and the MCM has one transactional recovery action. All six changed scripts compile with zero errors/warnings; rapid recast, save/load, and forced-dispel behavior still need the listed in-game regression pass.
+- Rabbitform now has a more compact hip/calf-forward identity, but it still has only Fertility Mode detection rather than gameplay integration.
+- Trollform has functional mark entries, but they use placeholder/reused art. It does not yet have dedicated troll overlay textures.
+- The active Papyrus log also contains extensive unrelated missing-plugin/FNIS errors. They are outside this mod, but the VM load can make notifications and SlaveTats synchronization appear late.
+
 ## Purpose, Source, and Build
 
 - Purpose: provide self-cast bodymorph transformation powers with progression, MCM repair/debugging, and SlaveTats overlays.
@@ -59,7 +68,7 @@ Rabbitform
 Trollform
 ```
 
-They are still self-cast and last 420 seconds. Reusing the same active form now reports that it is already active instead of toggling it off. Casting a different bodymorph form while one is active is still blocked.
+They are self-cast and last 420 seconds. Recasting the same form is intended to end it; casting a different form is blocked. Each cast owns a tokenized shared lock, so an older queued update or finish handler cannot clear or subtract statistics from a newer instance. Use the MCM transactional recovery action if an interrupted save or external dispel leaves residue.
 
 Current acquisition is through Tolfdir's normal barter dialogue at the College of Winterhold. `Dollform_CID.ini` adds five base tomes to `MerchantWCollegeTolfdirChest`:
 
@@ -75,7 +84,11 @@ Reading a tome teaches the matching Lesser Power. The MCM debug page can also re
 
 The Tolfdir trainer dialogue experiment is disabled in this build because the generated dialogue/SEQ records caused a launch crash. The planned trainer flow remains documented below, but it should be rebuilt through a safer xEdit/Creation Kit style workflow before being re-enabled.
 
-Using a form now levels that form over time. Each form has persistent accumulated-use seconds, visible in the MCM, and automatically raises its tier at these thresholds:
+### How Tiers Evolve
+
+Each form owns a persistent accumulated-use timer. While its effect is active, it adds active seconds to that timer; the current timer and tier are shown on the MCM Status page. Tier increases are automatic—there are no separate tier tomes.
+
+Current thresholds:
 
 ```text
 Tier 1: 120 seconds
@@ -84,7 +97,7 @@ Tier 3: 900 seconds
 Tier 4: 1800 seconds
 ```
 
-When a tier increases while the form is active, the script immediately reapplies morphs, stats, restrictions, and cosmetics at the new tier. It also refreshes that form's persistent progression tattoo at a stronger alpha.
+When a tier increases while the form is active, the script reapplies morphs, stats, restrictions, and cosmetics, then refreshes that form's persistent progression tattoo at a stronger alpha. The MCM Debug page can set tiers and reset use counters for testing only.
 
 Progression tattoos:
 
@@ -154,7 +167,7 @@ Progression time: cycles 0.5x, 1.0x, 2.0x, 4.0x
 
 These tuning globals are read by all four form scripts. Lower progression time means faster tiering; higher means slower tiering.
 
-The MCM cleanup buttons are intentionally scoped to this mod's own morph key and temporary cosmetic names. They do not remove permanent initiation marks.
+The MCM recovery action is intentionally scoped to this mod's own morph keys, temporary cosmetic names, hair state, and Cowform horns. It dispels known form effects, waits for their normal owner cleanup, then clears any residue and the token. It does not remove permanent initiation marks.
 
 Base tome distribution is enabled for Tolfdir in `Dollform_CID.ini`. The old initiation tome/spell records are no longer generated in the ESP.
 
@@ -458,7 +471,7 @@ Progression mark: Rabbitform Moon Mark
 Temporary cosmetics: Rabbit Hip Mark, Rabbit Leap Mark at tier 2+
 ```
 
-Fertility Mode integration is detection-only in this build. The MCM diagnostics page reports whether `Fertility Mode 3 Fixes and Updates.esp` is present, but Rabbitform does not change fertility state until a reliable Papyrus API or stable global contract is confirmed.
+Fertility Mode integration is detection-only in the current build. The MCM diagnostics page reports whether `Fertility Mode 3 Fixes and Updates.esp` is present, but Rabbitform does not change fertility state. Implementing this is a planned compatibility feature and must use a verified API/adapter rather than guessed globals.
 
 ## Trollform
 
@@ -572,9 +585,12 @@ The persistent progression tattoos are permanent until removed through SlaveTats
 - Hair color is implemented as a temporary po3 Papyrus Extender color swap.
 - No lip color or eye color changes yet.
 - MCM status, debug, diagnostics, and basic tuning pages are implemented.
+- Per-form morph editing is not yet exposed in the MCM; current controls only adjust shared morph/progression scale and test tiers.
+- Temporary cosmetics and the shared active-form lock now use owner tokens and batched synchronization. Rapid recast, forced dispel, and save/load remain the highest-priority runtime regression tests.
+- Rabbitform needs a distinct visual identity and a verified Fertility Mode adapter.
 - Fertility Mode integration is detection-only until a safe API/global contract is confirmed.
 - No SexLab animation starts yet.
-- Recasting the same active form reports that it is already active instead of toggling it off. Casting a different bodymorph form while one is active is still blocked.
+- Recasting the same active form requests an early fade; casting a different bodymorph form while one is active remains blocked.
 - `Config.json` documents older tuning notes; current morph/progression tuning is stored in ESP globals and controlled through MCM.
 
 ## Planned Trainer Progression Redesign

@@ -20,6 +20,8 @@ Float Property Tier3Seconds = 900.0 Auto
 Float Property Tier4Seconds = 1800.0 Auto
 
 Bool _running = false
+Bool _ownsForm = false
+Int _activeToken = 0
 Int _tier = 0
 Int _startupRefreshes = 0
 
@@ -48,11 +50,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
-	Int activeForm = cfl_BodymorphActiveForm.GetValueInt()
+	Int activeForm = ActiveFormId(cfl_BodymorphActiveForm.GetValueInt())
 	If activeForm != 0
 		If activeForm == 2
-			Debug.Notification("Horseform is already active.")
-			Dispel()
+			Debug.Notification("Horseform fades.")
+			PlayerRef.DispelSpell(cfl_SpellHorseform)
 			Return
 		EndIf
 		Debug.Notification("Another bodymorph alteration is already active.")
@@ -61,8 +63,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	EndIf
 
 	_running = true
+	_ownsForm = true
 	_startupRefreshes = 2
-	cfl_BodymorphActiveForm.SetValue(2)
+	BeginActiveForm(2)
 	_tier = cfl_HorseformMarkTier.GetValueInt()
 
 	EnsureMCMQuestStarted()
@@ -75,12 +78,15 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	ApplyActorValueChanges(PlayerRef)
 	EnforceRestrictions(PlayerRef)
 
-	Debug.Notification("Your body surges into Horseform.")
 	RegisterForSingleUpdate(1.0)
 EndEvent
 
 Event OnUpdate()
 	If !_running
+		Return
+	EndIf
+	If !IsActiveInstance(2)
+		_running = false
 		Return
 	EndIf
 
@@ -104,17 +110,48 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	_running = false
 	UnregisterForUpdate()
 
-	If akTarget == PlayerRef
-		RestoreMorphs(PlayerRef)
-		RestoreHairColor(PlayerRef)
-		RemoveCosmetics(PlayerRef)
-		RestoreActorValueChanges(PlayerRef)
-		If cfl_BodymorphActiveForm.GetValueInt() == 2
+	If akTarget == PlayerRef && _ownsForm
+		Bool ownsActiveInstance = IsActiveInstance(2)
+		If ownsActiveInstance
+			RestoreMorphs(PlayerRef)
+			RestoreHairColor(PlayerRef)
+			RemoveCosmetics(PlayerRef)
+			RestoreActorValueChanges(PlayerRef)
+		EndIf
+		If ownsActiveInstance
 			cfl_BodymorphActiveForm.SetValue(0)
 		EndIf
-		Debug.Notification("Your Horseform fades.")
+		_ownsForm = false
 	EndIf
 EndEvent
+
+Function BeginActiveForm(Int aiFormId)
+	_activeToken = StorageUtil.GetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken") + 1
+	If _activeToken > 90000
+		_activeToken = 1
+	EndIf
+	StorageUtil.SetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken", _activeToken)
+	cfl_BodymorphActiveForm.SetValue((aiFormId * 100000) + _activeToken)
+EndFunction
+
+Bool Function IsActiveInstance(Int aiFormId)
+	Int activeValue = cfl_BodymorphActiveForm.GetValueInt()
+	Return ActiveFormId(activeValue) == aiFormId && ActiveToken(activeValue) == _activeToken
+EndFunction
+
+Int Function ActiveFormId(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue / 100000
+	EndIf
+	Return aiActiveValue
+EndFunction
+
+Int Function ActiveToken(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue - ((aiActiveValue / 100000) * 100000)
+	EndIf
+	Return 0
+EndFunction
 
 Function SaveMorphs(Actor akActor)
 	_breasts = NiOverride.GetMorphValue(akActor, "Breasts")
@@ -151,14 +188,14 @@ Function RestoreHairColor(Actor akActor)
 EndFunction
 
 Function ApplyHorseMorphs(Actor akActor)
-	Float scale = (1.0 + (_tier * 0.30)) * MorphScale()
+	Float scale = (1.0 + (_tier * 0.15)) * MorphScale()
 
-	SetMorph(akActor, "Thighs", 0.95 * scale)
-	SetMorph(akActor, "ThighOutsideThicc_v2", 0.75 * scale)
-	SetMorph(akActor, "ThighInsideThicc_v2", 0.55 * scale)
-	SetMorph(akActor, "ThighFBThicc_v2", 0.75 * scale)
-	SetMorph(akActor, "ChubbyLegs", 0.45 * scale)
-	SetMorph(akActor, "CalfSize", 0.70 * scale)
+	SetMorph(akActor, "Thighs", 0.45 * scale)
+	SetMorph(akActor, "ThighOutsideThicc_v2", 0.35 * scale)
+	SetMorph(akActor, "ThighInsideThicc_v2", 0.25 * scale)
+	SetMorph(akActor, "ThighFBThicc_v2", 0.35 * scale)
+	SetMorph(akActor, "ChubbyLegs", 0.20 * scale)
+	SetMorph(akActor, "CalfSize", 0.35 * scale)
 	SetMorph(akActor, "CalfFBThicc_v2", 0.55 * scale)
 	SetMorph(akActor, "MuscleLegs", 0.75 * scale)
 	SetMorph(akActor, "MuscleMoreLegs_v2", 0.55 * scale)
@@ -194,8 +231,8 @@ Function RestoreMorphs(Actor akActor)
 EndFunction
 
 Function ApplyDirectHorseMorphs(Actor akActor, Float afScale)
-	SetDirectMorph(akActor, "Thighs", _thighs, 1.20 * afScale)
-	SetDirectMorph(akActor, "CalfSize", _calves, 0.95 * afScale)
+	SetDirectMorph(akActor, "Thighs", _thighs, 0.55 * afScale)
+	SetDirectMorph(akActor, "CalfSize", _calves, 0.42 * afScale)
 	SetDirectMorph(akActor, "MuscleLegs", _muscleLegs, 0.75 * afScale)
 	SetDirectMorph(akActor, "MuscleButt", _muscleButt, 0.55 * afScale)
 	SetDirectMorph(akActor, "Butt", _butt, 0.65 * afScale)
@@ -286,11 +323,10 @@ Function ApplyProgressTattoo(Actor akActor)
 	Float alpha = PapyrusUtil.ClampFloat(0.35 + (_tier * 0.15), 0.35, 0.95)
 	SlaveTats.simple_remove_tattoo(akActor, "Horseform", "Horseform Seed Brand", true, false)
 	SlaveTats.simple_add_tattoo(akActor, "Horseform", "Horseform Seed Brand", 0xFF8A4F24, true, false, alpha)
-	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
 Function ApplyCosmetics(Actor akActor)
-	RemoveCosmetics(akActor)
+	RemoveCosmetics(akActor, false)
 	SlaveTats.simple_add_tattoo(akActor, "Horseform Cosmetics", "Horse Hoof Tint", 0xFF2A160B, true, true, 0.55)
 	If _tier >= 2
 		SlaveTats.simple_add_tattoo(akActor, "Horseform Cosmetics", "Horse Body Mark", 0xFF5A351E, true, true, 0.45)
@@ -301,12 +337,14 @@ Function ApplyCosmetics(Actor akActor)
 	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
-Function RemoveCosmetics(Actor akActor)
+Function RemoveCosmetics(Actor akActor, Bool abSynchronize = true)
 	SlaveTats.simple_remove_tattoo(akActor, "Horseform Cosmetics", "Horse Hand Mark", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Horseform Cosmetics", "Horse Hoof Tint", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Horseform Cosmetics", "Horse Body Mark", true, true)
 	SlaveTats.simple_remove_tattoo(akActor, "Horseform Cosmetics", "Horse Stride Mark", true, true)
-	SlaveTats.synchronize_tattoos(akActor, true)
+	If abSynchronize
+		SlaveTats.synchronize_tattoos(akActor, true)
+	EndIf
 EndFunction
 
 Function ApplyActorValueChanges(Actor akActor)

@@ -90,6 +90,10 @@ Target result should be:
 0 error(s), 0 warning(s)
 ```
 
+The reproducible project command is now `Build-And-Validate.ps1`. Keep the include order used there: project stubs and the SKSE-extended vanilla scripts must precede the older extracted vanilla tree. Reversing that order hides `Actor.QueueNiNodeUpdate` and `ActorBase.GetHairColor` and causes misleading compile failures. Do not compile against the full PO3/PapyrusUtil source trees without the SKSE-extended base scripts available.
+
+The active-form global is tokenized as `(formID * 100000) + token`; diagnostics and integrations must call the same `ActiveFormId` decoding rule. The next token persists under `BodymorphAlterations.LastFormToken`, so clearing the lock never permits an immediate token reuse. Raw comparisons to `1..5` or Feral's `101..108` are no longer correct for active casts, although scripts retain legacy decoding for old saves.
+
 ## Plugin Generation
 
 xEdit automation did not reliably reach the script body in this environment. Mutagen was more reliable for generating simple plugin records.
