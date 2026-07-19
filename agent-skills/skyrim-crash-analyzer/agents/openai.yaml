@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skyrim Crash Analyzer"
+  short_description: "Analyze Skyrim crash logs in MO2 setups."
+  default_prompt: "Analyze my latest Skyrim crash log and summarize the likely cause."
