@@ -1,76 +1,78 @@
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
+Add-Type -ReferencedAssemblies 'System.Drawing.dll' -TypeDefinition @'
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+public static class FeralAlpha {
+    public static void Process(Bitmap bitmap, int stage, int alphaCap) {
+        var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+        var data = bitmap.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+        var bytes = new byte[Math.Abs(data.Stride) * bitmap.Height];
+        Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
+        for (int y = 0; y < bitmap.Height; y++) for (int x = 0; x < bitmap.Width; x++) {
+            int i = y * data.Stride + x * 4;
+            int b = bytes[i], g = bytes[i + 1], r = bytes[i + 2];
+            int ink = Math.Max(r, b);
+            int greenDistance = Math.Max(Math.Abs(g - 255), ink);
+            int alpha = Math.Min(alphaCap, Math.Max(0, (ink - 18) * alphaCap / 190));
+            if (greenDistance < 20 && ink < 28) alpha = 0;
+            if (stage == 1 && ink < 115) alpha = 0;
+            else if (stage == 2 && ink < 65) alpha = 0;
+            bytes[i] = 255; bytes[i + 1] = 255; bytes[i + 2] = 255; bytes[i + 3] = (byte)alpha;
+        }
+        Marshal.Copy(bytes, 0, data.Scan0, bytes.Length);
+        bitmap.UnlockBits(data);
+    }
+}
+'@
 
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
+$atlasPath = Join-Path $PSScriptRoot 'FeralPatternAtlas-v5.png'
 $pngRoot = Join-Path $projectRoot 'build-output\Textures\Actors\Character\slavetats\Feral\png-source'
 $ddsRoot = Join-Path $projectRoot 'build-output\Textures\Actors\Character\slavetats\Feral'
 $texconv = 'C:\Games\nefaram\mods\VRAMr\VRAMr\tools\texconv.exe'
 New-Item -ItemType Directory -Path $pngRoot,$ddsRoot -Force | Out-Null
 
-$names = @('wolf_pelt','sabre_stripes','bear_mantle','skeever_mottle','spider_chitin','mudcrab_carapace','horse_stride','troll_hide')
-foreach ($name in $names) {
-    $bitmap = [Drawing.Bitmap]::new(512,512,[Drawing.Imaging.PixelFormat]::Format32bppArgb)
-    $graphics = [Drawing.Graphics]::FromImage($bitmap)
-    $graphics.SmoothingMode = [Drawing.Drawing2D.SmoothingMode]::AntiAlias
-    $pen = New-Object Drawing.Pen ([Drawing.Color]::FromArgb(220,255,255,255)),18
-    $thin = New-Object Drawing.Pen ([Drawing.Color]::FromArgb(190,255,255,255)),10
-    $brush = New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(205,255,255,255))
-    switch ($name) {
-        'wolf_pelt' {
-            $graphics.DrawArc($pen,120,105,270,270,35,290)
-            0..2 | ForEach-Object { $x=185+($_*60); $graphics.DrawLine($pen,$x,165,$x-55,345) }
-        }
-        'sabre_stripes' {
-            0..4 | ForEach-Object { $y=120+($_*58); $graphics.DrawArc($pen,115,$y,280,100,200,140) }
-            $graphics.DrawLine($thin,256,95,256,420)
-        }
-        'bear_mantle' {
-            $graphics.FillEllipse($brush,185,205,145,130)
-            $graphics.FillEllipse($brush,115,135,70,80)
-            $graphics.FillEllipse($brush,205,105,70,85)
-            $graphics.FillEllipse($brush,310,135,70,80)
-            $graphics.FillEllipse($brush,125,285,70,80)
-        }
-        'skeever_mottle' {
-            $graphics.DrawArc($pen,130,130,250,250,20,310)
-            $graphics.DrawArc($thin,185,185,140,140,20,300)
-            $graphics.DrawLine($thin,255,245,405,175)
-            $graphics.DrawLine($thin,255,265,420,265)
-            $graphics.DrawLine($thin,255,285,405,355)
-        }
-        'spider_chitin' {
-            $graphics.FillEllipse($brush,215,170,82,105)
-            $graphics.FillEllipse($brush,195,265,122,145)
-            0..3 | ForEach-Object { $d=$_*36; $graphics.DrawLine($thin,210,220+$d,95,145+$d); $graphics.DrawLine($thin,300,220+$d,415,145+$d) }
-        }
-        'mudcrab_carapace' {
-            $graphics.DrawArc($pen,145,150,220,200,180,180)
-            $graphics.DrawLine($pen,150,250,95,335)
-            $graphics.DrawLine($pen,360,250,415,335)
-            $graphics.DrawArc($pen,65,300,95,95,200,230)
-            $graphics.DrawArc($pen,350,300,95,95,110,230)
-            $graphics.DrawLine($thin,185,170,155,95)
-            $graphics.DrawLine($thin,325,170,355,95)
-        }
-        'horse_stride' {
-            $graphics.DrawArc($pen,130,90,250,320,20,320)
-            $graphics.DrawArc($thin,185,150,140,210,20,320)
-            $graphics.DrawLine($pen,150,325,205,370)
-            $graphics.DrawLine($pen,360,325,305,370)
-        }
-        'troll_hide' {
-            $points = [Drawing.PointF[]]@((New-Object Drawing.PointF 256,75),(New-Object Drawing.PointF 345,190),(New-Object Drawing.PointF 305,405),(New-Object Drawing.PointF 205,405),(New-Object Drawing.PointF 165,190))
-            $graphics.DrawPolygon($pen,$points)
-            $graphics.DrawLine($pen,170,190,340,190)
-            $graphics.DrawLine($pen,205,405,300,120)
-            $graphics.DrawLine($thin,255,195,355,330)
+$families = @(
+    @{ Name='wolf_pelt'; Column=0; Row=0 },
+    @{ Name='sabre_stripes'; Column=1; Row=0 },
+    @{ Name='bear_mantle'; Column=2; Row=0 },
+    @{ Name='skeever_mottle'; Column=3; Row=0 },
+    @{ Name='spider_chitin'; Column=0; Row=1 },
+    @{ Name='mudcrab_carapace'; Column=1; Row=1 },
+    @{ Name='stag_dappling'; Column=2; Row=1 },
+    @{ Name='troll_hide'; Column=3; Row=1 }
+)
+$stageAlpha = @(150, 205, 255)
+$atlas = [Drawing.Bitmap]::new($atlasPath)
+$panelWidth = [int]($atlas.Width / 4)
+$panelHeight = [int]($atlas.Height / 2)
+
+try {
+    foreach ($family in $families) {
+        $sourceRect = [Drawing.Rectangle]::new($family.Column * $panelWidth, $family.Row * $panelHeight, $panelWidth, $panelHeight)
+        for ($stage = 1; $stage -le 3; $stage++) {
+            $bitmap = [Drawing.Bitmap]::new(2048, 2048, [Drawing.Imaging.PixelFormat]::Format32bppArgb)
+            $graphics = [Drawing.Graphics]::FromImage($bitmap)
+            $graphics.InterpolationMode = [Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+            $graphics.DrawImage($atlas, [Drawing.Rectangle]::new(0,0,2048,2048), $sourceRect, [Drawing.GraphicsUnit]::Pixel)
+            $graphics.Dispose()
+
+            [FeralAlpha]::Process($bitmap, $stage, $stageAlpha[$stage - 1])
+
+            $fileName = "$($family.Name)_$stage"
+            $png = Join-Path $pngRoot ($fileName + '.png')
+            $bitmap.Save($png, [Drawing.Imaging.ImageFormat]::Png)
+            $bitmap.Dispose()
+            & $texconv -f BC7_UNORM -ft dds -y -o $ddsRoot $png | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw "texconv failed for $fileName" }
         }
     }
-    $png = Join-Path $pngRoot ($name + '.png')
-    $bitmap.Save($png,[Drawing.Imaging.ImageFormat]::Png)
-    $pen.Dispose(); $thin.Dispose(); $brush.Dispose(); $graphics.Dispose(); $bitmap.Dispose()
-    & $texconv -f R8G8B8A8_UNORM -ft dds -y -o $ddsRoot $png | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "texconv failed for $name" }
+}
+finally {
+    $atlas.Dispose()
 }
 
-Write-Output "Generated $($names.Count) Feral SlaveTats marking textures."
+Write-Output 'Generated 24 staged 2K Feral SlaveTats marking textures.'

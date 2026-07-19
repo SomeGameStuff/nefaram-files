@@ -130,7 +130,7 @@ begin
   MakeFamilyList('cfl_FeralSkeeverRaces', 'Feral - Skeever Races', ['SkeeverRace', 'GiantSkeeverRace']);
   MakeFamilyList('cfl_FeralSpiderRaces', 'Feral - Spider Races', ['FrostbiteSpiderRace', 'GiantFrostbiteSpiderRace', 'FrostbiteSpiderRaceGiant']);
   MakeFamilyList('cfl_FeralMudcrabRaces', 'Feral - Mudcrab Races', ['MudcrabRace', 'GiantMudcrabRace']);
-  MakeFamilyList('cfl_FeralHorseRaces', 'Feral - Horse Races', ['HorseRace']);
+  MakeFamilyList('cfl_FeralStagRaces', 'Feral - Stag Races', ['ElkRace', 'DeerRace', 'WhiteStagRace']);
   MakeFamilyList('cfl_FeralTrollRaces', 'Feral - Troll Races', ['TrollRace', 'FrostTrollRace']);
   AddMessage('Feral.esp created. Save and close xEdit.');
   Result := 0;

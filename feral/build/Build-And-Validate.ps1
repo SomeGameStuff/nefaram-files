@@ -10,6 +10,7 @@ $builderProject = Join-Path $PSScriptRoot 'FeralBuilder.csproj'
 $markBuilder = Join-Path $projectRoot 'assets\Generate-Feral-Marks.ps1'
 $tattooJsonSource = Join-Path $projectRoot 'assets\feral.json'
 $tattooJsonOutput = Join-Path $outputRoot 'Textures\Actors\Character\slavetats\feral.json'
+$runtimeConfigRoot = Join-Path $outputRoot 'SKSE\Plugins\Feral'
 
 New-Item -ItemType Directory -Path $scriptOutput -Force | Out-Null
 dotnet run --project $builderProject -- $pluginOutput
@@ -19,8 +20,16 @@ if ($LASTEXITCODE -ne 0) { throw 'Feral ESP build or validation failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Feral marking texture generation failed.' }
 New-Item -ItemType Directory -Path (Split-Path -Parent $tattooJsonOutput) -Force | Out-Null
 Copy-Item -LiteralPath $tattooJsonSource -Destination $tattooJsonOutput -Force
-$markCount = (Get-ChildItem -LiteralPath (Join-Path $outputRoot 'Textures\Actors\Character\slavetats\Feral') -Filter '*.dds' -File).Count
-if ($markCount -ne 8) { throw "Expected 8 Feral marking textures, found $markCount." }
+$raceConfigSource = Join-Path $projectRoot 'config\Races.json'
+$cosmeticsConfigSource = Join-Path $projectRoot 'config\Cosmetics.json'
+New-Item -ItemType Directory -Path $runtimeConfigRoot -Force | Out-Null
+Copy-Item -LiteralPath $raceConfigSource -Destination (Join-Path $runtimeConfigRoot 'Races.json') -Force
+Copy-Item -LiteralPath $cosmeticsConfigSource -Destination (Join-Path $runtimeConfigRoot 'Cosmetics.json') -Force
+$markFiles = Get-ChildItem -LiteralPath (Join-Path $outputRoot 'Textures\Actors\Character\slavetats\Feral') -Filter '*.dds' -File
+$stagedMarkCount = @($markFiles | Where-Object { $_.BaseName -match '_[123]$' }).Count
+if ($stagedMarkCount -ne 24) { throw "Expected 24 staged Feral marking textures, found $stagedMarkCount." }
+$tattooCount = @((Get-Content -Raw -LiteralPath $tattooJsonOutput | ConvertFrom-Json)).Count
+if ($tattooCount -ne 24) { throw "Expected 24 SlaveTats registrations, found $tattooCount." }
 
 New-Item -ItemType Directory -Path (Split-Path -Parent $seqOutput) -Force | Out-Null
 [IO.File]::WriteAllBytes($seqOutput, [BitConverter]::GetBytes([UInt32]0x950))
@@ -70,8 +79,15 @@ $experienceSettingCount = [regex]::Matches($controller, 'settings\[\d+\] = "iXP(
 if ($experienceSettingCount -ne 91) { throw "Expected 91 Experience reward settings, found $experienceSettingCount." }
 foreach ($required in @('GetConfiguredFamily', 'RefreshShapePowers', 'ExperienceRewardsAreSuppressed',
     'RecoverExperienceSettingsIfNeeded', 'CompleteClaim', 'RankForCount', 'EndActiveShape',
-    'GetClaimWindowSeconds')) {
+    'GetClaimWindowSeconds', 'ClaimPendingEssence', 'GetExpressionScale', 'StartFeralFatigue',
+    'IsFeralActiveValue')) {
     if ($controller -notmatch [regex]::Escape($required)) { throw "Missing controller feature: $required" }
 }
 
-Write-Output 'Feral build validation passed: unified transformation records, official race IDs, Bodymorph globals, JSON schema, and 8 Papyrus scripts.'
+$shapeEffect = Get-Content -Raw -LiteralPath (Join-Path $sourceRoot 'cfl_FeralShapeEffect.psc')
+foreach ($required in @('BeginActiveShape', 'IsActiveInstance', 'Feral.LastShapeToken',
+    'Feral.ActiveToken', 'ownsCurrentShape')) {
+    if ($shapeEffect -notmatch [regex]::Escape($required)) { throw "Missing owner-safe shape feature: $required" }
+}
+
+Write-Output 'Feral v5 build validation passed: rarity progression, staged transformations, pending essence, XP modes, JSON configs, and 8 Papyrus scripts.'

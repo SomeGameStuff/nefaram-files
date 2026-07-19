@@ -3,6 +3,36 @@ using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Plugins.Records;
 using Mutagen.Bethesda.Skyrim;
 
+if (args.Length > 1 && args[0] == "--inspect-armors")
+{
+    var inspected = ModFactory<ISkyrimModGetter>.Importer(ModPath.FromPath(args[1]), GameRelease.SkyrimSE);
+    foreach (var armor in inspected.Armors.OrderBy(x => x.FormKey.ID))
+        Console.WriteLine($"{armor.FormKey.ID:X6}|{armor.EditorID}|{armor.Name?.String}");
+    return;
+}
+
+if (args.Length > 1 && args[0] == "--inspect-shaders")
+{
+    var inspected = ModFactory<ISkyrimModGetter>.Importer(ModPath.FromPath(args[1]), GameRelease.SkyrimSE);
+    foreach (var shader in inspected.EffectShaders.OrderBy(x => x.FormKey.ID))
+        if ((shader.EditorID ?? "").Contains("Were", StringComparison.OrdinalIgnoreCase) ||
+            (shader.EditorID ?? "").Contains("Transform", StringComparison.OrdinalIgnoreCase) ||
+            (shader.EditorID ?? "").Contains("Spriggan", StringComparison.OrdinalIgnoreCase))
+            Console.WriteLine($"{shader.FormKey.ID:X6}|{shader.EditorID}");
+    return;
+}
+
+if (args.Length > 1 && args[0] == "--inspect-sounds")
+{
+    var inspected = ModFactory<ISkyrimModGetter>.Importer(ModPath.FromPath(args[1]), GameRelease.SkyrimSE);
+    foreach (var sound in inspected.SoundDescriptors.OrderBy(x => x.FormKey.ID))
+        if ((sound.EditorID ?? "").Contains("Werewolf", StringComparison.OrdinalIgnoreCase) &&
+            ((sound.EditorID ?? "").Contains("Trans", StringComparison.OrdinalIgnoreCase) ||
+             (sound.EditorID ?? "").Contains("Howl", StringComparison.OrdinalIgnoreCase)))
+            Console.WriteLine($"{sound.FormKey.ID:X6}|{sound.EditorID}");
+    return;
+}
+
 if (args.Length > 0 && args[0] == "--inspect-script-properties")
 {
     foreach (var type in typeof(ScriptEntry).Assembly.GetTypes()
@@ -29,7 +59,7 @@ if (args.Length > 0 && args[0] == "--inspect-races")
         var master = ModFactory<ISkyrimModGetter>.Importer(
             ModPath.FromPath(path), GameRelease.SkyrimSE);
         foreach (var race in master.Races.Where(x =>
-            new[] { "wolf", "sabre", "bear", "skeever", "spider", "mudcrab", "horse", "troll" }
+            new[] { "wolf", "sabre", "bear", "skeever", "spider", "mudcrab", "deer", "elk", "stag", "troll" }
                 .Any(term => (x.EditorID ?? "").Contains(term, StringComparison.OrdinalIgnoreCase))))
             Console.WriteLine($"{master.ModKey}|{race.FormKey.ID:X6}|{race.EditorID}|{race.Name?.String}");
     }
@@ -164,7 +194,7 @@ AddPower(0x81D, "cfl_SpellFeralAct", "Feral Act", 0x81C);
 
 var familyNames = new[]
 {
-    "Wolf", "Sabre Cat", "Bear", "Skeever", "Spider", "Mudcrab", "Horse", "Troll"
+    "Wolf", "Sabre Cat", "Bear", "Skeever", "Spider", "Mudcrab", "Stag", "Troll"
 };
 for (var family = 1; family <= 8; family++)
 {
@@ -203,21 +233,18 @@ for (var family = 1; family <= 8; family++)
     }
 }
 
-double ShapeScale(int rank) => rank == 1 ? 0.50 : rank == 2 ? 0.75 : 1.00;
-string Value(double value) => value.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
-string ShapeDescription(int family, int rank)
+string ShapeDescription(int family)
 {
-    var scale = ShapeScale(rank);
     return family switch
     {
-        1 => $"+{Value(15 * scale)}% speed and +{Value(25 * scale)}% stamina regeneration",
-        2 => $"+{Value(15 * scale)} Sneak and +{Value(15 * scale)} unarmed damage",
-        3 => $"+{Value(80 * scale)} armor and +{Value(40 * scale)} Health",
-        4 => $"+{Value(50 * scale)}% poison and disease resistance",
-        5 => $"+{Value(75 * scale)}% poison resistance",
-        6 => $"+{Value(65 * scale)} armor",
-        7 => $"+{Value(20 * scale)}% speed and +{Value(60 * scale)} Stamina",
-        8 => $"+{Value(2 * scale)} Health regeneration and -{Value(35 * scale)}% fire resistance",
+        1 => "+12% speed, +35% stamina regeneration, and +15 unarmed damage",
+        2 => "+25 Sneak, +25 unarmed damage, and +10% attack speed",
+        3 => "+100 armor, +50 Health, and +25 stagger resistance",
+        4 => "+60% poison/disease resistance, +20 Sneak, and +30 carry weight",
+        5 => "+80% poison resistance, +30 unarmed damage, and +15% speed",
+        6 => "+140 armor, +20 Block, +30 stagger resistance, and -8% speed",
+        7 => "+15% speed, +80 Stamina, and +20 Archery",
+        8 => "+2 Health regeneration, +25 melee damage, +60 Health, -40% fire resistance, and -8% speed",
         _ => ""
     };
 }
@@ -229,12 +256,12 @@ for (var family = 1; family <= 8; family++)
         var effectId = 0x980u + (uint)index;
         var spellId = 0x9A0u + (uint)index;
         var compactName = familyNames[family - 1].Replace(" ", "");
-        var percent = rank == 1 ? 50 : rank == 2 ? 75 : 100;
+        var expression = rank == 1 ? "50-75%" : rank == 2 ? "75-100%" : "100%";
         mod.MagicEffects.Add(new MagicEffect(Local(effectId), SkyrimRelease.SkyrimSE)
         {
             EditorID = $"cfl_MGEFFeralShape{compactName}{rank}",
             Name = $"Feral Shape: {familyNames[family - 1]} (Rank {rank})",
-            Description = $"{percent}% expression: {ShapeDescription(family, rank)}. Applies a reversible {familyNames[family - 1]} body morph for 120 seconds.",
+            Description = $"{expression} expression, improving with every claim. Full strength: {ShapeDescription(family)}. Applies a reversible three-stage {familyNames[family - 1]} body morph and marking for 120 seconds.",
             CastType = CastType.FireAndForget,
             TargetType = TargetType.Self,
             MagicSkill = ActorValue.None,
@@ -396,7 +423,8 @@ var expectedRaces = new (string Plugin, uint Id, string EditorId)[]
     ("Skyrim.esm", 0x04E507, "FrostbiteSpiderRaceGiant"),
     ("Dragonborn.esm", 0x014449, "DLC2ExpSpiderBaseRace"), ("Dragonborn.esm", 0x027483, "DLC2ExpSpiderPackmuleRace"),
     ("Skyrim.esm", 0x0BA545, "MudcrabRace"), ("Dragonborn.esm", 0x01B647, "DLC2MudcrabSolstheimRace"),
-    ("Skyrim.esm", 0x0131FD, "HorseRace"), ("Skyrim.esm", 0x0DE505, "CartHorseRace"),
+    ("Skyrim.esm", 0x0131ED, "ElkRace"), ("Skyrim.esm", 0x0CF89B, "DeerRace"),
+    ("Skyrim.esm", 0x104F45, "WhiteStagRace"), ("Dawnguard.esm", 0x00D0B2, "DLC1DeerGlowRace"),
     ("Skyrim.esm", 0x013205, "TrollRace"), ("Skyrim.esm", 0x013206, "TrollFrostRace"),
     ("Dawnguard.esm", 0x0117F4, "DLC1TrollFrostRaceArmored"), ("Dawnguard.esm", 0x0117F5, "DLC1TrollRaceArmored")
 };
@@ -418,7 +446,7 @@ if (horseTier?.EditorID != "cfl_HorseformMarkTier" || trollTier?.EditorID != "cf
 using (var raceConfig = System.Text.Json.JsonDocument.Parse(File.ReadAllText(
     @"C:\Users\antho\nefaram-files\feral\config\Races.json")))
 {
-    foreach (var familyName in new[] { "Wolf", "SabreCat", "Bear", "Skeever", "Spider", "Mudcrab", "Horse", "Troll" })
+    foreach (var familyName in new[] { "Wolf", "SabreCat", "Bear", "Skeever", "Spider", "Mudcrab", "Stag", "Horse", "Troll" })
     {
         var plugins = raceConfig.RootElement.GetProperty(familyName + "Plugins");
         var formIds = raceConfig.RootElement.GetProperty(familyName + "FormIDs");

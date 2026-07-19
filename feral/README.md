@@ -1,51 +1,76 @@
 # Feral - Bodymorph Alterations add-on
 
-Feral turns hunting into a transformation progression. Personally kill a supported creature, claim its essence, and build permanent family ranks. Ranks unlock and strengthen temporary animal transformations; combat bonuses now exist only while transformed.
+Feral v5 turns hunting into a smooth transformation progression. Personally kill supported creatures, harvest every waiting essence with one cast, and grow eight distinct temporary feral-glamour shapes. Combat bonuses exist only while transformed.
 
 ## Requirements
 
 Skyrim SE/AE, SKSE, SkyUI, PapyrusUtil, powerofthree's Papyrus Extender, Experience, RaceMenu/NiOverride, SlaveTats NG, and Bodymorph Alterations (`Dollform.esp`). Load `Feral.esp` after `Dollform.esp`.
 
-## Hunting and progression
+Install the complete **Feral - Bodymorph Addon** folder as one MO2 mod; do not install only the ESP. On an existing save, wait for SkyUI registration before opening Mod Configuration. Feral normally registers automatically. If **Feral** alone is missing after a minute, run `setstage SKI_ConfigManagerInstance 1` once in the console, close the menus, and wait for SkyUI's registration notification. A large red `Total MCM` number is the number of registered menus, not by itself a Feral error.
+
+## Hunting and mastery
 
 1. Enable Feral hunting in the **Feral** MCM.
-2. Personally kill a supported wolf, sabre cat, bear, skeever, spider, mudcrab, horse, or troll.
-3. Cast **Claim Soul** before the trail expires. The default window is 180 real seconds and can be set from 60–300 seconds in the MCM.
-4. Ranks unlock at 3, 10, and 25 claims.
+2. Personally kill any supported wolf, sabre cat, bear, skeever, spider, mudcrab, deer/stag, or troll.
+3. Cast **Claim Soul** within the configurable 60-300 real-second window. One cast harvests every waiting eligible kill, so combat never needs to be interrupted.
+4. Each claim permanently improves that family's expression. Rank 1 begins at 50%, rank 2 crosses 75%, and rank 3 reaches 100%; every claim between milestones increases stats and morph intensity.
 
-At rank 1, the matching **Feral Shape** lesser power is learned. Rank 2 replaces it with a stronger version; rank 3 replaces it with the full expression. Only one transformation system can be active at once, including Bodymorph Alterations forms. Use **Return to Self** or the MCM cleanup action to end a Feral shape early.
+| Family | Rank thresholds | Full-expression transformed benefits |
+|---|---:|---|
+| Wolf | 2 / 7 / 16 | +12% speed, +35% stamina regeneration, +15 unarmed damage |
+| Sabre Cat | 1 / 5 / 12 | +25 Sneak, +25 unarmed damage, +10% attack speed |
+| Bear | 1 / 4 / 10 | +100 armor, +50 Health, +25 stagger resistance |
+| Skeever | 3 / 8 / 18 | +60% poison/disease resistance, +20 Sneak, +30 carry weight |
+| Spider | 2 / 7 / 16 | +80% poison resistance, +30 unarmed damage, +15% speed |
+| Mudcrab | 2 / 7 / 16 | +140 armor, +20 Block, +30 stagger resistance, -8% speed |
+| Stag | 2 / 6 / 14 | +15% speed, +80 Stamina, +20 Archery |
+| Troll | 1 / 3 / 7 | +2 Health regeneration, +25 melee damage, +60 Health, -40% fire resistance, -8% speed |
 
-| Shape | Rank-3 benefit while transformed | Visual direction |
+Shapes last 120 seconds. A 15-second fatigue follows cleanup to prevent instant form swapping. **Return to Self** ends a shape early. Feral and Bodymorph Alterations share one transformation lock and cannot overwrite each other.
+
+## Visual progression
+
+Every family has a default 10-12 slider silhouette, three progressively richer 2K SlaveTats body textures, a transformation shader, sound, and camera pulse. Morph magnitude follows the exact expression percentage shown in the MCM: 50% at rank 1, 75% at rank 2, 100% at rank 3, with smooth growth between milestones.
+
+| Family | Default silhouette at full expression | Marking |
 |---|---|---|
-| Wolf | +15 SpeedMult, +25 StaminaRateMult | Lean athletic legs and gray pelt mark |
-| Sabre Cat | +15 Sneak, +15 UnarmedDamage | Lithe feline body and tawny stripes |
-| Bear | +80 DamageResist, +40 Health | Broad heavy muscle and bear mantle |
-| Skeever | +50 PoisonResist, +50 DiseaseResist | Compact wiry body and mottled mark |
-| Spider | +75 PoisonResist | Narrow waist, expanded hips, chitin mark |
-| Mudcrab | +65 DamageResist | Squat broad body and carapace mark |
-| Horse | +20 SpeedMult, +60 Stamina | Powerful lower body and stride mark |
-| Troll | +2 HealRate, -35 FireResist | Large arms/shoulders and gray-hide mark |
+| Wolf | Muscular thighs, calves, and rear; narrower waist; modest shoulders | Blue-gray directional pelt |
+| Sabre Cat | Fuller thighs, hips, and rear; strongly narrowed waist; lighter arms | Tawny horizontal stripes |
+| Bear | Very large muscular arms and shoulders; thick legs, waist, and torso | Dark brown heavy-fur mantle |
+| Skeever | Small wiry arms, shoulders, thighs, waist, and rear; slightly stronger calves | Gray-brown scarred mottle |
+| Spider | Very narrow waist; broad hips and rear; moderately stronger arms | Dark plum chitin webbing |
+| Mudcrab | Broad shoulders, arms, waist, hips, thighs, and calves | Rust-orange carapace plates |
+| Stag | Powerful muscular thighs and calves; athletic rear; narrow waist and lighter arms | Warm brown dappling |
+| Troll | Largest arms and shoulders; strong abs and legs; thick waist and torso | Gray-green rough hide |
 
-Rank 1 applies 50% of the listed benefit and morph intensity; rank 2 applies 75%; rank 3 applies 100%. Shapes last 120 seconds. The spell and Active Effects descriptions identify the current rank and values.
+The source atlas shows the intended creature identities:
 
-## MCM
+![Feral source pattern atlas](assets/FeralPatternAtlas-v5.png)
 
-- **Status:** hunting/Feral Path state, live claim window, active transformation, and all family totals.
-- **Instincts:** cycle through a family to see rank, next threshold, learned power, current combat effect, and body expression.
-- **Settings:** claim-window slider, repair/cleanup actions, Experience restoration, race-config reload, and developer tools.
+This transparency contact sheet shows the actual three shipped marking stages after tint and alpha processing. It is a flat UV/art preview, not an in-game body screenshot; checkerboard areas are transparent:
 
-The MCM repair action rebuilds transformation powers from saved ranks. Developer tools can set the selected test family to 2, 9, or 24 claims and simulate the next claim.
+![Feral marking stages](assets/FeralMarkingStages-v5.png)
 
-## Feral Path
+Actual proportions depend on the installed RaceMenu/3BA slider set and the player's preset. The current markings are pre-release art and still require front/side/back in-game screenshots to judge seams, stretching, and body coverage honestly. Rank 3 can equip a configured optional cosmetic without redistributing its assets. The included `Cosmetics.json` detects TDN Equipable Horns and uses its elk horns for the full Stag shape; missing plugins are ignored safely.
 
-Feral Path is optional and disabled by default. While active it suppresses ordinary Experience rewards without modifying the global Experience INI. Successful claims grant native character XP: 25 for wolf/skeever/mudcrab, 35 for sabre cat/spider, and 50 for bear/horse/troll. Disabling Feral Path restores the exact captured Experience settings.
+## MCM and Experience
 
-## Custom creature races
+- **Status:** pending essences, live window, fatigue, XP mode, active expression, and all totals/ranks.
+- **Instincts:** thresholds, next-claim improvement, exact current combat kit, morph direction, marking stage, and cosmetic availability.
+- **Settings:** claim window, repair/cleanup, config reload, Experience restoration, and developer milestone tools.
 
-Official Skyrim, Dawnguard, and Dragonborn variants are built in. Add modded races through `SKSE\Plugins\Feral\Races.json`; each family uses parallel `Plugins` and decimal plugin-local `FormIDs` arrays.
+Feral Path has three modes:
 
-## Save migration and visual roadmap
+- **Off:** ordinary Experience behavior.
+- **Balanced:** claims award 30/45/70 XP by rarity; quest, discovery, and clearing XP remain, while normal kill and skill XP are suppressed.
+- **Hardcore:** only claimed essence grants XP.
 
-Version 4 preserves all claim totals and ranks, removes legacy permanent passive bonuses and the generic Feral Act, then grants the correct transformation powers. The old quest and magic records remain inert for save compatibility.
+The exact prior Experience settings are snapshotted and restored when the path is disabled.
 
-The current visual stage includes distinct body morphs and temporary family markings for all eight shapes. Dedicated custom ears, tails, claws, hooves, shell/pincers, and spider appendages remain a staged family-by-family asset upgrade; no unrelated installed assets are redistributed.
+## Save compatibility and custom content
+
+Version 5 preserves all counts, recalculates ranks with the rarity thresholds, converts family slot 7 Horse progress into Stag progress, and keeps old records inert for save compatibility. Custom races belong in `SKSE\Plugins\Feral\Races.json`; optional rank-3 armor cosmetics belong in `Cosmetics.json` as plugin names plus decimal plugin-local FormIDs.
+
+## Transformation safety
+
+Feral owns only the `Feral.Shapes` and `Feral.Shapes.Visible` RaceMenu keys. A per-cast ownership token is stored in the shared Bodymorph lock, so an old effect finishing late cannot clear a newer transformation. Normal expiration and **Return to Self** both use the active effect's single cleanup path: statistics are reversed once, Feral morph keys and the active tattoo are cleared, the model is refreshed once, owned cosmetics are restored, and then the lock is released. The MCM cleanup action performs broad recovery only when no live Feral effect can be dispelled.

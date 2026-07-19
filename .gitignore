@@ -1,2 +1,5 @@
 bin/
 obj/
+feral/build-backups/
+feral/build-output/texture-inspect/
+feral/build-output/Textures/Actors/Character/slavetats/Feral/png-source/
