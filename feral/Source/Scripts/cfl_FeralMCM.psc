@@ -20,7 +20,7 @@ Int _testClaimOption
 Int _testResetOption
 
 Int Function GetVersion()
-	Return 6
+	Return 7
 EndFunction
 
 Event OnConfigInit()
@@ -249,7 +249,7 @@ Function BuildInstinctsPage()
 	_focusFamilyOption = AddTextOption("Selected family", FamilyName(family), OPTION_FLAG_NONE)
 	AddTextOption("Harvests / mastery", count + " / level " + level, OPTION_FLAG_DISABLED)
 	AddTextOption("Level progress", MasteryProgressText(family), OPTION_FLAG_DISABLED)
-	AddTextOption("Next visual stage", NextRankText(family, level), OPTION_FLAG_DISABLED)
+	AddTextOption("Visual growth", "Continuous at every mastery level", OPTION_FLAG_DISABLED)
 	AddTextOption("Current expression", FormatShapeValue(GetExpressionScale(family) * 100.0) + "%", OPTION_FLAG_DISABLED)
 	AddTextOption("Next harvest", "+" + MasteryAwardForHarvest(family) + " mastery", OPTION_FLAG_DISABLED)
 	AddTextOption("Shape use", "+1 mastery / 10 seconds", OPTION_FLAG_DISABLED)
@@ -258,9 +258,9 @@ Function BuildInstinctsPage()
 	AddHeaderOption("Changes while transformed")
 	AddTextOption("Combat effect", ShapeBonusText(family, rank), OPTION_FLAG_DISABLED)
 	AddTextOption("Body expression", ShapeVisualText(family), OPTION_FLAG_DISABLED)
-	AddTextOption("Optional cosmetic", CosmeticStatus(family, rank), OPTION_FLAG_DISABLED)
+	AddTextOption("Marking opacity", FormatShapeValue(GetMarkOpacity(family) * 100.0) + "%", OPTION_FLAG_DISABLED)
 	AddTextOption("Duration", "120 seconds", OPTION_FLAG_DISABLED)
-	AddTextOption("Marking stage", MarkStageText(rank), OPTION_FLAG_DISABLED)
+	AddTextOption("Milestone powers", "Reserved for a future update", OPTION_FLAG_DISABLED)
 EndFunction
 
 String Function CosmeticStatus(Int family, Int rank)
@@ -293,9 +293,9 @@ Function BuildSettingsPage()
 		AddTextOption("Ordinary XP suppressed", YesNo(ExperienceRewardsAreSuppressed()), OPTION_FLAG_DISABLED)
 		AddTextOption("XP restore snapshot", YesNo(JsonUtil.GetIntValue(GetExperienceStateFile(), "OwnerActive") > 0), OPTION_FLAG_DISABLED)
 		_testFamilyOption = AddTextOption("Test family", FamilyName(testFamily), OPTION_FLAG_NONE)
-		_testSetTwoOption = AddTextOption("Set mastery level 0", "Set", OPTION_FLAG_NONE)
-		_testSetNineOption = AddTextOption("Set mastery level 33", "Set", OPTION_FLAG_NONE)
-		_testSetTwentyFourOption = AddTextOption("Set mastery level 66", "Set", OPTION_FLAG_NONE)
+		_testSetTwoOption = AddTextOption("Set mastery level 1", "Set", OPTION_FLAG_NONE)
+		_testSetNineOption = AddTextOption("Set mastery level 50", "Set", OPTION_FLAG_NONE)
+		_testSetTwentyFourOption = AddTextOption("Set mastery level 100", "Set", OPTION_FLAG_NONE)
 		_testClaimOption = AddTextOption("Simulate one automatic harvest", "Run", OPTION_FLAG_NONE)
 		_testResetOption = AddTextOption("Reset test family", "Reset", OPTION_FLAG_NONE)
 	EndIf
@@ -377,25 +377,11 @@ String Function MasteryProgressText(Int family)
 EndFunction
 
 Int Function RankForLevel(Int level)
-	If level >= 67
-		Return 3
-	ElseIf level >= 34
-		Return 2
-	ElseIf level >= 1
+	; One transformation power per family. Ranks 2/3 remain only as save-compatible records.
+	If level >= 1
 		Return 1
 	EndIf
 	Return 0
-EndFunction
-
-String Function NextRankText(Int family, Int level)
-	If level < 1
-		Return "Stage I at level 1"
-	ElseIf level < 34
-		Return "Stage II at level 34"
-	ElseIf level < 67
-		Return "Stage III at level 67"
-	EndIf
-	Return "All stages unlocked"
 EndFunction
 
 Float Function GetExpressionScale(Int family)
@@ -408,7 +394,15 @@ Float Function ExpressionScaleForLevel(Int level)
 	ElseIf level >= 100
 		Return 1.0
 	EndIf
-	Return 0.50 + ((level - 1) * (0.50 / 99.0))
+	Return 0.25 + ((level - 1) * (0.75 / 99.0))
+EndFunction
+
+Float Function GetMarkOpacity(Int family)
+	Float expression = GetExpressionScale(family)
+	If expression <= 0.0
+		Return 0.0
+	EndIf
+	Return 0.25 + (0.65 * expression)
 EndFunction
 
 Function GrantMastery(Int family, Int amount, String source = "activity", Bool silent = false)
@@ -476,17 +470,6 @@ Function AddShapeTime(Int family, Float seconds)
 			Experience.AddExperience(points, true)
 		EndIf
 	EndIf
-EndFunction
-
-String Function MarkStageText(Int rank)
-	If rank == 1
-		Return "Subtle"
-	ElseIf rank == 2
-		Return "Developed"
-	ElseIf rank == 3
-		Return "Full expression"
-	EndIf
-	Return "Locked"
 EndFunction
 
 String Function ShapeBonusText(Int family, Int rank)
@@ -650,13 +633,13 @@ Event OnOptionSelect(Int option)
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.TestFamily", testFamily)
 		ForcePageReset()
 	ElseIf option == _testSetTwoOption
-		SetTestLevel(GetTestFamily(), 0)
+		SetTestLevel(GetTestFamily(), 1)
 		ForcePageReset()
 	ElseIf option == _testSetNineOption
-		SetTestLevel(GetTestFamily(), 33)
+		SetTestLevel(GetTestFamily(), 50)
 		ForcePageReset()
 	ElseIf option == _testSetTwentyFourOption
-		SetTestLevel(GetTestFamily(), 66)
+		SetTestLevel(GetTestFamily(), 100)
 		ForcePageReset()
 	ElseIf option == _testClaimOption
 		CompleteClaim(GetTestFamily())
@@ -724,7 +707,7 @@ Function SetTestLevel(Int family, Int level)
 	Int rank = RankForLevel(level)
 	StorageUtil.SetIntValue(player, "Feral.Rank." + family, rank)
 	ApplyShapeRank(family, rank)
-	Debug.Notification("Feral test: " + FamilyName(family) + " set to mastery level " + level + " / stage " + rank + ".")
+	Debug.Notification("Feral test: " + FamilyName(family) + " set to mastery level " + level + " / " + FormatShapeValue(GetExpressionScale(family) * 100.0) + "% expression.")
 EndFunction
 
 Int Function RankForCount(Int family, Int count)
@@ -1079,6 +1062,14 @@ Function MigrateEconomy()
 		EndIf
 		ClearPendingEssence()
 		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 6)
+	EndIf
+	If version < 7
+		Int visualFamily = 1
+		While visualFamily <= 8
+			StorageUtil.SetIntValue(player, "Feral.Rank." + visualFamily, RankForLevel(GetMasteryLevel(visualFamily)))
+			visualFamily += 1
+		EndWhile
+		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 7)
 	EndIf
 EndFunction
 

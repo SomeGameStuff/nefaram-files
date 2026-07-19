@@ -1,13 +1,15 @@
 # Feral development notes
 
-This file preserves implementation and troubleshooting knowledge that should survive chat history. Last updated 2026-07-19 for v6.
+This file preserves implementation and troubleshooting knowledge that should survive chat history. Last updated 2026-07-19 for v7.
 
-## v6 automatic harvest and mastery decisions
+## v7 automatic harvest, mastery, and continuous-visual decisions
 
 - Claim Soul was removed from normal play because it added a confirmation button without a targeting, risk, or choice mechanic. The legacy records remain inert for save compatibility.
 - `OnActorKilled` is event-driven. It now returns before race/JSON matching unless Feral is enabled and the player is the killer, then grants mastery immediately. It never stores the victim.
 - Each family has levels 1-100. The next level costs `5 + ceil(level × 0.45)` mastery, totaling 2,775 points. Common harvests grant 10, uncommon 18, and rare 28, producing roughly 278/155/100 hunting-only kills respectively.
-- Expression is 50% at level 1 and grows linearly to 100% at level 100. Existing three spell/texture records are presentation stages at levels 1, 34, and 67 rather than the entire progression.
+- Expression is 25% at level 1 and grows linearly to 100% at level 100. BodyMorph values, statistics, and SlaveTats opacity are calculated from that expression once when a shape begins.
+- Each family has one base transformation power from level 1 onward. Rank-2/rank-3 spell, effect, and texture records remain only for save compatibility and are removed from the player during v7 migration. The active marking always uses the detailed texture with continuously scaled opacity.
+- Discrete armor cosmetics are not part of base visual progression because ordinary equipped models cannot be scaled continuously. Horns, ears, tails, claws, and genuinely new abilities should return as separately designed milestone powers after the base paths are tested.
 - Shape use grants one mastery point per completed ten seconds, capped at twelve. The active effect reads elapsed time once in `OnEffectFinish`; there is no ten-second update loop.
 - `AddActivityMastery(family, points, source)` is the supported hook for future optional integrations. Adult-scene progression must inspect actual participants and active family in a separate adapter; the generic Sex Grants Experience `hasCreature` boolean cannot identify a path.
 - Human fear/hunted behavior does not exist yet. Implement it with mastery-updated notoriety plus conditional dialogue/Story Manager events, never a cloak or periodic nearby-actor scan.
@@ -43,17 +45,17 @@ When diagnosing another missing MCM, verify the MO2-winning ESP, PEX, and SEQ ha
 - Actor-value deltas are held by the active-effect instance and reversed once in `OnEffectFinish`. `_ownsShape` is cleared before cleanup to make repeated finish processing harmless.
 - **Return to Self** and the MCM end action first dispel the live shape and let its `OnEffectFinish` own cleanup. Broad MCM recovery runs only if no active shape effect was actually dispelled. This prevents the controller from clearing morphs and lock state ahead of a queued finish event.
 - Feral touches only `Feral.Shapes` and `Feral.Shapes.Visible` NiOverride keys. It never clears Bodymorph's keys or all morphs globally.
-- Apply and normal cleanup perform one `UpdateModelWeight` plus one `QueueNiNodeUpdate` per transition, not periodic updates. SlaveTats synchronization occurs only on entry/exit. There is no polling loop that rebuilds the body.
+- Apply and normal cleanup perform one `UpdateModelWeight` per transition, not periodic updates. SlaveTats synchronization occurs only on entry/exit. There is no polling loop that rebuilds the body.
 
 Static compilation can verify these branches and names, but only an engine test can prove SKSE callback ordering, visual latency, and exact actor-value restoration on the user's save. The regression test must include rapid end/recast after fatigue, same-family recast, different-family recast, natural expiration, save/reload, death, and Bodymorph mutual exclusion.
 
 ## Visual-art evaluation
 
-The v5 atlas and 24 staged textures are original generated assets and are a clear improvement over placeholder line art, but they are not yet proven final body art. The contact sheet in `assets\FeralMarkingStages-v5.png` is a flat alpha/tint preview, not a 3D screenshot.
+The v5 atlas and 24 source/compatibility textures are original generated assets and are a clear improvement over placeholder line art, but they are not yet proven final body art. The contact sheet in `assets\FeralMarkingStages-v5.png` is a flat alpha/tint preview, not a 3D screenshot. v7 normally renders only the detailed texture and varies SlaveTats opacity by mastery.
 
 Offline sampled alpha coverage at Stage III was approximately: Sabre 53%, Skeever 65%, Troll 73%, Spider 74%, Wolf 85%, Mudcrab 88%, Bear 90%, and Stag 93%. High coverage can read as a full-body material replacement rather than anatomically placed markings. Sabre is currently the clearest identity; Wolf/Bear and Spider/Mudcrab need special attention to avoid visual convergence.
 
-Before calling visuals final, capture front/side/back screenshots on the actual player body for every stage. Judge UV seams, stretching, skin-tone contrast, anatomical placement, and whether stages feel like evolution rather than opacity alone. Prefer localized shoulders/spine/ribs/limbs masks when revising the art.
+Before calling visuals final, capture front/side/back screenshots on the actual player body at levels 1, 50, and 100, then spot-check levels 25 and 75. Judge UV seams, stretching, skin-tone contrast, anatomical placement, and whether continuous intensity feels like evolution rather than simple fading. Prefer localized shoulders/spine/ribs/limbs masks when revising the art.
 
 ## Offline test boundary
 

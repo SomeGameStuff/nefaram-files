@@ -256,12 +256,17 @@ for (var family = 1; family <= 8; family++)
         var effectId = 0x980u + (uint)index;
         var spellId = 0x9A0u + (uint)index;
         var compactName = familyNames[family - 1].Replace(" ", "");
-        var expression = rank == 1 ? "levels 1-33 / 50-66%" : rank == 2 ? "levels 34-66 / 67-83%" : "levels 67-100 / 83-100%";
+        var effectName = rank == 1
+            ? $"Feral Shape: {familyNames[family - 1]}"
+            : $"Feral Shape: {familyNames[family - 1]} (Retired Stage {rank})";
+        var description = rank == 1
+            ? $"Expression grows continuously at every mastery level, from 25% at level 1 to 100% at level 100. Hunting and time spent in this shape both grant mastery. Full strength: {ShapeDescription(family)}. Applies a reversible {familyNames[family - 1]} body morph and mastery-scaled marking for 120 seconds."
+            : "Retained only so existing saves can safely remove this retired staged transformation.";
         mod.MagicEffects.Add(new MagicEffect(Local(effectId), SkyrimRelease.SkyrimSE)
         {
             EditorID = $"cfl_MGEFFeralShape{compactName}{rank}",
-            Name = $"Feral Shape: {familyNames[family - 1]} (Stage {rank})",
-            Description = $"Mastery {expression}, improving with every level. Hunting and time spent in this shape both grant mastery. Full strength: {ShapeDescription(family)}. Applies a reversible three-stage {familyNames[family - 1]} body morph and marking for 120 seconds.",
+            Name = effectName,
+            Description = description,
             CastType = CastType.FireAndForget,
             TargetType = TargetType.Self,
             MagicSkill = ActorValue.None,
@@ -272,7 +277,7 @@ for (var family = 1; family <= 8; family++)
         mod.Spells.Add(new Spell(Local(spellId), SkyrimRelease.SkyrimSE)
         {
             EditorID = $"cfl_SpellFeralShape{compactName}{rank}",
-            Name = $"Feral Shape: {familyNames[family - 1]}",
+            Name = rank == 1 ? $"Feral Shape: {familyNames[family - 1]}" : $"Feral Shape: {familyNames[family - 1]} (Retired)",
             Type = SpellType.LesserPower,
             CastType = CastType.FireAndForget,
             TargetType = TargetType.Self,
