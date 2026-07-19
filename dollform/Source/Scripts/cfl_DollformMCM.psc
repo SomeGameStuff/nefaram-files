@@ -40,6 +40,7 @@ Int _setTrollTier0
 Int _setTrollTier1
 Int _setTrollTier4
 Int _grantSpells
+Int _runRecovery
 Int _clearActive
 Int _clearMorphs
 Int _removeTempTats
@@ -54,6 +55,7 @@ Int _cycleRabbitTier
 Int _cycleTrollTier
 Int _applyDollMorphTest
 Int _applyCowMorphTest
+Int _reportCowMorphs
 Int _cycleMorphScale
 Int _cycleProgressionScale
 
@@ -76,6 +78,8 @@ Event OnPageReset(String a_page)
 	If a_page == Pages[0]
 		AddHeaderOption("Current state", OPTION_FLAG_NONE)
 		AddTextOption("Active form", ActiveFormName(), OPTION_FLAG_DISABLED)
+		AddTextOption("Active token", ActiveTokenStatus(), OPTION_FLAG_DISABLED)
+		AddTextOption("Recovery status", RecoveryStatus(), OPTION_FLAG_DISABLED)
 		AddTextOption("Dollform tier", cfl_DollformMarkTier.GetValueInt() as String, OPTION_FLAG_DISABLED)
 		AddTextOption("Horseform tier", cfl_HorseformMarkTier.GetValueInt() as String, OPTION_FLAG_DISABLED)
 		AddTextOption("Cowform tier", cfl_CowformMarkTier.GetValueInt() as String, OPTION_FLAG_DISABLED)
@@ -106,10 +110,12 @@ Event OnPageReset(String a_page)
 		SetCursorPosition(1)
 		AddHeaderOption("Actions", OPTION_FLAG_NONE)
 		_grantSpells = AddTextOption("Grant base powers", "Run", OPTION_FLAG_NONE)
+		_runRecovery = AddTextOption("Run form recovery", "Run", OPTION_FLAG_NONE)
 		_clearActive = AddTextOption("Clear active-form lock", "Run", OPTION_FLAG_NONE)
 		_clearMorphs = AddTextOption("Clear form morphs", "Run", OPTION_FLAG_NONE)
 		_applyDollMorphTest = AddTextOption("Apply Dollform morph test", "Run", OPTION_FLAG_NONE)
 		_applyCowMorphTest = AddTextOption("Apply Cowform morph test", "Run", OPTION_FLAG_NONE)
+		_reportCowMorphs = AddTextOption("Log Cowform morph state", "Run", OPTION_FLAG_NONE)
 		_removeTempTats = AddTextOption("Remove temporary tattoos", "Run", OPTION_FLAG_NONE)
 		_removeProgressionTats = AddTextOption("Remove progression tattoos", "Run", OPTION_FLAG_NONE)
 		_testCowHorns = AddTextOption("Test cow horns", "Equip", OPTION_FLAG_NONE)
@@ -118,6 +124,10 @@ Event OnPageReset(String a_page)
 	ElseIf a_page == Pages[2]
 		AddHeaderOption("Runtime", OPTION_FLAG_NONE)
 		AddTextOption("Active form", ActiveFormName(), OPTION_FLAG_DISABLED)
+		AddTextOption("Raw active global", cfl_BodymorphActiveForm.GetValueInt() as String, OPTION_FLAG_DISABLED)
+		AddTextOption("Form id/token", ActiveTokenStatus(), OPTION_FLAG_DISABLED)
+		AddTextOption("Recovery status", RecoveryStatus(), OPTION_FLAG_DISABLED)
+		AddTextOption("Morph residue", MorphResidueStatus(), OPTION_FLAG_DISABLED)
 		AddTextOption("Cow horns found", CowHornsFound() as String, OPTION_FLAG_DISABLED)
 		AddTextOption("Cow horns equipped", IsCowHornsEquipped() as String, OPTION_FLAG_DISABLED)
 		AddTextOption("Milk Mod found", MilkModFound() as String, OPTION_FLAG_DISABLED)
@@ -191,6 +201,8 @@ Event OnOptionSelect(Int a_option)
 		SetTier(cfl_TrollformMarkTier, 4, "Trollform")
 	ElseIf a_option == _grantSpells
 		GrantBaseSpells()
+	ElseIf a_option == _runRecovery
+		RunFormRecovery()
 	ElseIf a_option == _clearActive
 		ClearActiveLock()
 	ElseIf a_option == _clearMorphs
@@ -199,6 +211,8 @@ Event OnOptionSelect(Int a_option)
 		ApplyDollformMorphTest()
 	ElseIf a_option == _applyCowMorphTest
 		ApplyCowformMorphTest()
+	ElseIf a_option == _reportCowMorphs
+		ReportCowformMorphState()
 	ElseIf a_option == _removeTempTats
 		RemoveTemporaryTattoos()
 	ElseIf a_option == _removeProgressionTats
@@ -219,12 +233,16 @@ EndEvent
 Event OnOptionHighlight(Int a_option)
 	If a_option == _clearActive
 		SetInfoText("Resets the shared active-form global if a form got stuck.")
+	ElseIf a_option == _runRecovery
+		SetInfoText("Dispels form spells, clears temporary morphs/overlays/items, restores base hair color, and clears the active token.")
 	ElseIf a_option == _clearMorphs
 		SetInfoText("Clears only this mod's RaceMenu BodyMorph key and refreshes the player model.")
 	ElseIf a_option == _applyDollMorphTest
 		SetInfoText("Applies a visible Dollform BodyMorph layer without casting the power.")
 	ElseIf a_option == _applyCowMorphTest
 		SetInfoText("Applies a visible Cowform BodyMorph layer without casting the power.")
+	ElseIf a_option == _reportCowMorphs
+		SetInfoText("Writes the current Cowform-relevant morph totals and active form to Papyrus.0.log.")
 	ElseIf a_option == _removeTempTats
 		SetInfoText("Removes temporary form cosmetics without touching permanent initiation marks.")
 	ElseIf a_option == _removeProgressionTats
@@ -277,6 +295,47 @@ Function GrantBaseSpells()
 	EndIf
 	Debug.Notification("Bodymorph Alteration base powers granted.")
 	ForcePageReset()
+EndFunction
+
+Function RunFormRecovery()
+	Debug.Trace("[BodymorphAlterations][MCM] Running transactional recovery; active=" + cfl_BodymorphActiveForm.GetValueInt())
+	DispelBodymorphSpells()
+	Utility.Wait(1.0)
+	ClearFormMorphs(false)
+	RemoveTemporaryTattoos(false)
+	RemoveActiveFormTattoos(false)
+	RemoveCowHorns(false)
+	RestoreBaseHairColor()
+	cfl_BodymorphActiveForm.SetValue(0)
+	SlaveTats.synchronize_tattoos(PlayerRef, true)
+	Debug.Notification("Bodymorph Alterations recovery complete.")
+	Debug.Trace("[BodymorphAlterations][MCM] Recovery complete; active=" + cfl_BodymorphActiveForm.GetValueInt())
+	ForcePageReset()
+EndFunction
+
+Function DispelBodymorphSpells()
+	If cfl_SpellDollform
+		PlayerRef.DispelSpell(cfl_SpellDollform)
+	EndIf
+	If cfl_SpellHorseform
+		PlayerRef.DispelSpell(cfl_SpellHorseform)
+	EndIf
+	If cfl_SpellCowform
+		PlayerRef.DispelSpell(cfl_SpellCowform)
+	EndIf
+	If cfl_SpellRabbitform
+		PlayerRef.DispelSpell(cfl_SpellRabbitform)
+	EndIf
+	If cfl_SpellTrollform
+		PlayerRef.DispelSpell(cfl_SpellTrollform)
+	EndIf
+EndFunction
+
+Function RestoreBaseHairColor()
+	ColorForm baseHairColor = PlayerRef.GetActorBase().GetHairColor()
+	If baseHairColor
+		PO3_SKSEFunctions.SetHairColor(PlayerRef, baseHairColor)
+	EndIf
 EndFunction
 
 Function ClearActiveLock()
@@ -342,12 +401,17 @@ Function ApplyCowformMorphTest()
 	ForcePageReset()
 EndFunction
 
+Function ReportCowformMorphState()
+	Debug.Trace("[BodymorphAlterations][MCM] Cowform state active=" + cfl_BodymorphActiveForm.GetValueInt() + " tier=" + cfl_CowformMarkTier.GetValueInt() + " breasts=" + NiOverride.GetMorphValue(PlayerRef, "Breasts") + " breastsSH=" + NiOverride.GetMorphValue(PlayerRef, "BreastsSH") + " belly=" + NiOverride.GetMorphValue(PlayerRef, "Belly") + " pregnancyBelly=" + NiOverride.GetMorphValue(PlayerRef, "PregnancyBelly") + " hips=" + NiOverride.GetMorphValue(PlayerRef, "Hips") + " butt=" + NiOverride.GetMorphValue(PlayerRef, "Butt") + " nipples=" + NiOverride.GetMorphValue(PlayerRef, "NippleSize"))
+	Debug.Notification("Cowform morph state written to Papyrus log.")
+EndFunction
+
 Function SetMorph(String asMorph, Float afValue)
 	NiOverride.ClearBodyMorph(PlayerRef, asMorph, VisibleMorphKey)
 	NiOverride.SetBodyMorph(PlayerRef, asMorph, VisibleMorphKey, PapyrusUtil.ClampFloat(afValue, -2.0, 3.0))
 EndFunction
 
-Function RemoveTemporaryTattoos()
+Function RemoveTemporaryTattoos(Bool abSynchronize = true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Blush", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Hand Polish", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Foot Polish", true, true)
@@ -366,16 +430,25 @@ Function RemoveTemporaryTattoos()
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Rabbitform Cosmetics", "Rabbit Leap Mark", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform Cosmetics", "Troll Grayhide Patches", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform Cosmetics", "Troll Stone Scars", true, true)
-	SlaveTats.synchronize_tattoos(PlayerRef, true)
-	Debug.Notification("Temporary form tattoos removed.")
+	If abSynchronize
+		SlaveTats.synchronize_tattoos(PlayerRef, true)
+		Debug.Notification("Temporary form tattoos removed.")
+	EndIf
 EndFunction
 
-Function RemoveProgressionTattoos()
+Function RemoveActiveFormTattoos(Bool abSynchronize = true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Dollform Attunement", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Horseform Seed Brand", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Cowform Milk Drops", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Rabbitform", "Rabbitform Moon Mark", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform", "Trollform Grayhide Brand", true, true)
+	If abSynchronize
+		SlaveTats.synchronize_tattoos(PlayerRef, true)
+	EndIf
+EndFunction
+
+Function RemoveProgressionTattoos()
+	RemoveActiveFormTattoos(false)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Porcelain Lines", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Joint Seals", true, true)
 	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Display Sigil", true, true)
@@ -406,16 +479,20 @@ Function TestCowHorns()
 	Debug.Notification("TDN cow horns equipped for testing.")
 EndFunction
 
-Function RemoveCowHorns()
+Function RemoveCowHorns(Bool abNotify = true)
 	Armor horns = GetCowHorns()
 	If !horns
-		Debug.Notification("TDN cow horns were not found.")
+		If abNotify
+			Debug.Notification("TDN cow horns were not found.")
+		EndIf
 		Return
 	EndIf
 	If PlayerRef.IsEquipped(horns)
 		PlayerRef.UnequipItem(horns, false, true)
 	EndIf
-	Debug.Notification("TDN cow horns unequipped.")
+	If abNotify
+		Debug.Notification("TDN cow horns unequipped.")
+	EndIf
 EndFunction
 
 Function ResetUseCounters()
@@ -490,19 +567,107 @@ Bool Function FertilityModeFound()
 EndFunction
 
 String Function ActiveFormName()
-	Int activeForm = cfl_BodymorphActiveForm.GetValueInt()
+	Int activeValue = cfl_BodymorphActiveForm.GetValueInt()
+	Int activeForm = ActiveFormId(activeValue)
+	String tokenText = ""
+	If ActiveToken(activeValue) > 0
+		tokenText = " #" + (ActiveToken(activeValue) as String)
+	EndIf
 	If activeForm == 1
-		Return "Dollform"
+		Return "Dollform" + tokenText
 	ElseIf activeForm == 2
-		Return "Horseform"
+		Return "Horseform" + tokenText
 	ElseIf activeForm == 3
-		Return "Cowform"
+		Return "Cowform" + tokenText
 	ElseIf activeForm == 4
-		Return "Rabbitform"
+		Return "Rabbitform" + tokenText
 	ElseIf activeForm == 5
-		Return "Trollform"
+		Return "Trollform" + tokenText
+	ElseIf activeForm == 101
+		Return "Feral Wolf"
+	ElseIf activeForm == 102
+		Return "Feral Sabre Cat"
+	ElseIf activeForm == 103
+		Return "Feral Bear"
+	ElseIf activeForm == 104
+		Return "Feral Skeever"
+	ElseIf activeForm == 105
+		Return "Feral Spider"
+	ElseIf activeForm == 106
+		Return "Feral Mudcrab"
+	ElseIf activeForm == 107
+		Return "Feral Horse"
+	ElseIf activeForm == 108
+		Return "Feral Troll"
 	EndIf
 	Return "None"
+EndFunction
+
+String Function ActiveTokenStatus()
+	Int activeValue = cfl_BodymorphActiveForm.GetValueInt()
+	Return (ActiveFormId(activeValue) as String) + "/" + (ActiveToken(activeValue) as String)
+EndFunction
+
+String Function RecoveryStatus()
+	If cfl_BodymorphActiveForm.GetValueInt() != 0
+		Return "active"
+	EndIf
+	If HasMorphResidue()
+		Return "morph residue"
+	EndIf
+	If IsCowHornsEquipped()
+		Return "horns equipped"
+	EndIf
+	Return "clean"
+EndFunction
+
+String Function MorphResidueStatus()
+	If HasMorphResidue()
+		Return "present"
+	EndIf
+	Return "clear"
+EndFunction
+
+Bool Function HasMorphResidue()
+	If NiOverride.GetBodyMorph(PlayerRef, "Breasts", MorphKey) != 0.0
+		Return true
+	EndIf
+	If NiOverride.GetBodyMorph(PlayerRef, "Breasts", VisibleMorphKey) != 0.0
+		Return true
+	EndIf
+	If NiOverride.GetBodyMorph(PlayerRef, "Butt", MorphKey) != 0.0
+		Return true
+	EndIf
+	If NiOverride.GetBodyMorph(PlayerRef, "Butt", VisibleMorphKey) != 0.0
+		Return true
+	EndIf
+	If NiOverride.GetBodyMorph(PlayerRef, "Hips", MorphKey) != 0.0
+		Return true
+	EndIf
+	If NiOverride.GetBodyMorph(PlayerRef, "Hips", VisibleMorphKey) != 0.0
+		Return true
+	EndIf
+	If NiOverride.GetBodyMorph(PlayerRef, "Thighs", MorphKey) != 0.0
+		Return true
+	EndIf
+	If NiOverride.GetBodyMorph(PlayerRef, "Thighs", VisibleMorphKey) != 0.0
+		Return true
+	EndIf
+	Return false
+EndFunction
+
+Int Function ActiveFormId(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue / 100000
+	EndIf
+	Return aiActiveValue
+EndFunction
+
+Int Function ActiveToken(Int aiActiveValue)
+	If aiActiveValue >= 100000
+		Return aiActiveValue - ((aiActiveValue / 100000) * 100000)
+	EndIf
+	Return 0
 EndFunction
 
 String Function FormatSeconds(GlobalVariable akGlobal)
