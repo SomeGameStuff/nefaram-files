@@ -1,6 +1,6 @@
 # Feral - Bodymorph Alterations add-on
 
-Feral v7 turns hunting and transformation use into eight long-form mastery paths. Personally kill supported creatures to absorb their essence automatically, then spend time in the unlocked shape to deepen it from mastery level 1 to 100. Combat bonuses exist only while transformed.
+Feral v9 turns hunting and transformation use into eight long-form mastery paths. Personally kill supported creatures to absorb their essence automatically, then spend time in the unlocked shape to deepen it from mastery level 1 to 100. Continuous visuals, milestone traits, family techniques, and human notoriety make specialization increasingly visible and consequential.
 
 ## Requirements
 
@@ -29,6 +29,21 @@ Install the complete **Feral - Bodymorph Addon** folder as one MO2 mod; do not i
 
 One common-family path takes about 278 harvests if trained only through hunting; uncommon paths take about 155 and rare paths about 100. Actual totals are lower when the shape is used. Shapes last 120 seconds, followed by 15 seconds of fatigue. **Return to Self** ends a shape early. Feral and Bodymorph Alterations share one transformation lock and cannot overwrite each other.
 
+## Mastery milestones
+
+Every path gains a shape-only trait at levels 25 and 75, one selectable family technique at level 50, and an apex upgrade to that same technique at level 100. Techniques have a shared design rule: the matching shape must be active, the effect ends when the shape ends, and each family has its own 60-second cooldown.
+
+| Family | Level 25 | Level 50 technique | Level 75 | Level 100 |
+|---|---|---|---|---|
+| Wolf | Tireless Hunt | Dread Howl | Blood Scent | Stronger howl |
+| Sabre Cat | Soft Step | Vanish and Pounce | Ambush | Stronger pounce |
+| Bear | Thick Hide | Maul | Unstoppable | Stronger maul |
+| Skeever | Filthborn | Plague Spit | Escape Artist | Stronger venom |
+| Spider | Venomous | Web Snare | Chitin Reflex | Apex snare |
+| Mudcrab | Arrow-Shell | Fortress | Counterclaw | Apex fortress |
+| Stag | Surefooted | Stampede | Keen Flight | Apex stampede with slow time |
+| Troll | Mending Flesh | Monstrous Regeneration | Cornered Monster | Apex regeneration |
+
 ## Visual progression
 
 Every family has a default 10-12 slider silhouette, a detailed 2K SlaveTats body marking, a transformation shader, sound, and camera pulse. There are no visual stage boundaries: body proportions, combat effects, and marking opacity all grow at every mastery level. Expression begins at 25% on level 1 and increases linearly to 100% at level 100. Each family uses one transformation power from level 1 onward, leaving later milestone levels available for genuinely new powers instead of replacement copies of the same morph.
@@ -48,7 +63,7 @@ The source atlas shows the intended creature identities:
 
 ![Feral source pattern atlas](assets/FeralPatternAtlas-v5.png)
 
-This transparency contact sheet shows the three source densities retained for save compatibility and art comparison. Normal v7 transformations use the most detailed texture and scale its opacity continuously. This is a flat UV/art preview, not an in-game body screenshot; checkerboard areas are transparent:
+This transparency contact sheet shows the three source densities retained for save compatibility and art comparison. Normal v9 transformations use the most detailed texture and scale its opacity continuously. This is a flat UV/art preview, not an in-game body screenshot; checkerboard areas are transparent:
 
 ![Feral marking stages](assets/FeralMarkingStages-v5.png)
 
@@ -70,11 +85,13 @@ The exact prior Experience settings are snapshotted and restored when the path i
 
 ## Activity and adult-mod integrations
 
-Feral exposes `AddActivityMastery(family, points, source)` on its controller for small optional adapters. The installed **Sex Grants Experience** mod continues to control ordinary sex-scene character XP; Feral does not currently intercept it or grant family mastery from scenes. A correct future adapter must inspect actual SexLab participants, require the player to be in the matching Feral shape, and map the creature actor's race to that same family. The common Sex Grants Experience API exposes only a `hasCreature` flag, which is not enough to award the correct path safely.
+Feral exposes `GetActiveFamily()`, `GetMasteryLevel(family)`, `GetFamily(actor)`, and `AddActivityMastery(family, points, source)` for optional adapters. The separately packaged **Feral - Sex Grants Experience Integration** is pinned to Sex Grants Experience 1.8.0. It snapshots the active shape when SexLab/OStim scenes begin, gates all ordinary Sex Grants Experience XP behind that snapshot, and awards 12 mastery when an actual creature participant matches the snapshotted family. It preserves the upstream scoring, orgasm, victim, multiplier, solo-scene, and cooldown rules after the Feral gate.
 
 ## Human fear and hunting
 
-There is not yet a human fear or hunter-response system. It should not be implemented as a cloak, frequent nearby-actor scan, or repeated relationship update. The planned low-overhead design is a persistent notoriety value updated only when mastery changes, dialogue/AI conditions that read it when already evaluating an NPC, and discrete Story Manager hunter encounters at high thresholds. This remains design work rather than a claimed feature.
+Human response has **Off**, **Reactions**, and **Full** modes; Full is the default. A witnessed transformation adds 5 notoriety and a witnessed human kill while transformed adds 15. Notoriety decays by 2 per in-game day after one quiet day. At 20 people whisper, at 40 witnesses can flee, at 60 witnessing guards can add a 250-gold bounty once per day, and at 80 event-driven exterior-cell checks can launch a hunter group after a three-day cooldown. Level 100 notoriety raises the encounter chance and adds an elite hunter. Reactions mode keeps fear feedback but disables bounty and hunters.
+
+Witness detection runs only when a shape begins or a relevant human dies: one nearest-actor query plus at most four bounded random candidates, each requiring line of sight. Hunter checks run only on PO3's cell-loaded event and retain at most one three-actor group. There is no cloak, recurring update, or nearby-actor polling loop. Fully voiced/conditioned NPC dialogue remains future content; v9 uses MCM status and threshold notifications.
 
 ## Runtime cost
 
@@ -82,11 +99,11 @@ There is not yet a human fear or hunter-response system. It should not be implem
 - No polling loop, corpse queue, claim-window scan, or stored corpse references.
 - Shape-use mastery is calculated once from the active effect's elapsed time when it finishes; it does not tick every ten seconds.
 - RaceMenu morph rebuilding and SlaveTats synchronization occur only on transformation entry and exit.
-- No NPC fear scans or background faction processing are active.
+- Human response uses bounded event-time witness queries and cell-load hunter checks only; no recurring fear scans or background faction processing are active.
 
 ## Save compatibility and custom content
 
-Version 7 preserves all historical harvest counts and mastery, converts family slot 7 Horse progress into Stag progress on older saves, removes Claim Soul, clears old pending-corpse references, replaces staged powers with one continuously scaling power per family, and keeps legacy records inert for save compatibility. Custom races belong in `SKSE\Plugins\Feral\Races.json`. The existing cosmetic configuration is retained as future adapter data but is not automatically equipped by the base shape.
+Version 9 preserves all historical harvest counts and mastery, converts family slot 7 Horse progress into Stag progress on older saves, removes Claim Soul, clears old pending-corpse references, replaces staged powers with one continuously scaling power per family, adds milestone techniques without changing mastery, and initializes human response to Full. Custom races belong in `SKSE\Plugins\Feral\Races.json`. The existing cosmetic configuration is retained as future adapter data but is not automatically equipped by the base shape.
 
 ## Transformation safety
 

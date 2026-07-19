@@ -12,15 +12,19 @@ Int _focusFamilyOption
 Int _restoreExperienceOption
 Int _reloadRacesOption
 Int _developerOption
+Int _humanResponseOption
 Int _testFamilyOption
 Int _testSetTwoOption
 Int _testSetNineOption
 Int _testSetTwentyFourOption
 Int _testClaimOption
 Int _testResetOption
+Int _testNotorietyOption
+Int _testHuntersOption
+Int _testLevelSliderOption
 
 Int Function GetVersion()
-	Return 7
+	Return 9
 EndFunction
 
 Event OnConfigInit()
@@ -82,6 +86,7 @@ Function SetFeralEnabled(Bool enabled)
 			SetFeralPathEnabled(false)
 		EndIf
 		UnregisterForActorKilled(Self)
+		UnregisterForCellFullyLoaded(Self)
 		EndActiveShape()
 		If aspect
 			player.DispelSpell(aspect)
@@ -91,6 +96,7 @@ Function SetFeralEnabled(Bool enabled)
 			player.RemoveSpell(claim)
 		EndIf
 		RemoveAllShapePowers()
+		RemoveAllTechniquePowers()
 		Spell revertPower = Game.GetFormFromFile(0x0009C1, "Feral.esp") as Spell
 		If revertPower
 			player.RemoveSpell(revertPower)
@@ -118,6 +124,7 @@ Function InitializeFeral()
 		player.AddSpell(revertPower, false)
 	EndIf
 	RefreshShapePowers()
+	RefreshTechniquePowers()
 	ClearPendingEssence()
 	RegisterForFeralKills()
 EndFunction
@@ -139,6 +146,8 @@ Function HandleFeralReload()
 		InitializeFeral()
 	Else
 		RemoveAllShapePowers()
+		RemoveAllTechniquePowers()
+		UnregisterForCellFullyLoaded(Self)
 	EndIf
 	If GetFeralPathMode() > 0 && IsFeralEnabled()
 		SaveExperienceSettings()
@@ -190,6 +199,8 @@ EndFunction
 Function RegisterForFeralKills()
 	UnregisterForActorKilled(Self)
 	RegisterForActorKilled(Self)
+	UnregisterForCellFullyLoaded(Self)
+	RegisterForCellFullyLoaded(Self)
 EndFunction
 
 Event OnActorKilled(Actor akVictim, Actor akKiller)
@@ -199,6 +210,8 @@ Event OnActorKilled(Actor akVictim, Actor akKiller)
 	Int family = GetFamily(akVictim)
 	If family > 0
 		CompleteClaim(family)
+	ElseIf GetActiveFamily() > 0
+		RecordWitnessedHumanKill(akVictim)
 	EndIf
 EndEvent
 
@@ -232,6 +245,8 @@ Function BuildStatusPage()
 		AddTextOption("Active transformation", "None", OPTION_FLAG_DISABLED)
 	EndIf
 	AddTextOption("Feral Path rewards", "30 / 45 / 70 XP", OPTION_FLAG_DISABLED)
+	AddTextOption("Human response", HumanResponseModeName(), OPTION_FLAG_DISABLED)
+	AddTextOption("Feral notoriety", GetNotoriety() + " / 100 - " + NotorietyTierName(GetNotoriety()), OPTION_FLAG_DISABLED)
 	AddHeaderOption("Harvests / mastery levels")
 	Int i = 1
 	While i <= 8
@@ -260,7 +275,12 @@ Function BuildInstinctsPage()
 	AddTextOption("Body expression", ShapeVisualText(family), OPTION_FLAG_DISABLED)
 	AddTextOption("Marking opacity", FormatShapeValue(GetMarkOpacity(family) * 100.0) + "%", OPTION_FLAG_DISABLED)
 	AddTextOption("Duration", "120 seconds", OPTION_FLAG_DISABLED)
-	AddTextOption("Milestone powers", "Reserved for a future update", OPTION_FLAG_DISABLED)
+	AddHeaderOption("Mastery milestones")
+	AddTextOption("Level 25 trait", MilestoneTraitText(family, 25), OPTION_FLAG_DISABLED)
+	AddTextOption("Level 50 technique", TechniqueStatusText(family), OPTION_FLAG_DISABLED)
+	AddTextOption("Level 75 trait", MilestoneTraitText(family, 75), OPTION_FLAG_DISABLED)
+	AddTextOption("Level 100 apex", "Upgrades " + TechniqueName(family), OPTION_FLAG_DISABLED)
+	AddTextOption("Next milestone", NextMilestoneText(level), OPTION_FLAG_DISABLED)
 EndFunction
 
 String Function CosmeticStatus(Int family, Int rank)
@@ -281,6 +301,10 @@ EndFunction
 Function BuildSettingsPage()
 	AddHeaderOption("Hunting")
 	AddTextOption("Essence collection", "Automatic", OPTION_FLAG_DISABLED)
+	AddHeaderOption("Human response")
+	_humanResponseOption = AddTextOption("Response mode", HumanResponseModeName(), OPTION_FLAG_NONE)
+	AddTextOption("Notoriety", GetNotoriety() + " / 100", OPTION_FLAG_DISABLED)
+	AddTextOption("Decay", "2 per game day after 1 day", OPTION_FLAG_DISABLED)
 	AddHeaderOption("Maintenance")
 	_recalculateOption = AddTextOption("Rebuild transformation powers", "Repair", OPTION_FLAG_NONE)
 	_endShapeOption = AddTextOption("Clear active Feral shape", "Clean", OPTION_FLAG_NONE)
@@ -293,10 +317,13 @@ Function BuildSettingsPage()
 		AddTextOption("Ordinary XP suppressed", YesNo(ExperienceRewardsAreSuppressed()), OPTION_FLAG_DISABLED)
 		AddTextOption("XP restore snapshot", YesNo(JsonUtil.GetIntValue(GetExperienceStateFile(), "OwnerActive") > 0), OPTION_FLAG_DISABLED)
 		_testFamilyOption = AddTextOption("Test family", FamilyName(testFamily), OPTION_FLAG_NONE)
+		_testLevelSliderOption = AddSliderOption("Set exact mastery level", GetMasteryLevel(testFamily), "{0}")
 		_testSetTwoOption = AddTextOption("Set mastery level 1", "Set", OPTION_FLAG_NONE)
 		_testSetNineOption = AddTextOption("Set mastery level 50", "Set", OPTION_FLAG_NONE)
 		_testSetTwentyFourOption = AddTextOption("Set mastery level 100", "Set", OPTION_FLAG_NONE)
 		_testClaimOption = AddTextOption("Simulate one automatic harvest", "Run", OPTION_FLAG_NONE)
+		_testNotorietyOption = AddTextOption("Set notoriety 80", "Set", OPTION_FLAG_NONE)
+		_testHuntersOption = AddTextOption("Force hunter group", "Spawn", OPTION_FLAG_NONE)
 		_testResetOption = AddTextOption("Reset test family", "Reset", OPTION_FLAG_NONE)
 	EndIf
 EndFunction
@@ -311,12 +338,16 @@ Function ResetOptionIDs()
 	_restoreExperienceOption = -1
 	_reloadRacesOption = -1
 	_developerOption = -1
+	_humanResponseOption = -1
 	_testFamilyOption = -1
 	_testSetTwoOption = -1
 	_testSetNineOption = -1
 	_testSetTwentyFourOption = -1
 	_testClaimOption = -1
 	_testResetOption = -1
+	_testNotorietyOption = -1
+	_testHuntersOption = -1
+	_testLevelSliderOption = -1
 EndFunction
 
 String Function YesNo(Bool value)
@@ -429,6 +460,9 @@ Function GrantMastery(Int family, Int amount, String source = "activity", Bool s
 	If newRank != oldRank
 		ApplyShapeRank(family, newRank)
 	EndIf
+	If oldLevel < 50 && level >= 50
+		ApplyTechniquePower(family)
+	EndIf
 	If !silent
 		If level > oldLevel
 			Debug.Notification("Feral " + FamilyName(family) + " mastery reaches level " + level + " through " + source + ".")
@@ -532,6 +566,96 @@ String Function ShapeVisualText(Int family)
 	Return ""
 EndFunction
 
+String Function TechniqueName(Int family)
+	If family == 1
+		Return "Dread Howl"
+	ElseIf family == 2
+		Return "Vanish and Pounce"
+	ElseIf family == 3
+		Return "Maul"
+	ElseIf family == 4
+		Return "Plague Spit"
+	ElseIf family == 5
+		Return "Web Snare"
+	ElseIf family == 6
+		Return "Fortress"
+	ElseIf family == 7
+		Return "Stampede"
+	ElseIf family == 8
+		Return "Monstrous Regeneration"
+	EndIf
+	Return "Locked"
+EndFunction
+
+String Function MilestoneTraitText(Int family, Int milestone)
+	Int level = GetMasteryLevel(family)
+	String prefix = "Locked: "
+	If level >= milestone
+		prefix = "Unlocked: "
+	EndIf
+	If milestone == 25
+		If family == 1
+			Return prefix + "Tireless Hunt"
+		ElseIf family == 2
+			Return prefix + "Soft Step"
+		ElseIf family == 3
+			Return prefix + "Thick Hide"
+		ElseIf family == 4
+			Return prefix + "Filthborn"
+		ElseIf family == 5
+			Return prefix + "Venomous"
+		ElseIf family == 6
+			Return prefix + "Arrow-Shell"
+		ElseIf family == 7
+			Return prefix + "Surefooted"
+		ElseIf family == 8
+			Return prefix + "Mending Flesh"
+		EndIf
+	ElseIf milestone == 75
+		If family == 1
+			Return prefix + "Blood Scent"
+		ElseIf family == 2
+			Return prefix + "Ambush"
+		ElseIf family == 3
+			Return prefix + "Unstoppable"
+		ElseIf family == 4
+			Return prefix + "Escape Artist"
+		ElseIf family == 5
+			Return prefix + "Chitin Reflex"
+		ElseIf family == 6
+			Return prefix + "Counterclaw"
+		ElseIf family == 7
+			Return prefix + "Keen Flight"
+		ElseIf family == 8
+			Return prefix + "Cornered Monster"
+		EndIf
+	EndIf
+	Return ""
+EndFunction
+
+String Function TechniqueStatusText(Int family)
+	Int level = GetMasteryLevel(family)
+	If level < 50
+		Return "Locked: " + TechniqueName(family)
+	ElseIf level >= 100
+		Return "Apex: " + TechniqueName(family)
+	EndIf
+	Return "Unlocked: " + TechniqueName(family)
+EndFunction
+
+String Function NextMilestoneText(Int level)
+	If level < 25
+		Return "Trait at level 25"
+	ElseIf level < 50
+		Return "Technique at level 50"
+	ElseIf level < 75
+		Return "Trait at level 75"
+	ElseIf level < 100
+		Return "Apex technique at level 100"
+	EndIf
+	Return "All milestones mastered"
+EndFunction
+
 String Function GetClaimWindowStatus()
 	Int count = GetPendingEssenceCount()
 	If count < 1
@@ -565,6 +689,10 @@ Int Function GetFatigueSecondsRemaining()
 	Float remaining = StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.FatigueUntil") - Utility.GetCurrentRealTime()
 	If remaining <= 0.0
 		Return 0
+	ElseIf remaining > 15.0
+		; GetCurrentRealTime resets when Skyrim restarts; discard a persisted timer from another session.
+		StorageUtil.UnsetFloatValue(Game.GetPlayer(), "Feral.FatigueUntil")
+		Return 0
 	EndIf
 	Return Math.Ceiling(remaining) as Int
 EndFunction
@@ -585,6 +713,251 @@ Function StartFeralFatigue()
 	StorageUtil.SetFloatValue(Game.GetPlayer(), "Feral.FatigueUntil", Utility.GetCurrentRealTime() + 15.0)
 EndFunction
 
+Int Function GetActiveFamily()
+	Int family = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.ActiveFamily")
+	If family < 1 || family > 8
+		Return 0
+	EndIf
+	Return family
+EndFunction
+
+Int Function GetHumanResponseMode()
+	Actor player = Game.GetPlayer()
+	If StorageUtil.GetIntValue(player, "Feral.HumanResponseInitialized") < 1
+		StorageUtil.SetIntValue(player, "Feral.HumanResponseInitialized", 1)
+		StorageUtil.SetIntValue(player, "Feral.HumanResponseMode", 2)
+	EndIf
+	Return StorageUtil.GetIntValue(player, "Feral.HumanResponseMode")
+EndFunction
+
+Function SetHumanResponseMode(Int mode)
+	If mode < 0 || mode > 2
+		mode = 2
+	EndIf
+	StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.HumanResponseInitialized", 1)
+	StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.HumanResponseMode", mode)
+EndFunction
+
+String Function HumanResponseModeName()
+	Int mode = GetHumanResponseMode()
+	If mode == 1
+		Return "Reactions"
+	ElseIf mode == 2
+		Return "Full"
+	EndIf
+	Return "Off"
+EndFunction
+
+Int Function GetNotoriety()
+	Actor player = Game.GetPlayer()
+	Int stored = StorageUtil.GetIntValue(player, "Feral.Notoriety")
+	Float lastExposure = StorageUtil.GetFloatValue(player, "Feral.NotorietyLastExposure")
+	If stored < 1 || lastExposure <= 0.0
+		Return stored
+	EndIf
+	Int decayDays = (Utility.GetCurrentGameTime() - lastExposure - 1.0) as Int
+	If decayDays < 1
+		Return stored
+	EndIf
+	Int value = stored - (decayDays * 2)
+	If value < 0
+		value = 0
+	EndIf
+	Return value
+EndFunction
+
+Function SetNotoriety(Int value)
+	If value < 0
+		value = 0
+	ElseIf value > 100
+		value = 100
+	EndIf
+	Actor player = Game.GetPlayer()
+	StorageUtil.SetIntValue(player, "Feral.Notoriety", value)
+	StorageUtil.SetFloatValue(player, "Feral.NotorietyLastExposure", Utility.GetCurrentGameTime())
+EndFunction
+
+Function AddNotoriety(Int amount, Actor witness)
+	If amount < 1 || GetHumanResponseMode() < 1
+		Return
+	EndIf
+	Int before = GetNotoriety()
+	SetNotoriety(before + amount)
+	Int after = GetNotoriety()
+	If before < 20 && after >= 20
+		Debug.Notification("Feral: people have begun whispering about your unnatural shape.")
+	ElseIf before < 40 && after >= 40
+		Debug.Notification("Feral: civilians now fear your revealed form.")
+	ElseIf before < 60 && after >= 60
+		Debug.Notification("Feral: guards now treat witnessed transformations as a crime.")
+	ElseIf before < 80 && after >= 80
+		Debug.Notification("Feral: organized hunters have taken up your trail.")
+	EndIf
+	ApplyWitnessReaction(witness, after)
+EndFunction
+
+String Function NotorietyTierName(Int value)
+	If value >= 100
+		Return "Apex quarry"
+	ElseIf value >= 80
+		Return "Hunted"
+	ElseIf value >= 60
+		Return "Outlawed"
+	ElseIf value >= 40
+		Return "Feared"
+	ElseIf value >= 20
+		Return "Whispered about"
+	EndIf
+	Return "Unknown"
+EndFunction
+
+Actor Function FindHumanWitness(Actor ignoreActor = None)
+	Actor player = Game.GetPlayer()
+	Keyword actorTypeNPC = Game.GetForm(0x00013794) as Keyword
+	Actor candidate = Game.FindClosestActorFromRef(player, 2500.0)
+	If IsValidHumanWitness(candidate, ignoreActor, actorTypeNPC)
+		Return candidate
+	EndIf
+	Int attempts = 0
+	While attempts < 4
+		candidate = Game.FindRandomActorFromRef(player, 2500.0)
+		If IsValidHumanWitness(candidate, ignoreActor, actorTypeNPC)
+			Return candidate
+		EndIf
+		attempts += 1
+	EndWhile
+	Return None
+EndFunction
+
+Bool Function IsValidHumanWitness(Actor candidate, Actor ignoreActor, Keyword actorTypeNPC)
+	Actor player = Game.GetPlayer()
+	Return candidate && candidate != player && candidate != ignoreActor && !candidate.IsDead() && !candidate.IsPlayerTeammate() && candidate.HasKeyword(actorTypeNPC) && candidate.HasLOS(player)
+EndFunction
+
+Function RecordWitnessedTransformation(Int family, Int token)
+	If GetHumanResponseMode() < 1 || family < 1 || family > 8
+		Return
+	EndIf
+	Actor player = Game.GetPlayer()
+	If StorageUtil.GetIntValue(player, "Feral.LastWitnessToken") == token
+		Return
+	EndIf
+	Actor witness = FindHumanWitness()
+	If witness
+		StorageUtil.SetIntValue(player, "Feral.LastWitnessToken", token)
+		AddNotoriety(5, witness)
+	EndIf
+EndFunction
+
+Function RecordWitnessedHumanKill(Actor victim)
+	If !victim || GetHumanResponseMode() < 1
+		Return
+	EndIf
+	Keyword actorTypeNPC = Game.GetForm(0x00013794) as Keyword
+	If !victim.HasKeyword(actorTypeNPC)
+		Return
+	EndIf
+	Actor witness = FindHumanWitness(victim)
+	If witness
+		AddNotoriety(15, witness)
+	EndIf
+EndFunction
+
+Function ApplyWitnessReaction(Actor witness, Int notoriety)
+	If !witness
+		Return
+	EndIf
+	Int mode = GetHumanResponseMode()
+	If notoriety >= 40
+		Spell fear = Game.GetFormFromFile(0x000A21, "Feral.esp") as Spell
+		If fear
+			fear.Cast(Game.GetPlayer(), witness)
+		EndIf
+	EndIf
+	If mode >= 2 && notoriety >= 60 && witness.IsGuard()
+		Float now = Utility.GetCurrentGameTime()
+		Float lastBounty = StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.LastGuardBounty")
+		Faction crimeFaction = witness.GetCrimeFaction()
+		If crimeFaction && now - lastBounty >= 1.0
+			crimeFaction.ModCrimeGold(250, false)
+			StorageUtil.SetFloatValue(Game.GetPlayer(), "Feral.LastGuardBounty", now)
+		EndIf
+	EndIf
+EndFunction
+
+Event OnCellFullyLoaded(Cell akCell)
+	If !IsFeralEnabled() || GetHumanResponseMode() < 2 || GetNotoriety() < 80 || !akCell || akCell.IsInterior()
+		Return
+	EndIf
+	If HunterGroupIsActive()
+		Return
+	EndIf
+	Float now = Utility.GetCurrentGameTime()
+	If now - StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.LastHunterEncounter") < 3.0
+		Return
+	EndIf
+	Int chance = 20
+	If GetNotoriety() >= 100
+		chance = 35
+	EndIf
+	If Utility.RandomInt(1, 100) <= chance
+		SpawnHunterGroup(false)
+	EndIf
+EndEvent
+
+Bool Function HunterGroupIsActive()
+	Actor player = Game.GetPlayer()
+	Int count = StorageUtil.FormListCount(player, "Feral.Hunters")
+	Int i = 0
+	Bool active = false
+	While i < count
+		Actor hunter = StorageUtil.FormListGet(player, "Feral.Hunters", i) as Actor
+		If hunter && !hunter.IsDead()
+			active = true
+		ElseIf hunter
+			hunter.Disable()
+			hunter.Delete()
+		EndIf
+		i += 1
+	EndWhile
+	If !active
+		StorageUtil.FormListClear(player, "Feral.Hunters")
+	EndIf
+	Return active
+EndFunction
+
+Function SpawnHunterGroup(Bool forced)
+	If HunterGroupIsActive()
+		Debug.Notification("Feral: a hunter group is already pursuing you.")
+		Return
+	EndIf
+	Actor player = Game.GetPlayer()
+	ActorBase meleeBase = Game.GetForm(0x00039D01) as ActorBase
+	ActorBase missileBase = Game.GetForm(0x00037C00) as ActorBase
+	Actor first = player.PlaceAtMe(meleeBase, 1, false, true) as Actor
+	Actor second = player.PlaceAtMe(missileBase, 1, false, true) as Actor
+	PrepareHunter(first, 2200.0, 1400.0)
+	PrepareHunter(second, -2200.0, 1600.0)
+	If GetNotoriety() >= 100 || forced
+		ActorBase bossBase = Game.GetForm(0x0003DEEA) as ActorBase
+		Actor boss = player.PlaceAtMe(bossBase, 1, false, true) as Actor
+		PrepareHunter(boss, 0.0, 2400.0)
+	EndIf
+	StorageUtil.SetFloatValue(player, "Feral.LastHunterEncounter", Utility.GetCurrentGameTime())
+	Debug.Notification("Feral: hunters have found your trail.")
+EndFunction
+
+Function PrepareHunter(Actor hunter, Float xOffset, Float yOffset)
+	If !hunter
+		Return
+	EndIf
+	Actor player = Game.GetPlayer()
+	hunter.MoveTo(player, xOffset, yOffset, 0.0, true)
+	hunter.Enable()
+	StorageUtil.FormListAdd(player, "Feral.Hunters", hunter, false)
+	hunter.StartCombat(player)
+EndFunction
+
 Event OnOptionSelect(Int option)
 	If option == _enableOption
 		SetFeralEnabled(!IsFeralEnabled())
@@ -595,6 +968,13 @@ Event OnOptionSelect(Int option)
 			nextMode = 0
 		EndIf
 		SetFeralPathMode(nextMode)
+		ForcePageReset()
+	ElseIf option == _humanResponseOption
+		Int nextResponse = GetHumanResponseMode() + 1
+		If nextResponse > 2
+			nextResponse = 0
+		EndIf
+		SetHumanResponseMode(nextResponse)
 		ForcePageReset()
 	ElseIf option == _recalculateOption
 		RefreshShapePowers()
@@ -644,6 +1024,12 @@ Event OnOptionSelect(Int option)
 	ElseIf option == _testClaimOption
 		CompleteClaim(GetTestFamily())
 		ForcePageReset()
+	ElseIf option == _testNotorietyOption
+		SetNotoriety(80)
+		ForcePageReset()
+	ElseIf option == _testHuntersOption
+		SpawnHunterGroup(true)
+		ForcePageReset()
 	ElseIf option == _testResetOption
 		SetTestLevel(GetTestFamily(), 0)
 		ForcePageReset()
@@ -651,7 +1037,12 @@ Event OnOptionSelect(Int option)
 EndEvent
 
 Event OnOptionSliderOpen(Int option)
-	If option == _claimWindowOption
+	If option == _testLevelSliderOption
+		SetSliderDialogStartValue(GetMasteryLevel(GetTestFamily()))
+		SetSliderDialogDefaultValue(50.0)
+		SetSliderDialogRange(0.0, 100.0)
+		SetSliderDialogInterval(1.0)
+	ElseIf option == _claimWindowOption
 		SetSliderDialogStartValue(GetClaimWindowSeconds())
 		SetSliderDialogDefaultValue(180.0)
 		SetSliderDialogRange(60.0, 300.0)
@@ -660,7 +1051,11 @@ Event OnOptionSliderOpen(Int option)
 EndEvent
 
 Event OnOptionSliderAccept(Int option, Float value)
-	If option == _claimWindowOption
+	If option == _testLevelSliderOption
+		SetTestLevel(GetTestFamily(), value as Int)
+		SetSliderOptionValue(option, value, "{0}")
+		ForcePageReset()
+	ElseIf option == _claimWindowOption
 		Int seconds = value as Int
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.ClaimWindowSeconds", seconds)
 		SetSliderOptionValue(option, seconds, "{0} seconds")
@@ -707,6 +1102,7 @@ Function SetTestLevel(Int family, Int level)
 	Int rank = RankForLevel(level)
 	StorageUtil.SetIntValue(player, "Feral.Rank." + family, rank)
 	ApplyShapeRank(family, rank)
+	ApplyTechniquePower(family)
 	Debug.Notification("Feral test: " + FamilyName(family) + " set to mastery level " + level + " / " + FormatShapeValue(GetExpressionScale(family) * 100.0) + "% expression.")
 EndFunction
 
@@ -860,6 +1256,46 @@ Spell Function GetShapeSpell(Int family, Int rank)
 	EndIf
 	Int formID = 0x0009A0 + ((family - 1) * 3) + (rank - 1)
 	Return Game.GetFormFromFile(formID, "Feral.esp") as Spell
+EndFunction
+
+Spell Function GetTechniqueSpell(Int family)
+	If family < 1 || family > 8
+		Return None
+	EndIf
+	Return Game.GetFormFromFile(0x000A10 + (family - 1), "Feral.esp") as Spell
+EndFunction
+
+Function ApplyTechniquePower(Int family)
+	Spell technique = GetTechniqueSpell(family)
+	If !technique
+		Return
+	EndIf
+	Actor player = Game.GetPlayer()
+	If IsFeralEnabled() && GetMasteryLevel(family) >= 50
+		player.AddSpell(technique, false)
+	Else
+		player.RemoveSpell(technique)
+	EndIf
+EndFunction
+
+Function RefreshTechniquePowers()
+	Int family = 1
+	While family <= 8
+		ApplyTechniquePower(family)
+		family += 1
+	EndWhile
+EndFunction
+
+Function RemoveAllTechniquePowers()
+	Actor player = Game.GetPlayer()
+	Int family = 1
+	While family <= 8
+		Spell technique = GetTechniqueSpell(family)
+		If technique
+			player.RemoveSpell(technique)
+		EndIf
+		family += 1
+	EndWhile
 EndFunction
 
 Function ApplyShapeRank(Int family, Int rank)
@@ -1070,6 +1506,17 @@ Function MigrateEconomy()
 			visualFamily += 1
 		EndWhile
 		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 7)
+	EndIf
+	If version < 8
+		RefreshTechniquePowers()
+		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 8)
+	EndIf
+	If version < 9
+		If StorageUtil.GetIntValue(player, "Feral.HumanResponseInitialized") < 1
+			StorageUtil.SetIntValue(player, "Feral.HumanResponseInitialized", 1)
+			StorageUtil.SetIntValue(player, "Feral.HumanResponseMode", 2)
+		EndIf
+		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 9)
 	EndIf
 EndFunction
 
