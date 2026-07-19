@@ -20,7 +20,7 @@ Int _testClaimOption
 Int _testResetOption
 
 Int Function GetVersion()
-	Return 4
+	Return 5
 EndFunction
 
 Event OnConfigInit()
@@ -41,7 +41,28 @@ Bool Function IsFeralEnabled()
 EndFunction
 
 Bool Function IsFeralPathEnabled()
-	Return StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.PathEnabled") > 0
+	Return GetFeralPathMode() > 0
+EndFunction
+
+Int Function GetFeralPathMode()
+	Int mode = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.PathMode")
+	If mode < 0 || mode > 2
+		mode = 0
+	EndIf
+	If mode == 0 && StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.PathEnabled") > 0
+		mode = 2
+	EndIf
+	Return mode
+EndFunction
+
+String Function FeralPathModeName()
+	Int mode = GetFeralPathMode()
+	If mode == 1
+		Return "Balanced"
+	ElseIf mode == 2
+		Return "Hardcore"
+	EndIf
+	Return "Off"
 EndFunction
 
 Bool Function IsDeveloperToolsEnabled()
@@ -77,8 +98,7 @@ Function SetFeralEnabled(Bool enabled)
 		StorageUtil.SetIntValue(player, "Feral.Enabled", 0)
 		StorageUtil.SetIntValue(player, "Feral.Selected", 0)
 		StorageUtil.SetIntValue(player, "Feral.AspectActive", 0)
-		StorageUtil.UnsetFormValue(player, "Feral.LastKill")
-		StorageUtil.UnsetFloatValue(player, "Feral.LastKillAt")
+		ClearPendingEssence()
 		Debug.Notification("Feral hunting disabled.")
 	EndIf
 EndFunction
@@ -117,11 +137,11 @@ Function HandleFeralReload()
 	If IsFeralEnabled()
 		InitializeFeral()
 	EndIf
-	If IsFeralPathEnabled() && IsFeralEnabled()
+	If GetFeralPathMode() > 0 && IsFeralEnabled()
 		SaveExperienceSettings()
 		ApplyFeralPathSettings()
-	ElseIf IsFeralPathEnabled()
-		SetFeralPathEnabled(false)
+	ElseIf GetFeralPathMode() > 0
+		SetFeralPathMode(0)
 	Else
 		RecoverExperienceSettingsIfNeeded()
 	EndIf
@@ -144,10 +164,24 @@ Function RepairAspectState()
 		StorageUtil.SetIntValue(player, "Feral.AspectActive", 0)
 		StorageUtil.SetIntValue(player, "Feral.ActiveFamily", 0)
 		StorageUtil.SetIntValue(player, "Feral.ActiveRank", 0)
-		If activeForm && activeForm.GetValueInt() >= 101 && activeForm.GetValueInt() <= 108
+		StorageUtil.SetIntValue(player, "Feral.ActiveToken", 0)
+		StorageUtil.UnsetFloatValue(player, "Feral.ActiveExpression")
+		If activeForm && IsFeralActiveValue(activeForm.GetValueInt())
 			activeForm.SetValue(0)
 		EndIf
 	EndIf
+EndFunction
+
+Int Function ActiveFormId(Int activeValue)
+	If activeValue >= 100000
+		Return activeValue / 100000
+	EndIf
+	Return activeValue
+EndFunction
+
+Bool Function IsFeralActiveValue(Int activeValue)
+	Int formID = ActiveFormId(activeValue)
+	Return formID >= 101 && formID <= 108
 EndFunction
 
 Function RegisterForFeralKills()
@@ -156,12 +190,14 @@ Function RegisterForFeralKills()
 EndFunction
 
 Event OnActorKilled(Actor akVictim, Actor akKiller)
-	If IsFeralEnabled() && akKiller == Game.GetPlayer() && GetFamily(akVictim) > 0
-		StorageUtil.SetFormValue(Game.GetPlayer(), "Feral.LastKill", akVictim)
-		StorageUtil.SetFloatValue(Game.GetPlayer(), "Feral.LastKillAt", Utility.GetCurrentRealTime())
-		StorageUtil.SetIntValue(akVictim, "Feral.Eligible", GetFamily(akVictim))
+	Int family = GetFamily(akVictim)
+	If IsFeralEnabled() && akKiller == Game.GetPlayer() && family > 0
+		Actor player = Game.GetPlayer()
+		StorageUtil.SetFloatValue(akVictim, "Feral.KilledAt", Utility.GetCurrentRealTime())
+		StorageUtil.SetIntValue(akVictim, "Feral.Eligible", family)
 		StorageUtil.SetIntValue(akVictim, "Feral.Claimed", 0)
-		Debug.Notification("Feral: cast Claim Soul within " + GetClaimWindowSeconds() + " seconds to take the instinct.")
+		StorageUtil.FormListAdd(player, "Feral.PendingEssence", akVictim, false)
+		Debug.Notification("Feral: " + FamilyName(family) + " essence is waiting. Cast Claim Soul within " + GetClaimWindowSeconds() + " seconds.")
 	EndIf
 EndEvent
 
@@ -184,16 +220,18 @@ Function BuildStatusPage()
 		AddTextOption("Status", "Disabled", OPTION_FLAG_DISABLED)
 		Return
 	EndIf
-	_feralPathOption = AddToggleOption("Feral Path: essence-only XP", IsFeralPathEnabled())
+	_feralPathOption = AddTextOption("Feral Path XP mode", FeralPathModeName(), OPTION_FLAG_NONE)
 	AddTextOption("Current claim window", GetClaimWindowStatus(), OPTION_FLAG_DISABLED)
+	AddTextOption("Pending essences", GetPendingEssenceCount(), OPTION_FLAG_DISABLED)
+	AddTextOption("Transformation fatigue", FatigueStatus(), OPTION_FLAG_DISABLED)
 	Int activeFamily = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.ActiveFamily")
 	If activeFamily > 0
-		AddTextOption("Active transformation", FamilyName(activeFamily) + " / rank " + StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.ActiveRank"), OPTION_FLAG_DISABLED)
+		AddTextOption("Active transformation", FamilyName(activeFamily) + " / rank " + StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.ActiveRank") + " / " + FormatShapeValue(StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.ActiveExpression") * 100.0) + "%", OPTION_FLAG_DISABLED)
 		_endShapeOption = AddTextOption("Return to Self", "End shape", OPTION_FLAG_NONE)
 	Else
 		AddTextOption("Active transformation", "None", OPTION_FLAG_DISABLED)
 	EndIf
-	AddTextOption("Feral Path rewards", "25 / 35 / 50 XP", OPTION_FLAG_DISABLED)
+	AddTextOption("Feral Path rewards", "30 / 45 / 70 XP", OPTION_FLAG_DISABLED)
 	AddHeaderOption("Claim totals / ranks")
 	Int i = 1
 	While i <= 8
@@ -209,14 +247,32 @@ Function BuildInstinctsPage()
 	AddHeaderOption("Transformation")
 	_focusFamilyOption = AddTextOption("Selected family", FamilyName(family), OPTION_FLAG_NONE)
 	AddTextOption("Claims / rank", count + " / " + rank, OPTION_FLAG_DISABLED)
-	AddTextOption("Next rank", NextRankText(count), OPTION_FLAG_DISABLED)
+	AddTextOption("Next rank", NextRankText(family, count), OPTION_FLAG_DISABLED)
+	AddTextOption("Current expression", FormatShapeValue(GetExpressionScale(family) * 100.0) + "%", OPTION_FLAG_DISABLED)
+	AddTextOption("Next claim improvement", NextClaimImprovementText(family), OPTION_FLAG_DISABLED)
 	Spell shape = GetShapeSpell(family, rank)
 	AddTextOption("Power known", YesNo(shape && Game.GetPlayer().HasSpell(shape)), OPTION_FLAG_DISABLED)
 	AddHeaderOption("Changes while transformed")
 	AddTextOption("Combat effect", ShapeBonusText(family, rank), OPTION_FLAG_DISABLED)
 	AddTextOption("Body expression", ShapeVisualText(family), OPTION_FLAG_DISABLED)
+	AddTextOption("Optional cosmetic", CosmeticStatus(family, rank), OPTION_FLAG_DISABLED)
 	AddTextOption("Duration", "120 seconds", OPTION_FLAG_DISABLED)
-	AddTextOption("Strength", ShapeScaleText(rank), OPTION_FLAG_DISABLED)
+	AddTextOption("Marking stage", MarkStageText(rank), OPTION_FLAG_DISABLED)
+EndFunction
+
+String Function CosmeticStatus(Int family, Int rank)
+	If rank < 3
+		Return "Unlocks at rank 3 when configured"
+	EndIf
+	String configKey = "Family" + family + "Rank3"
+	String pluginName = JsonUtil.GetStringValue("../Feral/Cosmetics", configKey + "Plugin")
+	Int formID = JsonUtil.GetIntValue("../Feral/Cosmetics", configKey + "FormID")
+	If pluginName == "" || formID <= 0
+		Return "None configured"
+	ElseIf Game.GetFormFromFile(formID, pluginName)
+		Return "Available: " + pluginName
+	EndIf
+	Return "Configured plugin not found"
 EndFunction
 
 Function BuildSettingsPage()
@@ -234,9 +290,9 @@ Function BuildSettingsPage()
 		AddTextOption("Ordinary XP suppressed", YesNo(ExperienceRewardsAreSuppressed()), OPTION_FLAG_DISABLED)
 		AddTextOption("XP restore snapshot", YesNo(JsonUtil.GetIntValue(GetExperienceStateFile(), "OwnerActive") > 0), OPTION_FLAG_DISABLED)
 		_testFamilyOption = AddTextOption("Test family", FamilyName(testFamily), OPTION_FLAG_NONE)
-		_testSetTwoOption = AddTextOption("Set test family to 2 claims", "Set", OPTION_FLAG_NONE)
-		_testSetNineOption = AddTextOption("Set test family to 9 claims", "Set", OPTION_FLAG_NONE)
-		_testSetTwentyFourOption = AddTextOption("Set test family to 24 claims", "Set", OPTION_FLAG_NONE)
+		_testSetTwoOption = AddTextOption("Set one below rank 1", "Set", OPTION_FLAG_NONE)
+		_testSetNineOption = AddTextOption("Set one below rank 2", "Set", OPTION_FLAG_NONE)
+		_testSetTwentyFourOption = AddTextOption("Set one below rank 3", "Set", OPTION_FLAG_NONE)
 		_testClaimOption = AddTextOption("Simulate one successful claim", "Run", OPTION_FLAG_NONE)
 		_testResetOption = AddTextOption("Reset test family", "Reset", OPTION_FLAG_NONE)
 	EndIf
@@ -285,54 +341,117 @@ Int Function GetFocusFamily()
 	Return family
 EndFunction
 
-String Function NextRankText(Int count)
-	If count < 3
-		Return (3 - count) + " more claims"
-	ElseIf count < 10
-		Return (10 - count) + " more claims"
-	ElseIf count < 25
-		Return (25 - count) + " more claims"
+Int Function RankOneThreshold(Int family)
+	If family == 4
+		Return 3
+	ElseIf family == 1 || family == 5 || family == 6 || family == 7
+		Return 2
+	EndIf
+	Return 1
+EndFunction
+
+Int Function RankTwoThreshold(Int family)
+	If family == 4
+		Return 8
+	ElseIf family == 1 || family == 5 || family == 6
+		Return 7
+	ElseIf family == 7
+		Return 6
+	ElseIf family == 2
+		Return 5
+	ElseIf family == 3
+		Return 4
+	EndIf
+	Return 3
+EndFunction
+
+Int Function RankThreeThreshold(Int family)
+	If family == 4
+		Return 18
+	ElseIf family == 1 || family == 5 || family == 6
+		Return 16
+	ElseIf family == 7
+		Return 14
+	ElseIf family == 2
+		Return 12
+	ElseIf family == 3
+		Return 10
+	EndIf
+	Return 7
+EndFunction
+
+String Function NextRankText(Int family, Int count)
+	If count < RankOneThreshold(family)
+		Return (RankOneThreshold(family) - count) + " more claims"
+	ElseIf count < RankTwoThreshold(family)
+		Return (RankTwoThreshold(family) - count) + " more claims"
+	ElseIf count < RankThreeThreshold(family)
+		Return (RankThreeThreshold(family) - count) + " more claims"
 	EndIf
 	Return "Maximum rank"
 EndFunction
 
-String Function ShapeScaleText(Int rank)
-	If rank == 1
-		Return "50% expression"
-	ElseIf rank == 2
-		Return "75% expression"
-	ElseIf rank == 3
-		Return "100% expression"
+Float Function GetExpressionScale(Int family)
+	Int count = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + family)
+	Return ExpressionScaleForCount(family, count)
+EndFunction
+
+Float Function ExpressionScaleForCount(Int family, Int count)
+	Int first = RankOneThreshold(family)
+	Int second = RankTwoThreshold(family)
+	Int third = RankThreeThreshold(family)
+	If count < first
+		Return 0.0
+	ElseIf count < second
+		Return 0.50 + (0.25 * (count - first) / (second - first))
+	ElseIf count < third
+		Return 0.75 + (0.25 * (count - second) / (third - second))
 	EndIf
-	Return "Locked at 3 claims"
+	Return 1.0
+EndFunction
+
+String Function NextClaimImprovementText(Int family)
+	Float current = GetExpressionScale(family)
+	If current >= 1.0
+		Return "Maximum expression"
+	EndIf
+	Int count = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + family)
+	Float nextValue = ExpressionScaleForCount(family, count + 1)
+	Return "+" + FormatShapeValue((nextValue - current) * 100.0) + "% expression"
+EndFunction
+
+String Function MarkStageText(Int rank)
+	If rank == 1
+		Return "Subtle"
+	ElseIf rank == 2
+		Return "Developed"
+	ElseIf rank == 3
+		Return "Full expression"
+	EndIf
+	Return "Locked"
 EndFunction
 
 String Function ShapeBonusText(Int family, Int rank)
 	If rank < 1
 		Return "Locked"
 	EndIf
-	Float scale = 0.50
-	If rank == 2
-		scale = 0.75
-	ElseIf rank >= 3
-		scale = 1.00
-	EndIf
+	Float scale = GetExpressionScale(family)
 	If family == 1
-		Return "+" + FormatShapeValue(15.0 * scale) + " speed / +" + FormatShapeValue(25.0 * scale) + " stamina regen"
+		Return "+" + FormatShapeValue(12.0 * scale) + " speed / +" + FormatShapeValue(35.0 * scale) + " stamina regen / +" + FormatShapeValue(15.0 * scale) + " unarmed"
 	ElseIf family == 2
-		Return "+" + FormatShapeValue(15.0 * scale) + " Sneak / +" + FormatShapeValue(15.0 * scale) + " unarmed"
+		Return "+" + FormatShapeValue(25.0 * scale) + " Sneak / +" + FormatShapeValue(25.0 * scale) + " unarmed / +" + FormatShapeValue(10.0 * scale) + "% attack speed"
 	ElseIf family == 3
-		Return "+" + FormatShapeValue(80.0 * scale) + " armor / +" + FormatShapeValue(40.0 * scale) + " Health"
+		Return "+" + FormatShapeValue(100.0 * scale) + " armor / +" + FormatShapeValue(50.0 * scale) + " Health / +" + FormatShapeValue(25.0 * scale) + " stagger resist"
 	ElseIf family == 4
-		Return "+" + FormatShapeValue(50.0 * scale) + " poison and disease resist"
+		Return "+" + FormatShapeValue(60.0 * scale) + " poison/disease resist / +" + FormatShapeValue(20.0 * scale) + " Sneak / +" + FormatShapeValue(30.0 * scale) + " carry"
 	ElseIf family == 5
-		Return "+" + FormatShapeValue(75.0 * scale) + " poison resist"
+		Return "+" + FormatShapeValue(80.0 * scale) + " poison resist / +" + FormatShapeValue(30.0 * scale) + " unarmed / +" + FormatShapeValue(15.0 * scale) + " speed"
 	ElseIf family == 6
-		Return "+" + FormatShapeValue(65.0 * scale) + " armor"
+		Return "+" + FormatShapeValue(140.0 * scale) + " armor / +" + FormatShapeValue(20.0 * scale) + " Block / -" + FormatShapeValue(8.0 * scale) + " speed"
 	ElseIf family == 7
-		Return "+" + FormatShapeValue(20.0 * scale) + " speed / +" + FormatShapeValue(60.0 * scale) + " Stamina"
+		Return "+" + FormatShapeValue(15.0 * scale) + " speed / +" + FormatShapeValue(80.0 * scale) + " Stamina / +" + FormatShapeValue(20.0 * scale) + " Archery"
 	ElseIf family == 8
-		Return "+" + FormatShapeValue(2.0 * scale) + " regen / -" + FormatShapeValue(35.0 * scale) + " fire resist"
+		Return "+" + FormatShapeValue(2.0 * scale) + " regen / +" + FormatShapeValue(25.0 * scale) + " melee / +" + FormatShapeValue(60.0 * scale) + " Health / -" + FormatShapeValue(40.0 * scale) + " fire resist"
 	EndIf
 	Return ""
 EndFunction
@@ -365,7 +484,7 @@ String Function ShapeVisualText(Int family)
 	ElseIf family == 6
 		Return "Squat armored crab build"
 	ElseIf family == 7
-		Return "Powerful equine lower body"
+		Return "Graceful long-legged stag build"
 	ElseIf family == 8
 		Return "Large troll arms and shoulders"
 	EndIf
@@ -373,16 +492,56 @@ String Function ShapeVisualText(Int family)
 EndFunction
 
 String Function GetClaimWindowStatus()
-	Actor player = Game.GetPlayer()
-	Actor victim = StorageUtil.GetFormValue(player, "Feral.LastKill") as Actor
-	If !victim || StorageUtil.GetIntValue(victim, "Feral.Eligible") < 1 || StorageUtil.GetIntValue(victim, "Feral.Claimed") > 0
+	Int count = GetPendingEssenceCount()
+	If count < 1
 		Return "None"
 	EndIf
-	Int seconds = (GetClaimWindowSeconds() - (Utility.GetCurrentRealTime() - StorageUtil.GetFloatValue(player, "Feral.LastKillAt"))) as Int
-	If seconds < 0
-		Return "Expired"
+	Return count + " essence(s) ready / " + GetClaimWindowSeconds() + "s window"
+EndFunction
+
+Int Function GetPendingEssenceCount()
+	PurgeExpiredEssence()
+	Return StorageUtil.FormListCount(Game.GetPlayer(), "Feral.PendingEssence")
+EndFunction
+
+Function PurgeExpiredEssence()
+	Actor player = Game.GetPlayer()
+	Int i = StorageUtil.FormListCount(player, "Feral.PendingEssence") - 1
+	While i >= 0
+		Actor victim = StorageUtil.FormListGet(player, "Feral.PendingEssence", i) as Actor
+		If !victim || !victim.IsDead() || StorageUtil.GetIntValue(victim, "Feral.Eligible") < 1 || StorageUtil.GetIntValue(victim, "Feral.Claimed") > 0 || Utility.GetCurrentRealTime() - StorageUtil.GetFloatValue(victim, "Feral.KilledAt") > GetClaimWindowSeconds()
+			StorageUtil.FormListRemoveAt(player, "Feral.PendingEssence", i)
+		EndIf
+		i -= 1
+	EndWhile
+EndFunction
+
+Function ClearPendingEssence()
+	StorageUtil.FormListClear(Game.GetPlayer(), "Feral.PendingEssence")
+EndFunction
+
+Int Function GetFatigueSecondsRemaining()
+	Float remaining = StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.FatigueUntil") - Utility.GetCurrentRealTime()
+	If remaining <= 0.0
+		Return 0
 	EndIf
-	Return FamilyName(StorageUtil.GetIntValue(victim, "Feral.Eligible")) + " / " + seconds + "s"
+	Return Math.Ceiling(remaining) as Int
+EndFunction
+
+String Function FatigueStatus()
+	Int seconds = GetFatigueSecondsRemaining()
+	If seconds > 0
+		Return seconds + "s"
+	EndIf
+	Return "Ready"
+EndFunction
+
+Bool Function CanBeginShape()
+	Return GetFatigueSecondsRemaining() <= 0
+EndFunction
+
+Function StartFeralFatigue()
+	StorageUtil.SetFloatValue(Game.GetPlayer(), "Feral.FatigueUntil", Utility.GetCurrentRealTime() + 15.0)
 EndFunction
 
 Event OnOptionSelect(Int option)
@@ -390,7 +549,11 @@ Event OnOptionSelect(Int option)
 		SetFeralEnabled(!IsFeralEnabled())
 		ForcePageReset()
 	ElseIf option == _feralPathOption
-		SetFeralPathEnabled(!IsFeralPathEnabled())
+		Int nextMode = GetFeralPathMode() + 1
+		If nextMode > 2
+			nextMode = 0
+		EndIf
+		SetFeralPathMode(nextMode)
 		ForcePageReset()
 	ElseIf option == _recalculateOption
 		RefreshShapePowers()
@@ -409,12 +572,15 @@ Event OnOptionSelect(Int option)
 	ElseIf option == _restoreExperienceOption
 		RestoreExperienceSettings()
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.PathEnabled", 0)
+		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.PathMode", 0)
 		Debug.Notification("Feral: Experience settings restored and Feral Path disabled.")
 		ForcePageReset()
 	ElseIf option == _reloadRacesOption
 		JsonUtil.Unload("../Feral/Races", false)
 		JsonUtil.Load("../Feral/Races")
-		Debug.Notification("Feral: custom race configuration reloaded.")
+		JsonUtil.Unload("../Feral/Cosmetics", false)
+		JsonUtil.Load("../Feral/Cosmetics")
+		Debug.Notification("Feral: race and cosmetic configurations reloaded.")
 	ElseIf option == _developerOption
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.DeveloperTools", (!IsDeveloperToolsEnabled()) as Int)
 		ForcePageReset()
@@ -426,13 +592,13 @@ Event OnOptionSelect(Int option)
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.TestFamily", testFamily)
 		ForcePageReset()
 	ElseIf option == _testSetTwoOption
-		SetTestProgress(GetTestFamily(), 2)
+		SetTestProgress(GetTestFamily(), RankOneThreshold(GetTestFamily()) - 1)
 		ForcePageReset()
 	ElseIf option == _testSetNineOption
-		SetTestProgress(GetTestFamily(), 9)
+		SetTestProgress(GetTestFamily(), RankTwoThreshold(GetTestFamily()) - 1)
 		ForcePageReset()
 	ElseIf option == _testSetTwentyFourOption
-		SetTestProgress(GetTestFamily(), 24)
+		SetTestProgress(GetTestFamily(), RankThreeThreshold(GetTestFamily()) - 1)
 		ForcePageReset()
 	ElseIf option == _testClaimOption
 		CompleteClaim(GetTestFamily())
@@ -474,7 +640,7 @@ String Function FamilyName(Int family)
 	ElseIf family == 6
 		Return "Mudcrab"
 	ElseIf family == 7
-		Return "Horse"
+		Return "Stag"
 	ElseIf family == 8
 		Return "Troll"
 	EndIf
@@ -496,18 +662,18 @@ Function SetTestProgress(Int family, Int count)
 	EndIf
 	Actor player = Game.GetPlayer()
 	StorageUtil.SetIntValue(player, "Feral.Count." + family, count)
-	Int rank = RankForCount(count)
+	Int rank = RankForCount(family, count)
 	StorageUtil.SetIntValue(player, "Feral.Rank." + family, rank)
 	ApplyShapeRank(family, rank)
 	Debug.Notification("Feral test: " + FamilyName(family) + " set to " + count + " claims / rank " + rank + ".")
 EndFunction
 
-Int Function RankForCount(Int count)
-	If count >= 25
+Int Function RankForCount(Int family, Int count)
+	If count >= RankThreeThreshold(family)
 		Return 3
-	ElseIf count >= 10
+	ElseIf count >= RankTwoThreshold(family)
 		Return 2
-	ElseIf count >= 3
+	ElseIf count >= RankOneThreshold(family)
 		Return 1
 	EndIf
 	Return 0
@@ -530,7 +696,7 @@ Int Function GetFamily(Actor akActor)
 		Return 5
 	ElseIf r == Game.GetForm(0x000BA545) as Race || r == Game.GetFormFromFile(0x0001B647, "Dragonborn.esm") as Race
 		Return 6
-	ElseIf r == Game.GetForm(0x000131FD) as Race || r == Game.GetForm(0x000DE505) as Race
+	ElseIf r == Game.GetForm(0x000131ED) as Race || r == Game.GetForm(0x000CF89B) as Race || r == Game.GetForm(0x00104F45) as Race || r == Game.GetFormFromFile(0x0000D0B2, "Dawnguard.esm") as Race
 		Return 7
 	ElseIf r == Game.GetForm(0x00013205) as Race || r == Game.GetForm(0x00013206) as Race || r == Game.GetFormFromFile(0x000117F4, "Dawnguard.esm") as Race || r == Game.GetFormFromFile(0x000117F5, "Dawnguard.esm") as Race
 		Return 8
@@ -543,23 +709,33 @@ Int Function GetConfiguredFamily(Race creatureRace)
 	Int family = 1
 	While family <= 8
 		String familyKey = FamilyConfigKey(family)
-		Int count = JsonUtil.StringListCount(configFile, familyKey + "Plugins")
-		Int formCount = JsonUtil.IntListCount(configFile, familyKey + "FormIDs")
-		If formCount < count
-			count = formCount
+		If RaceMatchesConfig(creatureRace, configFile, familyKey)
+			Return family
 		EndIf
-		Int i = 0
-		While i < count
-			String pluginName = JsonUtil.StringListGet(configFile, familyKey + "Plugins", i)
-			Int formID = JsonUtil.IntListGet(configFile, familyKey + "FormIDs", i)
-			If creatureRace == Game.GetFormFromFile(formID, pluginName) as Race
-				Return family
-			EndIf
-			i += 1
-		EndWhile
+		If family == 7 && RaceMatchesConfig(creatureRace, configFile, "Horse")
+			Return family
+		EndIf
 		family += 1
 	EndWhile
 	Return 0
+EndFunction
+
+Bool Function RaceMatchesConfig(Race creatureRace, String configFile, String familyKey)
+	Int count = JsonUtil.StringListCount(configFile, familyKey + "Plugins")
+	Int formCount = JsonUtil.IntListCount(configFile, familyKey + "FormIDs")
+	If formCount < count
+		count = formCount
+	EndIf
+	Int i = 0
+	While i < count
+		String pluginName = JsonUtil.StringListGet(configFile, familyKey + "Plugins", i)
+		Int formID = JsonUtil.IntListGet(configFile, familyKey + "FormIDs", i)
+		If creatureRace == Game.GetFormFromFile(formID, pluginName) as Race
+			Return true
+		EndIf
+		i += 1
+	EndWhile
+	Return false
 EndFunction
 
 String Function FamilyConfigKey(Int family)
@@ -576,7 +752,7 @@ String Function FamilyConfigKey(Int family)
 	ElseIf family == 6
 		Return "Mudcrab"
 	ElseIf family == 7
-		Return "Horse"
+		Return "Stag"
 	ElseIf family == 8
 		Return "Troll"
 	EndIf
@@ -584,42 +760,50 @@ String Function FamilyConfigKey(Int family)
 EndFunction
 
 Int Function ClaimLast()
+	Return ClaimPendingEssence()
+EndFunction
+
+Int Function ClaimPendingEssence()
 	If !IsFeralEnabled()
 		Debug.Notification("Feral hunting is disabled. Enable it in the Feral MCM first.")
 		Return 0
 	EndIf
-	Actor victim = StorageUtil.GetFormValue(Game.GetPlayer(), "Feral.LastKill") as Actor
-	If !victim || !victim.IsDead() || StorageUtil.GetIntValue(victim, "Feral.Eligible") < 1
+	PurgeExpiredEssence()
+	Actor player = Game.GetPlayer()
+	Int i = StorageUtil.FormListCount(player, "Feral.PendingEssence") - 1
+	If i < 0
 		Debug.Notification("Feral: no recently hunted creature is ready to claim.")
 		Return 0
 	EndIf
-	If Utility.GetCurrentRealTime() - StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.LastKillAt") > GetClaimWindowSeconds()
-		Debug.Notification("Feral: the trail has gone cold. Claim essence within " + GetClaimWindowSeconds() + " seconds of the kill.")
-		Return 0
-	EndIf
-	If StorageUtil.GetIntValue(victim, "Feral.Claimed") > 0
-		Debug.Notification("Feral: that essence is already claimed.")
-		Return 0
-	EndIf
-	Int family = StorageUtil.GetIntValue(victim, "Feral.Eligible")
-	StorageUtil.SetIntValue(victim, "Feral.Claimed", 1)
-	CompleteClaim(family)
-	Return family
+	Int claimed = 0
+	While i >= 0
+		Actor victim = StorageUtil.FormListGet(player, "Feral.PendingEssence", i) as Actor
+		If victim
+			Int family = StorageUtil.GetIntValue(victim, "Feral.Eligible")
+			StorageUtil.SetIntValue(victim, "Feral.Claimed", 1)
+			CompleteClaim(family, true)
+			claimed += 1
+		EndIf
+		StorageUtil.FormListRemoveAt(player, "Feral.PendingEssence", i)
+		i -= 1
+	EndWhile
+	Debug.Notification("Feral: claimed " + claimed + " waiting essence(s).")
+	Return claimed
 EndFunction
 
-Function CompleteClaim(Int family)
+Function CompleteClaim(Int family, Bool silent = false)
 	If family < 1 || family > 8
 		Return
 	EndIf
 	Int count = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + family) + 1
 	StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Count." + family, count)
 	Int oldRank = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Rank." + family)
-	Int newRank = RankForCount(count)
+	Int newRank = RankForCount(family, count)
 	If newRank > oldRank
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Rank." + family, newRank)
 		ApplyShapeRank(family, newRank)
 		Debug.Notification("Feral " + FamilyName(family) + " transformation reaches rank " + newRank + ".")
-	Else
+	ElseIf !silent
 		Debug.Notification("Feral: " + FamilyName(family) + " essence claimed (" + count + ").")
 	EndIf
 	If IsFeralPathEnabled()
@@ -629,12 +813,12 @@ Function CompleteClaim(Int family)
 EndFunction
 
 Int Function GetEssenceXP(Int family)
-	If family == 1 || family == 4 || family == 6
-		Return 25
-	ElseIf family == 2 || family == 5
-		Return 35
-	ElseIf family == 3 || family == 7 || family == 8
-		Return 50
+	If family == 1 || family == 4 || family == 5 || family == 6
+		Return 30
+	ElseIf family == 2 || family == 7
+		Return 45
+	ElseIf family == 3 || family == 8
+		Return 70
 	EndIf
 	Return 0
 EndFunction
@@ -718,29 +902,48 @@ EndFunction
 
 Function EndActiveShape()
 	Actor player = Game.GetPlayer()
+	Bool dispelledActiveEffect = false
 	Int family = 1
 	While family <= 8
 		Int rank = 1
 		While rank <= 3
 			Spell shape = GetShapeSpell(family, rank)
-			If shape
-				player.DispelSpell(shape)
+			If shape && player.DispelSpell(shape)
+				dispelledActiveEffect = true
 			EndIf
 			rank += 1
 		EndWhile
 		family += 1
 	EndWhile
+	If dispelledActiveEffect
+		Return
+	EndIf
+	; No live effect owned the saved state, so this is stale-state recovery.
 	ClearFeralVisuals()
 	GlobalVariable activeForm = Game.GetFormFromFile(0x000801, "Dollform.esp") as GlobalVariable
-	If activeForm && activeForm.GetValueInt() >= 101 && activeForm.GetValueInt() <= 108
+	If activeForm && IsFeralActiveValue(activeForm.GetValueInt())
 		activeForm.SetValue(0)
 	EndIf
 	StorageUtil.SetIntValue(player, "Feral.ActiveFamily", 0)
 	StorageUtil.SetIntValue(player, "Feral.ActiveRank", 0)
+	StorageUtil.SetIntValue(player, "Feral.ActiveToken", 0)
+	StorageUtil.UnsetFloatValue(player, "Feral.ActiveExpression")
 EndFunction
 
 Function ClearFeralVisuals()
 	Actor player = Game.GetPlayer()
+	Armor cosmetic = StorageUtil.GetFormValue(player, "Feral.ActiveCosmetic") as Armor
+	If cosmetic
+		If StorageUtil.GetIntValue(player, "Feral.ActiveCosmeticEquipped") > 0 && player.IsEquipped(cosmetic)
+			player.UnequipItem(cosmetic, false, true)
+		EndIf
+		If StorageUtil.GetIntValue(player, "Feral.ActiveCosmeticAdded") > 0 && player.GetItemCount(cosmetic) > 0
+			player.RemoveItem(cosmetic, 1, true)
+		EndIf
+	EndIf
+	StorageUtil.UnsetFormValue(player, "Feral.ActiveCosmetic")
+	StorageUtil.UnsetIntValue(player, "Feral.ActiveCosmeticAdded")
+	StorageUtil.UnsetIntValue(player, "Feral.ActiveCosmeticEquipped")
 	NiOverride.ClearBodyMorphKeys(player, "Feral.Shapes")
 	NiOverride.ClearBodyMorphKeys(player, "Feral.Shapes.Visible")
 	NiOverride.UpdateModelWeight(player)
@@ -753,7 +956,21 @@ Function ClearFeralVisuals()
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", "Mudcrab Carapace", true, true)
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", "Horse Stride", true, true)
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", "Troll Hide", true, true)
+	RemoveMarkStages(player, "Wolf Pelt")
+	RemoveMarkStages(player, "Sabre Stripes")
+	RemoveMarkStages(player, "Bear Mantle")
+	RemoveMarkStages(player, "Skeever Mottle")
+	RemoveMarkStages(player, "Spider Chitin")
+	RemoveMarkStages(player, "Mudcrab Carapace")
+	RemoveMarkStages(player, "Stag Dappling")
+	RemoveMarkStages(player, "Troll Hide")
 	SlaveTats.synchronize_tattoos(player, true)
+EndFunction
+
+Function RemoveMarkStages(Actor player, String baseName)
+	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseName + " I", true, true)
+	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseName + " II", true, true)
+	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseName + " III", true, true)
 EndFunction
 
 Function RemoveLegacyPassiveValues(Int version)
@@ -804,6 +1021,24 @@ Function MigrateEconomy()
 		StorageUtil.SetIntValue(player, "Feral.AspectActive", 0)
 		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 4)
 	EndIf
+	If version < 5
+		Int family = 1
+		While family <= 8
+			StorageUtil.SetIntValue(player, "Feral.Rank." + family, RankForCount(family, StorageUtil.GetIntValue(player, "Feral.Count." + family)))
+			family += 1
+		EndWhile
+		If StorageUtil.GetIntValue(player, "Feral.PathEnabled") > 0
+			StorageUtil.SetIntValue(player, "Feral.PathMode", 2)
+		EndIf
+		Actor legacyVictim = StorageUtil.GetFormValue(player, "Feral.LastKill") as Actor
+		If legacyVictim && legacyVictim.IsDead() && StorageUtil.GetIntValue(legacyVictim, "Feral.Claimed") < 1
+			StorageUtil.SetFloatValue(legacyVictim, "Feral.KilledAt", StorageUtil.GetFloatValue(player, "Feral.LastKillAt"))
+			StorageUtil.FormListAdd(player, "Feral.PendingEssence", legacyVictim, false)
+		EndIf
+		StorageUtil.UnsetFormValue(player, "Feral.LastKill")
+		StorageUtil.UnsetFloatValue(player, "Feral.LastKillAt")
+		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 5)
+	EndIf
 	If IsFeralEnabled()
 		RefreshShapePowers()
 	Else
@@ -812,19 +1047,29 @@ Function MigrateEconomy()
 EndFunction
 
 Function SetFeralPathEnabled(Bool enabled)
-	Actor player = Game.GetPlayer()
 	If enabled
+		SetFeralPathMode(2)
+	Else
+		SetFeralPathMode(0)
+	EndIf
+EndFunction
+
+Function SetFeralPathMode(Int mode)
+	Actor player = Game.GetPlayer()
+	If mode > 0
 		If !IsFeralEnabled()
 			Debug.Notification("Feral: enable Feral hunting before choosing the Feral Path.")
 			Return
 		EndIf
 		SaveExperienceSettings()
 		StorageUtil.SetIntValue(player, "Feral.PathEnabled", 1)
+		StorageUtil.SetIntValue(player, "Feral.PathMode", mode)
 		ApplyFeralPathSettings()
-		Debug.Notification("Feral Path enabled: only claimed essence grants character XP.")
+		Debug.Notification("Feral Path " + FeralPathModeName() + " mode enabled.")
 	Else
 		RestoreExperienceSettings()
 		StorageUtil.SetIntValue(player, "Feral.PathEnabled", 0)
+		StorageUtil.SetIntValue(player, "Feral.PathMode", 0)
 		Debug.Notification("Feral Path disabled: prior Experience rewards restored.")
 	EndIf
 EndFunction
@@ -833,7 +1078,7 @@ Function SaveExperienceSettings()
 	Actor player = Game.GetPlayer()
 	String stateFile = GetExperienceStateFile()
 	String[] settings = GetExperienceRewardSettings()
-	If JsonUtil.GetIntValue(stateFile, "OwnerActive") < 1 || !ExperienceRewardsAreSuppressed()
+	If JsonUtil.GetIntValue(stateFile, "OwnerActive") < 1 && StorageUtil.GetIntValue(player, "Feral.ExperienceSettingsSaved") < 1
 		Int i = 0
 		While i < settings.Length
 			Int value = Experience.GetSettingInt(settings[i])
@@ -853,6 +1098,10 @@ Function SaveExperienceSettings()
 EndFunction
 
 Bool Function ExperienceRewardsAreSuppressed()
+	Int mode = GetFeralPathMode()
+	If mode == 1
+		Return !Experience.GetSettingBool("bEnableKilling") && !Experience.GetSettingBool("bEnableSkillXP") && Experience.GetSettingFloat("fKillingMult") == 0.0
+	EndIf
 	String[] settings = GetExperienceRewardSettings()
 	Int i = 0
 	While i < settings.Length
@@ -872,16 +1121,27 @@ EndFunction
 
 Function ApplyFeralPathSettings()
 	String[] settings = GetExperienceRewardSettings()
+	String stateFile = GetExperienceStateFile()
+	Int mode = GetFeralPathMode()
 	Int i = 0
 	While i < settings.Length
-		Experience.SetSettingInt(settings[i], 0)
+		If mode == 2
+			Experience.SetSettingInt(settings[i], 0)
+		Else
+			Experience.SetSettingInt(settings[i], JsonUtil.GetIntValue(stateFile, "Int." + settings[i]))
+		EndIf
 		i += 1
 	EndWhile
 	Experience.SetSettingBool("bEnableKilling", false)
-	Experience.SetSettingBool("bEnableReading", false)
 	Experience.SetSettingBool("bEnableSkillXP", false)
 	Experience.SetSettingFloat("fKillingMult", 0.0)
-	Experience.SetSettingFloat("fReadingMult", 0.0)
+	If mode == 2
+		Experience.SetSettingBool("bEnableReading", false)
+		Experience.SetSettingFloat("fReadingMult", 0.0)
+	Else
+		Experience.SetSettingBool("bEnableReading", JsonUtil.GetIntValue(stateFile, "bEnableReading") > 0)
+		Experience.SetSettingFloat("fReadingMult", JsonUtil.GetFloatValue(stateFile, "fReadingMult"))
+	EndIf
 EndFunction
 
 Function RestoreExperienceSettings()
