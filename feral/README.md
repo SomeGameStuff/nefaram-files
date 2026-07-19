@@ -1,6 +1,6 @@
 # Feral - Bodymorph Alterations add-on
 
-Feral v5 turns hunting into a smooth transformation progression. Personally kill supported creatures, harvest every waiting essence with one cast, and grow eight distinct temporary feral-glamour shapes. Combat bonuses exist only while transformed.
+Feral v6 turns hunting and transformation use into eight long-form mastery paths. Personally kill supported creatures to absorb their essence automatically, then spend time in the unlocked shape to deepen it from mastery level 1 to 100. Combat bonuses exist only while transformed.
 
 ## Requirements
 
@@ -12,25 +12,26 @@ Install the complete **Feral - Bodymorph Addon** folder as one MO2 mod; do not i
 
 1. Enable Feral hunting in the **Feral** MCM.
 2. Personally kill any supported wolf, sabre cat, bear, skeever, spider, mudcrab, deer/stag, or troll.
-3. Cast **Claim Soul** within the configurable 60-300 real-second window. One cast harvests every waiting eligible kill, so combat never needs to be interrupted.
-4. Each claim permanently improves that family's expression. Rank 1 begins at 50%, rank 2 crosses 75%, and rank 3 reaches 100%; every claim between milestones increases stats and morph intensity.
+3. The matching essence is absorbed immediately. There is no Claim Soul cast, expiration window, corpse queue, or retained corpse reference.
+4. Hunting grants family mastery according to rarity. While transformed, every completed 10 seconds grants another mastery point, capped at 12 per 120-second cast.
+5. Every family has mastery levels 1-100. The cost of the next level is `5 + ceil(current level × 0.45)`, rising from 5 points to 50; reaching level 100 takes 2,775 total mastery points.
 
-| Family | Rank thresholds | Full-expression transformed benefits |
-|---|---:|---|
-| Wolf | 2 / 7 / 16 | +12% speed, +35% stamina regeneration, +15 unarmed damage |
-| Sabre Cat | 1 / 5 / 12 | +25 Sneak, +25 unarmed damage, +10% attack speed |
-| Bear | 1 / 4 / 10 | +100 armor, +50 Health, +25 stagger resistance |
-| Skeever | 3 / 8 / 18 | +60% poison/disease resistance, +20 Sneak, +30 carry weight |
-| Spider | 2 / 7 / 16 | +80% poison resistance, +30 unarmed damage, +15% speed |
-| Mudcrab | 2 / 7 / 16 | +140 armor, +20 Block, +30 stagger resistance, -8% speed |
-| Stag | 2 / 6 / 14 | +15% speed, +80 Stamina, +20 Archery |
-| Troll | 1 / 3 / 7 | +2 Health regeneration, +25 melee damage, +60 Health, -40% fire resistance, -8% speed |
+| Family | Mastery per harvest | Feral Path character XP | Full-expression transformed benefits |
+|---|---:|---:|---|
+| Wolf | 10 | 30 | +12% speed, +35% stamina regeneration, +15 unarmed damage |
+| Sabre Cat | 18 | 45 | +25 Sneak, +25 unarmed damage, +10% attack speed |
+| Bear | 28 | 70 | +100 armor, +50 Health, +25 stagger resistance |
+| Skeever | 10 | 30 | +60% poison/disease resistance, +20 Sneak, +30 carry weight |
+| Spider | 10 | 30 | +80% poison resistance, +30 unarmed damage, +15% speed |
+| Mudcrab | 10 | 30 | +140 armor, +20 Block, +30 stagger resistance, -8% speed |
+| Stag | 18 | 45 | +15% speed, +80 Stamina, +20 Archery |
+| Troll | 28 | 70 | +2 Health regeneration, +25 melee damage, +60 Health, -40% fire resistance, -8% speed |
 
-Shapes last 120 seconds. A 15-second fatigue follows cleanup to prevent instant form swapping. **Return to Self** ends a shape early. Feral and Bodymorph Alterations share one transformation lock and cannot overwrite each other.
+One common-family path takes about 278 harvests if trained only through hunting; uncommon paths take about 155 and rare paths about 100. Actual totals are lower when the shape is used. Shapes last 120 seconds, followed by 15 seconds of fatigue. **Return to Self** ends a shape early. Feral and Bodymorph Alterations share one transformation lock and cannot overwrite each other.
 
 ## Visual progression
 
-Every family has a default 10-12 slider silhouette, three progressively richer 2K SlaveTats body textures, a transformation shader, sound, and camera pulse. Morph magnitude follows the exact expression percentage shown in the MCM: 50% at rank 1, 75% at rank 2, 100% at rank 3, with smooth growth between milestones.
+Every family has a default 10-12 slider silhouette, three progressively richer 2K SlaveTats body textures, a transformation shader, sound, and camera pulse. Stage I covers levels 1-33, Stage II levels 34-66, and Stage III levels 67-100. Expression begins at 50% on level 1 and increases by roughly half a percentage point every level until reaching 100% at level 100.
 
 | Family | Default silhouette at full expression | Marking |
 |---|---|---|
@@ -51,25 +52,41 @@ This transparency contact sheet shows the actual three shipped marking stages af
 
 ![Feral marking stages](assets/FeralMarkingStages-v5.png)
 
-Actual proportions depend on the installed RaceMenu/3BA slider set and the player's preset. The current markings are pre-release art and still require front/side/back in-game screenshots to judge seams, stretching, and body coverage honestly. Rank 3 can equip a configured optional cosmetic without redistributing its assets. The included `Cosmetics.json` detects TDN Equipable Horns and uses its elk horns for the full Stag shape; missing plugins are ignored safely.
+Actual proportions depend on the installed RaceMenu/3BA slider set and the player's preset. The current markings are pre-release art and still require front/side/back in-game screenshots to judge seams, stretching, and body coverage honestly. Stage III can equip a configured optional cosmetic without redistributing its assets. The included `Cosmetics.json` detects TDN Equipable Horns and uses its elk horns for the Stage III Stag shape; missing plugins are ignored safely.
 
 ## MCM and Experience
 
-- **Status:** pending essences, live window, fatigue, XP mode, active expression, and all totals/ranks.
-- **Instincts:** thresholds, next-claim improvement, exact current combat kit, morph direction, marking stage, and cosmetic availability.
-- **Settings:** claim window, repair/cleanup, config reload, Experience restoration, and developer milestone tools.
+- **Status:** automatic harvesting, fatigue, XP mode, active expression, and harvest/mastery totals for all eight families.
+- **Instincts:** level progress, next visual stage, harvest value, shape-use rate, exact combat kit, morph direction, marking stage, and cosmetic availability.
+- **Settings:** repair/cleanup, config reload, Experience restoration, and developer mastery milestones.
 
 Feral Path has three modes:
 
 - **Off:** ordinary Experience behavior.
-- **Balanced:** claims award 30/45/70 XP by rarity; quest, discovery, and clearing XP remain, while normal kill and skill XP are suppressed.
-- **Hardcore:** only claimed essence grants XP.
+- **Balanced:** automatic harvests award 30/45/70 XP by rarity; quest, discovery, and clearing XP remain, while normal kill and skill XP are suppressed.
+- **Hardcore:** only Feral harvest and shape-use XP remains.
 
-The exact prior Experience settings are snapshotted and restored when the path is disabled.
+The exact prior Experience settings are snapshotted and restored when the path is disabled. Shape use grants one character XP per mastery point—up to 12 XP for a full cast—when either Feral Path mode is active.
+
+## Activity and adult-mod integrations
+
+Feral exposes `AddActivityMastery(family, points, source)` on its controller for small optional adapters. The installed **Sex Grants Experience** mod continues to control ordinary sex-scene character XP; Feral does not currently intercept it or grant family mastery from scenes. A correct future adapter must inspect actual SexLab participants, require the player to be in the matching Feral shape, and map the creature actor's race to that same family. The common Sex Grants Experience API exposes only a `hasCreature` flag, which is not enough to award the correct path safely.
+
+## Human fear and hunting
+
+There is not yet a human fear or hunter-response system. It should not be implemented as a cloak, frequent nearby-actor scan, or repeated relationship update. The planned low-overhead design is a persistent notoriety value updated only when mastery changes, dialogue/AI conditions that read it when already evaluating an NPC, and discrete Story Manager hunter encounters at high thresholds. This remains design work rather than a claimed feature.
+
+## Runtime cost
+
+- One `OnActorKilled` event listener; non-player kills and disabled state return before any race or JSON matching.
+- No polling loop, corpse queue, claim-window scan, or stored corpse references.
+- Shape-use mastery is calculated once from the active effect's elapsed time when it finishes; it does not tick every ten seconds.
+- RaceMenu morph rebuilding and SlaveTats synchronization occur only on transformation entry and exit.
+- No NPC fear scans or background faction processing are active.
 
 ## Save compatibility and custom content
 
-Version 5 preserves all counts, recalculates ranks with the rarity thresholds, converts family slot 7 Horse progress into Stag progress, and keeps old records inert for save compatibility. Custom races belong in `SKSE\Plugins\Feral\Races.json`; optional rank-3 armor cosmetics belong in `Cosmetics.json` as plugin names plus decimal plugin-local FormIDs.
+Version 6 preserves all historical harvest counts, converts them into rarity-weighted mastery points, converts family slot 7 Horse progress into Stag progress, removes Claim Soul, clears old pending-corpse references, and keeps legacy records inert for save compatibility. Custom races belong in `SKSE\Plugins\Feral\Races.json`; optional Stage III armor cosmetics belong in `Cosmetics.json` as plugin names plus decimal plugin-local FormIDs.
 
 ## Transformation safety
 

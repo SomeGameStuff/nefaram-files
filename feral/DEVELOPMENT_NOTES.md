@@ -1,6 +1,16 @@
 # Feral development notes
 
-This file preserves implementation and troubleshooting knowledge that should survive chat history. Last updated 2026-07-19 for v5.
+This file preserves implementation and troubleshooting knowledge that should survive chat history. Last updated 2026-07-19 for v6.
+
+## v6 automatic harvest and mastery decisions
+
+- Claim Soul was removed from normal play because it added a confirmation button without a targeting, risk, or choice mechanic. The legacy records remain inert for save compatibility.
+- `OnActorKilled` is event-driven. It now returns before race/JSON matching unless Feral is enabled and the player is the killer, then grants mastery immediately. It never stores the victim.
+- Each family has levels 1-100. The next level costs `5 + ceil(level × 0.45)` mastery, totaling 2,775 points. Common harvests grant 10, uncommon 18, and rare 28, producing roughly 278/155/100 hunting-only kills respectively.
+- Expression is 50% at level 1 and grows linearly to 100% at level 100. Existing three spell/texture records are presentation stages at levels 1, 34, and 67 rather than the entire progression.
+- Shape use grants one mastery point per completed ten seconds, capped at twelve. The active effect reads elapsed time once in `OnEffectFinish`; there is no ten-second update loop.
+- `AddActivityMastery(family, points, source)` is the supported hook for future optional integrations. Adult-scene progression must inspect actual participants and active family in a separate adapter; the generic Sex Grants Experience `hasCreature` boolean cannot identify a path.
+- Human fear/hunted behavior does not exist yet. Implement it with mastery-updated notoriety plus conditional dialogue/Story Manager events, never a cloak or periodic nearby-actor scan.
 
 ## Source, build, and deployment
 
@@ -41,9 +51,9 @@ Static compilation can verify these branches and names, but only an engine test 
 
 The v5 atlas and 24 staged textures are original generated assets and are a clear improvement over placeholder line art, but they are not yet proven final body art. The contact sheet in `assets\FeralMarkingStages-v5.png` is a flat alpha/tint preview, not a 3D screenshot.
 
-Offline sampled alpha coverage at rank 3 was approximately: Sabre 53%, Skeever 65%, Troll 73%, Spider 74%, Wolf 85%, Mudcrab 88%, Bear 90%, and Stag 93%. High coverage can read as a full-body material replacement rather than anatomically placed markings. Sabre is currently the clearest identity; Wolf/Bear and Spider/Mudcrab need special attention to avoid visual convergence.
+Offline sampled alpha coverage at Stage III was approximately: Sabre 53%, Skeever 65%, Troll 73%, Spider 74%, Wolf 85%, Mudcrab 88%, Bear 90%, and Stag 93%. High coverage can read as a full-body material replacement rather than anatomically placed markings. Sabre is currently the clearest identity; Wolf/Bear and Spider/Mudcrab need special attention to avoid visual convergence.
 
-Before calling visuals final, capture front/side/back screenshots on the actual player body for every rank. Judge UV seams, stretching, skin-tone contrast, anatomical placement, and whether stages feel like evolution rather than opacity alone. Prefer localized shoulders/spine/ribs/limbs masks when revising the art.
+Before calling visuals final, capture front/side/back screenshots on the actual player body for every stage. Judge UV seams, stretching, skin-tone contrast, anatomical placement, and whether stages feel like evolution rather than opacity alone. Prefer localized shoulders/spine/ribs/limbs masks when revising the art.
 
 ## Offline test boundary
 

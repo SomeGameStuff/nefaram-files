@@ -98,6 +98,7 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 		Quest controller = Game.GetFormFromFile(0x000950, "Feral.esp") as Quest
 		cfl_FeralMCM feral = controller as cfl_FeralMCM
 		If feral
+			feral.AddShapeTime(Family, GetTimeElapsed())
 			feral.StartFeralFatigue()
 		EndIf
 	EndIf
@@ -411,7 +412,6 @@ Function ApplyMorphs(Actor player)
 		SetMorph(player, "Butt", 0.32 * scale)
 	EndIf
 	NiOverride.UpdateModelWeight(player)
-	player.QueueNiNodeUpdate()
 EndFunction
 
 Function SetMorph(Actor player, String morph, Float value)
@@ -423,7 +423,6 @@ Function ClearVisuals(Actor player)
 	NiOverride.ClearBodyMorphKeys(player, MorphKey)
 	NiOverride.ClearBodyMorphKeys(player, VisibleMorphKey)
 	NiOverride.UpdateModelWeight(player)
-	player.QueueNiNodeUpdate()
 	String mark = MarkName()
 	If mark != ""
 		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", mark, true, true)

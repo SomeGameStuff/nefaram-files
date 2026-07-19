@@ -187,8 +187,8 @@ void AddPower(uint id, string editorId, string name, uint magicEffectId)
     });
 }
 
-AddScriptEffect(0x81A, "cfl_MGEFFeralClaim", "Claim Soul", "cfl_FeralClaimEffect");
-AddPower(0x81B, "cfl_SpellClaimSoul", "Claim Soul", 0x81A);
+AddScriptEffect(0x81A, "cfl_MGEFFeralClaim", "Claim Soul (Retired)", "cfl_FeralClaimEffect");
+AddPower(0x81B, "cfl_SpellClaimSoul", "Claim Soul (Retired)", 0x81A);
 AddScriptEffect(0x81C, "cfl_MGEFFeralAspect", "Feral Act", "cfl_FeralAspectEffect");
 AddPower(0x81D, "cfl_SpellFeralAct", "Feral Act", 0x81C);
 
@@ -256,12 +256,12 @@ for (var family = 1; family <= 8; family++)
         var effectId = 0x980u + (uint)index;
         var spellId = 0x9A0u + (uint)index;
         var compactName = familyNames[family - 1].Replace(" ", "");
-        var expression = rank == 1 ? "50-75%" : rank == 2 ? "75-100%" : "100%";
+        var expression = rank == 1 ? "levels 1-33 / 50-66%" : rank == 2 ? "levels 34-66 / 67-83%" : "levels 67-100 / 83-100%";
         mod.MagicEffects.Add(new MagicEffect(Local(effectId), SkyrimRelease.SkyrimSE)
         {
             EditorID = $"cfl_MGEFFeralShape{compactName}{rank}",
-            Name = $"Feral Shape: {familyNames[family - 1]} (Rank {rank})",
-            Description = $"{expression} expression, improving with every claim. Full strength: {ShapeDescription(family)}. Applies a reversible three-stage {familyNames[family - 1]} body morph and marking for 120 seconds.",
+            Name = $"Feral Shape: {familyNames[family - 1]} (Stage {rank})",
+            Description = $"Mastery {expression}, improving with every level. Hunting and time spent in this shape both grant mastery. Full strength: {ShapeDescription(family)}. Applies a reversible three-stage {familyNames[family - 1]} body morph and marking for 120 seconds.",
             CastType = CastType.FireAndForget,
             TargetType = TargetType.Self,
             MagicSkill = ActorValue.None,
@@ -360,7 +360,7 @@ if (builtQuest.EditorID != "cfl_FeralMCMQuest" ||
     builtQuest.VirtualMachineAdapter?.Scripts.SingleOrDefault()?.Name != "cfl_FeralMCM" ||
     !builtQuest.Flags.HasFlag(Quest.Flag.StartGameEnabled))
     throw new InvalidOperationException("Feral MCM quest validation failed.");
-if (built.Spells.Single(x => x.FormKey.ID == 0x81B).Name?.String != "Claim Soul" ||
+if (built.Spells.Single(x => x.FormKey.ID == 0x81B).Name?.String != "Claim Soul (Retired)" ||
     built.Spells.Single(x => x.FormKey.ID == 0x81D).Name?.String != "Feral Act")
     throw new InvalidOperationException("Feral power validation failed.");
 
