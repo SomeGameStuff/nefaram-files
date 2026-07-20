@@ -31,18 +31,22 @@ One common-family path takes about 278 harvests if trained only through hunting;
 
 ## Mastery milestones
 
-Every path gains a permanent passive rank at levels 25, 50, and 75. Only its highest earned rank is applied, but passives earned from different families coexist and remain active outside transformations while Feral is enabled. These deliberately small legacy-derived bonuses stack with the stronger temporary shape kit. Every path also gains a shape-only trait at levels 25 and 75, one selectable family technique at level 50, and an apex upgrade to that same technique at level 100. Techniques require the matching active shape, end with it, and have independent 60-second cooldowns.
+Every path gains a permanent passive rank at levels 25, 50, and 75. Only its highest earned rank is applied, but passives earned from different families coexist and remain active outside transformations while Feral is enabled. These deliberately small legacy-derived bonuses stack with the stronger temporary shape kit. Every path also gains a shape-only trait at levels 25 and 75, one selectable family technique at level 50, and—except for the currently incomplete Spider apex—a stronger version of that technique at level 100.
 
-| Family | Level 25 | Level 50 technique | Level 75 | Level 100 |
+The level-25 and level-75 traits below are temporary actor-value changes applied when the matching shape begins; they do not apply in human form and are removed when the shape ends. Techniques are lesser powers, require the matching active shape, use an independent 60-second real-time cooldown, and normally last 20 seconds where they provide a timed stat buff. Projectile, howl, invisibility, and slow-time behavior comes from the listed vanilla spell cast by the technique.
+
+| Family | Level 25 shape trait | Level 50 technique | Level 75 shape trait | Level 100 apex |
 |---|---|---|---|---|
-| Wolf | Tireless hunt | Dread howl | Blood scent | Stronger howl |
-| Sabre Cat | Soft step | Vanish and pounce | Ambush | Stronger pounce |
-| Bear | Thick hide | Maul | Unstoppable | Stronger maul |
-| Skeever | Filthborn | Plague spit | Escape artist | Stronger venom |
-| Spider | Venomous | Web snare | Chitin reflex | Apex snare |
-| Mudcrab | Arrow-shell | Fortress | Counterclaw | Apex fortress |
-| Stag | Surefooted | Stampede | Keen flight | Apex stampede with slow time |
-| Troll | Mending flesh | Monstrous regeneration | Cornered monster | Apex regeneration |
+| Wolf | **Tireless hunt:** +20% stamina regeneration | **Dread howl:** casts vanilla howl `000CF791` | **Blood scent:** +75 Detect Life Range; this changes the actor value but does not itself grant a Detect Life spell | Casts the stronger vanilla howl `000CF793` |
+| Sabre Cat | **Soft step:** applies `-50.0` to `MovementNoiseMult`; this is probably mis-scaled (a 50% multiplier change would conventionally be `-0.5`) | **Vanish and pounce:** casts vanilla invisibility `00027EB6` and gives +25% attack damage for 20 seconds | **Ambush:** +25% attack damage | Technique attack damage increases to +50% |
+| Bear | **Thick hide:** +50 armor | **Maul:** +50 unarmed damage and +50 stagger resistance for 20 seconds | **Unstoppable:** +100 stagger resistance | Technique increases to +80 unarmed damage and +100 stagger resistance |
+| Skeever | **Filthborn:** +100% disease resistance | **Plague spit:** casts vanilla poison projectile `0004CCF9` | **Escape artist:** +20 Sneak and +10% movement speed | Casts the stronger vanilla poison projectile `0004CCFA` |
+| Spider | **Venomous:** +10 unarmed damage and +20% poison resistance | **Web snare:** casts vanilla paralysis projectile `0005AD5F` | **Chitin reflex:** +15% magic resistance | **Not separately implemented:** currently casts the same `0005AD5F` spell as level 50, with no stronger effect |
+| Mudcrab | **Arrow-shell:** +50 armor | **Fortress:** +300 armor and +50 Block, but -40% movement speed, for 20 seconds | **Counterclaw:** +20 Block and +20 stagger resistance | Technique becomes +500 armor, +75 Block, +25% magic resistance, and -30% movement speed |
+| Stag | **Surefooted:** +25% stamina regeneration and 50% less fall damage | **Stampede:** +40% movement speed, +200% stamina regeneration, and +25 Archery for 20 seconds | **Keen flight:** +20 Archery | Technique increases to +60% movement speed, +300% stamina regeneration, and +40 Archery, and casts vanilla Slow Time `00048AD0` |
+| Troll | **Mending flesh:** +1 health regeneration | **Monstrous regeneration:** +8 health regeneration and -50% fire resistance for 20 seconds | **Cornered monster:** +50 armor and +25 melee damage | Technique increases to +15 health regeneration and -75% fire resistance |
+
+This table describes the current source and generated plugin wiring, not completed in-game balance validation. Spider's level-100 upgrade is a confirmed implementation gap. Sabre Cat's level-25 movement-noise value is probably mis-scaled. Wolf's level-75 trait only changes `DetectLifeRange`; whether that alone produces useful detection still needs an in-game test.
 
 ## Visual progression
 
@@ -88,7 +92,24 @@ The exact prior Experience settings are snapshotted and restored when the path i
 
 ## Activity and adult-mod integrations
 
-Feral exposes `GetActiveFamily()`, `GetMasteryLevel(family)`, `GetFamily(actor)`, and `AddActivityMastery(family, points, source)` for optional adapters. The separately packaged **Feral - Sex Grants Experience Integration** is pinned to Sex Grants Experience 1.8.0. It snapshots the active shape when SexLab/OStim scenes begin, gates all ordinary Sex Grants Experience XP behind that snapshot, and awards 12 mastery when an actual creature participant matches the snapshotted family. It preserves the upstream scoring, orgasm, victim, multiplier, solo-scene, and cooldown rules after the Feral gate. Its `SexIntegration.json` marker lets the Feral MCM report whether the adapter and configured reward are installed.
+The base Feral mod contains no sex animations, animation selection, arousal, pregnancy, fertility, body-fluid, dialogue, or relationship mechanics. Its adult content is limited to progression supplied by the separately packaged **Feral - Sex Grants Experience Integration**, which overrides the SexLab and OStim listeners from Sex Grants Experience 1.8.0.
+
+What the integration actually does:
+
+- When a player-involved scene begins, it snapshots the active Feral family and checks the other starting participants with Feral's race-to-family mapping.
+- Any active Feral shape permits ordinary Sex Grants Experience character XP for the scene. A matching creature is not required for that XP. If no shape was active at scene start, the adapter blocks that scene's ordinary Sex Grants Experience XP.
+- When the scene ends, one matching participant grants **12 mastery points** to the snapshotted family. This is one award per scene, not per creature, orgasm, animation, or elapsed interval.
+- The 12-mastery award is independent of Sex Grants Experience's scoring, orgasm requirement, victim handling, solo setting, multipliers, and cooldown. Those upstream rules still govern ordinary character XP, but the current adapter does not use their result to approve or reject Feral mastery.
+- The start snapshot remains valid if the shape expires or is manually ended during the scene. Conversely, transforming after the scene starts does not qualify it. Partners who join later are not checked.
+- Shape-duration mastery is separate: when the shape ends, it also grants one family mastery point per completed 10 seconds spent transformed. A qualifying scene can therefore produce both elapsed-shape mastery and the one-time +12 matching-scene award.
+
+**Wolf example:** begin a SexLab scene while the Wolf shape is active with at least one participant whose race maps to the Wolf family. When the scene ends, Wolf receives +12 mastery even if the shape expired mid-scene. A vanilla wolf (`WolfRace`, `Skyrim.esm:0001320A`) matches. Dogs, werewolves, and custom wolf-like races do not match automatically; custom races must be added to `SKSE\Plugins\Feral\Races.json`. Starting in Bear shape with a wolf partner grants no matching-family mastery, although the active Bear shape still permits ordinary Sex Grants Experience XP and earns its normal elapsed-shape mastery.
+
+**Matching does not make creatures friendly or attracted.** Feral does not alter aggression, combat state, factions, relationships, confidence, assistance, arousal, or scene eligibility for a matching race. A wolf remains as hostile or neutral as the rest of the installed modlist makes it; the Wolf-family match is used only to decide the mastery reward. Feral also does not start scenes. Initiating a scene with a normally hostile creature therefore requires the existing SexLab creature setup, a defeat/scene-start mechanism, or a separate pacification/control feature. The short early shape duration only has to last until the scene begins because the adapter snapshots qualification at scene start.
+
+Both SexLab and OStim hooks contain this matching code. Sex Grants Experience 1.8.0 itself describes OStim as not supporting creature animations, so creature-family progression is practically a SexLab feature unless the installed OStim setup can actually provide a creature actor to its scene events.
+
+Feral also exposes `GetActiveFamily()`, `GetMasteryLevel(family)`, `GetFamily(actor)`, and `AddActivityMastery(family, points, source)` for other optional adapters. The integration's `SexIntegration.json` marker lets the Feral MCM report whether it and the configured mastery reward are installed.
 
 ## Human fear and hunting
 

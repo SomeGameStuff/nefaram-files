@@ -74,17 +74,11 @@ Applying a slot clears only this mod's own BodyMorph key, then applies the saved
 
 The companion `RaceMenu Appearance Slots - Vampire Lord Bridge` mod calls this MCM script automatically:
 
-- Slot 2 after entering Vampire Lord form.
-- Slot 1 after reverting from Vampire Lord form.
+- Captures the current mortal appearance into a hidden automatic snapshot before entering Vampire Lord form.
+- Applies Slot 2 after entering Vampire Lord form.
+- Restores the hidden mortal snapshot after reverting from Vampire Lord form. If no snapshot exists yet, it falls back to Slot 1.
 
-Author Slot 1 as your mortal appearance and Slot 2 as your Vampire Lord appearance.
-
-## Source, Build, and Install
-
-- Purpose: provide a standalone two-slot appearance switcher for the player.
-- Source: `Source/Scripts/ras_AppearanceSlotsMCM.psc`, `Source/Scripts/ras_ToggleSlotEffect.psc`, and `RMAppSlots.esp`.
-- Build: compile the Papyrus sources against vanilla, RaceMenu/SKEE, SkyUI, PapyrusUtil, and powerofthree's Papyrus Extender sources; the packaged `.pex` files are already built.
-- Install: copy this folder to MO2 `mods`, enable it, and enable `RMAppSlots.esp`.
+Author Slot 2 as your Vampire Lord appearance. Slot 1 remains useful as a manual fallback, but normal Vampire Lord reverts restore the last pre-transform mortal snapshot instead.
 
 ## Not Implemented Yet
 
