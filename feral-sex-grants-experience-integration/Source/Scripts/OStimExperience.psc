@@ -42,6 +42,14 @@ cfl_FeralMCM Function GetFeral()
 	Return (Game.GetFormFromFile(0x000950, "Feral.esp") as Quest) as cfl_FeralMCM
 EndFunction
 
+Int Function GetFeralMasteryReward()
+	Int reward = JsonUtil.GetIntValue("../Feral/SexIntegration", "MasteryPerMatchingScene", 12)
+	If reward < 1
+		Return 12
+	EndIf
+	Return reward
+EndFunction
+
 Event OStim_Start(String eventName, String strArg, Float numArg, Form sender)
 	Actor[] actors = OThread.GetActors(0)
 	StorageUtil.StringListClear(Self, "actions")
@@ -99,7 +107,7 @@ Event OStim_End(String eventName, String strArg, Float numArg, Form sender)
 	If matchingFamily == family
 		cfl_FeralMCM feral = GetFeral()
 		If feral
-			feral.AddActivityMastery(family, 12, "matching creature scene")
+			feral.AddActivityMastery(family, GetFeralMasteryReward(), "matching creature scene")
 		EndIf
 	EndIf
 EndEvent

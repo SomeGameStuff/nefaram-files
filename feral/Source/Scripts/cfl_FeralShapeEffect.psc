@@ -24,22 +24,18 @@ Float _milestoneSecond
 Float _milestoneThird
 Float _milestoneFourth
 Int _masteryLevel
+Float _startGameTime
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 	Actor player = Game.GetPlayer()
-	If akTarget != player || Family < 1 || Family > 8 || Rank < 1 || Rank > 3
+	If akTarget != player || Family < 1 || Family > 8 || Rank < 1 || Rank > 5
 		Dispel()
 		Return
 	EndIf
 	Quest controller = Game.GetFormFromFile(0x000950, "Feral.esp") as Quest
 	cfl_FeralMCM feral = controller as cfl_FeralMCM
-	If !feral || feral.GetRank(Family) < Rank
+	If !feral || feral.GetDurationTier(Family) < Rank
 		Debug.Notification("Feral: that shape has not been earned.")
-		Dispel()
-		Return
-	EndIf
-	If !feral.CanBeginShape()
-		Debug.Notification("Feral: transformation fatigue remains for " + feral.GetFatigueSecondsRemaining() + " seconds.")
 		Dispel()
 		Return
 	EndIf
@@ -50,7 +46,21 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 	If activeForm.GetValueInt() != 0
-		Debug.Notification("Another transformation is already active. Use Return to Self first.")
+		; Casting the matching shape again releases it. EndActiveShape lets the
+		; live effect finish itself, or recovers the shared lock and all
+		; visuals when no live effect owns the saved state (killed unload,
+		; external dispel, or an unbound finish event).
+		If ActiveFormId(activeForm.GetValueInt()) == 100 + Family
+			feral.EndActiveShape()
+			Debug.Notification("Feral " + feral.FamilyName(Family) + " shape released.")
+		Else
+			Debug.Notification("Another transformation is already active. Cast that shape again to end it first.")
+		EndIf
+		Dispel()
+		Return
+	EndIf
+	If !feral.CanBeginShape()
+		Debug.Notification("Feral: transformation fatigue remains for " + feral.GetFatigueSecondsRemaining() + " seconds.")
 		Dispel()
 		Return
 	EndIf
@@ -62,19 +72,24 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	_masteryLevel = feral.GetMasteryLevel(Family)
 	StorageUtil.SetFloatValue(player, "Feral.ActiveExpression", _expression)
 	_ownsShape = true
-	ApplyStats(player)
-	ApplyMilestoneTraits(player)
-	ApplyMorphs(player)
-	ApplyMark(player)
+	_startGameTime = Utility.GetCurrentGameTime()
+	; Fire the transformation feedback before the heavy work. SlaveTats
+	; application below can take seconds, so the smoke must already be
+	; running to read as the cause of the skin change instead of arriving
+	; long after it.
 	EffectShader entryShader = Game.GetForm(0x000EBEC5) as EffectShader
 	If entryShader
-		entryShader.Play(player, 1.2)
+		entryShader.Play(player, 3.0)
 	EndIf
 	Sound transformSound = Game.GetForm(0x00051936) as Sound
 	If transformSound
 		transformSound.Play(player)
 	EndIf
 	Game.ShakeCamera(player, 0.35, 0.45)
+	ApplyStats(player)
+	ApplyMilestoneTraits(player)
+	ApplyMorphs(player)
+	ApplyMark(player)
 	feral.RecordWitnessedTransformation(Family, _activeToken)
 	Debug.Notification("Feral " + feral.FamilyName(Family) + " shape takes hold.")
 EndEvent
@@ -93,15 +108,15 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	GlobalVariable activeForm = Game.GetFormFromFile(0x000801, "Dollform.esp") as GlobalVariable
 	Bool ownsCurrentShape = IsActiveInstance(activeForm)
 	If ownsCurrentShape
+		; Show the revert feedback before SlaveTats cleanup so the smoke
+		; covers the removal work just like it covers application on entry.
+		EffectShader exitShader = Game.GetForm(0x000EBECD) as EffectShader
+		If exitShader
+			exitShader.Play(akTarget, 1.5)
+		EndIf
+		Game.ShakeCamera(akTarget, 0.18, 0.25)
 		ClearVisuals(akTarget)
 		RemoveCosmetic(akTarget)
-	EndIf
-	EffectShader exitShader = Game.GetForm(0x000EBECD) as EffectShader
-	If exitShader && ownsCurrentShape
-		exitShader.Play(akTarget, 0.8)
-	EndIf
-	If ownsCurrentShape
-		Game.ShakeCamera(akTarget, 0.18, 0.25)
 		activeForm.SetValue(0)
 		StorageUtil.SetIntValue(akTarget, "Feral.ActiveFamily", 0)
 		StorageUtil.SetIntValue(akTarget, "Feral.ActiveRank", 0)
@@ -110,8 +125,18 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 		Quest controller = Game.GetFormFromFile(0x000950, "Feral.esp") as Quest
 		cfl_FeralMCM feral = controller as cfl_FeralMCM
 		If feral
-			feral.AddShapeTime(Family, GetTimeElapsed())
+			; Fatigue first: it must always run, even if mastery bookkeeping
+			; fails. The effect-elapsed native cannot be used here: on
+			; natural expiry the engine unbinds the native effect before
+			; this event runs, so instance natives fail on a dead binding.
+			; The game-time clock is a static call and stays valid.
 			feral.StartFeralFatigue()
+			Float elapsed = 0.0
+			If _startGameTime > 0.0
+				elapsed = (Utility.GetCurrentGameTime() - _startGameTime) * 86400.0
+			EndIf
+			feral.AddShapeTime(Family, elapsed)
+			feral.FinalizeShapePowerRefresh(Family)
 		EndIf
 	EndIf
 EndEvent
@@ -314,39 +339,49 @@ Function ApplyStats(Actor player)
 		_first = 12.0 * scale
 		_second = 35.0 * scale
 		_third = 15.0 * scale
+		_fourth = 15.0 * scale
 		player.ModActorValue("SpeedMult", _first)
 		player.ModActorValue("StaminaRateMult", _second)
 		player.ModActorValue("UnarmedDamage", _third)
+		player.ModActorValue("MagicResist", -_fourth)
 	ElseIf Family == 2
 		_first = 25.0 * scale
 		_second = 25.0 * scale
 		_third = 0.10 * scale
+		_fourth = 25.0 * scale
 		player.ModActorValue("Sneak", _first)
 		player.ModActorValue("UnarmedDamage", _second)
 		player.ModActorValue("WeaponSpeedMult", _third)
+		player.ModActorValue("Health", -_fourth)
 	ElseIf Family == 3
 		_first = 100.0 * scale
 		_second = 50.0 * scale
 		_third = 25.0 * scale
+		_fourth = 20.0 * scale
 		player.ModActorValue("DamageResist", _first)
 		player.ModActorValue("Health", _second)
 		player.ModActorValue("StaggerResist", _third)
+		player.ModActorValue("Sneak", -_fourth)
 	ElseIf Family == 4
 		_first = 60.0 * scale
 		_second = 60.0 * scale
 		_third = 20.0 * scale
 		_fourth = 30.0 * scale
+		_fifth = 15.0 * scale
 		player.ModActorValue("PoisonResist", _first)
 		player.ModActorValue("DiseaseResist", _second)
 		player.ModActorValue("Sneak", _third)
 		player.ModActorValue("CarryWeight", _fourth)
+		player.ModActorValue("FireResist", -_fifth)
 	ElseIf Family == 5
 		_first = 80.0 * scale
 		_second = 30.0 * scale
 		_third = 15.0 * scale
+		_fourth = 20.0 * scale
 		player.ModActorValue("PoisonResist", _first)
 		player.ModActorValue("UnarmedDamage", _second)
 		player.ModActorValue("SpeedMult", _third)
+		player.ModActorValue("StaminaRateMult", -_fourth)
 	ElseIf Family == 6
 		_first = 140.0 * scale
 		_second = 20.0 * scale
@@ -360,9 +395,11 @@ Function ApplyStats(Actor player)
 		_first = 15.0 * scale
 		_second = 80.0 * scale
 		_third = 20.0 * scale
+		_fourth = 20.0 * scale
 		player.ModActorValue("SpeedMult", _first)
 		player.ModActorValue("Stamina", _second)
 		player.ModActorValue("Marksman", _third)
+		player.ModActorValue("DamageResist", -_fourth)
 	ElseIf Family == 8
 		_first = 2.0 * scale
 		_second = 25.0 * scale
@@ -384,23 +421,28 @@ Function RemoveStats(Actor player)
 		player.ModActorValue("SpeedMult", -_first)
 		player.ModActorValue("StaminaRateMult", -_second)
 		player.ModActorValue("UnarmedDamage", -_third)
+		player.ModActorValue("MagicResist", _fourth)
 	ElseIf Family == 2
 		player.ModActorValue("Sneak", -_first)
 		player.ModActorValue("UnarmedDamage", -_second)
 		player.ModActorValue("WeaponSpeedMult", -_third)
+		player.ModActorValue("Health", _fourth)
 	ElseIf Family == 3
 		player.ModActorValue("DamageResist", -_first)
 		player.ModActorValue("Health", -_second)
 		player.ModActorValue("StaggerResist", -_third)
+		player.ModActorValue("Sneak", _fourth)
 	ElseIf Family == 4
 		player.ModActorValue("PoisonResist", -_first)
 		player.ModActorValue("DiseaseResist", -_second)
 		player.ModActorValue("Sneak", -_third)
 		player.ModActorValue("CarryWeight", -_fourth)
+		player.ModActorValue("FireResist", _fifth)
 	ElseIf Family == 5
 		player.ModActorValue("PoisonResist", -_first)
 		player.ModActorValue("UnarmedDamage", -_second)
 		player.ModActorValue("SpeedMult", -_third)
+		player.ModActorValue("StaminaRateMult", _fourth)
 	ElseIf Family == 6
 		player.ModActorValue("DamageResist", -_first)
 		player.ModActorValue("Block", -_second)
@@ -410,6 +452,7 @@ Function RemoveStats(Actor player)
 		player.ModActorValue("SpeedMult", -_first)
 		player.ModActorValue("Stamina", -_second)
 		player.ModActorValue("Marksman", -_third)
+		player.ModActorValue("DamageResist", _fourth)
 	ElseIf Family == 8
 		player.ModActorValue("HealRate", -_first)
 		player.ModActorValue("MeleeDamage", -_second)
@@ -425,108 +468,19 @@ Function ApplyMorphs(Actor player)
 	Float scale = RankScale()
 	NiOverride.ClearBodyMorphKeys(player, MorphKey)
 	NiOverride.ClearBodyMorphKeys(player, VisibleMorphKey)
-	If Family == 1
-		SetMorph(player, "MuscleLegs", 0.58 * scale)
-		SetMorph(player, "MuscleMoreLegs_v2", 0.42 * scale)
-		SetMorph(player, "Thighs", 0.32 * scale)
-		SetMorph(player, "ThighOutsideThicc_v2", 0.30 * scale)
-		SetMorph(player, "CalfSize", 0.42 * scale)
-		SetMorph(player, "CalfFBThicc_v2", 0.32 * scale)
-		SetMorph(player, "MuscleButt", 0.38 * scale)
-		SetMorph(player, "Butt", 0.22 * scale)
-		SetMorph(player, "Waist", -0.25 * scale)
-		SetMorph(player, "Belly", -0.12 * scale)
-		SetMorph(player, "Arms", 0.20 * scale)
-		SetMorph(player, "ShoulderWidth", 0.16 * scale)
-	ElseIf Family == 2
-		SetMorph(player, "Thighs", 0.38 * scale)
-		SetMorph(player, "ThighInsideThicc_v2", 0.20 * scale)
-		SetMorph(player, "MuscleLegs", 0.28 * scale)
-		SetMorph(player, "CalfSize", 0.24 * scale)
-		SetMorph(player, "Butt", 0.42 * scale)
-		SetMorph(player, "RoundAss", 0.30 * scale)
-		SetMorph(player, "Hips", 0.32 * scale)
-		SetMorph(player, "HipUpperWidth", 0.22 * scale)
-		SetMorph(player, "Waist", -0.42 * scale)
-		SetMorph(player, "Belly", -0.18 * scale)
-		SetMorph(player, "Arms", -0.18 * scale)
-		SetMorph(player, "ShoulderWidth", -0.10 * scale)
-	ElseIf Family == 3
-		SetMorph(player, "Arms", 0.82 * scale)
-		SetMorph(player, "MuscleArms", 0.95 * scale)
-		SetMorph(player, "MuscleMoreArms_v2", 0.62 * scale)
-		SetMorph(player, "ShoulderWidth", 0.72 * scale)
-		SetMorph(player, "MuscleAbs", 0.45 * scale)
-		SetMorph(player, "MuscleLegs", 0.62 * scale)
-		SetMorph(player, "MuscleMoreLegs_v2", 0.48 * scale)
-		SetMorph(player, "Thighs", 0.38 * scale)
-		SetMorph(player, "CalfSize", 0.32 * scale)
-		SetMorph(player, "Waist", 0.38 * scale)
-		SetMorph(player, "Belly", 0.18 * scale)
-		SetMorph(player, "Butt", 0.28 * scale)
-	ElseIf Family == 4
-		SetMorph(player, "Arms", -0.32 * scale)
-		SetMorph(player, "MuscleArms", -0.30 * scale)
-		SetMorph(player, "ShoulderWidth", -0.20 * scale)
-		SetMorph(player, "Thighs", -0.22 * scale)
-		SetMorph(player, "ChubbyLegs", -0.22 * scale)
-		SetMorph(player, "Waist", -0.38 * scale)
-		SetMorph(player, "Belly", -0.24 * scale)
-		SetMorph(player, "CalfSize", 0.24 * scale)
-		SetMorph(player, "CalfFBThicc_v2", 0.20 * scale)
-		SetMorph(player, "Butt", -0.18 * scale)
-		SetMorph(player, "Hips", -0.12 * scale)
-	ElseIf Family == 5
-		SetMorph(player, "Waist", -0.68 * scale)
-		SetMorph(player, "Belly", -0.28 * scale)
-		SetMorph(player, "Hips", 0.52 * scale)
-		SetMorph(player, "HipUpperWidth", 0.38 * scale)
-		SetMorph(player, "Butt", 0.55 * scale)
-		SetMorph(player, "BigButt", 0.26 * scale)
-		SetMorph(player, "Thighs", 0.28 * scale)
-		SetMorph(player, "ThighOutsideThicc_v2", 0.24 * scale)
-		SetMorph(player, "Arms", 0.30 * scale)
-		SetMorph(player, "MuscleArms", 0.28 * scale)
-		SetMorph(player, "ShoulderWidth", 0.20 * scale)
-	ElseIf Family == 6
-		SetMorph(player, "ShoulderWidth", 0.62 * scale)
-		SetMorph(player, "Arms", 0.58 * scale)
-		SetMorph(player, "MuscleArms", 0.45 * scale)
-		SetMorph(player, "Waist", 0.52 * scale)
-		SetMorph(player, "Belly", 0.28 * scale)
-		SetMorph(player, "Hips", 0.38 * scale)
-		SetMorph(player, "Thighs", 0.48 * scale)
-		SetMorph(player, "ChubbyLegs", 0.30 * scale)
-		SetMorph(player, "CalfSize", 0.40 * scale)
-		SetMorph(player, "Butt", 0.30 * scale)
-		SetMorph(player, "MuscleButt", 0.24 * scale)
-	ElseIf Family == 7
-		SetMorph(player, "Thighs", 0.42 * scale)
-		SetMorph(player, "ThighOutsideThicc_v2", 0.22 * scale)
-		SetMorph(player, "CalfSize", 0.46 * scale)
-		SetMorph(player, "CalfFBThicc_v2", 0.40 * scale)
-		SetMorph(player, "MuscleLegs", 0.68 * scale)
-		SetMorph(player, "MuscleMoreLegs_v2", 0.52 * scale)
-		SetMorph(player, "MuscleButt", 0.38 * scale)
-		SetMorph(player, "Butt", 0.34 * scale)
-		SetMorph(player, "Hips", 0.20 * scale)
-		SetMorph(player, "Waist", -0.32 * scale)
-		SetMorph(player, "Belly", -0.20 * scale)
-		SetMorph(player, "Arms", -0.12 * scale)
-	ElseIf Family == 8
-		SetMorph(player, "Arms", 0.95 * scale)
-		SetMorph(player, "MuscleArms", 1.05 * scale)
-		SetMorph(player, "MuscleMoreArms_v2", 0.78 * scale)
-		SetMorph(player, "ShoulderWidth", 0.86 * scale)
-		SetMorph(player, "MuscleAbs", 0.58 * scale)
-		SetMorph(player, "MuscleLegs", 0.72 * scale)
-		SetMorph(player, "MuscleMoreLegs_v2", 0.55 * scale)
-		SetMorph(player, "Thighs", 0.46 * scale)
-		SetMorph(player, "CalfSize", 0.38 * scale)
-		SetMorph(player, "Waist", 0.48 * scale)
-		SetMorph(player, "Belly", 0.24 * scale)
-		SetMorph(player, "Butt", 0.32 * scale)
+	Quest controller = Game.GetFormFromFile(0x000950, "Feral.esp") as Quest
+	cfl_FeralMCM feral = controller as cfl_FeralMCM
+	If !feral
+		Return
 	EndIf
+	Float familyScale = feral.GetMorphMultiplier(Family)
+	Int index = 0
+	While index < feral.GetMorphCount(Family)
+		String morph = feral.GetMorphName(Family, index)
+		Float configured = feral.GetConfiguredMorphValue(Family, index)
+		SetMorph(player, morph, configured * familyScale * scale)
+		index += 1
+	EndWhile
 	NiOverride.UpdateModelWeight(player)
 EndFunction
 
@@ -544,16 +498,25 @@ Function ClearVisuals(Actor player)
 		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseMark + " I", true, true)
 		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseMark + " II", true, true)
 		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseMark + " III", true, true)
+		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseMark + " III (Feet)", true, true)
+		SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseMark + " III (Hands)", true, true)
 		SlaveTats.synchronize_tattoos(player, true)
 	EndIf
 EndFunction
 
 Function ApplyMark(Actor player)
-	String mark = MarkName()
-	If mark != ""
-		SlaveTats.simple_add_tattoo(player, "Feral Shapes", mark, MarkColor(), true, true, MarkOpacity())
-		SlaveTats.synchronize_tattoos(player, true)
+	String baseMark = BaseMarkName()
+	If baseMark == ""
+		Return
 	EndIf
+	; Body, feet, and hands are separate SlaveTats overlay areas. One
+	; synchronize applies all three so the pelt reads as one continuous coat.
+	Int color = MarkColor()
+	Float opacity = MarkOpacity()
+	SlaveTats.simple_add_tattoo(player, "Feral Shapes", baseMark + " III", color, true, true, opacity)
+	SlaveTats.simple_add_tattoo(player, "Feral Shapes", baseMark + " III (Feet)", color, true, true, opacity)
+	SlaveTats.simple_add_tattoo(player, "Feral Shapes", baseMark + " III (Hands)", color, true, true, opacity)
+	SlaveTats.synchronize_tattoos(player, true)
 EndFunction
 
 String Function MarkName()

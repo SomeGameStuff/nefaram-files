@@ -38,6 +38,14 @@ cfl_FeralMCM Function GetFeral()
 	Return (Game.GetFormFromFile(0x000950, "Feral.esp") as Quest) as cfl_FeralMCM
 EndFunction
 
+Int Function GetFeralMasteryReward()
+	Int reward = JsonUtil.GetIntValue("../Feral/SexIntegration", "MasteryPerMatchingScene", 12)
+	If reward < 1
+		Return 12
+	EndIf
+	Return reward
+EndFunction
+
 Function ClearQualification(Int tid)
 	StorageUtil.UnsetIntValue(Self, "Feral.Qualified." + tid)
 	StorageUtil.UnsetIntValue(Self, "Feral.MatchingFamily." + tid)
@@ -112,7 +120,7 @@ Function OnSexLabEnd(String eventName, String args, Float argc, Form sender)
 	If matchingFamily == qualifiedFamily
 		cfl_FeralMCM feral = GetFeral()
 		If feral
-			feral.AddActivityMastery(matchingFamily, 12, "matching creature scene")
+			feral.AddActivityMastery(matchingFamily, GetFeralMasteryReward(), "matching creature scene")
 		EndIf
 	EndIf
 EndFunction

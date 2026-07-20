@@ -219,10 +219,10 @@ void AddPower(uint id, string editorId, string name, uint magicEffectId)
     });
 }
 
-AddScriptEffect(0x81A, "cfl_MGEFFeralClaim", "Claim Soul (Retired)", "cfl_FeralClaimEffect");
-AddPower(0x81B, "cfl_SpellClaimSoul", "Claim Soul (Retired)", 0x81A);
-AddScriptEffect(0x81C, "cfl_MGEFFeralAspect", "Feral Act", "cfl_FeralAspectEffect");
-AddPower(0x81D, "cfl_SpellFeralAct", "Feral Act", 0x81C);
+AddScriptEffect(0x81A, "cfl_MGEFFeralClaim", "Claim soul (retired)", "cfl_FeralClaimEffect");
+AddPower(0x81B, "cfl_SpellClaimSoul", "Claim soul (retired)", 0x81A);
+AddScriptEffect(0x81C, "cfl_MGEFFeralAspect", "Feral act", "cfl_FeralAspectEffect");
+AddPower(0x81D, "cfl_SpellFeralAct", "Feral act", 0x81C);
 
 var familyNames = new[]
 {
@@ -239,7 +239,7 @@ for (var family = 1; family <= 8; family++)
         mod.MagicEffects.Add(new MagicEffect(Local(effectId), SkyrimRelease.SkyrimSE)
         {
             EditorID = $"cfl_MGEFFeralPassive{compactName}{rank}",
-            Name = $"Feral {familyNames[family - 1]} Rank {rank}",
+            Name = $"Feral {familyNames[family - 1]} rank {rank}",
             CastType = CastType.ConstantEffect,
             TargetType = TargetType.Self,
             MagicSkill = ActorValue.None,
@@ -254,7 +254,7 @@ for (var family = 1; family <= 8; family++)
         mod.Spells.Add(new Spell(Local(spellId), SkyrimRelease.SkyrimSE)
         {
             EditorID = $"cfl_AbilityFeral{compactName}{rank}",
-            Name = $"Feral {familyNames[family - 1]} Rank {rank}",
+            Name = $"Feral {familyNames[family - 1]} rank {rank}",
             Type = SpellType.Ability,
             CastType = CastType.ConstantEffect,
             TargetType = TargetType.Self,
@@ -269,14 +269,14 @@ string ShapeDescription(int family)
 {
     return family switch
     {
-        1 => "+12% speed, +35% stamina regeneration, and +15 unarmed damage",
-        2 => "+25 Sneak, +25 unarmed damage, and +10% attack speed",
-        3 => "+100 armor, +50 Health, and +25 stagger resistance",
-        4 => "+60% poison/disease resistance, +20 Sneak, and +30 carry weight",
-        5 => "+80% poison resistance, +30 unarmed damage, and +15% speed",
-        6 => "+140 armor, +20 Block, +30 stagger resistance, and -8% speed",
-        7 => "+15% speed, +80 Stamina, and +20 Archery",
-        8 => "+2 Health regeneration, +25 melee damage, +60 Health, -40% fire resistance, and -8% speed",
+        1 => "+12% speed, +35% stamina regeneration, +15 unarmed damage, -15% magic resistance",
+        2 => "+25 sneak, +25 unarmed damage, +10% attack speed, -25 health",
+        3 => "+100 armor, +50 health, +25 stagger resistance, -20 sneak",
+        4 => "+60% poison/disease resistance, +20 sneak, +30 carry weight, -15% fire resistance",
+        5 => "+80% poison resistance, +30 unarmed damage, +15% speed, -20% stamina regeneration",
+        6 => "+140 armor, +20 block, +30 stagger resistance, -8% speed",
+        7 => "+15% speed, +80 stamina, +20 archery, -20 armor",
+        8 => "+2 health regeneration, +25 melee damage, +60 health, -40% fire resistance, -8% speed",
         _ => ""
     };
 }
@@ -288,12 +288,9 @@ for (var family = 1; family <= 8; family++)
         var effectId = 0x980u + (uint)index;
         var spellId = 0x9A0u + (uint)index;
         var compactName = familyNames[family - 1].Replace(" ", "");
-        var effectName = rank == 1
-            ? $"Feral Shape: {familyNames[family - 1]}"
-            : $"Feral Shape: {familyNames[family - 1]} (Retired Stage {rank})";
-        var description = rank == 1
-            ? $"Expression grows continuously at every mastery level, from 25% at level 1 to 100% at level 100. Hunting and time spent in this shape both grant mastery. Full strength: {ShapeDescription(family)}. Applies a reversible {familyNames[family - 1]} body morph and mastery-scaled marking for 120 seconds."
-            : "Retained only so existing saves can safely remove this retired staged transformation.";
+        var duration = rank switch { 1 => 120, 2 => 300, _ => 600 };
+        var effectName = $"Feral shape: {familyNames[family - 1]}";
+        var description = $"Take the {familyNames[family - 1]} shape for {duration} seconds: {ShapeDescription(family)}. Strength scales with {familyNames[family - 1]} mastery (25% at level 1, 100% at level 100). Duration increases at mastery milestones. Cast again while transformed to revert. See the Feral MCM Progression and Families pages for details.";
         mod.MagicEffects.Add(new MagicEffect(Local(effectId), SkyrimRelease.SkyrimSE)
         {
             EditorID = $"cfl_MGEFFeralShape{compactName}{rank}",
@@ -309,13 +306,50 @@ for (var family = 1; family <= 8; family++)
         mod.Spells.Add(new Spell(Local(spellId), SkyrimRelease.SkyrimSE)
         {
             EditorID = $"cfl_SpellFeralShape{compactName}{rank}",
-            Name = rank == 1 ? $"Feral Shape: {familyNames[family - 1]}" : $"Feral Shape: {familyNames[family - 1]} (Retired)",
+            Name = $"Feral shape: {familyNames[family - 1]}",
             Type = SpellType.LesserPower,
             CastType = CastType.FireAndForget,
             TargetType = TargetType.Self,
             ChargeTime = 0,
             BaseCost = 0,
-            Effects = { Effect(effectId, 120) }
+            Effects = { Effect(effectId, duration) }
+        });
+    }
+}
+
+// Duration tiers four and five use fresh records so the original save-compatible
+// tier-one through tier-three FormIDs remain stable.
+for (var family = 1; family <= 8; family++)
+{
+    for (var rank = 4; rank <= 5; rank++)
+    {
+        var index = (family - 1) * 2 + (rank - 4);
+        var effectId = 0xA30u + (uint)index;
+        var spellId = 0xA40u + (uint)index;
+        var compactName = familyNames[family - 1].Replace(" ", "");
+        var duration = rank == 4 ? 900 : 1200;
+        mod.MagicEffects.Add(new MagicEffect(Local(effectId), SkyrimRelease.SkyrimSE)
+        {
+            EditorID = $"cfl_MGEFFeralShape{compactName}{rank}",
+            Name = $"Feral shape: {familyNames[family - 1]}",
+            Description = $"Take the {familyNames[family - 1]} shape for {duration} seconds: {ShapeDescription(family)}. Strength scales with {familyNames[family - 1]} mastery (25% at level 1, 100% at level 100). Duration increases at mastery milestones. Cast again while transformed to revert. See the Feral MCM Progression and Families pages for details.",
+            CastType = CastType.FireAndForget,
+            TargetType = TargetType.Self,
+            MagicSkill = ActorValue.None,
+            Archetype = new MagicEffectArchetype { Type = MagicEffectArchetype.TypeEnum.Script },
+            Flags = MagicEffect.Flag.Recover | MagicEffect.Flag.NoArea | MagicEffect.Flag.NoMagnitude,
+            VirtualMachineAdapter = ShapeScriptAdapter(family, rank)
+        });
+        mod.Spells.Add(new Spell(Local(spellId), SkyrimRelease.SkyrimSE)
+        {
+            EditorID = $"cfl_SpellFeralShape{compactName}{rank}",
+            Name = $"Feral shape: {familyNames[family - 1]}",
+            Type = SpellType.LesserPower,
+            CastType = CastType.FireAndForget,
+            TargetType = TargetType.Self,
+            ChargeTime = 0,
+            BaseCost = 0,
+            Effects = { Effect(effectId, duration) }
         });
     }
 }
@@ -323,8 +357,8 @@ for (var family = 1; family <= 8; family++)
 mod.MagicEffects.Add(new MagicEffect(Local(0x9C0), SkyrimRelease.SkyrimSE)
 {
     EditorID = "cfl_MGEFFeralReturnToSelf",
-    Name = "Return to Self",
-    Description = "Ends the current Feral transformation and clears its temporary body changes.",
+    Name = "Return to self (retired)",
+    Description = "Retired. Recast the active Feral shape to end it early. Kept only so existing saves can safely drop the old power.",
     CastType = CastType.FireAndForget,
     TargetType = TargetType.Self,
     MagicSkill = ActorValue.None,
@@ -336,7 +370,7 @@ mod.MagicEffects.Add(new MagicEffect(Local(0x9C0), SkyrimRelease.SkyrimSE)
 mod.Spells.Add(new Spell(Local(0x9C1), SkyrimRelease.SkyrimSE)
 {
     EditorID = "cfl_SpellFeralReturnToSelf",
-    Name = "Return to Self",
+    Name = "Return to self (retired)",
     Type = SpellType.LesserPower,
     CastType = CastType.FireAndForget,
     TargetType = TargetType.Self,
@@ -347,14 +381,14 @@ mod.Spells.Add(new Spell(Local(0x9C1), SkyrimRelease.SkyrimSE)
 
 var techniqueNames = new[]
 {
-    "Dread Howl", "Vanish and Pounce", "Maul", "Plague Spit",
-    "Web Snare", "Fortress", "Stampede", "Monstrous Regeneration"
+    "Dread howl", "Vanish and pounce", "Maul", "Plague spit",
+    "Web snare", "Fortress", "Stampede", "Monstrous regeneration"
 };
 
 mod.MagicEffects.Add(new MagicEffect(Local(0xA20), SkyrimRelease.SkyrimSE)
 {
     EditorID = "cfl_MGEFFeralWitnessFear",
-    Name = "Feral Dread",
+    Name = "Feral dread",
     CastType = CastType.FireAndForget,
     TargetType = TargetType.TargetActor,
     MagicSkill = ActorValue.None,
@@ -369,7 +403,7 @@ mod.MagicEffects.Add(new MagicEffect(Local(0xA20), SkyrimRelease.SkyrimSE)
 mod.Spells.Add(new Spell(Local(0xA21), SkyrimRelease.SkyrimSE)
 {
     EditorID = "cfl_SpellFeralWitnessFear",
-    Name = "Feral Dread",
+    Name = "Feral dread",
     Type = SpellType.Spell,
     CastType = CastType.FireAndForget,
     TargetType = TargetType.TargetActor,
@@ -391,8 +425,8 @@ var techniqueDescriptions = new[]
     "Greatly increases unarmed damage and stagger resistance for 20 seconds.",
     "Launches a concentrated poison attack; apex mastery uses stronger venom.",
     "Launches a paralysis snare at the target under the crosshair.",
-    "Becomes nearly immovable for 20 seconds, trading speed for armor and Block.",
-    "Surges forward with greatly increased speed, stamina recovery, and Archery for 20 seconds.",
+    "Becomes nearly immovable for 20 seconds, trading speed for armor and block.",
+    "Surges forward with greatly increased speed, stamina recovery, and archery for 20 seconds.",
     "Regenerates with monstrous speed for 20 seconds while becoming severely vulnerable to fire."
 };
 for (var family = 1; family <= 8; family++)
@@ -466,7 +500,7 @@ mod.WriteToBinary(outputPath);
 
 var built = ModFactory<ISkyrimModGetter>.Importer(
     ModPath.FromPath(outputPath), GameRelease.SkyrimSE);
-if (built.MagicEffects.Count != 60 || built.Spells.Count != 60 || built.Quests.Count != 2)
+if (built.MagicEffects.Count != 76 || built.Spells.Count != 76 || built.Quests.Count != 2)
     throw new InvalidOperationException("Feral record-count validation failed.");
 var builtLegacyQuest = built.Quests.Single(x => x.FormKey.ID == 0x81E);
 var builtQuest = built.Quests.Single(x => x.FormKey.ID == 0x950);
@@ -477,8 +511,8 @@ if (builtQuest.EditorID != "cfl_FeralMCMQuest" ||
     builtQuest.VirtualMachineAdapter?.Scripts.SingleOrDefault()?.Name != "cfl_FeralMCM" ||
     !builtQuest.Flags.HasFlag(Quest.Flag.StartGameEnabled))
     throw new InvalidOperationException("Feral MCM quest validation failed.");
-if (built.Spells.Single(x => x.FormKey.ID == 0x81B).Name?.String != "Claim Soul (Retired)" ||
-    built.Spells.Single(x => x.FormKey.ID == 0x81D).Name?.String != "Feral Act")
+if (built.Spells.Single(x => x.FormKey.ID == 0x81B).Name?.String != "Claim soul (retired)" ||
+    built.Spells.Single(x => x.FormKey.ID == 0x81D).Name?.String != "Feral act")
     throw new InvalidOperationException("Feral power validation failed.");
 if (built.MagicEffects.Single(x => x.FormKey.ID == 0xA20).Archetype.Type != MagicEffectArchetype.TypeEnum.Demoralize ||
     built.Spells.Single(x => x.FormKey.ID == 0xA21).Effects.Single().Data?.Duration != 10)
@@ -527,11 +561,33 @@ for (var family = 1; family <= 8; family++)
             .SingleOrDefault(x => x.Name == "Family")?.Data;
         var scriptRank = script?.Properties.OfType<IScriptIntPropertyGetter>()
             .SingleOrDefault(x => x.Name == "Rank")?.Data;
+        var expectedDuration = rank switch { 1 => 120, 2 => 300, _ => 600 };
         if (script?.Name != "cfl_FeralShapeEffect" || scriptFamily != family || scriptRank != rank ||
-            spell.Type != SpellType.LesserPower || spell.Effects.Single().Data?.Duration != 120 ||
+            spell.Type != SpellType.LesserPower || spell.Effects.Single().Data?.Duration != expectedDuration ||
             !effect.Flags.HasFlag(MagicEffect.Flag.Recover) ||
             effect.Flags.HasFlag(MagicEffect.Flag.HideInUI) || string.IsNullOrWhiteSpace(effect.Description?.String))
             throw new InvalidOperationException($"Shape validation failed for family {family}, rank {rank}.");
+    }
+}
+
+for (var family = 1; family <= 8; family++)
+{
+    for (var rank = 4; rank <= 5; rank++)
+    {
+        var index = (family - 1) * 2 + (rank - 4);
+        var effect = built.MagicEffects.Single(x => x.FormKey.ID == 0xA30u + index);
+        var spell = built.Spells.Single(x => x.FormKey.ID == 0xA40u + index);
+        var script = effect.VirtualMachineAdapter?.Scripts.SingleOrDefault();
+        var scriptFamily = script?.Properties.OfType<IScriptIntPropertyGetter>()
+            .SingleOrDefault(x => x.Name == "Family")?.Data;
+        var scriptRank = script?.Properties.OfType<IScriptIntPropertyGetter>()
+            .SingleOrDefault(x => x.Name == "Rank")?.Data;
+        var expectedDuration = rank == 4 ? 900 : 1200;
+        if (script?.Name != "cfl_FeralShapeEffect" || scriptFamily != family || scriptRank != rank ||
+            spell.Type != SpellType.LesserPower || spell.Effects.Single().Data?.Duration != expectedDuration ||
+            !effect.Flags.HasFlag(MagicEffect.Flag.Recover) || effect.Flags.HasFlag(MagicEffect.Flag.HideInUI) ||
+            string.IsNullOrWhiteSpace(effect.Description?.String))
+            throw new InvalidOperationException($"Extended shape validation failed for family {family}, rank {rank}.");
     }
 }
 
@@ -590,4 +646,4 @@ using (var raceConfig = System.Text.Json.JsonDocument.Parse(File.ReadAllText(
     }
 }
 
-Console.WriteLine($"Validated {outputPath}: 60 MGEF, 60 SPEL, 1 start-game QUST.");
+Console.WriteLine($"Validated {outputPath}: 76 MGEF, 76 SPEL, 1 start-game QUST.");

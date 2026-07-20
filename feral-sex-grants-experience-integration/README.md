@@ -1,13 +1,13 @@
 # Feral - Sex Grants Experience Integration
 
-Optional loose-script integration for **Sex Grants Experience 1.8.0** and Feral v9+.
+Optional loose-script integration for **Sex Grants Experience 1.8.0** and Feral v12+.
 
 - A SexLab or OStim scene grants ordinary Sex Grants Experience character XP only when any Feral shape was active when the scene began.
 - A completed scene additionally grants 12 mastery when a creature participant matches that snapshotted Feral family.
-- The snapshot remains valid if the 120-second shape expires during the scene.
+- The scene-start snapshot remains valid if any duration-tier shape expires during the scene.
 - Sex Grants Experience's existing scoring, victim, orgasm, multiplier, solo-scene, and cooldown settings remain authoritative after the Feral gate.
 
-Install this mod after both **Feral - Bodymorph Addon** and **Sex Grants Experience** in MO2. It intentionally overrides only `SexLabExperience.pex` and `OStimExperience.pex`; remove this integration to restore the original behavior.
+Install this mod after both **Feral - Bodymorph Addon** and **Sex Grants Experience** in MO2. It overrides only `SexLabExperience.pex` and `OStimExperience.pex` and adds `SKSE\Plugins\Feral\SexIntegration.json`. The marker lets Feral's MCM report that the integration is installed and supplies the shared 12-mastery reward. Remove this integration to restore the original behavior.
 
 The build is pinned to Sex Grants Experience 1.8.0 source hashes:
 
