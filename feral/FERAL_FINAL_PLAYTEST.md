@@ -1,4 +1,4 @@
-# Feral v12 consolidated playtest
+# Feral v13 consolidated playtest
 
 Use a disposable copy of the current save.
 
@@ -16,6 +16,8 @@ Use a disposable copy of the current save.
 12. Confirm Bodymorph forms block Feral and Feral blocks Bodymorph, with names 101-108 displayed correctly even though the raw lock includes an ownership token.
 13. Test Off, Balanced, and Hardcore XP modes. Verify harvest and shape-use XP, Balanced quest/discovery/clear rewards, Hardcore suppression, and exact restoration when switched Off.
 14. With the optional integration enabled, confirm Overview reports it as installed with a 12-mastery reward. Verify: no-shape SexLab/OStim scenes grant no Sex Grants Experience XP; any start-of-scene Feral shape permits ordinary XP; only a matching creature grants 12 family mastery; a shape expiring mid-scene remains qualified; upstream orgasm/victim/cooldown settings still apply.
+   - At family mastery 9, verify matching creatures are unchanged. At 10+, enter the matching shape and verify nearby matching creatures stop fighting and remain neutral. Attack one yourself and with a teammate; confirm only that creature becomes hostile until the next transformation. End the shape and verify aggression restores. Repeat across a cell transition and run the MCM cleanup action.
+   - With approaches enabled and cooldown clear, remain near an eligible matching creature. Confirm no approach before 5 seconds, subsequent checks occur about every 15 seconds, the creature paths close, and exactly one Accept/Refuse prompt can occur per transformation. Verify Refuse starts nothing; Accept starts a consensual two-actor SexLab scene and awards +12 only once through the existing listener. Let the shape expire mid-scene and confirm the partner remains calm until the scene ends. Verify combat, blocked LOS, command state, active scenes, wrong family, and the six-game-hour family cooldown prevent an approach.
 15. Test Human Response Off, Reactions, and Full. Confirm unwitnessed/blocked-LOS shapes add nothing, multiple potential witnesses add only 5 per cast, witnessed human kills add 15, and quiet days decay notoriety lazily.
 16. Force notoriety 40/60/80/100. Confirm witness fear, once-per-day guard bounty, three-day hunter cooldown, no duplicate live hunter groups, elite level-100 group, and cleanup after hunters die.
 17. Disable Feral while transformed, save/reload, die while transformed, and run MCM cleanup. Confirm no permanent base/trait/technique stats, overlays, cosmetics, stale lock, hunter duplication, pending corpse list, or duplicate mastery award remains.

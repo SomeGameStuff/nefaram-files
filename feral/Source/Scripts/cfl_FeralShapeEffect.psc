@@ -90,6 +90,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	ApplyMilestoneTraits(player)
 	ApplyMorphs(player)
 	ApplyMark(player)
+	feral.BroadcastShapeStart(Family, _masteryLevel, _activeToken)
 	feral.RecordWitnessedTransformation(Family, _activeToken)
 	Debug.Notification("Feral " + feral.FamilyName(Family) + " shape takes hold.")
 EndEvent
@@ -99,6 +100,11 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 	_ownsShape = false
+	Quest endingController = Game.GetFormFromFile(0x000950, "Feral.esp") as Quest
+	cfl_FeralMCM endingFeral = endingController as cfl_FeralMCM
+	If endingFeral
+		endingFeral.BroadcastShapeEnd(Family, _activeToken)
+	EndIf
 	Spell activeTechnique = Game.GetFormFromFile(0x000A10 + (Family - 1), "Feral.esp") as Spell
 	If activeTechnique
 		akTarget.DispelSpell(activeTechnique)

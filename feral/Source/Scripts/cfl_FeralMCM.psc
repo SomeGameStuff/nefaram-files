@@ -24,10 +24,16 @@ Int _testHuntersOption
 Int _testLevelSliderOption
 Int _morphMultiplierOption
 Int _morphResetOption
+Int _kinshipOption
+Int _kinshipApproachesOption
+Int _kinshipLevelOption
+Int _kinshipFrequencyOption
+Int _kinshipCooldownOption
+Int _kinshipCleanupOption
 Int[] _morphOptions
 
 Int Function GetVersion()
-	Return 12
+	Return 13
 EndFunction
 
 Event OnConfigInit()
@@ -438,6 +444,14 @@ EndFunction
 Function BuildSettingsPage()
 	AddHeaderOption("Hunting")
 	AddTextOption("Essence collection", "Automatic", OPTION_FLAG_DISABLED)
+	AddHeaderOption("Creature kinship")
+	AddTextOption("Integration", KinshipIntegrationStatus(), OPTION_FLAG_DISABLED)
+	_kinshipOption = AddToggleOption("Matching creatures become neutral", IsKinshipEnabled())
+	_kinshipApproachesOption = AddToggleOption("Matching creature approaches", AreKinshipApproachesEnabled())
+	_kinshipLevelOption = AddSliderOption("Minimum mastery level", GetKinshipMinimumLevel(), "{0}")
+	_kinshipFrequencyOption = AddTextOption("Approach frequency", KinshipFrequencyName(), OPTION_FLAG_NONE)
+	_kinshipCooldownOption = AddSliderOption("Accepted-scene cooldown", GetKinshipCooldownHours(), "{0} game hours")
+	_kinshipCleanupOption = AddTextOption("Clear temporary kinship", "Clean", OPTION_FLAG_NONE)
 	AddHeaderOption("Maintenance")
 	_recalculateOption = AddTextOption("Rebuild transformation powers", "Repair", OPTION_FLAG_NONE)
 	_endShapeOption = AddTextOption("Clear active Feral shape", "Clean", OPTION_FLAG_NONE)
@@ -483,6 +497,12 @@ Function ResetOptionIDs()
 	_testLevelSliderOption = -1
 	_morphMultiplierOption = -1
 	_morphResetOption = -1
+	_kinshipOption = -1
+	_kinshipApproachesOption = -1
+	_kinshipLevelOption = -1
+	_kinshipFrequencyOption = -1
+	_kinshipCooldownOption = -1
+	_kinshipCleanupOption = -1
 	_morphOptions = new Int[1]
 	_morphOptions[0] = -1
 EndFunction
@@ -514,6 +534,91 @@ String Function SexProgressionText()
 		Return "+" + SexIntegrationReward() + " with matching creature and shape"
 	EndIf
 	Return "Requires the optional sex integration"
+EndFunction
+
+Function EnsureKinshipDefaults()
+	Actor player = Game.GetPlayer()
+	If StorageUtil.GetIntValue(player, "Feral.Kinship.Initialized") < 1
+		StorageUtil.SetIntValue(player, "Feral.Kinship.Enabled", 1)
+		StorageUtil.SetIntValue(player, "Feral.Kinship.Approaches", 1)
+		StorageUtil.SetIntValue(player, "Feral.Kinship.MinimumLevel", 10)
+		StorageUtil.SetIntValue(player, "Feral.Kinship.Frequency", 1)
+		StorageUtil.SetIntValue(player, "Feral.Kinship.CooldownHours", 6)
+		StorageUtil.SetIntValue(player, "Feral.Kinship.Initialized", 1)
+	EndIf
+EndFunction
+
+Bool Function IsKinshipEnabled()
+	EnsureKinshipDefaults()
+	Return StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Kinship.Enabled") > 0
+EndFunction
+
+Bool Function AreKinshipApproachesEnabled()
+	EnsureKinshipDefaults()
+	Return StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Kinship.Approaches") > 0
+EndFunction
+
+Int Function GetKinshipMinimumLevel()
+	EnsureKinshipDefaults()
+	Return StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Kinship.MinimumLevel")
+EndFunction
+
+Int Function GetKinshipFrequency()
+	EnsureKinshipDefaults()
+	Return StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Kinship.Frequency")
+EndFunction
+
+String Function KinshipFrequencyName()
+	Int frequency = GetKinshipFrequency()
+	If frequency == 0
+		Return "Rare"
+	ElseIf frequency == 2
+		Return "Likely"
+	EndIf
+	Return "Occasional"
+EndFunction
+
+Int Function GetKinshipCooldownHours()
+	EnsureKinshipDefaults()
+	Return StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Kinship.CooldownHours")
+EndFunction
+
+String Function KinshipIntegrationStatus()
+	Quest controller = Game.GetFormFromFile(0x000803, "FeralCreatureKinship.esp") as Quest
+	If controller
+		Return "Installed; neutral at level " + GetKinshipMinimumLevel()
+	EndIf
+	Return "Optional integration plugin not detected"
+EndFunction
+
+Function RequestKinshipCleanup()
+	Int handle = ModEvent.Create("FeralKinshipCleanup")
+	If handle
+		ModEvent.Send(handle)
+	EndIf
+EndFunction
+
+Function BroadcastShapeStart(Int family, Int masteryLevel, Int token)
+	Int handle = ModEvent.Create("FeralShapeStart")
+	If handle
+		ModEvent.PushInt(handle, family)
+		ModEvent.PushInt(handle, masteryLevel)
+		ModEvent.PushInt(handle, token)
+		ModEvent.PushInt(handle, ShapeDurationForLevel(masteryLevel))
+		ModEvent.Send(handle)
+	EndIf
+EndFunction
+
+Function BroadcastShapeEnd(Int family, Int token)
+	If family < 1 || token < 1
+		Return
+	EndIf
+	Int handle = ModEvent.Create("FeralShapeEnd")
+	If handle
+		ModEvent.PushInt(handle, family)
+		ModEvent.PushInt(handle, token)
+		ModEvent.Send(handle)
+	EndIf
 EndFunction
 
 String Function YesNo(Bool value)
@@ -1664,6 +1769,14 @@ Event OnOptionHighlight(Int option)
 		SetInfoText("Off grants no Feral character XP. Balanced disables ordinary kill and skill XP. Hardcore disables ordinary Experience reward sources. Saved settings return when switched Off.")
 	ElseIf option == _humanResponseOption
 		SetInfoText("Off disables notoriety. Reactions enables warnings and fear. Full also enables guard bounties and hunter encounters.")
+	ElseIf option == _kinshipOption
+		SetInfoText("At the configured mastery level, matching loaded creatures become temporarily neutral while their Feral shape is active. Attacking one breaks kinship for that creature until the next transformation.")
+	ElseIf option == _kinshipApproachesOption
+		SetInfoText("Allows eligible matching creatures to approach after five transformed seconds and offer an Accept or Refuse prompt for a consensual SexLab scene.")
+	ElseIf option == _kinshipFrequencyOption
+		SetInfoText("Rare halves approach rolls, Occasional uses the designed 40-60% two-minute chance, and Likely increases the roll by 75%.")
+	ElseIf option == _kinshipCleanupOption
+		SetInfoText("Removes every temporary kinship or approach effect tracked by the optional integration.")
 	EndIf
 EndEvent
 
@@ -1685,6 +1798,27 @@ Event OnOptionSelect(Int option)
 		EndIf
 		SetHumanResponseMode(nextResponse)
 		ForcePageReset()
+	ElseIf option == _kinshipOption
+		EnsureKinshipDefaults()
+		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Kinship.Enabled", (!IsKinshipEnabled()) as Int)
+		If !IsKinshipEnabled()
+			RequestKinshipCleanup()
+		EndIf
+		ForcePageReset()
+	ElseIf option == _kinshipApproachesOption
+		EnsureKinshipDefaults()
+		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Kinship.Approaches", (!AreKinshipApproachesEnabled()) as Int)
+		ForcePageReset()
+	ElseIf option == _kinshipFrequencyOption
+		Int nextFrequency = GetKinshipFrequency() + 1
+		If nextFrequency > 2
+			nextFrequency = 0
+		EndIf
+		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Kinship.Frequency", nextFrequency)
+		ForcePageReset()
+	ElseIf option == _kinshipCleanupOption
+		RequestKinshipCleanup()
+		Debug.Notification("Feral: requested creature kinship cleanup.")
 	ElseIf option == _recalculateOption
 		RefreshShapePowers()
 		RefreshPassivePowers()
@@ -1772,6 +1906,16 @@ Event OnOptionSliderOpen(Int option)
 		SetSliderDialogDefaultValue(180.0)
 		SetSliderDialogRange(60.0, 300.0)
 		SetSliderDialogInterval(30.0)
+	ElseIf option == _kinshipLevelOption
+		SetSliderDialogStartValue(GetKinshipMinimumLevel())
+		SetSliderDialogDefaultValue(10.0)
+		SetSliderDialogRange(1.0, 100.0)
+		SetSliderDialogInterval(1.0)
+	ElseIf option == _kinshipCooldownOption
+		SetSliderDialogStartValue(GetKinshipCooldownHours())
+		SetSliderDialogDefaultValue(6.0)
+		SetSliderDialogRange(1.0, 24.0)
+		SetSliderDialogInterval(1.0)
 	EndIf
 EndEvent
 
@@ -1792,6 +1936,15 @@ Event OnOptionSliderAccept(Int option, Float value)
 		Int seconds = value as Int
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.ClaimWindowSeconds", seconds)
 		SetSliderOptionValue(option, seconds, "{0} seconds")
+	ElseIf option == _kinshipLevelOption
+		Int level = value as Int
+		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Kinship.MinimumLevel", level)
+		SetSliderOptionValue(option, level, "{0}")
+		RequestKinshipCleanup()
+	ElseIf option == _kinshipCooldownOption
+		Int hours = value as Int
+		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.Kinship.CooldownHours", hours)
+		SetSliderOptionValue(option, hours, "{0} game hours")
 	EndIf
 EndEvent
 
@@ -2143,6 +2296,8 @@ EndFunction
 
 Function EndActiveShape()
 	Actor player = Game.GetPlayer()
+	Int endingFamily = StorageUtil.GetIntValue(player, "Feral.ActiveFamily")
+	Int endingToken = StorageUtil.GetIntValue(player, "Feral.ActiveToken")
 	Bool dispelledActiveEffect = false
 	Int family = 1
 	While family <= 8
@@ -2169,6 +2324,7 @@ Function EndActiveShape()
 	StorageUtil.SetIntValue(player, "Feral.ActiveRank", 0)
 	StorageUtil.SetIntValue(player, "Feral.ActiveToken", 0)
 	StorageUtil.UnsetFloatValue(player, "Feral.ActiveExpression")
+	BroadcastShapeEnd(endingFamily, endingToken)
 	; Stale recovery never transforms, so leftover fatigue only blocks a
 	; legitimate fresh cast.
 	StorageUtil.SetFloatValue(player, "Feral.FatigueUntil", 0.0)
