@@ -29,11 +29,19 @@ Those separate mods should stay disabled when this merged mod is enabled.
 - `Scripts/LEA_TIF_FertilityAccept.pex`
 - `Scripts/LEA_TIF_MilkStatus.pex`
 - `Scripts/LEA_TIF_MilkTurnIn.pex`
+- `Scripts/LEA_TIF_MilkFailure.pex`
+- `Scripts/LEA_TIF_MilkRelease.pex`
+- `Scripts/LEA_TIF_BodyPotionDecline.pex`
+- `Scripts/LEA_TIF_FertilityDecline.pex`
 - `Scripts/vkjPlayerAliasScript.pex`
 - `LolaExpandedAddons.esp`
 - `Source/Scripts/cfl_Drugs.psc`
 - `Source/Scripts/cfl_lolaMain.psc`
 - `Source/Scripts/cfl_LolaMonitor.psc`
+- `Source/Scripts/LEA_TIF_MilkFailure.psc`
+- `Source/Scripts/LEA_TIF_MilkRelease.psc`
+- `Source/Scripts/LEA_TIF_BodyPotionDecline.psc`
+- `Source/Scripts/LEA_TIF_FertilityDecline.psc`
 - `Source/Scripts/cfl_MCM.psc`
 - `Source/Scripts/cfl_Missives.psc`
 - `Source/Scripts/vkjPlayerAliasScript.psc`
@@ -165,8 +173,19 @@ Default behavior:
   - having the owner start milking the player when the player is full.
 
 For milk quota assignments, the player must return near the owner with enough
-MME milk bottles. The owner dialogue hub includes a milk quota status topic while
-the quota is active and a turn-in topic when enough milk is ready.
+MME milk bottles. The owner dialogue hub includes a reactive quota status topic:
+the owner responds differently when the player has no bottles, partial progress,
+or enough to turn in. A separate turn-in topic appears when enough milk is ready.
+If the deadline passes, the next dialogue is a failure confession; its response
+uses Lola's normal minimal punishment and clears the failed order before another
+quota can start.
+
+The player may also ask the owner to be excused from an active milk quota. The
+owner grants a temporary release through dialogue and applies the normal milk
+cooldown before another quota can be assigned. Pending body and fertility doses
+have matching "ask for mercy" choices in both the owner hub and their force-greet
+dialogue; accepting mercy clears the pending dose and applies that feature's
+normal cooldown.
 
 The default quota is 2 bottles, with a 48-hour timeout.
 
@@ -301,9 +320,9 @@ hair-change quest. That quest reads hair styles from:
 
 `SKSE/Plugins/Lola/HairStyles.json`
 
-This addon does not replace that quest. Instead, it adds a setup helper to the
-Addons MCM page that can seed Lola's existing hair style list from a generated
-broad NEFARAM hair pool.
+This addon keeps Lola's normal hair-change quest and restore flow, but it now
+adds an addon policy that can force that event to use `New Style + Random Color`
+instead of Lola's default color-only mode.
 
 Default behavior:
 
@@ -313,10 +332,13 @@ Default behavior:
 - The MCM seed button validates each entry with `Game.GetFormFromFile`.
 - Only valid `HeadPart` records with type `3` are added to Lola's style list.
 - The clear button removes styles previously seeded by this addon.
+- Hair changes are forced to `New Style + Random Color` by default.
+- Hair-change cooldown defaults to 24 in-game hours.
+- Hair-change duration defaults to 6 in-game hours.
 
-After seeding, use Submissive Lola's existing hair settings and select either
-`New Style` or `New Style + Random Color`. Lola will then use the seeded styles
-with its normal temporary restore behavior.
+The hair quest override also guards against an empty or invalid style list. If
+Lola cannot select a valid hair `HeadPart`, the change is skipped cleanly instead
+of trying to apply `None`.
 
 ## MCM
 
@@ -330,9 +352,13 @@ The MCM page writes to the same JSON file used by the scripts:
 
 The Addons page also has hair pool utility actions:
 
+- `Force style + color`
+- `Hair status`
+- `Hair cooldown hours`
+- `Hair duration hours`
+- `Apply hair settings now`
 - `Seed Lola hair styles`
 - `Clear seeded hair styles`
-- `Hair styles available`
 
 When Forced Adventuring is active, the Addons page also shows:
 
