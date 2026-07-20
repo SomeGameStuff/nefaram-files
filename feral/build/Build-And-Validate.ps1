@@ -89,7 +89,10 @@ foreach ($required in @('GetConfiguredFamily', 'RefreshShapePowers', 'Experience
     'RankForLevel', 'GetMarkOpacity', 'Feral.MasteryLevel', 'RefreshTechniquePowers',
     'GetActiveFamily', 'GetNotoriety', 'RecordWitnessedTransformation', 'SpawnHunterGroup',
     'PassiveRankForLevel', 'DurationTierForLevel', 'ShapeDurationForLevel',
-    'RefreshPassivePowers', 'ApplyShapeTier', 'GetMorphMultiplier', 'GetConfiguredMorphValue')) {
+    'RefreshPassivePowers', 'ApplyShapeTier', 'GetMorphMultiplier', 'GetConfiguredMorphValue',
+    'EnsureKinshipDefaults', 'IsKinshipEnabled', 'AreKinshipApproachesEnabled',
+    'GetKinshipMinimumLevel', 'GetKinshipFrequency', 'GetKinshipCooldownHours',
+    'BroadcastShapeStart', 'BroadcastShapeEnd', 'FeralShapeStart', 'FeralShapeEnd')) {
     if ($controller -notmatch [regex]::Escape($required)) { throw "Missing controller feature: $required" }
 }
 if ($controller -notmatch 'If !IsFeralEnabled\(\) \|\| akKiller != Game.GetPlayer\(\)') {
@@ -123,15 +126,15 @@ foreach ($page in @('Overview', 'Progression', 'Families', 'Morphs', 'Human resp
         throw "Missing MCM page: $page"
     }
 }
-if ($controller -notmatch 'Return 12' -or $controller -notmatch 'Event OnConfigOpen\(\)[\s\S]*?EnsurePages\(\)[\s\S]*?EndEvent') {
-    throw 'MCM v12 existing-save page refresh is missing.'
+if ($controller -notmatch 'Return 13' -or $controller -notmatch 'Event OnConfigOpen\(\)[\s\S]*?EnsurePages\(\)[\s\S]*?EndEvent') {
+    throw 'MCM v13 existing-save page refresh is missing.'
 }
 if ($controller -match '_morphOptions\s*=\s*None') {
     throw 'MCM still assigns None to an Int array.'
 }
 foreach ($required in @('BuildProgressionPage', 'BuildFamiliesPage', 'BuildHumanResponsePage',
     'SexIntegrationInstalled', 'SexProgressionText', 'MorphDisplayName', 'Event OnOptionHighlight')) {
-    if ($controller -notmatch [regex]::Escape($required)) { throw "Missing MCM v12 feature: $required" }
+    if ($controller -notmatch [regex]::Escape($required)) { throw "Missing MCM v13 feature: $required" }
 }
 if ($skyUiStub -notmatch 'Int Property TOP_TO_BOTTOM = 2' -or
     $skyUiStub -notmatch 'Int Function AddHeaderOption' -or
@@ -151,7 +154,8 @@ if ($masteryCurveTotal -lt 2700 -or $masteryCurveTotal -gt 2900) {
 $shapeEffect = Get-Content -Raw -LiteralPath (Join-Path $sourceRoot 'cfl_FeralShapeEffect.psc')
 foreach ($required in @('BeginActiveShape', 'IsActiveInstance', 'Feral.LastShapeToken',
     'Feral.ActiveToken', 'ownsCurrentShape', 'AddShapeTime', 'GetCurrentGameTime',
-    'MarkOpacity', 'Return baseMark + " III"', 'EndActiveShape')) {
+    'MarkOpacity', 'Return baseMark + " III"', 'EndActiveShape', 'BroadcastShapeStart',
+    'BroadcastShapeEnd')) {
     if ($shapeEffect -notmatch [regex]::Escape($required)) { throw "Missing owner-safe shape feature: $required" }
 }
 if ($shapeEffect -match 'GetTimeElapsed') {
@@ -175,4 +179,4 @@ if ($techniqueEffect -match 'RegisterFor(?:Single)?Update') {
     throw 'Technique effect contains a Papyrus update registration.'
 }
 
-Write-Output "Feral v12 build validation passed: six-page MCM, existing-save navigation repair, friendly live-inspected morphs, permanent family passives, 2-20 minute shapes, 100-level mastery ($masteryCurveTotal points), notoriety, XP modes, and 9 Papyrus scripts."
+Write-Output "Feral v13 build validation passed: six-page MCM, kinship integration controls and lifecycle events, existing-save navigation repair, friendly live-inspected morphs, permanent family passives, 2-20 minute shapes, 100-level mastery ($masteryCurveTotal points), notoriety, XP modes, and 9 Papyrus scripts."

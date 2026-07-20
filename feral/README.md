@@ -1,12 +1,12 @@
 # Feral
 
-Feral v12 turns hunting and transformation use into eight long-form mastery paths. Personally kill supported creatures to absorb their essence automatically, then spend time in the unlocked shape to deepen it from mastery level 1 to 100. Permanent family instincts, increasingly long transformations, continuous visuals, milestone traits, family techniques, and human notoriety make broad mastery increasingly valuable and consequential. The MO2 package is named **Feral - Bodymorph Addon**.
+Feral v13 turns hunting and transformation use into eight long-form mastery paths. Personally kill supported creatures to absorb their essence automatically, then spend time in the unlocked shape to deepen it from mastery level 1 to 100. Permanent family instincts, increasingly long transformations, continuous visuals, milestone traits, family techniques, creature kinship, and human notoriety make broad mastery increasingly valuable and consequential. The MO2 package is named **Feral - Bodymorph Addon**.
 
 ## Requirements
 
 Skyrim SE/AE, SKSE, SkyUI, PapyrusUtil, powerofthree's Papyrus Extender, Experience, RaceMenu/NiOverride, SlaveTats NG, and Bodymorph Alterations (`Dollform.esp`). Load `Feral.esp` after `Dollform.esp`.
 
-Install the complete **Feral - Bodymorph Addon** folder as one MO2 mod; do not install only the ESP. On an existing save, wait for SkyUI registration before opening Mod Configuration. Feral v12 rebuilds its six-page navigation whenever the MCM opens, so upgrading does not require a console command. If **Feral itself** is absent after a minute, `setstage SKI_ConfigManagerInstance 1` remains a one-time SkyUI registry fallback. A large red `Total MCM` number is the number of registered menus, not by itself a Feral error.
+Install the complete **Feral - Bodymorph Addon** folder as one MO2 mod; do not install only the ESP. On an existing save, wait for SkyUI registration before opening Mod Configuration. Feral v13 rebuilds its six-page navigation whenever the MCM opens, so upgrading does not require a console command. If **Feral itself** is absent after a minute, `setstage SKI_ConfigManagerInstance 1` remains a one-time SkyUI registry fallback. A large red `Total MCM` number is the number of registered menus, not by itself a Feral error.
 
 ## Hunting and mastery
 
@@ -67,7 +67,7 @@ The source atlas shows the intended creature identities:
 
 ![Feral source pattern atlas](assets/FeralPatternAtlas-v5.png)
 
-This transparency contact sheet shows the three source densities retained for save compatibility and art comparison. Normal v12 transformations use the most detailed texture and scale its opacity continuously. This is a flat UV/art preview, not an in-game body screenshot; checkerboard areas are transparent:
+This transparency contact sheet shows the three source densities retained for save compatibility and art comparison. Normal v13 transformations use the most detailed texture and scale its opacity continuously. This is a flat UV/art preview, not an in-game body screenshot; checkerboard areas are transparent:
 
 ![Feral marking stages](assets/FeralMarkingStages-v5.png)
 
@@ -92,7 +92,7 @@ The exact prior Experience settings are snapshotted and restored when the path i
 
 ## Activity and adult-mod integrations
 
-The base Feral mod contains no sex animations, animation selection, arousal, pregnancy, fertility, body-fluid, dialogue, or relationship mechanics. Its adult content is limited to progression supplied by the separately packaged **Feral - Sex Grants Experience Integration**, which overrides the SexLab and OStim listeners from Sex Grants Experience 1.8.0.
+The base Feral mod contains no sex animations, animation selection, pregnancy, fertility, body-fluid, or adult dialogue. The separately packaged **Feral - Sex Grants Experience Integration** supplies scene progression and optional SexLab creature kinship. It requires the creature animations and framework support already present in the modlist; it does not create animations.
 
 What the integration actually does:
 
@@ -105,9 +105,17 @@ What the integration actually does:
 
 **Wolf example:** begin a SexLab scene while the Wolf shape is active with at least one participant whose race maps to the Wolf family. When the scene ends, Wolf receives +12 mastery even if the shape expired mid-scene. A vanilla wolf (`WolfRace`, `Skyrim.esm:0001320A`) matches. Dogs, werewolves, and custom wolf-like races do not match automatically; custom races must be added to `SKSE\Plugins\Feral\Races.json`. Starting in Bear shape with a wolf partner grants no matching-family mastery, although the active Bear shape still permits ordinary Sex Grants Experience XP and earns its normal elapsed-shape mastery.
 
-**Matching does not make creatures friendly or attracted.** Feral does not alter aggression, combat state, factions, relationships, confidence, assistance, arousal, or scene eligibility for a matching race. A wolf remains as hostile or neutral as the rest of the installed modlist makes it; the Wolf-family match is used only to decide the mastery reward. Feral also does not start scenes. Initiating a scene with a normally hostile creature therefore requires the existing SexLab creature setup, a defeat/scene-start mechanism, or a separate pacification/control feature. The short early shape duration only has to last until the scene begins because the adapter snapshots qualification at scene start.
+### Creature kinship and consensual approaches
 
-Both SexLab and OStim hooks contain this matching code. Sex Grants Experience 1.8.0 itself describes OStim as not supporting creature animations, so creature-family progression is practically a SexLab feature unless the installed OStim setup can actually provide a creature actor to its scene events.
+With `FeralCreatureKinship.esp` enabled, mastery level 10 in a family unlocks kinship while its matching shape is active. Matching loaded creatures within 4096 units have their current aggression temporarily reduced to zero and combat stopped. Their original aggression is restored when the shape ends. If the player or a player teammate attacks a specific creature, kinship breaks for that creature until the next transformation; Feral does not permanently change factions or relationships.
+
+After **5 seconds** in a qualifying shape, the add-on checks every 15 seconds for a matching creature within 1200 units. The creature must be alive, loaded, in line of sight, out of combat, not commanded, not a teammate, not in a scene, and valid to SexLab. Candidate selection favors higher SLO Aroused NG arousal and then proximity. Arousal and elapsed checks produce a growing random chance; the default **Occasional** setting makes an approach plausible, not guaranteed, during a two-minute level-10 shape.
+
+The creature walks toward the player and a message offers **Accept** or **Refuse**. Accept starts a consensual two-actor SexLab scene with hook `FeralKinship`; Refuse starts nothing. There is at most one prompt per transformation and, after an accepted scene, a six-game-hour cooldown for that family. If the shape ends during an accepted scene, that partner remains calm until the scene finishes. Feral's existing scene listener—not the kinship controller—awards the one-time +12 matching-family mastery, so an initiated scene cannot award it twice.
+
+The Settings page independently controls neutral kinship, approaches, minimum mastery (default 10), Rare/Occasional/Likely frequency, accepted-scene cooldown (default 6 game hours), and emergency cleanup. Disabling neutral kinship immediately requests cleanup. These systems do not change creature arousal, guarantee an animation, bypass SexLab validation, or initiate OStim scenes.
+
+Both SexLab and OStim reward hooks contain the matching-scene progression code. Sex Grants Experience 1.8.0 itself describes OStim as not supporting creature animations, so creature-family progression is practically a SexLab feature unless the installed OStim setup can actually provide a creature actor to its scene events. Kinship approaches themselves use SexLab only.
 
 Feral also exposes `GetActiveFamily()`, `GetMasteryLevel(family)`, `GetFamily(actor)`, and `AddActivityMastery(family, points, source)` for other optional adapters. The integration's `SexIntegration.json` marker lets the Feral MCM report whether it and the configured mastery reward are installed.
 
@@ -115,7 +123,7 @@ Feral also exposes `GetActiveFamily()`, `GetMasteryLevel(family)`, `GetFamily(ac
 
 Human response has **Off**, **Reactions**, and **Full** modes; Full is the default. A witnessed transformation adds 5 notoriety and a witnessed human kill while transformed adds 15. Notoriety decays by 2 per in-game day after one quiet day. At 20 people whisper, at 40 witnesses can flee, at 60 witnessing guards can add a 250-gold bounty once per day, and at 80 event-driven exterior-cell checks can launch a hunter group after a three-day cooldown. Level 100 notoriety raises the encounter chance and adds an elite hunter. Reactions mode keeps fear feedback but disables bounty and hunters.
 
-Witness detection runs only when a shape begins or a relevant human dies: one nearest-actor query plus at most four bounded random candidates, each requiring line of sight. Hunter checks run only on PO3's cell-loaded event and retain at most one three-actor group. There is no cloak, recurring update, or nearby-actor polling loop. Fully voiced/conditioned NPC dialogue remains future content; v12 uses MCM status and threshold notifications.
+Witness detection runs only when a shape begins or a relevant human dies: one nearest-actor query plus at most four bounded random candidates, each requiring line of sight. Hunter checks run only on PO3's cell-loaded event and retain at most one three-actor group. Fully voiced/conditioned NPC dialogue remains future content; v13 uses MCM status and threshold notifications. While the optional kinship plugin has a qualifying shape or accepted scene to manage, it performs a bounded high-process actor scan every 10 seconds and a lightweight two-second state/timeout update; both stop when inactive.
 
 ## Runtime cost
 
@@ -127,7 +135,7 @@ Witness detection runs only when a shape begins or a relevant human dies: one ne
 
 ## Save compatibility and custom content
 
-Version 12 preserves all historical harvest counts, mastery, morph overrides, Experience snapshots, notoriety, and selected family. It also repairs blank or stale saved MCM page arrays every time the menu opens. Earlier migrations still convert family slot 7 Horse progress into Stag progress, retire Claim soul, clear pending-corpse references, restore permanent passive ranks, and select the correct native-duration power. Custom races belong in `SKSE\Plugins\Feral\Races.json`.
+Version 13 preserves all historical harvest counts, mastery, morph overrides, Experience snapshots, notoriety, and selected family. It also repairs blank or stale saved MCM page arrays every time the menu opens. Earlier migrations still convert family slot 7 Horse progress into Stag progress, retire Claim soul, clear pending-corpse references, restore permanent passive ranks, and select the correct native-duration power. Custom races belong in `SKSE\Plugins\Feral\Races.json`.
 
 ## Transformation safety
 

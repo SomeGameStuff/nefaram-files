@@ -1,8 +1,8 @@
 # Feral development notes
 
-This file preserves implementation and troubleshooting knowledge that should survive chat history. Last updated 2026-07-19 for v12.
+This file preserves implementation and troubleshooting knowledge that should survive chat history. Last updated 2026-07-19 for v13.
 
-## Progression foundation retained by v12
+## Progression foundation retained by v13
 
 - Claim Soul was removed from normal play because it added a confirmation button without a targeting, risk, or choice mechanic. The legacy records remain inert for save compatibility.
 - `OnActorKilled` is event-driven. It now returns before race/JSON matching unless Feral is enabled and the player is the killer, then grants mastery immediately. It never stores the victim.
@@ -28,7 +28,8 @@ This file preserves implementation and troubleshooting knowledge that should sur
 - Technique buffs hold their own actor-value deltas and reverse them in `OnEffectFinish`. Shape cleanup dispels the matching technique first so ending a shape cannot leave a temporary buff behind.
 - Level-25/75 traits are snapshotted and applied once by the shape effect. They never update during a live transformation.
 - Human response registers PO3's actor-killed and cell-fully-loaded events. Witness checks occur only on transformation/human-kill events, use bounded native actor queries, and require line of sight. Hunter groups use at most three owned placed actors and suppress new encounters while one remains alive.
-- The Sex Grants Experience integration is a separate loose-script override mod. Compile-only API stubs remain under its `build-stubs`; the two PEX overrides, README, and `SKSE\Plugins\Feral\SexIntegration.json` ship. Its build aborts unless upstream 1.8.0 source hashes match. Both adapters read the shared matching-scene reward from that marker with a fallback of 12.
+- The Sex Grants Experience integration is a separate add-on. Compile-only API stubs remain under its `build-stubs`; two listener overrides, three kinship PEX files, the ESL-flagged `FeralCreatureKinship.esp`, its SEQ, README, and `SKSE\Plugins\Feral\SexIntegration.json` ship. Its build aborts unless upstream 1.8.0 source hashes match. Both reward adapters read the shared matching-scene reward from that marker with a fallback of 12.
+- Base Feral v13 broadcasts tokenized `FeralShapeStart`/`FeralShapeEnd` events and owns only the kinship settings. The optional controller owns scans, temporary aggression deltas, hit-break behavior, five-second/15-second approach scheduling, SLO arousal reads, SexLab validation, prompt consent, per-family cooldowns, and scene-partner cleanup. It never awards mastery directly.
 
 ## MCM registration incident and fix
 
