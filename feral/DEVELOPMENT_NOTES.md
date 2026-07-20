@@ -1,8 +1,8 @@
 # Feral development notes
 
-This file preserves implementation and troubleshooting knowledge that should survive chat history. Last updated 2026-07-19 for v9.
+This file preserves implementation and troubleshooting knowledge that should survive chat history. Last updated 2026-07-19 for v12.
 
-## v7 foundation retained by v9
+## Progression foundation retained by v12
 
 - Claim Soul was removed from normal play because it added a confirmation button without a targeting, risk, or choice mechanic. The legacy records remain inert for save compatibility.
 - `OnActorKilled` is event-driven. It now returns before race/JSON matching unless Feral is enabled and the player is the killer, then grants mastery immediately. It never stores the victim.
@@ -10,7 +10,7 @@ This file preserves implementation and troubleshooting knowledge that should sur
 - Expression is 25% at level 1 and grows linearly to 100% at level 100. BodyMorph values, statistics, and SlaveTats opacity are calculated from that expression once when a shape begins.
 - Each family has one base transformation power from level 1 onward. Rank-2/rank-3 spell, effect, and texture records remain only for save compatibility and are removed from the player during v7 migration. The active marking always uses the detailed texture with continuously scaled opacity.
 - Discrete armor cosmetics are not part of base visual progression because ordinary equipped models cannot be scaled continuously. Horns, ears, tails, claws, and genuinely new abilities should return as separately designed milestone powers after the base paths are tested.
-- Shape use grants one mastery point per completed ten seconds, capped at twelve. The active effect reads elapsed time once in `OnEffectFinish`; there is no ten-second update loop.
+- Shape use grants one mastery point per completed ten seconds, capped at 120 for the 20-minute level-100 shape. The active effect reads elapsed time once in `OnEffectFinish`; there is no ten-second update loop.
 - `AddActivityMastery(family, points, source)` is the supported hook for future optional integrations. Adult-scene progression must inspect actual participants and active family in a separate adapter; the generic Sex Grants Experience `hasCreature` boolean cannot identify a path.
 - Human response is now implemented as bounded witness queries, lazy decay, guard bounty pressure, and cell-event hunter encounters. Fully conditioned dialogue remains future content; do not replace the current design with a cloak or periodic scan.
 
@@ -18,17 +18,17 @@ This file preserves implementation and troubleshooting knowledge that should sur
 
 - Authoritative project: `C:\Users\antho\nefaram-files\feral`.
 - MO2 runtime: `C:\Games\nefaram\mods\Feral - Bodymorph Addon`.
-- Run `build\Build-And-Validate.ps1` from the project. It builds and parses the ESP, regenerates all 24 staged DDS files, copies JSON configuration, writes the SEQ, compiles eight Papyrus scripts, and checks required controller/ownership features.
+- Run `build\Build-And-Validate.ps1` from the project. It builds and parses the ESP, regenerates all 24 staged DDS files and 8 hand textures, copies JSON configuration, writes the SEQ, compiles nine Papyrus scripts, and checks required controller/ownership/MCM features.
 - Deploy the complete `build-output` tree plus user documentation. Never update only the ESP: a mismatched PEX, SlaveTats JSON, texture set, SKSE JSON, or SEQ can look like an engine/save problem.
 - Compile stubs and `png-source` are development inputs and must not be shipped in the runtime mod.
 
-## v9 milestone and integration architecture
+## Milestone and integration architecture
 
 - Family techniques occupy local spell IDs `0xA10`-`0xA17` and magic effects `0xA00`-`0xA07`. The level-50 spell remains stable at level 100; its script reads mastery at cast time and strengthens the same technique.
-- Technique buffs hold their own actor-value deltas and reverse them in `OnEffectFinish`. Shape cleanup dispels the matching technique first so Return to Self cannot leave a temporary buff behind.
+- Technique buffs hold their own actor-value deltas and reverse them in `OnEffectFinish`. Shape cleanup dispels the matching technique first so ending a shape cannot leave a temporary buff behind.
 - Level-25/75 traits are snapshotted and applied once by the shape effect. They never update during a live transformation.
 - Human response registers PO3's actor-killed and cell-fully-loaded events. Witness checks occur only on transformation/human-kill events, use bounded native actor queries, and require line of sight. Hunter groups use at most three owned placed actors and suppress new encounters while one remains alive.
-- The Sex Grants Experience integration is a separate loose-script override mod. Compile-only API stubs remain under its `build-stubs`; only the two PEX overrides and README ship. Its build aborts unless upstream 1.8.0 source hashes match.
+- The Sex Grants Experience integration is a separate loose-script override mod. Compile-only API stubs remain under its `build-stubs`; the two PEX overrides, README, and `SKSE\Plugins\Feral\SexIntegration.json` ship. Its build aborts unless upstream 1.8.0 source hashes match. Both adapters read the shared matching-scene reward from that marker with a fallback of 12.
 
 ## MCM registration incident and fix
 
@@ -40,10 +40,12 @@ The durable solution is:
 2. Use the fresh start-game-enabled MCM quest at plugin-local FormID `0x950`.
 3. Attach the primary `cfl_FeralMCM` script and ship its matching compiled PEX.
 4. Ship `SEQ\Feral.seq` containing `0x950` so the start-game quest initializes consistently.
-5. Initialize `Pages` defensively in both config initialization and reload paths; do not assume saved script arrays match a newly compiled version.
+5. Rebuild all six `Pages` values unconditionally in config initialization, version migration, reload, and `OnConfigOpen`; do not trust a saved array merely because its length matches.
 6. For an existing save only, `setstage SKI_ConfigManagerInstance 1` requests one SkyUI registry refresh. The total-menu count is diagnostic context, not proof that SkyUI's menu limit caused the missing entry.
 
 When diagnosing another missing MCM, verify the MO2-winning ESP, PEX, and SEQ hashes before changing scripts again. Confirm the quest FormID and attached VMAD script in the built plugin. Avoid renaming the live script repeatedly: save-bound script identity and stale loose files make the result harder to reason about.
+
+The v11 page-expansion failure had a separate cause from registration. `Papyrus.0.log` showed `Cannot cast from None to Int[]` in `ResetOptionIDs` and `Mismatched types` during header construction. The first came from assigning `None` to `_morphOptions`; v12 uses a one-element `-1` sentinel because Papyrus arrays cannot have length zero. The second came from an inaccurate local `SKI_ConfigBase` compile stub that declared `AddHeaderOption` and `AddEmptyOption` as returning nothing, while SkyUI returns option IDs. Keep the stub signatures and `TOP_TO_BOTTOM = 2` aligned with the installed SkyUI API, and retain build assertions for them.
 
 ## Morph and shared-state invariants
 
@@ -51,7 +53,7 @@ When diagnosing another missing MCM, verify the MO2-winning ESP, PEX, and SEQ ha
 - Values 101-108 identify Feral families. The raw value is tokenized as `(formID * 100000) + token`; readers must decode it instead of comparing the raw global directly.
 - Every Feral cast receives a monotonically increasing token stored under `Feral.LastShapeToken`. Only the effect instance matching both family and token may clear visuals, cosmetic state, StorageUtil active state, or the shared lock.
 - Actor-value deltas are held by the active-effect instance and reversed once in `OnEffectFinish`. `_ownsShape` is cleared before cleanup to make repeated finish processing harmless.
-- **Return to Self** and the MCM end action first dispel the live shape and let its `OnEffectFinish` own cleanup. Broad MCM recovery runs only if no active shape effect was actually dispelled. This prevents the controller from clearing morphs and lock state ahead of a queued finish event.
+- Recasting the active shape and the MCM end action first dispel the live shape and let its `OnEffectFinish` own cleanup. Broad MCM recovery runs only if no active shape effect was actually dispelled. This prevents the controller from clearing morphs and lock state ahead of a queued finish event.
 - Feral touches only `Feral.Shapes` and `Feral.Shapes.Visible` NiOverride keys. It never clears Bodymorph's keys or all morphs globally.
 - Apply and normal cleanup perform one `UpdateModelWeight` per transition, not periodic updates. SlaveTats synchronization occurs only on entry/exit. There is no polling loop that rebuilds the body.
 

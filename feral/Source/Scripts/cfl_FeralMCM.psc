@@ -22,22 +22,30 @@ Int _testResetOption
 Int _testNotorietyOption
 Int _testHuntersOption
 Int _testLevelSliderOption
+Int _morphMultiplierOption
+Int _morphResetOption
+Int[] _morphOptions
 
 Int Function GetVersion()
-	Return 9
+	Return 12
 EndFunction
 
 Event OnConfigInit()
 	ModName = "Feral"
-	Pages = new String[3]
-	Pages[0] = "Status"
-	Pages[1] = "Instincts"
-	Pages[2] = "Settings"
+	EnsurePages()
 	HandleFeralReload()
 EndEvent
 
 Event OnVersionUpdate(Int newVersion)
+	EnsurePages()
 	HandleFeralReload()
+EndEvent
+
+Event OnConfigOpen()
+	; SkyUI sends Pages to the menu after this event. Rebuild the complete
+	; array here so older saved quest instances cannot retain a blank or
+	; partially initialized navigation list.
+	EnsurePages()
 EndEvent
 
 Bool Function IsFeralEnabled()
@@ -96,6 +104,7 @@ Function SetFeralEnabled(Bool enabled)
 			player.RemoveSpell(claim)
 		EndIf
 		RemoveAllShapePowers()
+		RemoveAllPassivePowers()
 		RemoveAllTechniquePowers()
 		Spell revertPower = Game.GetFormFromFile(0x0009C1, "Feral.esp") as Spell
 		If revertPower
@@ -121,9 +130,11 @@ Function InitializeFeral()
 		player.RemoveSpell(aspect)
 	EndIf
 	If revertPower
-		player.AddSpell(revertPower, false)
+		; Return to Self is retired: recasting the active shape releases it.
+		player.RemoveSpell(revertPower)
 	EndIf
 	RefreshShapePowers()
+	RefreshPassivePowers()
 	RefreshTechniquePowers()
 	ClearPendingEssence()
 	RegisterForFeralKills()
@@ -146,6 +157,7 @@ Function HandleFeralReload()
 		InitializeFeral()
 	Else
 		RemoveAllShapePowers()
+		RemoveAllPassivePowers()
 		RemoveAllTechniquePowers()
 		UnregisterForCellFullyLoaded(Self)
 	EndIf
@@ -160,12 +172,13 @@ Function HandleFeralReload()
 EndFunction
 
 Function EnsurePages()
-	If !Pages || Pages.Length != 3
-		Pages = new String[3]
-		Pages[0] = "Status"
-		Pages[1] = "Instincts"
-		Pages[2] = "Settings"
-	EndIf
+	Pages = new String[6]
+	Pages[0] = "Overview"
+	Pages[1] = "Progression"
+	Pages[2] = "Families"
+	Pages[3] = "Morphs"
+	Pages[4] = "Human response"
+	Pages[5] = "Settings"
 EndFunction
 
 Function RepairAspectState()
@@ -181,6 +194,34 @@ Function RepairAspectState()
 		If activeForm && IsFeralActiveValue(activeForm.GetValueInt())
 			activeForm.SetValue(0)
 		EndIf
+		Return
+	EndIf
+	; Saved state claims an active shape. If no matching effect is actually
+	; live (killed by an unload, an external dispel, or a finish event that
+	; died with its native binding), the lock and StorageUtil state would
+	; block every future cast forever. Recover them.
+	Int activeRank = StorageUtil.GetIntValue(player, "Feral.ActiveRank")
+	If activeRank < 1 || activeRank > 5
+		activeRank = 1
+	EndIf
+	Int shapeEffectId
+	If activeRank <= 3
+		shapeEffectId = 0x000980 + ((activeFamily - 1) * 3) + (activeRank - 1)
+	Else
+		shapeEffectId = 0x000A30 + ((activeFamily - 1) * 2) + (activeRank - 4)
+	EndIf
+	MagicEffect liveShape = Game.GetFormFromFile(shapeEffectId, "Feral.esp") as MagicEffect
+	If liveShape && !player.HasMagicEffect(liveShape)
+		ClearFeralVisuals()
+		If activeForm && IsFeralActiveValue(activeForm.GetValueInt())
+			activeForm.SetValue(0)
+		EndIf
+		StorageUtil.SetIntValue(player, "Feral.ActiveFamily", 0)
+		StorageUtil.SetIntValue(player, "Feral.ActiveRank", 0)
+		StorageUtil.SetIntValue(player, "Feral.ActiveToken", 0)
+		StorageUtil.UnsetFloatValue(player, "Feral.ActiveExpression")
+		StorageUtil.SetFloatValue(player, "Feral.FatigueUntil", 0.0)
+		Debug.Notification("Feral: recovered a stale transformation state.")
 	EndIf
 EndFunction
 
@@ -218,69 +259,165 @@ EndEvent
 Event OnPageReset(String page)
 	ResetOptionIDs()
 	SetCursorFillMode(TOP_TO_BOTTOM)
-	If page == "Instincts"
-		BuildInstinctsPage()
+	If page == "Progression"
+		BuildProgressionPage()
+	ElseIf page == "Families"
+		BuildFamiliesPage()
+	ElseIf page == "Morphs"
+		BuildMorphsPage()
+	ElseIf page == "Human response"
+		BuildHumanResponsePage()
 	ElseIf page == "Settings"
 		BuildSettingsPage()
 	Else
-		BuildStatusPage()
+		BuildOverviewPage()
 	EndIf
 EndEvent
 
-Function BuildStatusPage()
-	AddHeaderOption("Feral Status")
+Function BuildOverviewPage()
+	AddHeaderOption("Feral status")
 	_enableOption = AddToggleOption("Enable Feral hunting", IsFeralEnabled())
 	If !IsFeralEnabled()
 		AddTextOption("Status", "Disabled", OPTION_FLAG_DISABLED)
+		AddTextOption("Getting started", "Enable hunting, then kill a supported creature", OPTION_FLAG_DISABLED)
+		AddTextOption("Essence", "Harvested automatically from your kills", OPTION_FLAG_DISABLED)
 		Return
 	EndIf
 	_feralPathOption = AddTextOption("Feral Path XP mode", FeralPathModeName(), OPTION_FLAG_NONE)
-	AddTextOption("Essence harvesting", "Automatic on player kill", OPTION_FLAG_DISABLED)
+	AddTextOption("Essence harvesting", "Automatic from supported player kills", OPTION_FLAG_DISABLED)
 	AddTextOption("Transformation fatigue", FatigueStatus(), OPTION_FLAG_DISABLED)
 	Int activeFamily = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.ActiveFamily")
 	If activeFamily > 0
-		AddTextOption("Active transformation", FamilyName(activeFamily) + " / level " + GetMasteryLevel(activeFamily) + " / " + FormatShapeValue(StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.ActiveExpression") * 100.0) + "%", OPTION_FLAG_DISABLED)
-		_endShapeOption = AddTextOption("Return to Self", "End shape", OPTION_FLAG_NONE)
+		AddTextOption("Active shape", FamilyName(activeFamily) + " / level " + GetMasteryLevel(activeFamily) + " / " + FormatShapeValue(StorageUtil.GetFloatValue(Game.GetPlayer(), "Feral.ActiveExpression") * 100.0) + "%", OPTION_FLAG_DISABLED)
+		_endShapeOption = AddTextOption("End active shape", "Release", OPTION_FLAG_NONE)
 	Else
-		AddTextOption("Active transformation", "None", OPTION_FLAG_DISABLED)
+		AddTextOption("Active shape", "None", OPTION_FLAG_DISABLED)
 	EndIf
-	AddTextOption("Feral Path rewards", "30 / 45 / 70 XP", OPTION_FLAG_DISABLED)
+	Int focus = GetFocusFamily()
+	AddHeaderOption("Focused family")
+	_focusFamilyOption = AddTextOption("Family", FamilyName(focus), OPTION_FLAG_NONE)
+	AddTextOption("Mastery", "Level " + GetMasteryLevel(focus) + " / " + MasteryProgressText(focus), OPTION_FLAG_DISABLED)
+	AddTextOption("Expression", FormatShapeValue(GetExpressionScale(focus) * 100.0) + "%", OPTION_FLAG_DISABLED)
+	AddHeaderOption("Connected systems")
+	AddTextOption("Sex progression", SexIntegrationStatus(), OPTION_FLAG_DISABLED)
 	AddTextOption("Human response", HumanResponseModeName(), OPTION_FLAG_DISABLED)
-	AddTextOption("Feral notoriety", GetNotoriety() + " / 100 - " + NotorietyTierName(GetNotoriety()), OPTION_FLAG_DISABLED)
-	AddHeaderOption("Harvests / mastery levels")
-	Int i = 1
-	While i <= 8
-		AddTextOption(FamilyName(i), StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + i) + " / level " + GetMasteryLevel(i), OPTION_FLAG_DISABLED)
-		i += 1
-	EndWhile
+	AddTextOption("Notoriety", GetNotoriety() + " / 100 - " + NotorietyTierName(GetNotoriety()), OPTION_FLAG_DISABLED)
 EndFunction
 
-Function BuildInstinctsPage()
+Function BuildProgressionPage()
+	AddHeaderOption("Mastery sources")
+	AddTextOption("Hunting", "Automatic: +10 / +18 / +28 mastery", OPTION_FLAG_DISABLED)
+	AddTextOption("Common families", "Wolf, Skeever, Spider, Mudcrab: +10", OPTION_FLAG_DISABLED)
+	AddTextOption("Uncommon families", "Sabre Cat, Stag: +18", OPTION_FLAG_DISABLED)
+	AddTextOption("Rare families", "Bear, Troll: +28", OPTION_FLAG_DISABLED)
+	AddTextOption("Time transformed", "+1 mastery per completed 10 seconds", OPTION_FLAG_DISABLED)
+	AddTextOption("Matching creature sex", SexProgressionText(), OPTION_FLAG_DISABLED)
+	AddHeaderOption("Level curve")
+	AddTextOption("Family levels", "Eight independent paths, levels 1-100", OPTION_FLAG_DISABLED)
+	AddTextOption("Next-level cost", "5 + ceil(current level x 0.45)", OPTION_FLAG_DISABLED)
+	AddTextOption("Level 100 total", "2,775 mastery per family", OPTION_FLAG_DISABLED)
+	AddTextOption("Visual expression", "25% at level 1; continuous to 100%", OPTION_FLAG_DISABLED)
+	AddHeaderOption("Milestones")
+	AddTextOption("Levels 1 / 25 / 50 / 75 / 100", "2 / 5 / 10 / 15 / 20 minute shapes", OPTION_FLAG_DISABLED)
+	AddTextOption("Levels 25 / 50 / 75", "Permanent instinct ranks", OPTION_FLAG_DISABLED)
+	AddTextOption("Levels 25 and 75", "Additional transformed traits", OPTION_FLAG_DISABLED)
+	AddTextOption("Level 50", "Unlocks the family technique", OPTION_FLAG_DISABLED)
+	AddTextOption("Level 100", "Upgrades the technique to apex strength", OPTION_FLAG_DISABLED)
+	AddHeaderOption("Feral Path character XP")
+	_feralPathOption = AddTextOption("Mode", FeralPathModeName(), OPTION_FLAG_NONE)
+	AddTextOption("Harvest XP", "Common 30 / uncommon 45 / rare 70", OPTION_FLAG_DISABLED)
+	AddTextOption("Shape-use XP", "Matches mastery earned from transformed time", OPTION_FLAG_DISABLED)
+	AddTextOption("Off", "Feral grants no character XP", OPTION_FLAG_DISABLED)
+	AddTextOption("Balanced", "Disables kill and skill XP; keeps other rewards", OPTION_FLAG_DISABLED)
+	AddTextOption("Hardcore", "Disables ordinary Experience reward sources", OPTION_FLAG_DISABLED)
+	AddTextOption("Restoration", "Prior Experience settings are restored on Off", OPTION_FLAG_DISABLED)
+EndFunction
+
+Function BuildFamiliesPage()
 	Int family = GetFocusFamily()
 	Int count = StorageUtil.GetIntValue(Game.GetPlayer(), "Feral.Count." + family)
 	Int rank = GetRank(family)
 	Int level = GetMasteryLevel(family)
-	AddHeaderOption("Transformation")
+	Int passiveRank = PassiveRankForLevel(level)
+	Int durationTier = DurationTierForLevel(level)
+	AddHeaderOption("Family progression")
 	_focusFamilyOption = AddTextOption("Selected family", FamilyName(family), OPTION_FLAG_NONE)
-	AddTextOption("Harvests / mastery", count + " / level " + level, OPTION_FLAG_DISABLED)
+	AddTextOption("Harvests", count, OPTION_FLAG_DISABLED)
+	AddTextOption("Mastery level", level + " / 100", OPTION_FLAG_DISABLED)
 	AddTextOption("Level progress", MasteryProgressText(family), OPTION_FLAG_DISABLED)
-	AddTextOption("Visual growth", "Continuous at every mastery level", OPTION_FLAG_DISABLED)
 	AddTextOption("Current expression", FormatShapeValue(GetExpressionScale(family) * 100.0) + "%", OPTION_FLAG_DISABLED)
 	AddTextOption("Next harvest", "+" + MasteryAwardForHarvest(family) + " mastery", OPTION_FLAG_DISABLED)
-	AddTextOption("Shape use", "+1 mastery / 10 seconds", OPTION_FLAG_DISABLED)
-	Spell shape = GetShapeSpell(family, rank)
-	AddTextOption("Power known", YesNo(shape && Game.GetPlayer().HasSpell(shape)), OPTION_FLAG_DISABLED)
-	AddHeaderOption("Changes while transformed")
+	AddTextOption("Time transformed", "+1 mastery per completed 10 seconds", OPTION_FLAG_DISABLED)
+	Spell shape = GetShapeSpell(family, durationTier)
+	AddTextOption("Shape power known", YesNo(shape && Game.GetPlayer().HasSpell(shape)), OPTION_FLAG_DISABLED)
+	AddHeaderOption("Permanent instinct")
+	AddTextOption("Passive rank", passiveRank + " / 3", OPTION_FLAG_DISABLED)
+	AddTextOption("Always active bonus", PermanentBonusText(family, passiveRank), OPTION_FLAG_DISABLED)
+	AddHeaderOption("While transformed")
 	AddTextOption("Combat effect", ShapeBonusText(family, rank), OPTION_FLAG_DISABLED)
-	AddTextOption("Body expression", ShapeVisualText(family), OPTION_FLAG_DISABLED)
+	AddTextOption("Visual direction", ShapeVisualText(family), OPTION_FLAG_DISABLED)
 	AddTextOption("Marking opacity", FormatShapeValue(GetMarkOpacity(family) * 100.0) + "%", OPTION_FLAG_DISABLED)
-	AddTextOption("Duration", "120 seconds", OPTION_FLAG_DISABLED)
+	AddTextOption("Shape duration", ShapeDurationForLevel(level) + " seconds", OPTION_FLAG_DISABLED)
 	AddHeaderOption("Mastery milestones")
 	AddTextOption("Level 25 trait", MilestoneTraitText(family, 25), OPTION_FLAG_DISABLED)
 	AddTextOption("Level 50 technique", TechniqueStatusText(family), OPTION_FLAG_DISABLED)
 	AddTextOption("Level 75 trait", MilestoneTraitText(family, 75), OPTION_FLAG_DISABLED)
 	AddTextOption("Level 100 apex", "Upgrades " + TechniqueName(family), OPTION_FLAG_DISABLED)
 	AddTextOption("Next milestone", NextMilestoneText(level), OPTION_FLAG_DISABLED)
+EndFunction
+
+Function BuildMorphsPage()
+	Actor player = Game.GetPlayer()
+	Int family = GetFocusFamily()
+	Int level = GetMasteryLevel(family)
+	Float expression = GetExpressionScale(family)
+	AddHeaderOption("Feral morphs")
+	_focusFamilyOption = AddTextOption("Selected family", FamilyName(family), OPTION_FLAG_NONE)
+	AddTextOption("Mastery / expression", "Level " + level + " / " + FormatShapeValue(expression * 100.0) + "%", OPTION_FLAG_DISABLED)
+	AddTextOption("Selected shape active", YesNo(GetActiveFamily() == family), OPTION_FLAG_DISABLED)
+	AddTextOption("Calculation", "Slider x intensity x expression = applied", OPTION_FLAG_DISABLED)
+	AddTextOption("Visible layer", "Applied value x 0.75", OPTION_FLAG_DISABLED)
+	_morphMultiplierOption = AddSliderOption("Family intensity", GetMorphMultiplier(family), "{2}")
+	_morphResetOption = AddTextOption("Reset selected family", "Defaults", OPTION_FLAG_NONE)
+	AddHeaderOption("Full-strength morph values")
+	_morphOptions = new Int[12]
+	Int clearIndex = 0
+	While clearIndex < _morphOptions.Length
+		_morphOptions[clearIndex] = -1
+		clearIndex += 1
+	EndWhile
+	Int index = 0
+	While index < GetMorphCount(family)
+		String morph = GetMorphName(family, index)
+		_morphOptions[index] = AddSliderOption(MorphDisplayName(morph), GetConfiguredMorphValue(family, index), "{2}")
+		Float mainValue = NiOverride.GetBodyMorph(player, morph, "Feral.Shapes")
+		Float visibleValue = NiOverride.GetBodyMorph(player, morph, "Feral.Shapes.Visible")
+		AddTextOption("Applied main / visible", FormatMorphValue(mainValue) + " / " + FormatMorphValue(visibleValue), OPTION_FLAG_DISABLED)
+		index += 1
+	EndWhile
+	AddTextOption("When changes apply", "Next transformation", OPTION_FLAG_DISABLED)
+EndFunction
+
+Function BuildHumanResponsePage()
+	Int notoriety = GetNotoriety()
+	AddHeaderOption("Human response")
+	_humanResponseOption = AddTextOption("Response mode", HumanResponseModeName(), OPTION_FLAG_NONE)
+	AddTextOption("Off", "No notoriety or witness reactions", OPTION_FLAG_DISABLED)
+	AddTextOption("Reactions", "Notoriety, warnings, and witness fear", OPTION_FLAG_DISABLED)
+	AddTextOption("Full", "Also enables guard bounties and hunters", OPTION_FLAG_DISABLED)
+	AddHeaderOption("Current notoriety")
+	AddTextOption("Notoriety", notoriety + " / 100", OPTION_FLAG_DISABLED)
+	AddTextOption("Current tier", NotorietyTierName(notoriety), OPTION_FLAG_DISABLED)
+	AddTextOption("Witnessed transformation", "+5", OPTION_FLAG_DISABLED)
+	AddTextOption("Witnessed human kill", "+15 while transformed", OPTION_FLAG_DISABLED)
+	AddTextOption("Decay", "-2 per full game day after 1 quiet day", OPTION_FLAG_DISABLED)
+	AddHeaderOption("Thresholds")
+	AddTextOption("20 - Whispered about", "People begin spreading warnings", OPTION_FLAG_DISABLED)
+	AddTextOption("40 - Feared", "Witnesses can flee", OPTION_FLAG_DISABLED)
+	AddTextOption("60 - Outlawed", "Witnessing guards add 250 bounty once/day", OPTION_FLAG_DISABLED)
+	AddTextOption("80 - Hunted", "20% exterior-cell hunter check", OPTION_FLAG_DISABLED)
+	AddTextOption("100 - Apex quarry", "35% check and an elite third hunter", OPTION_FLAG_DISABLED)
+	AddTextOption("Hunter cooldown", "3 game days; one active group", OPTION_FLAG_DISABLED)
 EndFunction
 
 String Function CosmeticStatus(Int family, Int rank)
@@ -301,10 +438,6 @@ EndFunction
 Function BuildSettingsPage()
 	AddHeaderOption("Hunting")
 	AddTextOption("Essence collection", "Automatic", OPTION_FLAG_DISABLED)
-	AddHeaderOption("Human response")
-	_humanResponseOption = AddTextOption("Response mode", HumanResponseModeName(), OPTION_FLAG_NONE)
-	AddTextOption("Notoriety", GetNotoriety() + " / 100", OPTION_FLAG_DISABLED)
-	AddTextOption("Decay", "2 per game day after 1 day", OPTION_FLAG_DISABLED)
 	AddHeaderOption("Maintenance")
 	_recalculateOption = AddTextOption("Rebuild transformation powers", "Repair", OPTION_FLAG_NONE)
 	_endShapeOption = AddTextOption("Clear active Feral shape", "Clean", OPTION_FLAG_NONE)
@@ -348,6 +481,39 @@ Function ResetOptionIDs()
 	_testNotorietyOption = -1
 	_testHuntersOption = -1
 	_testLevelSliderOption = -1
+	_morphMultiplierOption = -1
+	_morphResetOption = -1
+	_morphOptions = new Int[1]
+	_morphOptions[0] = -1
+EndFunction
+
+Bool Function SexIntegrationInstalled()
+	String integrationFile = "../Feral/SexIntegration"
+	Return JsonUtil.JsonExists(integrationFile) && JsonUtil.IsGood(integrationFile) && JsonUtil.GetIntValue(integrationFile, "Installed") > 0
+EndFunction
+
+Int Function SexIntegrationReward()
+	If SexIntegrationInstalled()
+		Int reward = JsonUtil.GetIntValue("../Feral/SexIntegration", "MasteryPerMatchingScene", 12)
+		If reward > 0
+			Return reward
+		EndIf
+	EndIf
+	Return 12
+EndFunction
+
+String Function SexIntegrationStatus()
+	If SexIntegrationInstalled()
+		Return "Installed; matching scenes grant +" + SexIntegrationReward() + " mastery"
+	EndIf
+	Return "Optional integration not detected"
+EndFunction
+
+String Function SexProgressionText()
+	If SexIntegrationInstalled()
+		Return "+" + SexIntegrationReward() + " with matching creature and shape"
+	EndIf
+	Return "Requires the optional sex integration"
 EndFunction
 
 String Function YesNo(Bool value)
@@ -415,6 +581,52 @@ Int Function RankForLevel(Int level)
 	Return 0
 EndFunction
 
+Int Function PassiveRankForLevel(Int level)
+	If level >= 75
+		Return 3
+	ElseIf level >= 50
+		Return 2
+	ElseIf level >= 25
+		Return 1
+	EndIf
+	Return 0
+EndFunction
+
+Int Function DurationTierForLevel(Int level)
+	If level >= 100
+		Return 5
+	ElseIf level >= 75
+		Return 4
+	ElseIf level >= 50
+		Return 3
+	ElseIf level >= 25
+		Return 2
+	ElseIf level >= 1
+		Return 1
+	EndIf
+	Return 0
+EndFunction
+
+Int Function GetDurationTier(Int family)
+	Return DurationTierForLevel(GetMasteryLevel(family))
+EndFunction
+
+Int Function ShapeDurationForLevel(Int level)
+	Int tier = DurationTierForLevel(level)
+	If tier == 5
+		Return 1200
+	ElseIf tier == 4
+		Return 900
+	ElseIf tier == 3
+		Return 600
+	ElseIf tier == 2
+		Return 300
+	ElseIf tier == 1
+		Return 120
+	EndIf
+	Return 0
+EndFunction
+
 Float Function GetExpressionScale(Int family)
 	Return ExpressionScaleForLevel(GetMasteryLevel(family))
 EndFunction
@@ -442,6 +654,8 @@ Function GrantMastery(Int family, Int amount, String source = "activity", Bool s
 	EndIf
 	Actor player = Game.GetPlayer()
 	Int oldLevel = GetMasteryLevel(family)
+	Int oldPassiveRank = PassiveRankForLevel(oldLevel)
+	Int oldDurationTier = DurationTierForLevel(oldLevel)
 	Int level = oldLevel
 	Int progress = GetMasteryProgress(family) + amount
 	While level < 100 && progress >= MasteryPointsForNextLevel(level)
@@ -454,11 +668,15 @@ Function GrantMastery(Int family, Int amount, String source = "activity", Bool s
 	EndIf
 	StorageUtil.SetIntValue(player, "Feral.MasteryLevel." + family, level)
 	StorageUtil.SetIntValue(player, "Feral.MasteryProgress." + family, progress)
-	Int oldRank = StorageUtil.GetIntValue(player, "Feral.Rank." + family)
 	Int newRank = RankForLevel(level)
 	StorageUtil.SetIntValue(player, "Feral.Rank." + family, newRank)
-	If newRank != oldRank
-		ApplyShapeRank(family, newRank)
+	Int newDurationTier = DurationTierForLevel(level)
+	If newDurationTier != oldDurationTier
+		ApplyShapeTier(family, newDurationTier)
+	EndIf
+	Int newPassiveRank = PassiveRankForLevel(level)
+	If newPassiveRank != oldPassiveRank
+		ApplyPassiveRank(family, newPassiveRank)
 	EndIf
 	If oldLevel < 50 && level >= 50
 		ApplyTechniquePower(family)
@@ -494,8 +712,8 @@ Function AddActivityMastery(Int family, Int points, String source = "activity")
 EndFunction
 
 Function AddShapeTime(Int family, Float seconds)
-	If seconds > 120.0
-		seconds = 120.0
+	If seconds > 1200.0
+		seconds = 1200.0
 	EndIf
 	Int points = (seconds / 10.0) as Int
 	If points > 0
@@ -506,27 +724,51 @@ Function AddShapeTime(Int family, Float seconds)
 	EndIf
 EndFunction
 
+String Function PermanentBonusText(Int family, Int rank)
+	If rank < 1
+		Return "Unlocks at mastery level 25"
+	EndIf
+	If family == 1
+		Return "+" + FormatShapeValue(2.0 * rank) + " speed / +" + FormatShapeValue(3.0 * rank) + " stamina regen"
+	ElseIf family == 2
+		Return "+" + FormatShapeValue(5.0 * rank) + " stamina regen / +" + FormatShapeValue(2.0 * rank) + " unarmed"
+	ElseIf family == 3
+		Return "+" + FormatShapeValue(8.0 * rank) + " health / +" + FormatShapeValue(8.0 * rank) + " armor"
+	ElseIf family == 4
+		Return "+" + FormatShapeValue(8.0 * rank) + " poison/disease resist"
+	ElseIf family == 5
+		Return "+" + FormatShapeValue(12.0 * rank) + " poison resist"
+	ElseIf family == 6
+		Return "+" + FormatShapeValue(10.0 * rank) + " armor"
+	ElseIf family == 7
+		Return "+" + FormatShapeValue(10.0 * rank) + " stamina / +" + FormatShapeValue(8.0 * rank) + " carry"
+	ElseIf family == 8
+		Return "+" + FormatShapeValue(0.25 * rank) + " regen / +" + FormatShapeValue(3.0 * rank) + " melee"
+	EndIf
+	Return ""
+EndFunction
+
 String Function ShapeBonusText(Int family, Int rank)
 	If rank < 1
 		Return "Locked"
 	EndIf
 	Float scale = GetExpressionScale(family)
 	If family == 1
-		Return "+" + FormatShapeValue(12.0 * scale) + " speed / +" + FormatShapeValue(35.0 * scale) + " stamina regen / +" + FormatShapeValue(15.0 * scale) + " unarmed"
+		Return "+" + FormatShapeValue(12.0 * scale) + " speed / +" + FormatShapeValue(35.0 * scale) + " stamina regen / +" + FormatShapeValue(15.0 * scale) + " unarmed / -" + FormatShapeValue(15.0 * scale) + " magic resist"
 	ElseIf family == 2
-		Return "+" + FormatShapeValue(25.0 * scale) + " Sneak / +" + FormatShapeValue(25.0 * scale) + " unarmed / +" + FormatShapeValue(10.0 * scale) + "% attack speed"
+		Return "+" + FormatShapeValue(25.0 * scale) + " sneak / +" + FormatShapeValue(25.0 * scale) + " unarmed / +" + FormatShapeValue(10.0 * scale) + "% attack speed / -" + FormatShapeValue(25.0 * scale) + " health"
 	ElseIf family == 3
-		Return "+" + FormatShapeValue(100.0 * scale) + " armor / +" + FormatShapeValue(50.0 * scale) + " Health / +" + FormatShapeValue(25.0 * scale) + " stagger resist"
+		Return "+" + FormatShapeValue(100.0 * scale) + " armor / +" + FormatShapeValue(50.0 * scale) + " health / +" + FormatShapeValue(25.0 * scale) + " stagger resist / -" + FormatShapeValue(20.0 * scale) + " sneak"
 	ElseIf family == 4
-		Return "+" + FormatShapeValue(60.0 * scale) + " poison/disease resist / +" + FormatShapeValue(20.0 * scale) + " Sneak / +" + FormatShapeValue(30.0 * scale) + " carry"
+		Return "+" + FormatShapeValue(60.0 * scale) + " poison/disease resist / +" + FormatShapeValue(20.0 * scale) + " sneak / +" + FormatShapeValue(30.0 * scale) + " carry / -" + FormatShapeValue(15.0 * scale) + " fire resist"
 	ElseIf family == 5
-		Return "+" + FormatShapeValue(80.0 * scale) + " poison resist / +" + FormatShapeValue(30.0 * scale) + " unarmed / +" + FormatShapeValue(15.0 * scale) + " speed"
+		Return "+" + FormatShapeValue(80.0 * scale) + " poison resist / +" + FormatShapeValue(30.0 * scale) + " unarmed / +" + FormatShapeValue(15.0 * scale) + " speed / -" + FormatShapeValue(20.0 * scale) + " stamina regen"
 	ElseIf family == 6
-		Return "+" + FormatShapeValue(140.0 * scale) + " armor / +" + FormatShapeValue(20.0 * scale) + " Block / -" + FormatShapeValue(8.0 * scale) + " speed"
+		Return "+" + FormatShapeValue(140.0 * scale) + " armor / +" + FormatShapeValue(20.0 * scale) + " block / -" + FormatShapeValue(8.0 * scale) + " speed"
 	ElseIf family == 7
-		Return "+" + FormatShapeValue(15.0 * scale) + " speed / +" + FormatShapeValue(80.0 * scale) + " Stamina / +" + FormatShapeValue(20.0 * scale) + " Archery"
+		Return "+" + FormatShapeValue(15.0 * scale) + " speed / +" + FormatShapeValue(80.0 * scale) + " stamina / +" + FormatShapeValue(20.0 * scale) + " archery / -" + FormatShapeValue(20.0 * scale) + " armor"
 	ElseIf family == 8
-		Return "+" + FormatShapeValue(2.0 * scale) + " regen / +" + FormatShapeValue(25.0 * scale) + " melee / +" + FormatShapeValue(60.0 * scale) + " Health / -" + FormatShapeValue(40.0 * scale) + " fire resist"
+		Return "+" + FormatShapeValue(2.0 * scale) + " regen / +" + FormatShapeValue(25.0 * scale) + " melee / +" + FormatShapeValue(60.0 * scale) + " health / -" + FormatShapeValue(40.0 * scale) + " fire resist"
 	EndIf
 	Return ""
 EndFunction
@@ -543,6 +785,23 @@ String Function FormatShapeValue(Float value)
 		Return (whole as String) + ".0" + (fraction as String)
 	EndIf
 	Return (whole as String) + "." + (fraction as String)
+EndFunction
+
+String Function FormatMorphValue(Float value)
+	String prefix = ""
+	If value < 0.0
+		prefix = "-"
+		value = -value
+	EndIf
+	Int scaled = ((value * 1000.0) + 0.5) as Int
+	Int whole = scaled / 1000
+	Int fraction = scaled - (whole * 1000)
+	If fraction < 10
+		Return prefix + whole + ".00" + fraction
+	ElseIf fraction < 100
+		Return prefix + whole + ".0" + fraction
+	EndIf
+	Return prefix + whole + "." + fraction
 EndFunction
 
 String Function ShapeVisualText(Int family)
@@ -566,23 +825,455 @@ String Function ShapeVisualText(Int family)
 	Return ""
 EndFunction
 
+Int Function GetMorphCount(Int family)
+	If family == 4 || family == 5 || family == 6
+		Return 11
+	ElseIf family >= 1 && family <= 8
+		Return 12
+	EndIf
+	Return 0
+EndFunction
+
+String Function GetMorphName(Int family, Int index)
+	If family == 1
+		If index == 0
+			Return "MuscleLegs"
+		ElseIf index == 1
+			Return "MuscleMoreLegs_v2"
+		ElseIf index == 2
+			Return "Thighs"
+		ElseIf index == 3
+			Return "ThighOutsideThicc_v2"
+		ElseIf index == 4
+			Return "CalfSize"
+		ElseIf index == 5
+			Return "CalfFBThicc_v2"
+		ElseIf index == 6
+			Return "MuscleButt"
+		ElseIf index == 7
+			Return "Butt"
+		ElseIf index == 8
+			Return "Waist"
+		ElseIf index == 9
+			Return "Belly"
+		ElseIf index == 10
+			Return "Arms"
+		ElseIf index == 11
+			Return "ShoulderWidth"
+		EndIf
+	ElseIf family == 2
+		If index == 0
+			Return "Thighs"
+		ElseIf index == 1
+			Return "ThighInsideThicc_v2"
+		ElseIf index == 2
+			Return "MuscleLegs"
+		ElseIf index == 3
+			Return "CalfSize"
+		ElseIf index == 4
+			Return "Butt"
+		ElseIf index == 5
+			Return "RoundAss"
+		ElseIf index == 6
+			Return "Hips"
+		ElseIf index == 7
+			Return "HipUpperWidth"
+		ElseIf index == 8
+			Return "Waist"
+		ElseIf index == 9
+			Return "Belly"
+		ElseIf index == 10
+			Return "Arms"
+		ElseIf index == 11
+			Return "ShoulderWidth"
+		EndIf
+	ElseIf family == 3
+		If index == 0
+			Return "Arms"
+		ElseIf index == 1
+			Return "MuscleArms"
+		ElseIf index == 2
+			Return "MuscleMoreArms_v2"
+		ElseIf index == 3
+			Return "ShoulderWidth"
+		ElseIf index == 4
+			Return "MuscleAbs"
+		ElseIf index == 5
+			Return "MuscleLegs"
+		ElseIf index == 6
+			Return "MuscleMoreLegs_v2"
+		ElseIf index == 7
+			Return "Thighs"
+		ElseIf index == 8
+			Return "CalfSize"
+		ElseIf index == 9
+			Return "Waist"
+		ElseIf index == 10
+			Return "Belly"
+		ElseIf index == 11
+			Return "Butt"
+		EndIf
+	ElseIf family == 4
+		If index == 0
+			Return "Arms"
+		ElseIf index == 1
+			Return "MuscleArms"
+		ElseIf index == 2
+			Return "ShoulderWidth"
+		ElseIf index == 3
+			Return "Thighs"
+		ElseIf index == 4
+			Return "ChubbyLegs"
+		ElseIf index == 5
+			Return "Waist"
+		ElseIf index == 6
+			Return "Belly"
+		ElseIf index == 7
+			Return "CalfSize"
+		ElseIf index == 8
+			Return "CalfFBThicc_v2"
+		ElseIf index == 9
+			Return "Butt"
+		ElseIf index == 10
+			Return "Hips"
+		EndIf
+	ElseIf family == 5
+		If index == 0
+			Return "Waist"
+		ElseIf index == 1
+			Return "Belly"
+		ElseIf index == 2
+			Return "Hips"
+		ElseIf index == 3
+			Return "HipUpperWidth"
+		ElseIf index == 4
+			Return "Butt"
+		ElseIf index == 5
+			Return "BigButt"
+		ElseIf index == 6
+			Return "Thighs"
+		ElseIf index == 7
+			Return "ThighOutsideThicc_v2"
+		ElseIf index == 8
+			Return "Arms"
+		ElseIf index == 9
+			Return "MuscleArms"
+		ElseIf index == 10
+			Return "ShoulderWidth"
+		EndIf
+	ElseIf family == 6
+		If index == 0
+			Return "ShoulderWidth"
+		ElseIf index == 1
+			Return "Arms"
+		ElseIf index == 2
+			Return "MuscleArms"
+		ElseIf index == 3
+			Return "Waist"
+		ElseIf index == 4
+			Return "Belly"
+		ElseIf index == 5
+			Return "Hips"
+		ElseIf index == 6
+			Return "Thighs"
+		ElseIf index == 7
+			Return "ChubbyLegs"
+		ElseIf index == 8
+			Return "CalfSize"
+		ElseIf index == 9
+			Return "Butt"
+		ElseIf index == 10
+			Return "MuscleButt"
+		EndIf
+	ElseIf family == 7
+		If index == 0
+			Return "Thighs"
+		ElseIf index == 1
+			Return "ThighOutsideThicc_v2"
+		ElseIf index == 2
+			Return "CalfSize"
+		ElseIf index == 3
+			Return "CalfFBThicc_v2"
+		ElseIf index == 4
+			Return "MuscleLegs"
+		ElseIf index == 5
+			Return "MuscleMoreLegs_v2"
+		ElseIf index == 6
+			Return "MuscleButt"
+		ElseIf index == 7
+			Return "Butt"
+		ElseIf index == 8
+			Return "Hips"
+		ElseIf index == 9
+			Return "Waist"
+		ElseIf index == 10
+			Return "Belly"
+		ElseIf index == 11
+			Return "Arms"
+		EndIf
+	ElseIf family == 8
+		If index == 0
+			Return "Arms"
+		ElseIf index == 1
+			Return "MuscleArms"
+		ElseIf index == 2
+			Return "MuscleMoreArms_v2"
+		ElseIf index == 3
+			Return "ShoulderWidth"
+		ElseIf index == 4
+			Return "MuscleAbs"
+		ElseIf index == 5
+			Return "MuscleLegs"
+		ElseIf index == 6
+			Return "MuscleMoreLegs_v2"
+		ElseIf index == 7
+			Return "Thighs"
+		ElseIf index == 8
+			Return "CalfSize"
+		ElseIf index == 9
+			Return "Waist"
+		ElseIf index == 10
+			Return "Belly"
+		ElseIf index == 11
+			Return "Butt"
+		EndIf
+	EndIf
+	Return ""
+EndFunction
+
+Float Function GetDefaultMorphValue(Int family, Int index)
+	Float[] values
+	If family == 1
+		values = new Float[12]
+		values[0] = 0.58
+		values[1] = 0.42
+		values[2] = 0.32
+		values[3] = 0.30
+		values[4] = 0.42
+		values[5] = 0.32
+		values[6] = 0.38
+		values[7] = 0.22
+		values[8] = -0.25
+		values[9] = -0.12
+		values[10] = 0.20
+		values[11] = 0.16
+		Return values[index]
+	ElseIf family == 2
+		values = new Float[12]
+		values[0] = 0.38
+		values[1] = 0.20
+		values[2] = 0.28
+		values[3] = 0.24
+		values[4] = 0.42
+		values[5] = 0.30
+		values[6] = 0.32
+		values[7] = 0.22
+		values[8] = -0.42
+		values[9] = -0.18
+		values[10] = -0.18
+		values[11] = -0.10
+		Return values[index]
+	ElseIf family == 3
+		values = new Float[12]
+		values[0] = 0.82
+		values[1] = 0.95
+		values[2] = 0.62
+		values[3] = 0.72
+		values[4] = 0.45
+		values[5] = 0.62
+		values[6] = 0.48
+		values[7] = 0.38
+		values[8] = 0.32
+		values[9] = 0.38
+		values[10] = 0.18
+		values[11] = 0.28
+		Return values[index]
+	ElseIf family == 4
+		values = new Float[11]
+		values[0] = -0.32
+		values[1] = -0.30
+		values[2] = -0.20
+		values[3] = -0.22
+		values[4] = -0.22
+		values[5] = -0.38
+		values[6] = -0.24
+		values[7] = 0.24
+		values[8] = 0.20
+		values[9] = -0.18
+		values[10] = -0.12
+		Return values[index]
+	ElseIf family == 5
+		values = new Float[11]
+		values[0] = -0.68
+		values[1] = -0.28
+		values[2] = 0.52
+		values[3] = 0.38
+		values[4] = 0.55
+		values[5] = 0.26
+		values[6] = 0.28
+		values[7] = 0.24
+		values[8] = 0.30
+		values[9] = 0.28
+		values[10] = 0.20
+		Return values[index]
+	ElseIf family == 6
+		values = new Float[11]
+		values[0] = 0.62
+		values[1] = 0.58
+		values[2] = 0.45
+		values[3] = 0.52
+		values[4] = 0.28
+		values[5] = 0.38
+		values[6] = 0.48
+		values[7] = 0.30
+		values[8] = 0.40
+		values[9] = 0.30
+		values[10] = 0.24
+		Return values[index]
+	ElseIf family == 7
+		values = new Float[12]
+		values[0] = 0.42
+		values[1] = 0.22
+		values[2] = 0.46
+		values[3] = 0.40
+		values[4] = 0.68
+		values[5] = 0.52
+		values[6] = 0.38
+		values[7] = 0.34
+		values[8] = 0.20
+		values[9] = -0.32
+		values[10] = -0.20
+		values[11] = -0.12
+		Return values[index]
+	ElseIf family == 8
+		values = new Float[12]
+		values[0] = 0.95
+		values[1] = 1.05
+		values[2] = 0.78
+		values[3] = 0.86
+		values[4] = 0.58
+		values[5] = 0.72
+		values[6] = 0.55
+		values[7] = 0.46
+		values[8] = 0.38
+		values[9] = 0.48
+		values[10] = 0.24
+		values[11] = 0.32
+		Return values[index]
+	EndIf
+	Return 0.0
+EndFunction
+
+String Function MorphStorageKey(Int family, String morph)
+	Return "Feral.Morph.Value." + family + "." + morph
+EndFunction
+
+Float Function GetMorphMultiplier(Int family)
+	Actor player = Game.GetPlayer()
+	String storageKey = "Feral.Morph.Multiplier." + family
+	If StorageUtil.HasFloatValue(player, storageKey)
+		Return StorageUtil.GetFloatValue(player, storageKey)
+	EndIf
+	Return 1.0
+EndFunction
+
+Float Function GetConfiguredMorphValue(Int family, Int index)
+	Actor player = Game.GetPlayer()
+	String storageKey = MorphStorageKey(family, GetMorphName(family, index))
+	If StorageUtil.HasFloatValue(player, storageKey)
+		Return StorageUtil.GetFloatValue(player, storageKey)
+	EndIf
+	Return GetDefaultMorphValue(family, index)
+EndFunction
+
+Function ResetMorphOverrides(Int family)
+	Actor player = Game.GetPlayer()
+	StorageUtil.UnsetFloatValue(player, "Feral.Morph.Multiplier." + family)
+	Int index = 0
+	While index < GetMorphCount(family)
+		StorageUtil.UnsetFloatValue(player, MorphStorageKey(family, GetMorphName(family, index)))
+		index += 1
+	EndWhile
+EndFunction
+
+Int Function MorphIndexForOption(Int option)
+	If !_morphOptions
+		Return -1
+	EndIf
+	Int index = 0
+	While index < _morphOptions.Length
+		If _morphOptions[index] == option
+			Return index
+		EndIf
+		index += 1
+	EndWhile
+	Return -1
+EndFunction
+
+String Function MorphDisplayName(String morph)
+	If morph == "MuscleLegs"
+		Return "Leg muscle"
+	ElseIf morph == "MuscleMoreLegs_v2"
+		Return "Additional leg muscle"
+	ElseIf morph == "Thighs"
+		Return "Thigh size"
+	ElseIf morph == "ThighOutsideThicc_v2"
+		Return "Outer thigh fullness"
+	ElseIf morph == "ThighInsideThicc_v2"
+		Return "Inner thigh fullness"
+	ElseIf morph == "CalfSize"
+		Return "Calf size"
+	ElseIf morph == "CalfFBThicc_v2"
+		Return "Calf fullness"
+	ElseIf morph == "MuscleButt"
+		Return "Glute muscle"
+	ElseIf morph == "Butt"
+		Return "Butt size"
+	ElseIf morph == "BigButt"
+		Return "Additional butt size"
+	ElseIf morph == "RoundAss"
+		Return "Butt roundness"
+	ElseIf morph == "Waist"
+		Return "Waist"
+	ElseIf morph == "Belly"
+		Return "Belly"
+	ElseIf morph == "Arms"
+		Return "Arm size"
+	ElseIf morph == "MuscleArms"
+		Return "Arm muscle"
+	ElseIf morph == "MuscleMoreArms_v2"
+		Return "Additional arm muscle"
+	ElseIf morph == "ShoulderWidth"
+		Return "Shoulder width"
+	ElseIf morph == "MuscleAbs"
+		Return "Abdominal muscle"
+	ElseIf morph == "ChubbyLegs"
+		Return "Leg fullness"
+	ElseIf morph == "Hips"
+		Return "Hip width"
+	ElseIf morph == "HipUpperWidth"
+		Return "Upper hip width"
+	EndIf
+	Return morph
+EndFunction
+
 String Function TechniqueName(Int family)
 	If family == 1
-		Return "Dread Howl"
+		Return "Dread howl"
 	ElseIf family == 2
-		Return "Vanish and Pounce"
+		Return "Vanish and pounce"
 	ElseIf family == 3
 		Return "Maul"
 	ElseIf family == 4
-		Return "Plague Spit"
+		Return "Plague spit"
 	ElseIf family == 5
-		Return "Web Snare"
+		Return "Web snare"
 	ElseIf family == 6
 		Return "Fortress"
 	ElseIf family == 7
 		Return "Stampede"
 	ElseIf family == 8
-		Return "Monstrous Regeneration"
+		Return "Monstrous regeneration"
 	EndIf
 	Return "Locked"
 EndFunction
@@ -595,39 +1286,39 @@ String Function MilestoneTraitText(Int family, Int milestone)
 	EndIf
 	If milestone == 25
 		If family == 1
-			Return prefix + "Tireless Hunt"
+			Return prefix + "Tireless hunt"
 		ElseIf family == 2
-			Return prefix + "Soft Step"
+			Return prefix + "Soft step"
 		ElseIf family == 3
-			Return prefix + "Thick Hide"
+			Return prefix + "Thick hide"
 		ElseIf family == 4
 			Return prefix + "Filthborn"
 		ElseIf family == 5
 			Return prefix + "Venomous"
 		ElseIf family == 6
-			Return prefix + "Arrow-Shell"
+			Return prefix + "Arrow-shell"
 		ElseIf family == 7
 			Return prefix + "Surefooted"
 		ElseIf family == 8
-			Return prefix + "Mending Flesh"
+			Return prefix + "Mending flesh"
 		EndIf
 	ElseIf milestone == 75
 		If family == 1
-			Return prefix + "Blood Scent"
+			Return prefix + "Blood scent"
 		ElseIf family == 2
 			Return prefix + "Ambush"
 		ElseIf family == 3
 			Return prefix + "Unstoppable"
 		ElseIf family == 4
-			Return prefix + "Escape Artist"
+			Return prefix + "Escape artist"
 		ElseIf family == 5
-			Return prefix + "Chitin Reflex"
+			Return prefix + "Chitin reflex"
 		ElseIf family == 6
 			Return prefix + "Counterclaw"
 		ElseIf family == 7
-			Return prefix + "Keen Flight"
+			Return prefix + "Keen flight"
 		ElseIf family == 8
-			Return prefix + "Cornered Monster"
+			Return prefix + "Cornered monster"
 		EndIf
 	EndIf
 	Return ""
@@ -958,6 +1649,24 @@ Function PrepareHunter(Actor hunter, Float xOffset, Float yOffset)
 	hunter.StartCombat(player)
 EndFunction
 
+Event OnOptionHighlight(Int option)
+	Int morphIndex = MorphIndexForOption(option)
+	If option == _focusFamilyOption
+		SetInfoText("Select to cycle through the eight Feral families.")
+	ElseIf option == _morphMultiplierOption
+		SetInfoText("Scales every configured morph in the selected family without changing the saved individual slider values.")
+	ElseIf option == _morphResetOption
+		SetInfoText("Restores the selected family's intensity and individual morph sliders to their defaults. The next transformation uses the restored values.")
+	ElseIf morphIndex >= 0 && morphIndex < GetMorphCount(GetFocusFamily())
+		String morph = GetMorphName(GetFocusFamily(), morphIndex)
+		SetInfoText("BodySlide key: " + morph + ". This is the full-strength level-100 value before family intensity and current expression are applied.")
+	ElseIf option == _feralPathOption
+		SetInfoText("Off grants no Feral character XP. Balanced disables ordinary kill and skill XP. Hardcore disables ordinary Experience reward sources. Saved settings return when switched Off.")
+	ElseIf option == _humanResponseOption
+		SetInfoText("Off disables notoriety. Reactions enables warnings and fear. Full also enables guard bounties and hunter encounters.")
+	EndIf
+EndEvent
+
 Event OnOptionSelect(Int option)
 	If option == _enableOption
 		SetFeralEnabled(!IsFeralEnabled())
@@ -978,8 +1687,9 @@ Event OnOptionSelect(Int option)
 		ForcePageReset()
 	ElseIf option == _recalculateOption
 		RefreshShapePowers()
+		RefreshPassivePowers()
 		RepairAspectState()
-		Debug.Notification("Feral: transformation powers rebuilt from saved mastery levels.")
+		Debug.Notification("Feral: transformation and passive powers rebuilt from saved mastery levels.")
 	ElseIf option == _endShapeOption
 		EndActiveShape()
 		ForcePageReset()
@@ -989,6 +1699,10 @@ Event OnOptionSelect(Int option)
 			focus = 1
 		EndIf
 		StorageUtil.SetIntValue(Game.GetPlayer(), "Feral.FocusFamily", focus)
+		ForcePageReset()
+	ElseIf option == _morphResetOption
+		ResetMorphOverrides(GetFocusFamily())
+		Debug.Notification("Feral: selected family morphs restored to defaults. Changes apply on the next transformation.")
 		ForcePageReset()
 	ElseIf option == _restoreExperienceOption
 		RestoreExperienceSettings()
@@ -1037,7 +1751,18 @@ Event OnOptionSelect(Int option)
 EndEvent
 
 Event OnOptionSliderOpen(Int option)
-	If option == _testLevelSliderOption
+	Int morphIndex = MorphIndexForOption(option)
+	If option == _morphMultiplierOption
+		SetSliderDialogStartValue(GetMorphMultiplier(GetFocusFamily()))
+		SetSliderDialogDefaultValue(1.0)
+		SetSliderDialogRange(0.0, 2.0)
+		SetSliderDialogInterval(0.05)
+	ElseIf morphIndex >= 0 && morphIndex < GetMorphCount(GetFocusFamily())
+		SetSliderDialogStartValue(GetConfiguredMorphValue(GetFocusFamily(), morphIndex))
+		SetSliderDialogDefaultValue(GetDefaultMorphValue(GetFocusFamily(), morphIndex))
+		SetSliderDialogRange(-2.0, 3.0)
+		SetSliderDialogInterval(0.01)
+	ElseIf option == _testLevelSliderOption
 		SetSliderDialogStartValue(GetMasteryLevel(GetTestFamily()))
 		SetSliderDialogDefaultValue(50.0)
 		SetSliderDialogRange(0.0, 100.0)
@@ -1051,7 +1776,15 @@ Event OnOptionSliderOpen(Int option)
 EndEvent
 
 Event OnOptionSliderAccept(Int option, Float value)
-	If option == _testLevelSliderOption
+	Int morphIndex = MorphIndexForOption(option)
+	If option == _morphMultiplierOption
+		StorageUtil.SetFloatValue(Game.GetPlayer(), "Feral.Morph.Multiplier." + GetFocusFamily(), value)
+		SetSliderOptionValue(option, value, "{2}")
+	ElseIf morphIndex >= 0 && morphIndex < GetMorphCount(GetFocusFamily())
+		String morph = GetMorphName(GetFocusFamily(), morphIndex)
+		StorageUtil.SetFloatValue(Game.GetPlayer(), MorphStorageKey(GetFocusFamily(), morph), value)
+		SetSliderOptionValue(option, value, "{2}")
+	ElseIf option == _testLevelSliderOption
 		SetTestLevel(GetTestFamily(), value as Int)
 		SetSliderOptionValue(option, value, "{0}")
 		ForcePageReset()
@@ -1101,7 +1834,8 @@ Function SetTestLevel(Int family, Int level)
 	StorageUtil.SetIntValue(player, "Feral.MasteryProgress." + family, 0)
 	Int rank = RankForLevel(level)
 	StorageUtil.SetIntValue(player, "Feral.Rank." + family, rank)
-	ApplyShapeRank(family, rank)
+	ApplyShapeTier(family, DurationTierForLevel(level))
+	ApplyPassiveRank(family, PassiveRankForLevel(level))
 	ApplyTechniquePower(family)
 	Debug.Notification("Feral test: " + FamilyName(family) + " set to mastery level " + level + " / " + FormatShapeValue(GetExpressionScale(family) * 100.0) + "% expression.")
 EndFunction
@@ -1199,7 +1933,7 @@ EndFunction
 
 Int Function ClaimLast()
 	ClearPendingEssence()
-	Debug.Notification("Feral: essence harvesting is automatic; Claim Soul is retired.")
+	Debug.Notification("Feral: essence harvesting is automatic; Claim soul is retired.")
 	Return 0
 EndFunction
 
@@ -1251,11 +1985,48 @@ Spell Function GetLegacyPassiveSpell(Int family, Int rank)
 EndFunction
 
 Spell Function GetShapeSpell(Int family, Int rank)
-	If family < 1 || family > 8 || rank < 1 || rank > 3
+	If family < 1 || family > 8 || rank < 1 || rank > 5
 		Return None
 	EndIf
-	Int formID = 0x0009A0 + ((family - 1) * 3) + (rank - 1)
+	Int formID
+	If rank <= 3
+		formID = 0x0009A0 + ((family - 1) * 3) + (rank - 1)
+	Else
+		formID = 0x000A40 + ((family - 1) * 2) + (rank - 4)
+	EndIf
 	Return Game.GetFormFromFile(formID, "Feral.esp") as Spell
+EndFunction
+
+Function ApplyPassiveRank(Int family, Int rank)
+	Actor player = Game.GetPlayer()
+	Int currentRank = 1
+	While currentRank <= 3
+		Spell passive = GetLegacyPassiveSpell(family, currentRank)
+		If passive
+			player.RemoveSpell(passive)
+		EndIf
+		currentRank += 1
+	EndWhile
+	Spell current = GetLegacyPassiveSpell(family, rank)
+	If current && IsFeralEnabled()
+		player.AddSpell(current, false)
+	EndIf
+EndFunction
+
+Function RefreshPassivePowers()
+	Int family = 1
+	While family <= 8
+		ApplyPassiveRank(family, PassiveRankForLevel(GetMasteryLevel(family)))
+		family += 1
+	EndWhile
+EndFunction
+
+Function RemoveAllPassivePowers()
+	Int family = 1
+	While family <= 8
+		ApplyPassiveRank(family, 0)
+		family += 1
+	EndWhile
 EndFunction
 
 Spell Function GetTechniqueSpell(Int family)
@@ -1299,25 +2070,47 @@ Function RemoveAllTechniquePowers()
 EndFunction
 
 Function ApplyShapeRank(Int family, Int rank)
+	; Compatibility wrapper retained for older callers. Duration tiers own the
+	; actual transformation power selection from v11 onward.
+	ApplyShapeTier(family, DurationTierForLevel(GetMasteryLevel(family)))
+EndFunction
+
+Function RemoveShapeVariants(Int family)
 	Actor player = Game.GetPlayer()
 	Int i = 1
-	While i <= 3
+	While i <= 5
 		Spell shape = GetShapeSpell(family, i)
 		If shape
 			player.RemoveSpell(shape)
 		EndIf
 		i += 1
 	EndWhile
-	Spell current = GetShapeSpell(family, rank)
+EndFunction
+
+Function ApplyShapeTier(Int family, Int tier)
+	Actor player = Game.GetPlayer()
+	If GetActiveFamily() == family
+		StorageUtil.SetIntValue(player, "Feral.PendingShapeRefresh." + family, 1)
+		Return
+	EndIf
+	RemoveShapeVariants(family)
+	StorageUtil.UnsetIntValue(player, "Feral.PendingShapeRefresh." + family)
+	Spell current = GetShapeSpell(family, tier)
 	If current && IsFeralEnabled()
 		player.AddSpell(current, false)
+	EndIf
+EndFunction
+
+Function FinalizeShapePowerRefresh(Int family)
+	If StorageUtil.HasIntValue(Game.GetPlayer(), "Feral.PendingShapeRefresh." + family)
+		ApplyShapeTier(family, DurationTierForLevel(GetMasteryLevel(family)))
 	EndIf
 EndFunction
 
 Function RefreshShapePowers()
 	Int family = 1
 	While family <= 8
-		ApplyShapeRank(family, GetRank(family))
+		ApplyShapeTier(family, DurationTierForLevel(GetMasteryLevel(family)))
 		family += 1
 	EndWhile
 EndFunction
@@ -1326,7 +2119,8 @@ Function RemoveAllShapePowers()
 	Actor player = Game.GetPlayer()
 	Int family = 1
 	While family <= 8
-		ApplyShapeRank(family, 0)
+		RemoveShapeVariants(family)
+		StorageUtil.UnsetIntValue(player, "Feral.PendingShapeRefresh." + family)
 		family += 1
 	EndWhile
 EndFunction
@@ -1353,7 +2147,7 @@ Function EndActiveShape()
 	Int family = 1
 	While family <= 8
 		Int rank = 1
-		While rank <= 3
+		While rank <= 5
 			Spell shape = GetShapeSpell(family, rank)
 			If shape && player.DispelSpell(shape)
 				dispelledActiveEffect = true
@@ -1375,6 +2169,9 @@ Function EndActiveShape()
 	StorageUtil.SetIntValue(player, "Feral.ActiveRank", 0)
 	StorageUtil.SetIntValue(player, "Feral.ActiveToken", 0)
 	StorageUtil.UnsetFloatValue(player, "Feral.ActiveExpression")
+	; Stale recovery never transforms, so leftover fatigue only blocks a
+	; legitimate fresh cast.
+	StorageUtil.SetFloatValue(player, "Feral.FatigueUntil", 0.0)
 EndFunction
 
 Function ClearFeralVisuals()
@@ -1417,6 +2214,8 @@ Function RemoveMarkStages(Actor player, String baseName)
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseName + " I", true, true)
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseName + " II", true, true)
 	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseName + " III", true, true)
+	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseName + " III (Feet)", true, true)
+	SlaveTats.simple_remove_tattoo(player, "Feral Shapes", baseName + " III (Hands)", true, true)
 EndFunction
 
 Function RemoveLegacyPassiveValues(Int version)
@@ -1517,6 +2316,20 @@ Function MigrateEconomy()
 			StorageUtil.SetIntValue(player, "Feral.HumanResponseMode", 2)
 		EndIf
 		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 9)
+	EndIf
+	If version < 10
+		RemoveAllLegacyPassiveSpells()
+		RefreshPassivePowers()
+		RefreshShapePowers()
+		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 10)
+	EndIf
+	If version < 11
+		; Return to Self is retired: recasting the active shape releases it.
+		Spell retiredRevert = Game.GetFormFromFile(0x0009C1, "Feral.esp") as Spell
+		If retiredRevert
+			player.RemoveSpell(retiredRevert)
+		EndIf
+		StorageUtil.SetIntValue(player, "Feral.EconomyVersion", 11)
 	EndIf
 EndFunction
 

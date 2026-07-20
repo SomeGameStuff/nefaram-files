@@ -28,8 +28,10 @@ Copy-Item -LiteralPath $cosmeticsConfigSource -Destination (Join-Path $runtimeCo
 $markFiles = Get-ChildItem -LiteralPath (Join-Path $outputRoot 'Textures\Actors\Character\slavetats\Feral') -Filter '*.dds' -File
 $stagedMarkCount = @($markFiles | Where-Object { $_.BaseName -match '_[123]$' }).Count
 if ($stagedMarkCount -ne 24) { throw "Expected 24 staged Feral marking textures, found $stagedMarkCount." }
+$handsMarkCount = @($markFiles | Where-Object { $_.BaseName -match '_hands$' }).Count
+if ($handsMarkCount -ne 8) { throw "Expected 8 Feral hand marking textures, found $handsMarkCount." }
 $tattooCount = @((Get-Content -Raw -LiteralPath $tattooJsonOutput | ConvertFrom-Json)).Count
-if ($tattooCount -ne 24) { throw "Expected 24 SlaveTats registrations, found $tattooCount." }
+if ($tattooCount -ne 40) { throw "Expected 40 SlaveTats registrations, found $tattooCount." }
 
 New-Item -ItemType Directory -Path (Split-Path -Parent $seqOutput) -Force | Out-Null
 [IO.File]::WriteAllBytes($seqOutput, [BitConverter]::GetBytes([UInt32]0x950))
@@ -39,10 +41,11 @@ if ($seqBytes.Length -ne 4 -or [BitConverter]::ToUInt32($seqBytes, 0) -ne 0x950)
 }
 
 $compiler = 'C:\games\steamapps\common\Skyrim Special Edition\Papyrus Compiler\PapyrusCompiler.exe'
-$flags = '-f=C:\tmp\skyrim-scripts-source\Source\Scripts\TESV_Papyrus_Flags.flg'
+$vanillaSource = 'C:\Users\antho\nefaram-files\tools\vanilla-source\Source\Scripts'
+$flags = '-f=' + (Join-Path $vanillaSource 'TESV_Papyrus_Flags.flg')
 $includes = '-i=' + ($sourceRoot, (Join-Path $projectRoot 'build-stubs'),
     'C:\Games\nefaram\mods\SKSE\Scripts\Source',
-    'C:\tmp\skyrim-scripts-source\Source\Scripts',
+    $vanillaSource,
     'C:\Games\nefaram\mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts',
     "C:\Games\nefaram\mods\powerofthree's Papyrus Extender\Source\scripts",
     'C:\Games\nefaram\mods\Experience\Scripts\Source' -join ';')
@@ -76,6 +79,7 @@ foreach ($script in $scripts) {
 }
 
 $controller = Get-Content -Raw -LiteralPath (Join-Path $sourceRoot 'cfl_FeralMCM.psc')
+$skyUiStub = Get-Content -Raw -LiteralPath (Join-Path $projectRoot 'build-stubs\SKI_ConfigBase.psc')
 $experienceSettingCount = [regex]::Matches($controller, 'settings\[\d+\] = "iXP(?:Quest|Disc|Clear)').Count
 if ($experienceSettingCount -ne 91) { throw "Expected 91 Experience reward settings, found $experienceSettingCount." }
 foreach ($required in @('GetConfiguredFamily', 'RefreshShapePowers', 'ExperienceRewardsAreSuppressed',
@@ -83,7 +87,9 @@ foreach ($required in @('GetConfiguredFamily', 'RefreshShapePowers', 'Experience
     'StartFeralFatigue', 'IsFeralActiveValue', 'MasteryPointsForNextLevel',
     'MasteryAwardForHarvest', 'GrantMastery', 'AddActivityMastery', 'AddShapeTime',
     'RankForLevel', 'GetMarkOpacity', 'Feral.MasteryLevel', 'RefreshTechniquePowers',
-    'GetActiveFamily', 'GetNotoriety', 'RecordWitnessedTransformation', 'SpawnHunterGroup')) {
+    'GetActiveFamily', 'GetNotoriety', 'RecordWitnessedTransformation', 'SpawnHunterGroup',
+    'PassiveRankForLevel', 'DurationTierForLevel', 'ShapeDurationForLevel',
+    'RefreshPassivePowers', 'ApplyShapeTier', 'GetMorphMultiplier', 'GetConfiguredMorphValue')) {
     if ($controller -notmatch [regex]::Escape($required)) { throw "Missing controller feature: $required" }
 }
 if ($controller -notmatch 'If !IsFeralEnabled\(\) \|\| akKiller != Game.GetPlayer\(\)') {
@@ -106,6 +112,34 @@ if ($rankForLevelBody -match '34|67|Return 2|Return 3') {
 if ($controller -notmatch 'Return 0\.25 \+ \(\(level - 1\) \* \(0\.75 / 99\.0\)\)') {
     throw 'Continuous level 1-100 expression curve is missing.'
 }
+foreach ($milestone in @('level >= 25', 'level >= 50', 'level >= 75', 'level >= 100')) {
+    if ($controller -notmatch [regex]::Escape($milestone)) { throw "Missing progression milestone: $milestone" }
+}
+if ($controller -notmatch 'seconds > 1200\.0' -or $controller -notmatch 'Feral\.Morph\.Multiplier\.') {
+    throw 'Long-duration mastery or per-save morph configuration is missing.'
+}
+foreach ($page in @('Overview', 'Progression', 'Families', 'Morphs', 'Human response', 'Settings')) {
+    if ($controller -notmatch ('Pages\[\d+\] = "' + [regex]::Escape($page) + '"')) {
+        throw "Missing MCM page: $page"
+    }
+}
+if ($controller -notmatch 'Return 12' -or $controller -notmatch 'Event OnConfigOpen\(\)[\s\S]*?EnsurePages\(\)[\s\S]*?EndEvent') {
+    throw 'MCM v12 existing-save page refresh is missing.'
+}
+if ($controller -match '_morphOptions\s*=\s*None') {
+    throw 'MCM still assigns None to an Int array.'
+}
+foreach ($required in @('BuildProgressionPage', 'BuildFamiliesPage', 'BuildHumanResponsePage',
+    'SexIntegrationInstalled', 'SexProgressionText', 'MorphDisplayName', 'Event OnOptionHighlight')) {
+    if ($controller -notmatch [regex]::Escape($required)) { throw "Missing MCM v12 feature: $required" }
+}
+if ($skyUiStub -notmatch 'Int Property TOP_TO_BOTTOM = 2' -or
+    $skyUiStub -notmatch 'Int Function AddHeaderOption' -or
+    $skyUiStub -notmatch 'Int Function AddEmptyOption' -or
+    $skyUiStub -notmatch 'Event OnConfigOpen' -or
+    $skyUiStub -notmatch 'Event OnOptionHighlight') {
+    throw 'Local SkyUI compile interface does not match the runtime API.'
+}
 $masteryCurveTotal = 0
 for ($level = 0; $level -lt 100; $level++) {
     $masteryCurveTotal += 5 + [Math]::Ceiling($level * 0.45)
@@ -116,9 +150,12 @@ if ($masteryCurveTotal -lt 2700 -or $masteryCurveTotal -gt 2900) {
 
 $shapeEffect = Get-Content -Raw -LiteralPath (Join-Path $sourceRoot 'cfl_FeralShapeEffect.psc')
 foreach ($required in @('BeginActiveShape', 'IsActiveInstance', 'Feral.LastShapeToken',
-    'Feral.ActiveToken', 'ownsCurrentShape', 'AddShapeTime', 'GetTimeElapsed',
-    'MarkOpacity', 'Return baseMark + " III"')) {
+    'Feral.ActiveToken', 'ownsCurrentShape', 'AddShapeTime', 'GetCurrentGameTime',
+    'MarkOpacity', 'Return baseMark + " III"', 'EndActiveShape')) {
     if ($shapeEffect -notmatch [regex]::Escape($required)) { throw "Missing owner-safe shape feature: $required" }
+}
+if ($shapeEffect -match 'GetTimeElapsed') {
+    throw 'Shape effect still calls GetTimeElapsed, which fails on an unbound finish event.'
 }
 if ($shapeEffect -match 'RegisterFor(?:Single)?Update|QueueNiNodeUpdate') {
     throw 'Shape effect contains polling or a redundant full NiNode rebuild.'
@@ -138,4 +175,4 @@ if ($techniqueEffect -match 'RegisterFor(?:Single)?Update') {
     throw 'Technique effect contains a Papyrus update registration.'
 }
 
-Write-Output "Feral v9 build validation passed: automatic harvest, 100-level mastery ($masteryCurveTotal points), continuous visuals, milestone kits, event-driven notoriety, XP modes, JSON configs, and 9 Papyrus scripts."
+Write-Output "Feral v12 build validation passed: six-page MCM, existing-save navigation repair, friendly live-inspected morphs, permanent family passives, 2-20 minute shapes, 100-level mastery ($masteryCurveTotal points), notoriety, XP modes, and 9 Papyrus scripts."

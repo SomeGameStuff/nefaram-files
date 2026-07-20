@@ -2,12 +2,18 @@ Scriptname SKI_ConfigBase extends Quest
 
 Int Property OPTION_FLAG_NONE = 0 AutoReadOnly
 Int Property OPTION_FLAG_DISABLED = 1 AutoReadOnly
-Int Property TOP_TO_BOTTOM = 0 AutoReadOnly
+Int Property TOP_TO_BOTTOM = 2 AutoReadOnly
 
 String Property ModName Auto
 String[] Property Pages Auto
 
 Event OnConfigInit()
+EndEvent
+
+Event OnConfigOpen()
+EndEvent
+
+Event OnConfigClose()
 EndEvent
 
 Event OnGameReload()
@@ -17,6 +23,9 @@ Event OnVersionUpdate(Int newVersion)
 EndEvent
 
 Event OnPageReset(String page)
+EndEvent
+
+Event OnOptionHighlight(Int option)
 EndEvent
 
 Event OnOptionSelect(Int option)
@@ -34,13 +43,15 @@ EndFunction
 Function SetCursorPosition(Int position)
 EndFunction
 
-Function AddEmptyOption()
+Int Function AddEmptyOption()
+	Return 0
 EndFunction
 
 Function SetInfoText(String text)
 EndFunction
 
-Function AddHeaderOption(String text, Int flags = 0)
+Int Function AddHeaderOption(String text, Int flags = 0)
+	Return 0
 EndFunction
 
 Int Function AddTextOption(String text, String value, Int flags = 0)
