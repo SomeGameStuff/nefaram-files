@@ -4,7 +4,8 @@ $modRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sourceDir = Join-Path $modRoot 'Source\Scripts'
 $outputDir = Join-Path $modRoot 'Scripts'
 $compiler = 'C:\Games\steamapps\common\Skyrim Special Edition\Papyrus Compiler\PapyrusCompiler.exe'
-$vanillaSource = 'C:\tmp\skyrim-scripts-source\Source\Scripts'
+$vanillaSource = 'C:\Users\antho\nefaram-files\tools\vanilla-source\Source\Scripts'
+$skseSource = 'C:\games\nefaram\mods\SKSE\Scripts\Source'
 
 if (-not (Test-Path -LiteralPath $compiler)) {
     throw "PapyrusCompiler.exe not found at $compiler"
@@ -12,6 +13,10 @@ if (-not (Test-Path -LiteralPath $compiler)) {
 
 if (-not (Test-Path -LiteralPath $vanillaSource)) {
     throw "Vanilla script source not found at $vanillaSource"
+}
+
+if (-not (Test-Path -LiteralPath $skseSource)) {
+    throw "SKSE script source not found at $skseSource"
 }
 
 New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
@@ -26,7 +31,7 @@ $scripts = @(
 )
 
 foreach ($script in $scripts) {
-    & $compiler $script -i="$sourceDir;$vanillaSource" -o="$outputDir" -f="TESV_Papyrus_Flags.flg"
+    & $compiler $script -i="$sourceDir;$skseSource;$vanillaSource" -o="$outputDir" -f="TESV_Papyrus_Flags.flg"
     if ($LASTEXITCODE -ne 0) {
         throw "Papyrus compilation failed for $script"
     }

@@ -76,7 +76,7 @@ Mgef(0x812, "SSR_MGEF_RingGreater", "Spatial Storage - Greater", "SSR_RingGreate
 Mgef(0x813, "SSR_MGEF_RingGrand", "Spatial Storage - Grand", "SSR_RingGrandEffect");
 Mgef(0x814, "SSR_MGEF_RingInfinite", "Spatial Storage - Infinite", "SSR_RingInfiniteEffect");
 
-mod.Spells.AddReturn(new Spell(Local(0x804), SkyrimRelease.SkyrimSE)
+var accessSpell = mod.Spells.AddReturn(new Spell(Local(0x804), SkyrimRelease.SkyrimSE)
 {
     EditorID = "SSR_PowerOpenSpatialStorage",
     Name = "Open Spatial Storage",
@@ -85,6 +85,9 @@ mod.Spells.AddReturn(new Spell(Local(0x804), SkyrimRelease.SkyrimSE)
     TargetType = TargetType.Self,
     Effects = { Effect(0x803) }
 });
+
+if (accessSpell.Type != SpellType.LesserPower)
+    throw new InvalidOperationException("Open Spatial Storage must remain a Lesser Power.");
 
 ObjectEffect Ench(uint id, string edid, string name, uint mgef)
 {

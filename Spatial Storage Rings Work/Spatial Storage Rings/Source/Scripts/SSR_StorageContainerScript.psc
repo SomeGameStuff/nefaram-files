@@ -20,16 +20,14 @@ Event OnItemAdded(Form akBaseItem, Int aiItemCount, ObjectReference akItemRefere
 		Return
 	EndIf
 
-	Int newCount = StoredCount + aiItemCount
-	If newCount > limit
-		Int excess = newCount - limit
+	StoredCount = GetAllItemsCount()
+	If StoredCount > limit
+		Int excess = StoredCount - limit
 		If excess > aiItemCount
 			excess = aiItemCount
 		EndIf
 		ReturnOverflow(akBaseItem, excess)
-		StoredCount = newCount - excess
-	Else
-		StoredCount = newCount
+		StoredCount = GetAllItemsCount()
 	EndIf
 EndEvent
 
@@ -38,11 +36,13 @@ Event OnItemRemoved(Form akBaseItem, Int aiItemCount, ObjectReference akItemRefe
 		Return
 	EndIf
 
-	StoredCount -= aiItemCount
-	If StoredCount < 0
-		StoredCount = 0
-	EndIf
+	StoredCount = GetAllItemsCount()
 EndEvent
+
+Int Function GetStoredItemCount()
+	StoredCount = GetAllItemsCount()
+	Return StoredCount
+EndFunction
 
 Function ReturnOverflow(Form akBaseItem, Int aiItemCount)
 	If !akBaseItem || aiItemCount <= 0
