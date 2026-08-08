@@ -1,8 +1,8 @@
 # Spatial Storage Rings
 
-Standalone Skyrim Special Edition mod that adds spatial storage rings. Equipping a ring grants the `Open Spatial Storage` Lesser Power, which opens one shared storage container without requiring Alteration.
+Standalone Skyrim Special Edition mod that adds spatial storage rings. Equipping a ring grants the `Open Spatial Storage` Lesser Power, which opens one shared storage container without requiring Alteration. Using the power reports the remaining capacity in a native top-left notification before the container opens.
 
-The plugin is an ESL-flagged ESP and only depends on `Skyrim.esm`.
+The plugin is an ESL-flagged ESP and only depends on `Skyrim.esm`. The scripts require Skyrim 1.6.1170 and SKSE for accurate container item counts.
 
 ## Rings
 
@@ -56,7 +56,8 @@ The shipped `.pex` scripts are already compiled. To rebuild them, run `Build-Com
 The build script expects:
 
 - Papyrus compiler: `<game-install>\Papyrus Compiler\PapyrusCompiler.exe`
-- Vanilla script sources: `<temporary>\skyrim-scripts-source\Source\Scripts`
+- Vanilla script sources: `<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts`
+- SKSE script sources: `<mo2-root>\mods\SKSE\Scripts\Source`
 
 The ESP was generated with the Mutagen builder kept in:
 
