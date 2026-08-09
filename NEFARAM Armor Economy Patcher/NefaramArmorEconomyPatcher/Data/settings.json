@@ -1,0 +1,13 @@
+{
+  "AuditOnly": true,
+  "ValueOutlierFactor": 3.0,
+  "MinimumExploitMarkupRatio": 4.0,
+  "TargetCraftingMarkupRatio": 2.0,
+  "MinimumGoldDifference": 100,
+  "MaximumMasters": 240,
+  "ReportDirectory": "C:\\Users\\antho\\nefaram-files\\artifacts",
+  "ExcludedPlugins": [],
+  "ExcludedFormKeys": [],
+  "ApplyOnlyFormKeys": [],
+  "ForcedReferenceMappings": {}
+}

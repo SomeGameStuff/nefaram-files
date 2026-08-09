@@ -110,6 +110,7 @@ ModGroupInstaller. Check here before assuming a tool is missing.
 | `feral` | `Feral - Bodymorph Addon` | `Feral.esp` (build-output) | `cfl_Feral*`; v5 progression complete 2026-07 |
 | `NEFARAM - Vampire Lord Consequences` | `NEFARAM - Vampire Lord Consequences` | generated (xEdit/Mutagen) | Plan: `VampireLordConsequencesPlan.md` at MO2 root |
 | `NEFARAM-Flawed-Wardrobe` | `NEFARAM - Flawed Wardrobe` | 4× `*_Catalogue*.esl` | |
+| `NEFARAM Armor Economy Patcher` | `[NoDelete] NEFARAM Armor Economy Patch` | `NEFARAM_ArmorEconomyPatch.esp` (generated) | Separate audit/build launchers; current build excludes VIGILANT; reports under `artifacts\` |
 | `practical-defeat-humanoid-robbery-only` | `NEFARAM - Practical Defeat Humanoid Robbery Only` | none | |
 | `Lola DOM Handler Patch` | `[NoDelete] 600 Lola DOM Handler Patch` | `Lola DOM Handler Patch.esp` | |
 | `LolaOutfitGracePatch` | `[NoDelete] 611 Lola Outfit Zone Grace Patch` | none | |

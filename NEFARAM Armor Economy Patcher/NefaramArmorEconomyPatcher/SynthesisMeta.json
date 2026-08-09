@@ -1,0 +1,13 @@
+{
+  "Nickname": "NEFARAM Armor Economy Patcher",
+  "Visibility": "Visible",
+  "OneLineDescription": "Audits and conservatively fixes extreme value/recipe mismatches in added armor and clothing.",
+  "LongDescription": "Uses official equipment as read-only reference data. Audit-only by default; never modifies Bethesda records.",
+  "PreferredAutoVersioning": "Default",
+  "RequiredMods": [
+    "Skyrim.esm"
+  ],
+  "TargetedReleases": [
+    "SkyrimSE"
+  ]
+}
