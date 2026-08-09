@@ -1,0 +1,7 @@
+# Minimal real-record smoke-test load order. Runtime plugin files are linked/copied into a disposable Data folder by the validation command in README.md.
+Skyrim.esm
+Update.esm
+Dawnguard.esm
+Dragonborn.esm
+*Azure Knight Armor.esp
+*Ghaan Revealing Outfit Craftable.esp
