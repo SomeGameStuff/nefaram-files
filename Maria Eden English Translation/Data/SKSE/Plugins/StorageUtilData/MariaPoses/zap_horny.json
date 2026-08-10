@@ -1,0 +1,17 @@
+{
+    "int":  {
+                "id":  5001,
+                "select":  1
+            },
+    "string":  {
+                   "name":  "Horny",
+                   "group":  "Zap"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "ZapWriHorny01",
+                                   "ZapWriHorny02",
+                                   "ZapWriHorny03"
+                               ]
+                   }
+}

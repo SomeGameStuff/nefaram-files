@@ -1,0 +1,30 @@
+{
+    "int":  {
+                "id":  16,
+                "nohh":  1
+            },
+    "string":  {
+                   "name":  "Sit cross-legged",
+                   "group":  "Miscellaneous"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "IdleSitCrossLeggedEnter"
+                                ],
+                       "female":  [
+                                      "IdleSitCrossLeggedEnter"
+                                  ],
+                       "fullboundmale":  [
+                                             "ZazAPC010"
+                                         ],
+                       "fullboundfemale":  [
+                                               "ZazAPC010"
+                                           ],
+                       "boundmale":  [
+                                         "ZazAPC010"
+                                     ],
+                       "boundfemale":  [
+                                           "ZazAPC010"
+                                       ]
+                   }
+}

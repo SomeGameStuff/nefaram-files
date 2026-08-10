@@ -1,0 +1,21 @@
+{
+    "int":  {
+                "id":  54,
+                "nohh":  1
+            },
+    "string":  {
+                   "name":  "Lie down, spread legs",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "female":  [
+                                      "MariaLieShowVagina"
+                                  ],
+                       "fullboundfemale":  [
+                                               "MariaLieShowVagina"
+                                           ],
+                       "boundfemale":  [
+                                           "MariaLieShowVagina"
+                                       ]
+                   }
+}

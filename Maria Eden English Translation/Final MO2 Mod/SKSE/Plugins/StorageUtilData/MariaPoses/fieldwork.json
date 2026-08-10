@@ -1,0 +1,14 @@
+{
+    "int":  {
+                "id":  44
+            },
+    "string":  {
+                   "name":  "Field work",
+                   "group":  "Actions"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "IdleHoe"
+                               ]
+                   }
+}

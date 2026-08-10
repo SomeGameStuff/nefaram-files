@@ -1,0 +1,19 @@
+{
+    "int":  {
+                "id":  2021,
+                "nohh":  1,
+                "npc_distance":  75,
+                "npc_angle":  180
+            },
+    "string":  {
+                   "name":  "Lick feet",
+                   "group":  "Paired",
+                   "npc":  "idleforcedefaultstate",
+                   "player":  "LickOlfinasFeet"
+               },
+    "intlist":  {
+                    "strip_npc_slot":  [
+                                           37
+                                       ]
+                }
+}

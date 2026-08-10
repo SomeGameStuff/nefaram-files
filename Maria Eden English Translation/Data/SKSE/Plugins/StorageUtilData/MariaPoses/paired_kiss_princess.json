@@ -1,0 +1,15 @@
+{
+    "int":  {
+                "id":  1994,
+                "nohh":  1,
+                "nohhnpc":  1,
+                "npc_distance":  1,
+                "npc_angle":  180
+            },
+    "string":  {
+                   "name":  "Kiss, carried",
+                   "group":  "Paired",
+                   "npc":  "princesskiss1",
+                   "player":  "princesskiss2"
+               }
+}

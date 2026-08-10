@@ -1,0 +1,29 @@
+{
+    "int":  {
+                "id":  55
+            },
+    "string":  {
+                   "name":  "Stand on tiptoes",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "MariaStandingHandsHead"
+                                ],
+                       "female":  [
+                                      "MariaStandingHandsHead"
+                                  ],
+                       "fullboundmale":  [
+                                             "MariaStandingHandsBack"
+                                         ],
+                       "fullboundfemale":  [
+                                               "MariaStandingHandsBack"
+                                           ],
+                       "boundmale":  [
+                                         "MariaStandingHandsBack"
+                                     ],
+                       "boundfemale":  [
+                                           "MariaStandingHandsBack"
+                                       ]
+                   }
+}

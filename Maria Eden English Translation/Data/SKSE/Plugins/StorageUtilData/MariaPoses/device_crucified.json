@@ -1,0 +1,17 @@
+{
+    "int":  {
+                "id":  90
+            },
+    "string":  {
+                   "name":  "Crucified",
+                   "group":  "BDSM",
+                   "sound_device":  "zbfxSoundSlowCreak",
+                   "sound_female":  "zbfxSoundFemalePain",
+                   "sound_female_entry":  "zbfxSoundFemaleScreamShort"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "ZazAPCAO251"
+                               ]
+                   }
+}

@@ -1,0 +1,29 @@
+{
+    "int":  {
+                "id":  62
+            },
+    "string":  {
+                   "name":  "Fear",
+                   "group":  "Gestures"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "IdleCowerEnter"
+                                ],
+                       "female":  [
+                                      "IdleCowerEnter"
+                                  ],
+                       "fullboundmale":  [
+                                             "IdleCowerEnter"
+                                         ],
+                       "fullboundfemale":  [
+                                               "IdleCowerEnter"
+                                           ],
+                       "boundmale":  [
+                                         "IdleCowerEnter"
+                                     ],
+                       "boundfemale":  [
+                                           "IdleCowerEnter"
+                                       ]
+                   }
+}

@@ -1,0 +1,55 @@
+{
+    "int":  {
+                "id":  5003,
+                "select":  1
+            },
+    "string":  {
+                   "name":  "Special",
+                   "group":  "Zap"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "ZazAPC001",
+                                   "ZazAPC002",
+                                   "ZazAPC003",
+                                   "ZazAPC004",
+                                   "ZazAPC005",
+                                   "ZazAPC006",
+                                   "ZazAPC007",
+                                   "ZazAPC008",
+                                   "ZazAPC009",
+                                   "ZazAPC010",
+                                   "ZazAPC011",
+                                   "ZazAPC012",
+                                   "ZazAPC013",
+                                   "ZazAPC014",
+                                   "ZazAPC015",
+                                   "ZazAPC016",
+                                   "ZazAPC017",
+                                   "ZazAPC018",
+                                   "ZazAPC019",
+                                   "ZazAPC020",
+                                   "ZazAPC051",
+                                   "ZazAPC052",
+                                   "ZazAPC053",
+                                   "ZazAPC054",
+                                   "ZazAPC055",
+                                   "ZazAPC056",
+                                   "ZazAPC057",
+                                   "ZazAPC058",
+                                   "ZaZXBedFFSTRU_Loop",
+                                   "ZaZXBedFBSTRU_Loop",
+                                   "ZazAPBedOfSlaves_Loop",
+                                   "ZazBedBoundBF_Loop",
+                                   "ZazBedCaressing_Loop",
+                                   "ZazGround_leftsleepnaughty_Loop",
+                                   "ZazGround_leftsleep_Loop",
+                                   "ZazGround_rightsleep_Loop",
+                                   "ZazGround_rightsleepnaughty_Loop",
+                                   "Zazdrumred_Loop",
+                                   "Pinups_ST0",
+                                   "ZazSexyPoseSitting_Loop",
+                                   "Pinups_L1"
+                               ]
+                   }
+}

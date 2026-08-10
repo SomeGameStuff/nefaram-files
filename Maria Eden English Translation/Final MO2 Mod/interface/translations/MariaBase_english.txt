@@ -1,0 +1,657 @@
+$ME_BE_BUSY	You are busy
+$ME_BE_IDLE	You are lazy
+$ME_BLOW_JOB	Blowjob
+$ME_BUILD_CELL	Maria Eden: update cell...
+$ME_BUILD_CELL_FINISHED	cell updated
+$ME_CELL_CAGE_LARGE	Large cage
+$ME_CELL_CAGE_SMALL	Small cage
+$ME_CELL_CLEANUP	Delete cell modifications
+$ME_CELL_CLEARED	Cell modifications deleted
+$ME_CELL_CREATE_GUESTF	Female guest
+$ME_CELL_CREATE_GUESTM	Male guest
+$ME_CELL_CREATE_OBJ	Create object
+$ME_CELL_CREATE_SLAVEF	Female slave
+$ME_CELL_CREATE_SLAVEM	Male slave
+$ME_CELL_CREATE_WHORE	Whore
+$ME_CELL_CRUX	Crux
+$ME_CELL_DANCESPOT	Dance spot
+$ME_CELL_FLOGGED_WOMAN	Flogged woman
+$ME_CELL_FREAKSHOWSPOT	Freakshow spot
+$ME_CELL_GAMESTARTPOS	Gamestart position
+$ME_CELL_HANGED_WOMAN	Hanged woman
+$ME_CELL_HANGED_WOMAN_HOODED	Hanged woman with hood
+$ME_CELL_IMPALED_WOMAN	Impaled woman
+$ME_CELL_IMPALED_WOMAN_HOODED	Impaled woman with hood
+$ME_CELL_IMPALING_SPIKE	Impaling spike
+$ME_CELL_MOVE_OBJ	Move existing object
+$ME_CELL_NO_MARKER	No valid jump marker found
+$ME_CELL_OBJ_PLACED	Object placed
+$ME_CELL_RAPE_MACHINE	Rape machine
+$ME_CELL_REMOVE_OBJ	Remove selected object
+$ME_CELL_SET_SPECIALJOBPOS	Special job position
+$ME_CELL_STARTPOS	Quickstart position
+$ME_CELL_STRAPPADO_RACK	Strappado rack
+$ME_CELL_WAIT	You have 10 seconds to decide
+$ME_CELL_WODDEN_HORSE	Wooden horse
+$ME_CONFIG_SAVED	Configuration saved (MariaDefaults.json)
+$ME_CONFLICT1	This hotkey is already assigned to :
+$ME_CONFLICT2	Ignore?
+$ME_CONF_ABDUCTIONCHANCE	Defines the probability that you are going to be abducted in a scene
+$ME_CONF_ACTIONKEY	Opens the Action menu
+$ME_CONF_AUTOMATIC_TRIGGER	Enable or Disables Auto Quest triggers
+$ME_CONF_BODY_SUCCUBUS	Defines current clothes as Succubus body
+$ME_CONF_BOUNTYHUNTERTIMER	Hours until bounty hunters starts hunting you
+$ME_CONF_BUCKSPERDAY	Amount of septims you have to earn per day
+$ME_CONF_BUSYFLAG	Slave is busy
+$ME_CONF_CAGETIME	Time between repeating events
+$ME_CONF_CLOTHES_CATPLAY	Defines current clothes as cat play clothes
+$ME_CONF_CLOTHES_DANCER	Defines current clothes as dancer clothes
+$ME_CONF_CLOTHES_FEMDOM	Defines current clothes as femdom clothes
+$ME_CONF_CLOTHES_MALEDOM	Defines current clothes as maledom clothes
+$ME_CONF_CLOTHES_NAKED_FEMDOM	Defines current clothes as naked femdom clothes
+$ME_CONF_CLOTHES_SLAVE	Defines current clothes as slave clothes
+$ME_CONF_CLOTHES_SUCCUBUS	Defines current clothes as succubus clothes
+$ME_CONF_CLOTHES_WHORE	Defines current clothes as whore clothes
+$ME_CONF_DEBUG	Enable Debug options
+$ME_CONF_DEFAULTS	Reset all values
+$ME_CONF_EQUIP	Equips the selected clothes
+$ME_CONF_FREEZEMASTER	Dom is frozen
+$ME_CONF_GOLD	Amount of septims you have earned for your owner
+$ME_CONF_HEELDEBUF	Reduce your speed while wearing Highheels
+$ME_CONF_HOMETIMER	Timeout for slave hunt
+$ME_CONF_INTERVALL	Hours till next mini job
+$ME_CONF_KEY	Configure the hotkey for the selected action
+$ME_CONF_KILLCHANCE	Defines the probability that you are going to be killed in a scene
+$ME_CONF_LOAD_CLOTHES Load and equip outfit
+$ME_CONF_NIOFIX	Fix your size when you entering a furniture while wearing Highheels
+$ME_CONF_POSEKEY	Opens the Pose menu
+$ME_CONF_REPAIR_CLOTHES	Repairs clothing enchantments
+$ME_CONF_RESTART	Reset mod (dangerous)
+$ME_CONF_SAVE_CLOTHES Save your current outfit
+$ME_CONF_SAVE_PERMANENT	Save current settings permanent
+$ME_CONF_SEXLAB	Starts Sexlab automatically
+$ME_CONF_SEXLABFILTER	Do a Sexlab Animationen pre filtering
+$ME_CONF_SUC_COUNT	Amount of victims needed before succubus power will go
+$ME_CONF_SUC_DAMAGE	Amount of health point a Succubus victim will lose after sex
+$ME_CONF_SUC_DRAIN	Amount of health point the Succubus will loose in every interval
+$ME_CONF_UNSTUCK	Release controls if you stuck
+$ME_CONF_WARP	Brings together what belongs together
+$ME_CONF_WARPMASTER	Teleports owner to me
+$ME_CONF_WARPTOMASTER	Teleports me to owner
+$ME_CONF_ZAZ	Starts Zaz Animation Pack automatically
+$ME_DANCER_SPOT	Dance Hotspot
+$ME_DANCE_JOB	Dancing
+$ME_DRINK_POTION	Drink
+$ME_ENTERED_BROTHEL	You have entered a brothel
+$ME_FEMALE_DANCER	Female dancer
+$ME_FISTING_JOB	Fisting
+$ME_FREAKSHOW_JOB	Freak show
+$ME_FUCK_JOB	Fucking
+$ME_GETPIMP	Warp to me
+$ME_GIANT_JOB	Huge Customer
+$ME_HOMEVISIT_CANDIDATE
+$ME_HOMEVISIT_JOB	Homevisit
+$ME_HOOK_ALARM	A john is looking for a whore
+$ME_INFO	Info
+$ME_JUMPTOPIMP	Jump to
+$ME_MENU_BELLYDANCE	Belly Dance
+$ME_MENU_CUFFPOS	Turn around
+$ME_MENU_DANCE	Dance
+$ME_MENU_DEBUG	Unlock
+$ME_MENU_DOGGY	On all Fours
+$ME_MENU_DRESS	Dress
+$ME_MENU_FLYCAM	Fly-Cam
+$ME_MENU_KNEEL	Kneel
+$ME_MENU_LAYDOWN	Lay Down
+$ME_MENU_MASTURBATE	Masturbate
+$ME_MENU_MODELDANCE	Catwalk
+$ME_MENU_PISS	Piss
+$ME_MENU_POLEDANCE	Pole Dance
+$ME_MENU_SERVEDRINKS	Serve Drinks
+$ME_MENU_SERVEFOOD	Serve Food
+$ME_MENU_SEXYAJDANCE	SexyAJ Dance
+$ME_MENU_SEXYDANCE	Sexy Dance
+$ME_MENU_SHAKEASSDANCE	Shake-ass Dance
+$ME_MENU_SHOWARS	Show ars
+$ME_MENU_SHOWPUSSY	Show pussy
+$ME_MENU_SNAKESDANCE	Snake Dance
+$ME_MENU_STAYPRESENT	Present Yourself
+$ME_MENU_STOP	Stop action
+$ME_MENU_STOPDANCING	Stop Dance
+$ME_MENU_STOPPOSE	Leave Pose
+$ME_MENU_STARTPOSE	Set Pose
+$ME_MENU_SURRENDER	Surrender
+$ME_MENU_SWEEP	Sweeping
+$ME_MENU_UNDRESS	Undress
+$ME_NAME_EXISTS	Name already exists
+$ME_NO	No
+$ME_OBJ_HAS_OUTFIT	Has special outfit
+$ME_OBJ_IS_HELPER	Pimp assistant
+$ME_OBJ_IS_HOMEVISIT	Is candidate for home visits
+$ME_OBJ_IS_PIMP	Pimp
+$ME_OBJ_IS_POTENTIAL_PIMP	Potential pimp
+$ME_OBJ_IS_RND_NPC	Is in random NPC list
+$ME_OBJ_IS_SLAVE	Slave
+$ME_OBJ_IS_SLAVER	Slaver
+$ME_OBJ_IS_WHORE	Whore
+$ME_OBJ_MAKE_PIMP	Recruit local pimp
+$ME_OBJ_NEW_PIMP	Replace previous local pimp
+$ME_OBJ_SAVED	Saved
+$ME_OPT_ABDUCTIONCHANCE	Chance of abduction
+$ME_OPT_ACTIONKEY	Action menu
+$ME_OPT_ACTUALIZE	Save
+$ME_OPT_AUTOMATIC_TRIGGER	Automatic Quests
+$ME_OPT_BODY_SUCCUBUS	Succubus Body
+$ME_OPT_BOUNTYHUNTERTIMER	Bounty Hunter Timer
+$ME_OPT_BUCKSPERDAY	Daily Income
+$ME_OPT_BUSYFLAG	Slave is Busy
+$ME_OPT_CAGETIME	Action timer
+$ME_OPT_CHEATS_PAGE	Cheating
+$ME_OPT_CLOTHES_CATPLAY	Catplay clothes
+$ME_OPT_CLOTHES_DANCER	Dancer clothes
+$ME_OPT_CLOTHES_FEMDOM	Femdom clothes
+$ME_OPT_CLOTHES_FETISHWHORE	Bondage whore
+$ME_OPT_CLOTHES_MALEDOM	Maledom clothes
+$ME_OPT_CLOTHES_NAKED_FEMDOM	Naked Femdom
+$ME_OPT_CLOTHES_NAKED_SLAVE	Naked slave
+$ME_OPT_CLOTHES_PIERC_CLIT	Clitoris piercing
+$ME_OPT_CLOTHES_PIERC_NAVL	Navel piercing
+$ME_OPT_CLOTHES_PIERC_NIPL	Nipple piercing
+$ME_OPT_CLOTHES_PIERC_NOSE	Nose piercing
+$ME_OPT_CLOTHES_SLAVE	Slave clothes
+$ME_OPT_CLOTHES_SUCCUBUS	Succubus clothes
+$ME_OPT_CLOTHES_WHORE	Whore clothes
+$ME_OPT_DEBUG	Debug options
+$ME_OPT_DEFAULT	Defaults
+$ME_OPT_ENSLAVECOUNTER	Slave counter
+$ME_OPT_EQUIP	Equip
+$ME_OPT_FREEZEMASTER	Freeze owner
+$ME_OPT_GOLD	Septims earned
+$ME_OPT_HEELDEBUF	Highheels Debuff
+$ME_OPT_HOMETIMER	Slave hunt timer
+$ME_OPT_INTERVALL	Mini job interval
+$ME_OPT_JOBSTATE	Quest
+$ME_OPT_KEY_ACTION_MENU	Action menu
+$ME_OPT_KEY_KNEEL	Kneel
+$ME_OPT_KEY_PLUG	Plug holding key
+$ME_OPT_KEY_POSE_MENU	Pose menu
+$ME_OPT_KEY_STRIP	Strip
+$ME_OPT_KILLCHANCE	Chance of Dying
+$ME_OPT_LOAD	Load...
+$ME_OPT_NIOFIX	NiOverride Fix
+$ME_OPT_OUTFIT	Outfit
+$ME_OPT_PAGE0	Options
+$ME_OPT_PAGE1	Clothes
+$ME_OPT_PAGE2	Hotkeys
+$ME_OPT_PAGE3	Mod
+$ME_OPT_PAGE4	Status
+$ME_OPT_POSEKEY	Pose menu
+$ME_OPT_REPAIR	repair
+$ME_OPT_SAVE	Save..
+$ME_OPT_SAVE_PERMANENT	Save
+$ME_OPT_SETTINGS_PAGE	General
+$ME_OPT_SEXLAB	Sexlab Autostart
+$ME_OPT_SEXLABFILTER	Sexlab Filter
+$ME_OPT_START	start
+$ME_OPT_STOP	stop
+$ME_OPT_STOPQUEST	Stop quest
+$ME_OPT_SUC_COUNT	Victim counter
+$ME_OPT_SUC_DAMAGE	Victim health drain
+$ME_OPT_SUC_DRAIN	Health drain
+$ME_OPT_UNSTUCK	Release player
+$ME_OPT_WARPMASTER	Fetch
+$ME_OPT_WARPMASTER_JUMP	Maria Eden
+$ME_OPT_WARPTOMASTER	Jump to
+$ME_OPT_WARPTOMASTER_JUMP	Maria Eden
+$ME_OPT_WARPTOPIMP	Jump to your pimp
+$ME_OPT_WARP_TO	Jump to
+$ME_OPT_WARP_TO_ME	Fetch
+$ME_OPT_ZAZ	ZAP Autostart
+$ME_OUTFIT_N2P	Copy NPC outfit to you
+$ME_OUTFIT_OLD	Re use an old outfit...
+$ME_OUTFIT_P2N	Copy your outfit to NPC
+$ME_OUTFIT_REMOVE	Remove special outfit
+$ME_OUTFIT_REUSE	Re use an outfit for NPC...
+$ME_OUTFIT_SET	Choose outfit for NPC...
+$ME_PIMPCAMSWITCH	Pimp camera
+$ME_PIMPHORSE	Pimp horse
+$ME_PLACE_EXISTS	Place already exists
+$ME_PLAYER_STARTS_AS_SLAVE_OF	Slave of...
+$ME_PLAYER_STARTS_AS_WHORE_OF	Whore of...
+$ME_PLAYER_STARTS_FREE	Free
+$ME_PLUGLOST	You lost the plug!
+$ME_PUNISHMENT_JOB	Whipping
+$ME_RESTORING_ME	Re-initialize Maria Eden...
+$ME_RNDNPC_ADD	Add to random NPC list
+$ME_RNDNPC_REMOVE	Remove from random NPC list
+$ME_STAGE_AUCTION	Maria Eden: Prepare auction house
+$ME_STAGE_INIT_NPC	Maria Eden: Initialize NPCs
+$ME_STAGE_PREPARE_NPC	Maria Eden: Prepare NPCs
+$ME_STARTED_ME	Maria Eden is ready
+$ME_STARTING_ME	Starting Maria Eden...
+$ME_START_AUCTION	Auction
+$ME_STAT_DAYSWITHOUT_INCOME	Days without earnings
+$ME_STAT_MOOD	Mood...
+$ME_STAT_MOOD_BAD	Angry
+$ME_STAT_MOOD_BORED	Bored
+$ME_STAT_MOOD_HAPPY	Happy
+$ME_STAT_RELATION	Relationship...
+$ME_STAT_RELATION_0	Is bored with you
+$ME_STAT_RELATION_1	OK so far
+$ME_STAT_RELATION_2	Likes you
+$ME_STAT_RELATION_3	Likes you very much
+$ME_STAT_RELATION_4	Loves you
+$ME_STAT_RELATION_M1	Irritated by you
+$ME_STAT_RELATION_M2	Doesn't like you
+$ME_STAT_RELATION_M3	Hates you
+$ME_STAT_RELATION_M4	Want's your death
+$ME_MOOD_0	Neutral
+$ME_MOOD_1	Angry
+$ME_MOOD_2	Fear
+$ME_MOOD_3	Happy
+$ME_MOOD_4	Sad
+$ME_MOOD_5	Surprised
+$ME_MOOD_6	Puzzled
+$ME_MOOD_7	Disgusted
+$ME_STAT_SALDO	Total
+$ME_STOP_TRAINING	Cancel training
+$ME_TRAINING	Your next lesson starts
+$ME_TRAINING_VISITOR	A visitor is coming
+$ME_WAIT10	10 seconds left...
+$ME_WAIT120	2 minutes left...
+$ME_WAIT180	3 minutes left...
+$ME_WAIT30	30 seconds left...
+$ME_WAIT60	1 minute left...
+$ME_YES	Yes
+$ME_FJ_ALLOW_CLOTHES	Allow clothes
+$ME_FJ_FORBID_CLOTHES	Forbid clothes
+$ME_FJ_ALLOW_WEAPONS	Allow weapons
+$ME_FJ_FORBID_WEAPONS	Forbid weapons
+$ME_FJ_ADDCUFFS	Add cuffs
+$ME_FJ_REMOVECUFFS	Add cuffs
+$ME_FJ_ADDPLUGS	Add plug
+$ME_FJ_REMOVEPLUGS	Remove plug
+$ME_FJ_KISSFEET	Kiss feet
+$ME_FJ_PISS	Piss
+$ME_FJ_WHIPPING	Whipping
+$ME_FJ_FOLLOWER_ORALSEX	Follower oral sex
+$ME_FJ_NPC_ORALSEX	NPC oral sex
+$ME_FJ_NPC_ANALSEX	NPC anal sex
+$ME_FJ_NPC_VAGINALSEX	NPC vaginal sex
+$ME_FJ_ANIMALSEX	Animal sex
+$ME_FJ_WHOREJOB	Whore job
+$ME_FJ_CLEANING_WOMAN	Cleaning Woman
+$ME_FJ_BARMAID	Barmaid
+$ME_FJ_DANCE	Dance
+$ME_STRIPING_OPT	Stripping
+$ME_STRIPING_CONF	Use ME stripping animations
+$ME_FJ_CLOTHES_ON	Forced outfit
+$ME_FJ_CLOTHES_OFF	Free outfit
+$ME_TV_JOB_SEX	Sex Visitor
+$ME_TV_JOB_DOG	Dog Visitor
+$ME_TV_JOB_VOYEUR	Voyeur
+$ME_TV_JOB_WHIP	Whipping Visitor
+$ME_TV_JOB_PLUG	Plug and Play Visitor
+$ME_TV_JOB_HOOKER	Night as hooker
+$ME_TV_JOB_SMALLCAGE	Night in small cage
+$ME_TV_JOB_CAGE	Night in cage
+$ME_QACT_DOG	Dog Sex
+$ME_QACT_HORSE	Horse Sex
+$ME_QACT_WHIP	Whipping
+$ME_QACT_BEDSEX	Sex in bed
+$ME_QACT_DEVICESEX	Sex in device
+$ME_QACT_SEX	Sex here
+$ME_FJ_MASTURBATE	Masturbate
+$ME_FJ_TRAINING	Training
+$ME_FJ_KILL	Execution
+$ME_START_TRAINING	Start as training slave
+$ME_START_SLAVEAUCTION	Slave auction
+$ME_PACT_GOTO	Goto
+$ME_PACT_MARKER	Drop jump marker
+$ME_PACT_CUSTLOC	New custom location
+$ME_AUCTION_SLAVE	Sell as slave
+$ME_AUCTION_WHORE	Sell as whore
+$ME_TJ_RELEASE	Release from Torture Device
+$ME_TJ_TFUCK	Trainer fucks you
+$ME_TJ_TFUCKS	Trainer fucks slave
+$ME_TJ_VFUCK	Visitor fucks you
+$ME_TJ_GANGBANG	Gangbang
+$ME_TJ_TWHIPPING	Trainer whips you
+$ME_TJ_VWHIPPING	Whipping Party
+$ME_TJ_TWHIPPINGS	Trainer whips slave
+$ME_TJ_DEVICE	Torture device
+$ME_TJ_TORTURE	Torture
+$ME_TJ_DANCE	Dancing lesson
+$ME_TJ_DRINK	Time for a drink
+$ME_TJ_MASTURB	Selfservice
+$ME_TJ_BEAST	Animal fucks you
+$ME_TJ_SBEAST	Animal fucks slave
+$ME_TJ_STRANG	Trainer strangulates you
+$ME_TJ_KILL	Dead End
+$ME_TJ_END	Finish training
+$ME_TJ_FREEWHORE	Leave as free whore
+$ME_TJ_PIMP	Sold to pimp
+$ME_TJ_AUCTION	Auction
+$ME_SQ_TAVERN	Tavern...
+$ME_SQ_BROTHEL	Brothel...
+$ME_SQ_CUSTLOC	Custom location...
+$ME_SQ_SPECIALJOB	Special job location...
+$ME_SQ_DEFAULT	Default position
+$ME_SQ_MARKER	User Marker
+$ME_OPT_WEDDINGDRESS	Wedding dress
+$ME_OPT_PONYGIRLDRESS	Ponygirl dress
+$ME_FJ_KITTY	Be my kitty
+$ME_FJ_PONY	Be my pony
+$ME_OPT_RANDOMSEX	Random sex
+$ME_RANDOMSEX_CONF	Selects sex automatically
+$ME_SEXAFTER_WHIPPING	Sex after punishment
+$ME_UNLOCKED	Your restraints are unlocked
+$ME_CHEATER	Cheater!
+$ME_RANDOM_SEX	Random animation
+$ME_SEX_BY_TAG	Select animation by tag...
+$ME_SEX_BY_NAME	Select animation by text...
+$ME_OPT_VEHICLE	Vehicle pin
+$ME_OPT_VEHICLE_HELP	Use invisible vehicle to pin NPC at place. Could cause CTDs with broken skeletons
+$ME_OPT_AUTO3D	Auto Third Person View
+$ME_OPT_AUTO3D_HELP	Switches to Third Person view automatically
+$ME_MENU_SITDOWN	Sit down
+$ME_GIVE_WHIP_POSE	Give whip
+$ME_SQ_CURB	Curbs...
+$ME_SQ_AUCTIONS	Slave auctions...
+$ME_SQ_TRAININGS	Slave trainings...
+$ME_SA_DOMS	Doms...
+$ME_SA_PIMPS	Pimps...
+$ME_SA_SLAVERS	Slavers...
+$ME_SA_HOSTLERS	Hostlers...
+$ME_SA_MINERS	Miners...
+$ME_SA_ORCS	Orcs...
+$ME_OPEN_DOOR	Open door
+$ME_JUMP	teleport forward
+$ME_ENTERED_CURB	You are on a curb
+$ME_VISIT_STABLES	Visit stables
+$ME_VISIT_SHOP	Visit shop
+$ME_VISIT_GUILD	Visit Guild
+$ME_VISIT_TAVERN	Visit Tavern
+$ME_VISIT_BROTHEL	Visit Brothel
+$ME_VISIT_AUCTION	Visit Auction
+$ME_VISIT_TRAINING	Visit Training
+$ME_VISIT_BLACKSMITH	Visit Blacksmith
+$ME_OPT_DELETE	delete
+$ME_OPT_UPDATE	update
+$ME_RESTR_BLINDFOLD	Blindfold
+$ME_RESTR_COLLAR	Unlocked collar
+$ME_RESTR_SLAVECOLLAR	Slave collar
+$ME_RESTR_WHORECOLLAR	Whore collar
+$ME_RESTR_ARMS	Arm bindings
+$ME_RESTR_LEGS	Leg bindings
+$ME_RESTR_RINGGAG	Ring gag
+$ME_RESTR_BALLGAG	Ball gag
+$ME_RESTR_INFO	Define your preferred BDSM toys
+$ME_NO_SELLING	No selling
+$ME_NO_SELLING_INFO	Nobody will pay for items
+$ME_MASS_FUCK	Mass raping
+$ME_ROPE_HANGING	Strappado
+$ME_SUFFOCATION	Suffocation collar
+$ME_OPEN_MOUTH	Open mouth
+$ME_SPECTATORS	Spectators
+$ME_LICK_FEET	Lick feets
+$ME_PRESENT_ARS_POSE	Ass fuck pose
+$ME_TORTURE_HOUSES	Gamehouses...
+$ME_TORTURERS	Game masters
+$ME_KILLINGZONES	Execution Chambers...
+$ME_TRAIN_END_FREE	Freedom
+$ME_TRAIN_END_SLAVERY	Slavery
+$ME_TRAIN_END_BROTHEL	Forced prostitution
+$ME_TRAIN_END_AUCTION	Auction
+$ME_TRAIN_END_EXECUTION	Execution
+$ME_TRAIN_END_TORTURE	Gamehouse
+$ME_START_CRAWLING	Crawling
+$ME_STOP_CRAWLING	Stop crawling
+$ME_POSE_TIPTOES	Tiptoes
+$ME_ONTO_TIPTOES	on Tiptoes
+$ME_DOG_WAIT	Sit!
+$ME_DOG_GOAWAY	Go!
+$ME_DOG_FOLLOW	Follow!
+$ME_DOG_QUIT	Farewell!
+$ME_FUCKME	Fuck me!
+$ME_WANNABLOW	Fuck my mout!
+$ME_MOVE_TO_EDITORPOS	Move to default location
+$ME_CONVERT_TO_SLAVE	Convert into a slave
+$ME_PLAY_WITH_ME	Play with me
+$ME_PLAY_WITH_ME_AND_MASTER	Play with me and my master
+$ME_STOPBUSYACTOR	Release for quests
+$ME_MANAGE_QUEST Quest Manager
+$ME_CHEAT_QUEST	Quest Cheater
+$ME_INFO_QUEST Quest Info
+$ME_FETCH_HERE	Fetch
+$ME_JUMP_THERE	Jump to
+$ME_CREATE_CUSTOM_LOC	Create new custom location...
+$ME_MANAGERMENU	Manage...
+$ME_LOCATIONMENU	Locations...
+$ME_DEVMENU	Developer functions...
+$ME_OUTFITMENU	Outfits...
+$ME_QUESTMGRMENU	Quest manager...
+$ME_OUTFITMGRMENU	Outfit manager...
+$ME_RESTRAINTSMGRMENU	Restraints manager...
+$ME_RANDOMNPCMGRMENU	Random NPC manager...
+$ME_LOCATIONMGRMENU	Custom location manager...
+$ME_DEV_TESTANIMATION	Test animations...
+$ME_DEV_TEST_QUESTS	Test quest...
+$ME_POTENTIAL_CUSTOMERS	Potential owner
+$ME_FETISHCLOTHES	Fetish Clothes
+$ME_PIMPCLOTHES	Pimp clothes
+$ME_ENSLAVE	Enslave
+$ME_DEL_BROKEN	Delete broken reference
+$ME_RESET_NPC	Reset NPC
+$ME_ESC_ENTER_MENU	ESC to end quest, ENTER to open menu
+$ME_MANAGE_OUTFITS	Starts the Outfit Manager
+$ME_OPT_RENAME	Rename...
+$ME_UNRESTRAINT	Unequip restraints
+$ME_RESET_BUS_STATE	Reset busy state
+$ME_REMOVEMEFROM_BA	Remove me from busy actor faction
+$ME_REMOVEHERFROM_BA	Remove owner from busy actor faction
+$ME_REFETCH_MASTER	Fetch owner
+$ME_JUMPTO_MASTER Jump to owner
+$ME_FETCHMASTERHORSE	Fetch owners horse
+$ME_MASTERSTOPWAITING	Owner stops waiting
+$ME_MASTERCLOTHING	Change owners clothes
+$ME_MASTERMARRIAGE	Marry owner
+$ME_FETCHDOG	Fetch dog
+$ME_JUMPTODOG	Jump to dog
+$ME_JOHNREJECTED	John rejected
+$ME_BADWHOREJOB	Poor whore job
+$ME_OILME	Oil me
+$ME_SLEEPINGTIME	Sleeping time
+$ME_EQUIPWHORECLOTHES	Equip whore clothes
+$ME_AQUIREJOHN	Search new john
+$ME_AQUIREBADJOHN	Search a bad john
+$ME_WHOREJOB	Whore job
+$ME_INVITEGUESTS	Invite guests
+$ME_CREATEFUCKDOG	Create dog
+$ME_PREFERREDSEX	Favorites
+$ME_MANUAL_ENTRY	Manual entry...
+$ME_ADD_CATEGORY	Add category...
+$ME_RELOAD	Reload
+$ME_SELECT_POSE_BY_ID	Select pose by ID...
+$ME_RESURRECT	Resurrect
+$ME_SOCIAL	Social
+$ME_STOP_TEAM_MATE	Stop being team mate
+$ME_START_TEAM_MATE	Start being team mate
+$ME_ADD_TO_FACTION	Add to faction
+$ME_EDIT_FACTION_RANK	Change faction-rank
+$ME_REMOVE_FROM_FACTION	Remove from faction
+$ME_POTENTIAL_FOLLOWERS	Potential followers
+$ME_POTENTIAL_MARIAGE	Potential marriage candidates
+$ME_STRIP	Get undressed
+$ME_UNSTRIP	Get dressed
+$ME_AVVALUES	Actor Values
+$ME_MODIFY	Modify
+$ME_DAMAGE	Damage
+$ME_OPEN_INVENTORY	Open inventory
+$ME_EQUIP_CANE	Equip whip
+$ME_ADD_RESTRAINTS	Equip restraints
+$ME_DROP_INVENTORY	Drop inventory
+$ME_CHANGE_VOICE	Change voice
+$ME_RESET	Reset
+$ME_DOMINANT	Dominant
+$ME_NORMAL	Normal
+$ME_DEVOT	Submissive
+$ME_REPAIR_ACTOR	Repair actor
+$ME_SPECIAL	Special
+$ME_PAINFULL_CLOTHES	Painful clothes
+$ME_NIPPLE_CLAMPS	Nipple clamps
+$ME_PUMP_N_PLAY	Pump & Play
+$ME_TERMINATE_SCENE	Terminate current scene
+$ME_TAKE_OWNERSHIP	Take ownership
+$ME_RELEASE_OWNERSHIP	Release ownership
+$ME_MANAGE_NPC	Manage NPC
+$ME_MANAGED_NPCS	Managed NPCs
+$ME_STOP_MANAGE_NPC	Stop manage NPC
+$ME_SELECT_NPC	Slect NPC to manage
+$ME_MALES	Males
+$ME_FEMALES	Females
+$ME_BROKEN_REF	Broken reference
+$ME_KEEP	keep
+$ME_DELETE_BROKEN_REF	Delete broken reference
+$ME_RANDOM_NPC	Random NPC
+$ME_SELECT_THIS	Select this
+$ME_SELECT_OTHER	Select another
+$ME_GO_BACK	Go back
+$ME_CANCEL	Cancel
+$ME_SAVE_OUTFIT	Save current outfit
+$ME_DELETE_SAVED_OUTFIT	Delete saved outfit
+$ME_NPCMENU	NPC Menu...
+$ME_START_QUEST	Start quest...
+$ME_FETCH_LOVER_F	Fetch lover
+$ME_FETCH_LOVER_M	Fetch lover
+$ME_JUMP_TO_LOVER_F	Jump to lover
+$ME_JUMP_TO_LOVER_M	Jump to lover
+$ME_REMOVE_SPELLS	Remove spells...
+$ME_ADD_SPELLS	Add spells...
+$ME_MANAGE_DEFAULT_RESTRAINTS	Select restraints defaults
+$ME_RESET_DEFAULT_RESTRAINTS	Reset default restraints
+$ME_CAST_SPELLS	Cast spells...
+$ME_SQ_CITIES	Cities and Towns...
+$ME_XLOCATIONS	Interesting locations...
+$ME_REPAIR_CUFFS	Repair restraints animation
+$ME_LOAD_PRESET	Load racemenu preset (experimental)
+$ME_RACEMENU	Open racemenu (experimental)
+$ME_CLONE_ACTOR	Create clone
+$ME_BECOME_COPYCAT	Synchonize outfit with me
+$ME_STOP_COPYCAT	Stop synchonizing outfit with me
+$ME_MANAGE_SELF	Manage Self
+$ME_CAST_SPECTATORS	Cast spectators
+$ME_CAST_SPECTATORS_MALES	Cast male spectators
+$ME_CAST_VISITORS	Spawn guests
+$ME_CAST_RANDOM_VISITORS	Invite random visitors
+$ME_CAST_RANDOM_VISITOR	Invite a random visitor
+$ME_STOP_CROWD	Stop crowd
+$ME_STOP_CROWD_PAYMENT	Stop crowd + payment
+$ME_CREATE_BARD	Create bard
+$ME_FINISH_SHOW	Let people go
+$ME_OUTFIT_SPECIALNPCS	Special NPCS
+$ME_OUTFIT_CULTISTS	Cultists
+$ME_OUTFIT_GUARDS	Slave guards
+$ME_OUTFIT_HELPERS	Pimp helpers
+$ME_OUTFIT_PARTS	Outfit Parts
+$ME_OUTFIT_WIGS	Wigs
+$ME_OUTFIT_NAILS	Nails
+$ME_OUTFIT_PIERC_NIPPLE	Nipples piercing
+$ME_OUTFIT_PIERC_NAVEL	Navel piercing
+$ME_OUTFIT_PIERC_LABIA	Labia piercing
+$ME_OUTFIT_PIERC_NOSE	Nose piercing
+$ME_OUTFIT_PIERC_LIPS	Lips piercing
+$ME_OUTFIT_HEELS	High Heels
+$ME_OUTFIT_JEWELRY	Jewelry
+$ME_OUTFIT_COATS	Coats
+$ME_INTERESTING_NPCS	Interesting NPCs
+$ME_CURRENT_MAP_MARKER	Current map marker
+$ME_CURRENT_HORSE_MARKER	Current horse marker
+$ME_SA_CARAVANS	Khajiit caravans...
+$ME_MENU_POOP	Poop
+$ME_MENU_PISSPOOP	Piss and poop
+$ME_REMOVE_EQUIPPED_ITEMS	Remove equipped items...
+$ME_UNEQUIP_ITEMS	Unequip items...
+$ME_EQUIP_ITEMS	Equip unequipped items...
+$ME_RESET_FACEEXPRESSION	Reset Face Expressions
+$ME_DISMISS_FOLLOWER	Dismiss follower
+$ME_RECRUIT_FOLLOWER	Recruit follower
+$ME_STOP_NPC_QUESTS	Stop quests with this NPC...
+$ME_BECOME_MY_DOG	Acquire Dog follower
+$ME_REPAIR_HEELS	Repair High-Heels effect
+$ME_TOGGLE_VAMPIRE	Toggle Vampire
+$ME_REINIT_NPCS	Init NPCs
+$ME_MANAGE_NPCS	Manage NPCs
+$ME_ADD_ITEM	Add item...
+$ME_ADD_ITEM_FROM_MOD	Add item from mod...
+$ME_START_QUEST_WITH	Start quest...
+$ME_STARE_AT_ME	Look at me
+$ME_STOP_STARE_AT_ME	Stop looking at me
+$ME_FETCHITEM_FROM_OUTFIT	Select parts from outfit...
+$ME_UPDATE_OUTFITFILE	Update stored outfit
+$ME_OUTFIT_TATS	SlaveTats
+$ME_OBJECT_ADD	add
+$ME_OBJECT_REPLACE	replace
+$ME_REPAIR_TATS	Repair SlaveTats
+$ME_LOC_PLAYERHOMES	Player homes
+$ME_LOC_CASTLES	Castles
+$ME_LOC_CAPTIVES	Captive cells
+$ME_LOC_JAILS	Jails
+$ME_RESTOREAV	Restore value...
+$ME_OUTFIT_SKIRTS		Skirts
+$ME_OUTFIT_CORSETS	Corsets
+$ME_OUTFIT_LINGERIE	Lingerie
+$ME_OUTFIT_GLOVES	Gloves
+$ME_OUTFIT_MASKS	Masks
+$ME_OUTFIT_TROUSERS	Trousers
+$ME_OUTFIT_SUITES	Suites
+$ME_OUTFIT_ACCESSOIRS	Apparels
+$ME_OUTFIT_FETISH	Fetish-Toys
+$ME_OUTFIT_DESSOUS	Sexy Lingerie
+$ME_OUTFIT_PANTYHOSE	Pantyhoses
+$ME_OUTFIT_TATTOOS	Tattoos
+$ME_OUTFIT_BODYSUITES	Bodysuites
+$ME_SAVE_OUTFIT	Save current outfit as...
+$ME_STORE_OUTFIT_SATCHEL	Create satchel from Outfit
+$ME_STORE_PARTS_SATCHEL	Create satchel from outfit parts
+$ME_LOAD_DEPOT	re-load depot
+$ME_SAVE_DEPOT	save depot
+$ME_EXIT_OFMGR	exit Outfit Manager
+$ME_RELOAD_SATCHEL	Reload satchel
+$ME_SAVE_SATCHEL	Take over items of the satchel
+$ME_RESET_MANAKIN	Reset manakin
+$ME_CREATE_MANAKIN	Create manakin
+$ME_LOAD_TATS	Load Slave Tats
+$ME_MERGE_TATS	Add Slave Tats
+$ME_SAVE_TATS	Update Slave Tats
+$ME_SAVE_TATS_AS	Update Slave Tats
+$ME_DELETE_TATS	Delete Slave Tats
+$ME_SPECIAL_OUTFIT	Special outfit
+$ME_CHANGE_VOICETYPE	Change voicetype (experimental)...
+$ME_CHANGE_ACTOR_SCALE	Change actor scale...
+$ME_STOP_COMBAT	Kampfhandlungen	Stop combat
+$ME_RECREATE_ACTOR	Recreate actor
+$ME_RESET_ACTOR_PACKAGE	Reset actor package
+$ME_EQUIPMENT_KEYWORDLIST	List inventory keywords
+$ME_CUM_IN_FACE	Add cum to face
+$ME_CUM_IN_VAGINA	Add cum to vagina
+$ME_CUM_ON_ASS	Add cum to ass
+$ME_ACTOR_COLORS	Recolor actor
+$ME_CHANGE_WIGS	Change hairstyle...
+$ME_EDIT_ACTOR	Modify actor...
+$ME_EDIT_MOOD	Mood...
+$ME_EDIT_AI_VALUES	AI Parameters...
+$ME_EDIT_RELATION	Relation to player...
+$ME_EDIT_CHARACTER	Character...
+$ME_EDIT_FACTIONS	Factions...
+$ME_EDIT_MAGIC	Magic...
+$ME_EDIT_VISUALS	Visuals...
+$ME_EDIT_BEHAVIOUR	Behaviour...
+$ME_EDIT_STOP_EFFECTS	Stop active effects...
+$ME_HACKS	Hacking...
+$ME_PERSISTENCY	Load and save...
+$ME_CAST_SPECTATORS_MALE	Invite male spectators
+$ME_MASTERMGRMENU	Owner manager...
+$ME_OPEN_MANAKIN	Open inventory
+$ME_POTENTIAL_CUSTOMER	Potential owner
+$ME_SAVE_OUTFIT_AS	Save as new outfit...

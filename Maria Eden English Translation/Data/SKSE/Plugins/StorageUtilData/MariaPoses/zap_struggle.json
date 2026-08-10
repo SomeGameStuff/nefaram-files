@@ -1,0 +1,29 @@
+{
+    "int":  {
+                "id":  5002,
+                "select":  1
+            },
+    "string":  {
+                   "name":  "Struggle",
+                   "group":  "Zap"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "ZapWriStruggle01",
+                                   "ZapWriStruggle02",
+                                   "ZapWriStruggle03",
+                                   "ZapWriStruggle04",
+                                   "ZapWriStruggle05",
+                                   "ZapWriStruggle06",
+                                   "ZapWriStruggle07",
+                                   "ZapWriStruggle08",
+                                   "ZapWriStruggle09",
+                                   "ZapWriStruggle10",
+                                   "ZapWriStruggle11",
+                                   "ZapWriStruggle12",
+                                   "ZapWriStruggle13",
+                                   "ZapWriStruggle14",
+                                   "ZapWriStruggle15"
+                               ]
+                   }
+}

@@ -1,0 +1,14 @@
+{
+    "int":  {
+                "id":  777
+            },
+    "string":  {
+                   "name":  "Urinate, standing",
+                   "group":  "Urination"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "ZazF20TM01"
+                                ]
+                   }
+}

@@ -1,0 +1,15 @@
+{
+    "int":  {
+                "id":  51,
+                "lock":  0
+            },
+    "string":  {
+                   "name":  "Serve drinks",
+                   "group":  "Actions"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "OffsetCarryMQ201DrinkTray"
+                               ]
+                   }
+}

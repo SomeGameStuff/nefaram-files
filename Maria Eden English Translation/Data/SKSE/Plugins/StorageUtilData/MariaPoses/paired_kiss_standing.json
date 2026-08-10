@@ -1,0 +1,13 @@
+{
+    "int":  {
+                "id":  1992,
+                "nohh":  1,
+                "nohhnpc":  1
+            },
+    "string":  {
+                   "name":  "Kiss, standing",
+                   "group":  "Paired",
+                   "npc":  "standingkiss1",
+                   "player":  "standingkiss2"
+               }
+}

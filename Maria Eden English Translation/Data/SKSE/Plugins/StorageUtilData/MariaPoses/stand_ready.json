@@ -1,0 +1,16 @@
+{
+    "int":  {
+                "id":  3,
+                "hotkey":  48
+            },
+    "string":  {
+                   "name":  "Ready stance",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "MariaHandsbehindback",
+                                   "ZazAPC002"
+                               ]
+                   }
+}
