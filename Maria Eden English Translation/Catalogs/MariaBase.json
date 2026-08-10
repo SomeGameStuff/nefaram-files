@@ -1,21 +1,21 @@
 [
   {
     "Source": " Maria Eden Handbuch",
-    "English": "",
+    "English": "Maria Eden Manual",
     "Contexts": [
       "Book|251DF8:MariaBase.esm|MariaStartupBook/Name"
     ]
   },
   {
     "Source": "Abbruch",
-    "English": "",
+    "English": "Cancel",
     "Contexts": [
       "Message|881471:MariaBase.esm|MariaMsgClotingMenu/MenuButtons[3]/Text"
     ]
   },
   {
     "Source": "Accessoires",
-    "English": "",
+    "English": "Accessories",
     "Contexts": [
       "Message|66AD62:MariaBase.esm|MariaOFNAccessoriesMessage/Description",
       "Message|66AD62:MariaBase.esm|MariaOFNAccessoriesMessage/Name"
@@ -23,119 +23,119 @@
   },
   {
     "Source": "Add some AI to NPC behaviour",
-    "English": "",
+    "English": "Add some AI to NPC behaviour",
     "Contexts": [
       "MagicEffect|24F63F:MariaBase.esm|MariaManagedNPCEffect/Description"
     ]
   },
   {
     "Source": "Als was willst du starten?",
-    "English": "",
+    "English": "What do you want to start as?",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/Description"
     ]
   },
   {
-    "Source": "An diesem Tattoo k\u00F6nnen alle erkennen, dass du dich Tieren hingibst",
-    "English": "",
+    "Source": "An diesem Tattoo können alle erkennen, dass du dich Tieren hingibst",
+    "English": "This tattoo lets everyone know that you give yourself to animals.",
     "Contexts": [
       "MagicEffect|279842:MariaBase.esm|MariaAnimalTattooEffect/Description"
     ]
   },
   {
     "Source": "Anal gefickte Leute",
-    "English": "",
+    "English": "Anally Fucked People",
     "Contexts": [
       "Faction|5B99AB:MariaBase.esm|MariaFaction_FuckedAnal/Name"
     ]
   },
   {
-    "Source": "Angemessene Kleidung f\u00FCr eine Gefangene",
-    "English": "",
+    "Source": "Angemessene Kleidung für eine Gefangene",
+    "English": "Appropriate clothing for a female prisoner",
     "Contexts": [
       "Armor|758D23:MariaBase.esm|MariasOutfitFemalePrisoner/Description"
     ]
   },
   {
-    "Source": "Angemessene Kleidung f\u00FCr eine Land Sklavin",
-    "English": "",
+    "Source": "Angemessene Kleidung für eine Land Sklavin",
+    "English": "Appropriate clothing for a farm slave",
     "Contexts": [
       "Armor|758D25:MariaBase.esm|MariasOutfitFarmer/Description"
     ]
   },
   {
-    "Source": "Angemessene Kleidung f\u00FCr eine Sklavin",
-    "English": "",
+    "Source": "Angemessene Kleidung für eine Sklavin",
+    "English": "Appropriate clothing for a female slave",
     "Contexts": [
       "Armor|90979F:MariaBase.esm|MariasOutfitFemaleSlave/Description"
     ]
   },
   {
-    "Source": "Angemessene Kleidung f\u00FCr einen Gefangenen",
-    "English": "",
+    "Source": "Angemessene Kleidung für einen Gefangenen",
+    "English": "Appropriate clothing for a male prisoner",
     "Contexts": [
       "Armor|758D39:MariaBase.esm|MariasOutfitMalePrisoner/Description"
     ]
   },
   {
-    "Source": "Angemessene Kleidung f\u00FCr einen Sklaven",
-    "English": "",
+    "Source": "Angemessene Kleidung für einen Sklaven",
+    "English": "Appropriate clothing for a male slave",
     "Contexts": [
       "Armor|758D32:MariaBase.esm|MariasOutfitMaleSlave/Description"
     ]
   },
   {
     "Source": "Angestellte",
-    "English": "",
+    "English": "Staff",
     "Contexts": [
       "Faction|5FB6C2:MariaBase.esm|MariaFaction_Staff/Name"
     ]
   },
   {
-    "Source": "Anz\u00FCge",
-    "English": "",
+    "Source": "Anzüge",
+    "English": "Suits",
     "Contexts": [
       "Message|66AD61:MariaBase.esm|MariaOFNSuitsMessage/Description"
     ]
   },
   {
-    "Source": "Arbeitskleidung f\u00FCr Frauen",
-    "English": "",
+    "Source": "Arbeitskleidung für Frauen",
+    "English": "Women's Work Clothes",
     "Contexts": [
       "Armor|758D36:MariaBase.esm|MariasOutfitFemaleStaff/Description"
     ]
   },
   {
-    "Source": "Arbeitskleidung f\u00FCr M\u00E4nner",
-    "English": "",
+    "Source": "Arbeitskleidung für Männer",
+    "English": "Men's Work Clothes",
     "Contexts": [
       "Armor|758D34:MariaBase.esm|MariasOutfitMaleStaff/Description"
     ]
   },
   {
     "Source": "BDSM Spielzeug",
-    "English": "",
+    "English": "BDSM Toys",
     "Contexts": [
       "MiscItem|3A5524:MariaBase.esm|MariaBDSMToys/Name"
     ]
   },
   {
     "Source": "Banditen lassen dich in Ruhe",
-    "English": "",
+    "English": "Bandits leave you alone.",
     "Contexts": [
       "MagicEffect|7EF2B2:MariaBase.esm|MariaBanditFriend/Description"
     ]
   },
   {
-    "Source": "Banditenanf\u00C3\u00BChrer",
-    "English": "",
+    "Source": "BanditenanfÃ¼hrer",
+    "English": "Bandit Chief",
     "Contexts": [
       "Npc|01B0DE:Skyrim.esm|LvlBanditBossNordF/Name"
     ]
   },
   {
     "Source": "Banditenfreund",
-    "English": "",
+    "English": "Bandit Friend",
     "Contexts": [
       "MagicEffect|7EF2B2:MariaBase.esm|MariaBanditFriend/Name",
       "ObjectEffect|7EF2B3:MariaBase.esm|MariasBanditFriendEnchantment/Name"
@@ -143,14 +143,14 @@
   },
   {
     "Source": "Banditenring",
-    "English": "",
+    "English": "Bandit Ring",
     "Contexts": [
       "Armor|14652E:MariaBase.esm|MariaBanditRing/Name"
     ]
   },
   {
     "Source": "Bauchnabel Piercings",
-    "English": "",
+    "English": "Navel Piercings",
     "Contexts": [
       "Message|66AD55:MariaBase.esm|MariaOFNNavelPiercingMessage/Description",
       "Message|66AD55:MariaBase.esm|MariaOFNNavelPiercingMessage/Name"
@@ -158,84 +158,84 @@
   },
   {
     "Source": "Befriedigungs Zauber",
-    "English": "",
+    "English": "Satisfaction Spell",
     "Contexts": [
       "Spell|24CE70:MariaBase.esm|MariaNoSexSpell/Name"
     ]
   },
   {
     "Source": "Beginne dein Abenteuer",
-    "English": "",
+    "English": "Begin Your Adventure",
     "Contexts": [
       "Activator|41F826:MariaBase.esm|MariaFakeExitDoor/ActivateTextOverride"
     ]
   },
   {
-    "Source": "Besch\u00E4ftigte Leute",
-    "English": "",
+    "Source": "Beschäftigte Leute",
+    "English": "Busy People",
     "Contexts": [
       "Faction|23E0A9:MariaBase.esm|MariaBusyFaction/Name"
     ]
   },
   {
     "Source": "Besen",
-    "English": "",
+    "English": "Broom",
     "Contexts": [
       "MiscItem|3A5525:MariaBase.esm|MariaBroom/Name"
     ]
   },
   {
     "Source": "Bitte warten",
-    "English": "",
+    "English": "Please wait",
     "Contexts": [
       "Message|251DEF:MariaBase.esm|MariaStartupLockedMessageBox/Name"
     ]
   },
   {
-    "Source": "Blaue N\u00E4gel",
-    "English": "",
+    "Source": "Blaue Nägel",
+    "English": "Blue Nails",
     "Contexts": [
       "Armor|7304FA:MariaBase.esm|MariaTatProxy_NailsBlue/Name"
     ]
   },
   {
-    "Source": "Boden Pf\u00E4hle",
-    "English": "",
+    "Source": "Boden Pfähle",
+    "English": "Floor Stakes",
     "Contexts": [
       "Furniture|52BD5F:MariaBase.esm|MariaFurnFloorXCross/Name"
     ]
   },
   {
     "Source": "Bodysuit 1",
-    "English": "",
+    "English": "Bodysuit 1",
     "Contexts": [
       "Armor|735611:MariaBase.esm|MariaTatProxy_BodySuit01/Name"
     ]
   },
   {
     "Source": "Bodysuit 2",
-    "English": "",
+    "English": "Bodysuit 2",
     "Contexts": [
       "Armor|735613:MariaBase.esm|MariaTatProxy_BodySuit02/Name"
     ]
   },
   {
     "Source": "Bodysuit 3",
-    "English": "",
+    "English": "Bodysuit 3",
     "Contexts": [
       "Armor|77735F:MariaBase.esm|MariaTatProxy_BodySuit03/Name"
     ]
   },
   {
     "Source": "Bodysuit 4",
-    "English": "",
+    "English": "Bodysuit 4",
     "Contexts": [
       "Armor|777365:MariaBase.esm|MariaTatProxy_BodySuit04/Name"
     ]
   },
   {
     "Source": "Bodysuites",
-    "English": "",
+    "English": "Bodysuits",
     "Contexts": [
       "Message|735614:MariaBase.esm|MariaOFNBodySuitesMessage/Description",
       "Message|735614:MariaBase.esm|MariaOFNBodySuitesMessage/Name"
@@ -243,56 +243,56 @@
   },
   {
     "Source": "Bordell Betreiber",
-    "English": "",
+    "English": "Brothel Operator",
     "Contexts": [
       "Faction|32202E:MariaBase.esm|MariaFaction_BrothelBoss/Name"
     ]
   },
   {
     "Source": "Commander Stimme",
-    "English": "",
+    "English": "Commander Voice",
     "Contexts": [
       "Spell|24CE6D:MariaBase.esm|MariaCommanderVoiceTypeSpell/Name"
     ]
   },
   {
     "Source": "Commander Voicetype",
-    "English": "",
+    "English": "Commander Voice Type",
     "Contexts": [
       "MagicEffect|24CE63:MariaBase.esm|MariaCommanderVoiceTypeEffect/Name"
     ]
   },
   {
     "Source": "Commoner Stimme",
-    "English": "",
+    "English": "Commoner Voice",
     "Contexts": [
       "Spell|24CE6E:MariaBase.esm|MariaCommonerVoiceTypeSpell/Name"
     ]
   },
   {
     "Source": "Commoner Voicetype",
-    "English": "",
+    "English": "Commoner Voice Type",
     "Contexts": [
       "MagicEffect|27BFE8:MariaBase.esm|MariaCommonerVoiceTypeEffect/Name"
     ]
   },
   {
     "Source": "Dancer",
-    "English": "",
+    "English": "Dancer",
     "Contexts": [
       "Faction|5FB6C3:MariaBase.esm|MariaFaction_Dancer/Name"
     ]
   },
   {
     "Source": "Dauerhaft speichern?",
-    "English": "",
+    "English": "Save permanently?",
     "Contexts": [
       "Message|816C7F:MariaBase.esm|MariaSavePermanent/Description"
     ]
   },
   {
-    "Source": "Den G\u00F6ttern geweihte Kleider",
-    "English": "",
+    "Source": "Den Göttern geweihte Kleider",
+    "English": "Garments consecrated to the gods.",
     "Contexts": [
       "Armor|758D1E:MariaBase.esm|MariasOutfitPriestess/Description",
       "Armor|758D21:MariaBase.esm|MariasOutfitHighPriestess/Description"
@@ -300,7 +300,7 @@
   },
   {
     "Source": "Depot",
-    "English": "",
+    "English": "Depot",
     "Contexts": [
       "Message|66AD51:MariaBase.esm|MariaOFNDepotMessage/Description",
       "Message|66AD51:MariaBase.esm|MariaOFNDepotMessage/Name"
@@ -308,14 +308,14 @@
   },
   {
     "Source": "Der heilige Bund der Ehe",
-    "English": "",
+    "English": "The Bond of Matrimony",
     "Contexts": [
       "Armor|0C5809:Skyrim.esm|MarriageBondofMatrimony/Name"
     ]
   },
   {
     "Source": "Dessous",
-    "English": "",
+    "English": "Lingerie",
     "Contexts": [
       "Message|730506:MariaBase.esm|MariaOFNDessousMessage/Description",
       "Message|730506:MariaBase.esm|MariaOFNDessousMessage/Name"
@@ -323,182 +323,182 @@
   },
   {
     "Source": "Dessous 1",
-    "English": "",
+    "English": "Lingerie 1",
     "Contexts": [
       "Armor|72B3EE:MariaBase.esm|MariaTatProxy_Lingerie01/Name"
     ]
   },
   {
     "Source": "Dessous 10",
-    "English": "",
+    "English": "Lingerie 10",
     "Contexts": [
       "Armor|73560A:MariaBase.esm|MariaTatProxy_Lingerie10/Name"
     ]
   },
   {
     "Source": "Dessous 11",
-    "English": "",
+    "English": "Lingerie 11",
     "Contexts": [
       "Armor|76D15A:MariaBase.esm|MariaTatProxy_Lingerie11/Name"
     ]
   },
   {
     "Source": "Dessous 12",
-    "English": "",
+    "English": "Lingerie 12",
     "Contexts": [
       "Armor|76D158:MariaBase.esm|MariaTatProxy_Lingerie12/Name"
     ]
   },
   {
     "Source": "Dessous 13",
-    "English": "",
+    "English": "Lingerie 13",
     "Contexts": [
       "Armor|76D159:MariaBase.esm|MariaTatProxy_Lingerie13/Name"
     ]
   },
   {
     "Source": "Dessous 14",
-    "English": "",
+    "English": "Lingerie 14",
     "Contexts": [
       "Armor|76D15B:MariaBase.esm|MariaTatProxy_Lingerie14/Name"
     ]
   },
   {
     "Source": "Dessous 15",
-    "English": "",
+    "English": "Lingerie 15",
     "Contexts": [
       "Armor|76D15C:MariaBase.esm|MariaTatProxy_Lingerie15/Name"
     ]
   },
   {
     "Source": "Dessous 2",
-    "English": "",
+    "English": "Lingerie 2",
     "Contexts": [
       "Armor|72B3F0:MariaBase.esm|MariaTatProxy_Lingerie02/Name"
     ]
   },
   {
     "Source": "Dessous 3",
-    "English": "",
+    "English": "Lingerie 3",
     "Contexts": [
       "Armor|72B3F1:MariaBase.esm|MariaTatProxy_Lingerie03/Name"
     ]
   },
   {
     "Source": "Dessous 4",
-    "English": "",
+    "English": "Lingerie 4",
     "Contexts": [
       "Armor|72B3F3:MariaBase.esm|MariaTatProxy_Lingerie04/Name"
     ]
   },
   {
     "Source": "Dessous 5",
-    "English": "",
+    "English": "Lingerie 5",
     "Contexts": [
       "Armor|72B3F4:MariaBase.esm|MariaTatProxy_Lingerie05/Name"
     ]
   },
   {
     "Source": "Dessous 6",
-    "English": "",
+    "English": "Lingerie 6",
     "Contexts": [
       "Armor|72B3F5:MariaBase.esm|MariaTatProxy_Lingerie06/Name"
     ]
   },
   {
     "Source": "Dessous 7",
-    "English": "",
+    "English": "Lingerie 7",
     "Contexts": [
       "Armor|7304FB:MariaBase.esm|MariaTatProxy_Lingerie07/Name"
     ]
   },
   {
     "Source": "Dessous 8",
-    "English": "",
+    "English": "Lingerie 8",
     "Contexts": [
       "Armor|7304FC:MariaBase.esm|MariaTatProxy_Lingerie08/Name"
     ]
   },
   {
     "Source": "Dessous 9",
-    "English": "",
+    "English": "Lingerie 9",
     "Contexts": [
       "Armor|735609:MariaBase.esm|MariaTatProxy_Lingerie09/Name"
     ]
   },
   {
-    "Source": "Die B\u00C3\u00BCrger von Himmelsrand sind gro\u00C3\u0178e, blonde Menschen. Die Nord sind stark, z\u00C3\u00A4h und f\u00C3\u00BCr ihre K\u00C3\u00A4lteunempfindlichkeit und ihr Kriegstalent bekannt. Mit der Kraft des Kampfschreis schlagen sie ihre Gegner in die Flucht.",
-    "English": "",
+    "Source": "Die BÃ¼rger von Himmelsrand sind groÃŸe, blonde Menschen. Die Nord sind stark, zÃ¤h und fÃ¼r ihre KÃ¤lteunempfindlichkeit und ihr Kriegstalent bekannt. Mit der Kraft des Kampfschreis schlagen sie ihre Gegner in die Flucht.",
+    "English": "The citizens of Skyrim are a tall and fair-haired people. Strong and hardy, Nords are famous for their resistance to cold and their talent as warriors. They can use a Battlecry to make their opponents flee.",
     "Contexts": [
       "Race|10760A:Skyrim.esm|ManakinRace/Description"
     ]
   },
   {
     "Source": "Diese Location ist kaputt, was tun?",
-    "English": "",
+    "English": "This location is broken. What should be done?",
     "Contexts": [
       "Message|231A9D:MariaBase.esm|MariaBrokenLocationMenu/Description"
     ]
   },
   {
-    "Source": "Du wirst gef\u00FChrt (ESC = Skip)",
-    "English": "",
+    "Source": "Du wirst geführt (ESC = Skip)",
+    "English": "You are being led (ESC = Skip)",
     "Contexts": [
       "Message|24CE71:MariaBase.esm|MariaTravelMessage/Description"
     ]
   },
   {
     "Source": "Du wirst ins Bordell gebracht",
-    "English": "",
+    "English": "You are being taken to the brothel.",
     "Contexts": [
       "Message|34C32E:MariaBase.esm|MariaBrothelMessage/Description"
     ]
   },
   {
     "Source": "Du wirst zur Versteigerung abgeholt",
-    "English": "",
+    "English": "You are being collected for the auction.",
     "Contexts": [
       "Message|34C32D:MariaBase.esm|MariaAuctionMessage/Description"
     ]
   },
   {
-    "Source": "Dunkelrote N\u00E4gel",
-    "English": "",
+    "Source": "Dunkelrote Nägel",
+    "English": "Dark Red Nails",
     "Contexts": [
       "Armor|72B3EF:MariaBase.esm|MariaTatProxy_NailsDarkRed/Name"
     ]
   },
   {
     "Source": "Egal",
-    "English": "",
+    "English": "Never Mind",
     "Contexts": [
       "Message|251DEF:MariaBase.esm|MariaStartupLockedMessageBox/MenuButtons[1]/Text"
     ]
   },
   {
     "Source": "Ehemalige Freier",
-    "English": "",
+    "English": "Former Clients",
     "Contexts": [
       "Faction|24CE59:MariaBase.esm|MariaFaction_ExJohn/Name"
     ]
   },
   {
-    "Source": "Ehemalige Zuh\u00E4lter",
-    "English": "",
+    "Source": "Ehemalige Zuhälter",
+    "English": "Former Pimps",
     "Contexts": [
       "Faction|24CE58:MariaBase.esm|MariaFaction_ExPimp/Name"
     ]
   },
   {
-    "Source": "Ein Bogensch\u00C3\u00BCtze ist im Umgang mit Pfeil und Bogen ge\u00C3\u00BCbt. Je besser seine Schie\u00C3\u0178kunst, umso t\u00C3\u00B6dlicher seine Pfeile.",
-    "English": "",
+    "Source": "Ein BogenschÃ¼tze ist im Umgang mit Pfeil und Bogen geÃ¼bt. Je besser seine SchieÃŸkunst, umso tÃ¶dlicher seine Pfeile.",
+    "English": "An archer is skilled in the use of bows and arrows. The greater their skill, the deadlier their arrows.",
     "Contexts": [
       "ActorValueInformation|00044E:Skyrim.esm|AVMarksman/Description"
     ]
   },
   {
-    "Source": "Ein reizvolles Outfit steigert den Ertrag beim Gesch\u00E4ft",
-    "English": "",
+    "Source": "Ein reizvolles Outfit steigert den Ertrag beim Geschäft",
+    "English": "A seductive outfit increases your earnings from business",
     "Contexts": [
       "Armor|114CEA:MariaBase.esm|MariasOutfitFetish/Description",
       "Armor|758D1D:MariaBase.esm|MariasOutfitWench/Description",
@@ -507,49 +507,49 @@
   },
   {
     "Source": "EvenToned Stimme",
-    "English": "",
+    "English": "Even-Toned Voice",
     "Contexts": [
       "Spell|27BFEA:MariaBase.esm|MariaEvenTonedVoiceTypeSpell/Name"
     ]
   },
   {
     "Source": "EvenToned Voicetype",
-    "English": "",
+    "English": "Even-Toned Voice Type",
     "Contexts": [
       "MagicEffect|24CE64:MariaBase.esm|MariaEvenTonedVoiceTypeEffect/Name"
     ]
   },
   {
     "Source": "Executioner",
-    "English": "",
+    "English": "Executioner",
     "Contexts": [
       "Faction|5FB6CA:MariaBase.esm|MariaFaction_Executioner/Name"
     ]
   },
   {
     "Source": "Femdom Kleider",
-    "English": "",
+    "English": "Femdom Clothes",
     "Contexts": [
       "Armor|90979E:MariaBase.esm|MariasOutfitFemdom/Name"
     ]
   },
   {
     "Source": "Fessel Tisch",
-    "English": "",
+    "English": "Bondage Table",
     "Contexts": [
       "Furniture|52BD61:MariaBase.esm|MariaFurnBodageTable/Name"
     ]
   },
   {
     "Source": "Fesseln",
-    "English": "",
+    "English": "Restraints",
     "Contexts": [
       "Armor|2C3D9E:MariaBase.esm|MariasCuffs/Name"
     ]
   },
   {
     "Source": "Fesselstuhl",
-    "English": "",
+    "English": "Bondage Chair",
     "Contexts": [
       "Furniture|52BD67:MariaBase.esm|MariaFurnNobleBondageChair/Name",
       "Furniture|52BD68:MariaBase.esm|MariaFurnBondageChair/Name"
@@ -557,22 +557,22 @@
   },
   {
     "Source": "Fetisch Kleider",
-    "English": "",
+    "English": "Fetish Clothes",
     "Contexts": [
       "Armor|114CEA:MariaBase.esm|MariasOutfitFetish/Name"
     ]
   },
   {
     "Source": "Fetisch Utensilien",
-    "English": "",
+    "English": "Fetish Accessories",
     "Contexts": [
       "Message|66AD63:MariaBase.esm|MariaOFNFetishMessage/Description",
       "Message|66AD63:MariaBase.esm|MariaOFNFetishMessage/Name"
     ]
   },
   {
-    "Source": "Fingern\u00E4gel",
-    "English": "",
+    "Source": "Fingernägel",
+    "English": "Fingernails",
     "Contexts": [
       "Message|66AD53:MariaBase.esm|MariaOFNNailsMessage/Description",
       "Message|66AD53:MariaBase.esm|MariaOFNNailsMessage/Name"
@@ -580,49 +580,49 @@
   },
   {
     "Source": "Folterbank",
-    "English": "",
+    "English": "Torture Rack",
     "Contexts": [
       "Furniture|52BD6E:MariaBase.esm|MariaFurnTortureRack/Name"
     ]
   },
   {
     "Source": "Folterbank Rad",
-    "English": "",
+    "English": "Torture Wheel",
     "Contexts": [
       "Activator|52BD6D:MariaBase.esm|MariaActivatorTortureRack/Name"
     ]
   },
   {
     "Source": "Folterstuhl",
-    "English": "",
+    "English": "Torture Chair",
     "Contexts": [
       "Furniture|52BD6A:MariaBase.esm|MariaFurnTortureChair/Name"
     ]
   },
   {
     "Source": "Frauen Arbeitskleidung",
-    "English": "",
+    "English": "Women's Work Clothes",
     "Contexts": [
       "Armor|758D36:MariaBase.esm|MariasOutfitFemaleStaff/Name"
     ]
   },
   {
-    "Source": "Frauen Puppenk\u00F6rper",
-    "English": "",
+    "Source": "Frauen Puppenkörper",
+    "English": "Female Mannequin Body",
     "Contexts": [
       "Armor|66FE69:MariaBase.esm|MariaArmorManakin/Name"
     ]
   },
   {
     "Source": "Freier",
-    "English": "",
+    "English": "Client",
     "Contexts": [
       "Faction|24CE5C:MariaBase.esm|MariaFaction_John/Name"
     ]
   },
   {
     "Source": "Frisuren",
-    "English": "",
+    "English": "Hairstyles",
     "Contexts": [
       "Message|66AD52:MariaBase.esm|MariaOFNWigsMessage/Description",
       "Message|66AD52:MariaBase.esm|MariaOFNWigsMessage/Name"
@@ -630,35 +630,35 @@
   },
   {
     "Source": "Galgen",
-    "English": "",
+    "English": "Gallows",
     "Contexts": [
       "Furniture|54017D:MariaBase.esm|MariaFurnGallowsStand/Name"
     ]
   },
   {
     "Source": "Galgen Balken",
-    "English": "",
+    "English": "Gallows Beam",
     "Contexts": [
       "Activator|6CB0A8:MariaBase.esm|MariaGallowsPole/Name"
     ]
   },
   {
     "Source": "Galgen Stuhl",
-    "English": "",
+    "English": "Gallows Stool",
     "Contexts": [
       "Activator|6CB0A6:MariaBase.esm|MariaGallowsStool/Name"
     ]
   },
   {
     "Source": "Galgen Tisch",
-    "English": "",
+    "English": "Gallows Table",
     "Contexts": [
       "Activator|6CB0A7:MariaBase.esm|MariaGallowsTable/Name"
     ]
   },
   {
     "Source": "Galgenbalken",
-    "English": "",
+    "English": "Gallows Beam",
     "Contexts": [
       "Furniture|52BD65:MariaBase.esm|MariaFurnGallowsBeam/Name",
       "Furniture|6DA3DF:MariaBase.esm|MariaFurnGallowsBeamLongRope/Name"
@@ -666,7 +666,7 @@
   },
   {
     "Source": "Galgenbaum",
-    "English": "",
+    "English": "Gallows Post",
     "Contexts": [
       "Furniture|52BD64:MariaBase.esm|MariaFurnGallowsPole/Name",
       "Furniture|52BD66:MariaBase.esm|MariaFurnSimpleGallowsPole/Name"
@@ -674,35 +674,35 @@
   },
   {
     "Source": "Galgenstrick",
-    "English": "",
+    "English": "Noose",
     "Contexts": [
       "Activator|526C58:MariaBase.esm|MariaActivatorNoose/Name"
     ]
   },
   {
     "Source": "Garotte",
-    "English": "",
+    "English": "Garrote",
     "Contexts": [
       "Furniture|52BD6B:MariaBase.esm|MariaFurnGarotte/Name"
     ]
   },
   {
     "Source": "Garottenrad",
-    "English": "",
+    "English": "Garrote Wheel",
     "Contexts": [
       "Activator|52BD6C:MariaBase.esm|MariaActivatorGarotte/Name"
     ]
   },
   {
     "Source": "Gefangene",
-    "English": "",
+    "English": "Female Prisoner",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/MenuButtons[1]/Text"
     ]
   },
   {
     "Source": "Gefangenenkleidung",
-    "English": "",
+    "English": "Prisoner's Clothes",
     "Contexts": [
       "Armor|758D23:MariaBase.esm|MariasOutfitFemalePrisoner/Name",
       "Armor|758D39:MariaBase.esm|MariasOutfitMalePrisoner/Name"
@@ -710,7 +710,7 @@
   },
   {
     "Source": "Gefangener",
-    "English": "",
+    "English": "Prisoner",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/MenuButtons[0]/Text",
       "Npc|01750C:Skyrim.esm|NordMalePreset01/Name"
@@ -718,14 +718,14 @@
   },
   {
     "Source": "Gold",
-    "English": "",
+    "English": "Gold",
     "Contexts": [
       "MiscItem|00000F:Skyrim.esm|Gold001/Name"
     ]
   },
   {
-    "Source": "G\u00E4ste",
-    "English": "",
+    "Source": "Gäste",
+    "English": "Guests",
     "Contexts": [
       "Faction|28FD2F:MariaBase.esm|MariaFaction_RandomGuest/Name",
       "Quest|294C80:MariaBase.esm|MariaRandomGuests/Name"
@@ -733,14 +733,14 @@
   },
   {
     "Source": "Hacke",
-    "English": "",
+    "English": "Hoe",
     "Contexts": [
       "MiscItem|6ACA96:MariaBase.esm|MariaHoe/Name"
     ]
   },
   {
     "Source": "Handschuhe",
-    "English": "",
+    "English": "Gloves",
     "Contexts": [
       "Message|66AD5E:MariaBase.esm|MariaOFNGlovesMessage/Description",
       "Message|66AD5E:MariaBase.esm|MariaOFNGlovesMessage/Name"
@@ -748,21 +748,21 @@
   },
   {
     "Source": "Herren Kleider",
-    "English": "",
+    "English": "Master's Clothes",
     "Contexts": [
       "Armor|758D2D:MariaBase.esm|MariasOutfitMaledom/Name"
     ]
   },
   {
     "Source": "Heugabel",
-    "English": "",
+    "English": "Pitchfork",
     "Contexts": [
       "MiscItem|6ACA95:MariaBase.esm|MariaPitchFork/Name"
     ]
   },
   {
     "Source": "Hig Heels",
-    "English": "",
+    "English": "High Heels",
     "Contexts": [
       "Message|66AD59:MariaBase.esm|MariaOFNHighHeelsMessage/Description",
       "Message|66AD59:MariaBase.esm|MariaOFNHighHeelsMessage/Name"
@@ -770,35 +770,35 @@
   },
   {
     "Source": "HighHeels Handicap",
-    "English": "",
+    "English": "High Heels Handicap",
     "Contexts": [
       "ObjectEffect|B9A010:MariaBase.esm|MariaHighHeelEnchantment/Name"
     ]
   },
   {
     "Source": "Highheel Effect",
-    "English": "",
+    "English": "High Heel Effect",
     "Contexts": [
       "MagicEffect|B9A00F:MariaBase.esm|MariaHighHeelEffect/Name"
     ]
   },
   {
     "Source": "Hochzeitskleidung",
-    "English": "",
+    "English": "Wedding Dress",
     "Contexts": [
       "Armor|03F9C4:MariaBase.esm|MariasOutfitWedding/Name"
     ]
   },
   {
     "Source": "Hohepriesterin Kleider",
-    "English": "",
+    "English": "High Priestess Robes",
     "Contexts": [
       "Armor|758D21:MariaBase.esm|MariasOutfitHighPriestess/Name"
     ]
   },
   {
     "Source": "Hosen",
-    "English": "",
+    "English": "Trousers",
     "Contexts": [
       "Message|66AD60:MariaBase.esm|MariaOFNTrousersMessage/Description",
       "Message|66AD60:MariaBase.esm|MariaOFNTrousersMessage/Name"
@@ -806,42 +806,42 @@
   },
   {
     "Source": "Hunde Tattoo",
-    "English": "",
+    "English": "Dog Tattoo",
     "Contexts": [
       "MagicEffect|279842:MariaBase.esm|MariaAnimalTattooEffect/Name"
     ]
   },
   {
     "Source": "Hure",
-    "English": "",
+    "English": "Whore",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/MenuButtons[4]/Text"
     ]
   },
   {
     "Source": "Huren Kleider",
-    "English": "",
+    "English": "Whore's Clothes",
     "Contexts": [
       "Armor|909798:MariaBase.esm|MariasOutfitWhore/Name"
     ]
   },
   {
     "Source": "Hurenbegleitung",
-    "English": "",
+    "English": "Whore Escort",
     "Contexts": [
       "Faction|24CE5D:MariaBase.esm|MariaFaction_Follower/Name"
     ]
   },
   {
     "Source": "Hurenlohn Kassierer",
-    "English": "",
+    "English": "Whore-Earnings Cashier",
     "Contexts": [
       "Faction|23E0A7:MariaBase.esm|MariaFaction_WhoreCashier/Name"
     ]
   },
   {
-    "Source": "H\u00E4ng dich auf",
-    "English": "",
+    "Source": "Häng dich auf",
+    "English": "Hang Yourself",
     "Contexts": [
       "Activator|526C58:MariaBase.esm|MariaActivatorNoose/ActivateTextOverride",
       "Activator|6CB0A6:MariaBase.esm|MariaGallowsStool/ActivateTextOverride",
@@ -851,7 +851,7 @@
   },
   {
     "Source": "Ja",
-    "English": "",
+    "English": "Yes",
     "Contexts": [
       "Message|4D9194:MariaBase.esm|MariaMsgYesNo/MenuButtons[0]/Text",
       "Message|816C7F:MariaBase.esm|MariaSavePermanent/MenuButtons[1]/Text"
@@ -859,141 +859,141 @@
   },
   {
     "Source": "Kaputte Location",
-    "English": "",
+    "English": "Broken Location",
     "Contexts": [
       "Message|231A9D:MariaBase.esm|MariaBrokenLocationMenu/Name"
     ]
   },
   {
     "Source": "Kategorie",
-    "English": "",
+    "English": "Category",
     "Contexts": [
       "Message|231A9C:MariaBase.esm|MariaCategoryMenu/Name"
     ]
   },
   {
     "Source": "Keine Lust auf Sex",
-    "English": "",
+    "English": "No Interest in Sex",
     "Contexts": [
       "Faction|23E0A8:MariaBase.esm|MariaFaction_NoSex/Name"
     ]
   },
   {
     "Source": "Kellnerin Kleider",
-    "English": "",
+    "English": "Wench Clothes",
     "Contexts": [
       "Armor|758D1D:MariaBase.esm|MariasOutfitWench/Name"
     ]
   },
   {
     "Source": "Kleider",
-    "English": "",
+    "English": "Clothes",
     "Contexts": [
       "Message|66AD61:MariaBase.esm|MariaOFNSuitsMessage/Name"
     ]
   },
   {
     "Source": "Kleider anziehen",
-    "English": "",
+    "English": "Put On Clothes",
     "Contexts": [
       "Spell|1300A8:MariaBase.esm|MariaClothesHelperStopSpell/Name"
     ]
   },
   {
     "Source": "Kleider ausziehen",
-    "English": "",
+    "English": "Take Off Clothes",
     "Contexts": [
       "Spell|1300A4:MariaBase.esm|MariaClothesHelperSpell/Name"
     ]
   },
   {
     "Source": "Kleiderung einer Herren",
-    "English": "",
+    "English": "A Master's Attire",
     "Contexts": [
       "Armor|758D2D:MariaBase.esm|MariasOutfitMaledom/Description"
     ]
   },
   {
-    "Source": "Kleiderung einer W\u00E4chterin",
-    "English": "",
+    "Source": "Kleiderung einer Wächterin",
+    "English": "A Guard's Attire",
     "Contexts": [
       "Armor|758D29:MariaBase.esm|MariasOutfitFemaleGuard/Description",
       "Armor|758D2B:MariaBase.esm|MariasOutfitMaleGuard/Description"
     ]
   },
   {
-    "Source": "Kleiderung einer Zuh\u00E4lterin",
-    "English": "",
+    "Source": "Kleiderung einer Zuhälterin",
+    "English": "A Female Pimp's Attire",
     "Contexts": [
       "Armor|758D27:MariaBase.esm|MariasOutfitFemalePimp/Description"
     ]
   },
   {
     "Source": "Kleiderung eines Succubus",
-    "English": "",
+    "English": "A Succubus's Attire",
     "Contexts": [
       "Armor|758D2E:MariaBase.esm|MariasOutfitSuccubus/Description"
     ]
   },
   {
     "Source": "Kleidung abgelegt",
-    "English": "",
+    "English": "Clothes Removed",
     "Contexts": [
       "Faction|8DCE6C:MariaBase.esm|MariaFaction_Naked/Name"
     ]
   },
   {
     "Source": "Kleidung anziehen",
-    "English": "",
+    "English": "Put On Clothes",
     "Contexts": [
       "MagicEffect|1300A7:MariaBase.esm|MariaClothesHelperStopEffect/Name"
     ]
   },
   {
     "Source": "Kleidung ausziehen",
-    "English": "",
+    "English": "Take Off Clothes",
     "Contexts": [
       "MagicEffect|1300A3:MariaBase.esm|MariaClothesHelperEffect/Name"
     ]
   },
   {
-    "Source": "Kleidung eines Zuh\u00E4lters",
-    "English": "",
+    "Source": "Kleidung eines Zuhälters",
+    "English": "A Pimp's Attire",
     "Contexts": [
       "Armor|758D30:MariaBase.esm|MariasOutfitMalePimp/Description"
     ]
   },
   {
-    "Source": "Kleidung f\u00FCr den wichtigstens Tag im Leben",
-    "English": "",
+    "Source": "Kleidung für den wichtigstens Tag im Leben",
+    "English": "Attire for the most important day of your life",
     "Contexts": [
       "Armor|03F9C4:MariaBase.esm|MariasOutfitWedding/Description"
     ]
   },
   {
-    "Source": "Kleidung f\u00FCr ein Sex K\u00E4tzchen",
-    "English": "",
+    "Source": "Kleidung für ein Sex Kätzchen",
+    "English": "Attire for a sex kitten",
     "Contexts": [
       "Armor|03F9C3:MariaBase.esm|MariasOutfitKitty/Description"
     ]
   },
   {
-    "Source": "Kleidung f\u00FCr jemanden, der das Heft in der Hand tr\u00E4gt",
-    "English": "",
+    "Source": "Kleidung für jemanden, der das Heft in der Hand trägt",
+    "English": "Attire for someone who likes to take charge",
     "Contexts": [
       "Armor|90979E:MariaBase.esm|MariasOutfitFemdom/Description"
     ]
   },
   {
-    "Source": "Kleidung f\u00FCr reizvolle Tanzvorf\u00FChrungen",
-    "English": "",
+    "Source": "Kleidung für reizvolle Tanzvorführungen",
+    "English": "Attire for seductive dance performances",
     "Contexts": [
       "Armor|9097A0:MariaBase.esm|MariasOutfitDancer/Description"
     ]
   },
   {
-    "Source": "Kopfgeldj\u00E4ger",
-    "English": "",
+    "Source": "Kopfgeldjäger",
+    "English": "Bounty Hunter",
     "Contexts": [
       "Npc|330E98:MariaBase.esm|MariaBountyHunterBoss/Name",
       "Npc|330E99:MariaBase.esm|MariaBountyHunterMissile/Name"
@@ -1001,7 +1001,7 @@
   },
   {
     "Source": "Korsette",
-    "English": "",
+    "English": "Corsets",
     "Contexts": [
       "Message|66AD5C:MariaBase.esm|MariaOFNCorsetsMessage/Description",
       "Message|66AD5C:MariaBase.esm|MariaOFNCorsetsMessage/Name"
@@ -1009,21 +1009,21 @@
   },
   {
     "Source": "Krieger",
-    "English": "",
+    "English": "Male Warrior",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/MenuButtons[2]/Text"
     ]
   },
   {
     "Source": "Kriegerin",
-    "English": "",
+    "English": "Female Warrior",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/MenuButtons[3]/Text"
     ]
   },
   {
-    "Source": "K\u00E4fig",
-    "English": "",
+    "Source": "Käfig",
+    "English": "Cage",
     "Contexts": [
       "Furniture|4EF14D:MariaBase.esm|MariaGibbetWallMountLong/Name",
       "Furniture|4EF14E:MariaBase.esm|MariaGibbetWallMountShort/Name",
@@ -1033,15 +1033,15 @@
     ]
   },
   {
-    "Source": "K\u00E4tzchen Kleider",
-    "English": "",
+    "Source": "Kätzchen Kleider",
+    "English": "Kitten Clothes",
     "Contexts": [
       "Armor|03F9C3:MariaBase.esm|MariasOutfitKitty/Name"
     ]
   },
   {
     "Source": "Labien Piercings",
-    "English": "",
+    "English": "Labia Piercings",
     "Contexts": [
       "Message|66AD56:MariaBase.esm|MariaOFNLabiaPiercingMessage/Description",
       "Message|66AD56:MariaBase.esm|MariaOFNLabiaPiercingMessage/Name"
@@ -1049,56 +1049,56 @@
   },
   {
     "Source": "Laden",
-    "English": "",
+    "English": "Load",
     "Contexts": [
       "Message|881471:MariaBase.esm|MariaMsgClotingMenu/MenuButtons[0]/Text"
     ]
   },
   {
     "Source": "Land Sklavin Kleidung",
-    "English": "",
+    "English": "Country Slave Clothing",
     "Contexts": [
       "Armor|758D25:MariaBase.esm|MariasOutfitFarmer/Name"
     ]
   },
   {
-    "Source": "Lange Blaue N\u00E4gel",
-    "English": "",
+    "Source": "Lange Blaue Nägel",
+    "English": "Long Blue Nails",
     "Contexts": [
       "Armor|777361:MariaBase.esm|MariaTatProxy_NailsBlueLong/Name"
     ]
   },
   {
-    "Source": "Lange Dunkelrote N\u00E4gel",
-    "English": "",
+    "Source": "Lange Dunkelrote Nägel",
+    "English": "Long Dark Red Nails",
     "Contexts": [
       "Armor|777362:MariaBase.esm|MariaTatProxy_NailsDarkRedLong/Name"
     ]
   },
   {
-    "Source": "Lange Rote N\u00E4gel",
-    "English": "",
+    "Source": "Lange Rote Nägel",
+    "English": "Long Red Nails",
     "Contexts": [
       "Armor|777363:MariaBase.esm|MariaTatProxy_NailsLightRedLong/Name"
     ]
   },
   {
-    "Source": "Lange Schwarze N\u00E4gel",
-    "English": "",
+    "Source": "Lange Schwarze Nägel",
+    "English": "Long Black Nails",
     "Contexts": [
       "Armor|777360:MariaBase.esm|MariaTatProxy_NailsBlackLong/Name"
     ]
   },
   {
-    "Source": "Lange Wei\u00DFe N\u00E4gel",
-    "English": "",
+    "Source": "Lange Weiße Nägel",
+    "English": "Long White Nails",
     "Contexts": [
       "Armor|777364:MariaBase.esm|MariaTatProxy_NailsWhiteLong/Name"
     ]
   },
   {
     "Source": "Lippen Piercings",
-    "English": "",
+    "English": "Lip Piercings",
     "Contexts": [
       "Message|66AD58:MariaBase.esm|MariaOFNLipsPiercingMessage/Description",
       "Message|66AD58:MariaBase.esm|MariaOFNLipsPiercingMessage/Name"
@@ -1106,42 +1106,42 @@
   },
   {
     "Source": "Location",
-    "English": "",
+    "English": "Location",
     "Contexts": [
       "Message|231A9E:MariaBase.esm|MariaLocationMenu/Name"
     ]
   },
   {
     "Source": "Lust Hund",
-    "English": "",
+    "English": "Lust Hound",
     "Contexts": [
       "Npc|28FD2E:MariaBase.esm|MariaFuckDog/Name"
     ]
   },
   {
-    "Source": "L\u00E4stig aber n\u00FCtzlich",
-    "English": "",
+    "Source": "Lästig aber nützlich",
+    "English": "Annoying but Useful",
     "Contexts": [
       "Armor|2C3D9E:MariaBase.esm|MariasCuffs/Description"
     ]
   },
   {
-    "Source": "L\u00F6schen",
-    "English": "",
+    "Source": "Löschen",
+    "English": "Delete",
     "Contexts": [
       "Message|881471:MariaBase.esm|MariaMsgClotingMenu/MenuButtons[2]/Text"
     ]
   },
   {
     "Source": "MaleHeadManekin",
-    "English": "",
+    "English": "MaleHeadManekin",
     "Contexts": [
       "HeadPart|10760F:Skyrim.esm|MaleHeadManekin/Name"
     ]
   },
   {
     "Source": "Managed NPC AI",
-    "English": "",
+    "English": "Managed NPC AI",
     "Contexts": [
       "MagicEffect|24F63F:MariaBase.esm|MariaManagedNPCEffect/Name",
       "Spell|24F640:MariaBase.esm|MariaManagedNPCSpell/Name"
@@ -1149,56 +1149,56 @@
   },
   {
     "Source": "Managed NPCs",
-    "English": "",
+    "English": "Managed NPCs",
     "Contexts": [
       "Faction|70B59B:MariaBase.esm|MariaFaction_ManagedNPCs/Name"
     ]
   },
   {
     "Source": "MariBrowsManakin",
-    "English": "",
+    "English": "MariBrowsManakin",
     "Contexts": [
       "HeadPart|66FE71:MariaBase.esm|MariBrowsManakin/Name"
     ]
   },
   {
     "Source": "Maria Eden",
-    "English": "",
+    "English": "Maria Eden",
     "Contexts": [
       "Quest|052CE7:MariaBase.esm|MariaMain/Name"
     ]
   },
   {
     "Source": "Maria Eden Start",
-    "English": "",
+    "English": "Maria Eden Start",
     "Contexts": [
       "Cell|24F641:MariaBase.esm|MariaStartupCell/Name"
     ]
   },
   {
     "Source": "Maria Eden gestarted",
-    "English": "",
+    "English": "Maria Eden started",
     "Contexts": [
       "Quest|052CE7:MariaBase.esm|MariaMain/Objectives[0]/DisplayText"
     ]
   },
   {
     "Source": "Maria Eden ist noch nicht bereit. Bitte wartet noch eine Weile",
-    "English": "",
+    "English": "Maria Eden is not ready yet. Please wait a little longer.",
     "Contexts": [
       "Message|251DEF:MariaBase.esm|MariaStartupLockedMessageBox/Description"
     ]
   },
   {
     "Source": "MariaEyesManakin",
-    "English": "",
+    "English": "MariaEyesManakin",
     "Contexts": [
       "HeadPart|66FE70:MariaBase.esm|MariaEyesManakin/Name"
     ]
   },
   {
     "Source": "MariaHeadManakin",
-    "English": "",
+    "English": "MariaHeadManakin",
     "Contexts": [
       "HeadPart|66FE66:MariaBase.esm|MariaHeadManakin2/Name",
       "HeadPart|66FE6F:MariaBase.esm|MariaHeadManakin/Name"
@@ -1206,21 +1206,21 @@
   },
   {
     "Source": "Marker speichern",
-    "English": "",
+    "English": "Save Marker",
     "Contexts": [
       "Message|231A9F:MariaBase.esm|MariaSelectMarkerTypeMenu/Name"
     ]
   },
   {
-    "Source": "Marks actor as the player\u0027s current Master/Owner.",
-    "English": "",
+    "Source": "Marks actor as the player's current Master/Owner.",
+    "English": "Marks actor as the player's current Master/Owner.",
     "Contexts": [
       "Faction|4D5C49:MariaBase.esm|MariaFaction_PlayerMaster/Name"
     ]
   },
   {
     "Source": "Marterpfahl",
-    "English": "",
+    "English": "Torture Post",
     "Contexts": [
       "Furniture|52BD5B:MariaBase.esm|MariaFurnSlaveSellPole/Name",
       "Furniture|52BD5D:MariaBase.esm|MariaFurnWhipBackPole/Name",
@@ -1230,7 +1230,7 @@
   },
   {
     "Source": "Masken",
-    "English": "",
+    "English": "Masks",
     "Contexts": [
       "Message|66AD5F:MariaBase.esm|MariaOFNMasksMessage/Description",
       "Message|66AD5F:MariaBase.esm|MariaOFNMasksMessage/Name"
@@ -1238,21 +1238,21 @@
   },
   {
     "Source": "Master",
-    "English": "",
+    "English": "Master",
     "Contexts": [
       "Faction|5FB6BE:MariaBase.esm|MariaFaction_Master/Name"
     ]
   },
   {
-    "Source": "M\u00E4nner Arbeitskleidung",
-    "English": "",
+    "Source": "Männer Arbeitskleidung",
+    "English": "Men's Work Clothes",
     "Contexts": [
       "Armor|758D34:MariaBase.esm|MariasOutfitMaleStaff/Name"
     ]
   },
   {
     "Source": "NPC Cheater",
-    "English": "",
+    "English": "NPC Cheater",
     "Contexts": [
       "MagicEffect|8863A7:MariaBase.esm|MariaNPCCheaterEffect/Name",
       "Spell|8863A8:MariaBase.esm|MariaNPCCheaterSpell/Name"
@@ -1260,14 +1260,14 @@
   },
   {
     "Source": "Nachfrage",
-    "English": "",
+    "English": "Confirmation",
     "Contexts": [
       "Message|4D9194:MariaBase.esm|MariaMsgYesNo/Name"
     ]
   },
   {
     "Source": "Nasen Piercings",
-    "English": "",
+    "English": "Nose Piercings",
     "Contexts": [
       "Message|66AD57:MariaBase.esm|MariaOFNNosePiercingMessage/Description",
       "Message|66AD57:MariaBase.esm|MariaOFNNosePiercingMessage/Name"
@@ -1275,21 +1275,21 @@
   },
   {
     "Source": "Neck Chain",
-    "English": "",
+    "English": "Neck Chain",
     "Contexts": [
       "Armor|000806:Leash.esm|Leash_neck_chain/Name"
     ]
   },
   {
     "Source": "Neck Rope",
-    "English": "",
+    "English": "Neck Rope",
     "Contexts": [
       "Armor|000804:Leash.esm|Leash_neck/Name"
     ]
   },
   {
     "Source": "Nein",
-    "English": "",
+    "English": "No",
     "Contexts": [
       "Message|4D9194:MariaBase.esm|MariaMsgYesNo/MenuButtons[1]/Text",
       "Message|816C7F:MariaBase.esm|MariaSavePermanent/MenuButtons[0]/Text"
@@ -1297,7 +1297,7 @@
   },
   {
     "Source": "Nippel Piercings",
-    "English": "",
+    "English": "Nipple Piercings",
     "Contexts": [
       "Message|66AD54:MariaBase.esm|MariaOFNNipplePiercingMessage/Description",
       "Message|66AD54:MariaBase.esm|MariaOFNNipplePiercingMessage/Name"
@@ -1305,84 +1305,84 @@
   },
   {
     "Source": "Nord",
-    "English": "",
+    "English": "Nord",
     "Contexts": [
       "Race|10760A:Skyrim.esm|ManakinRace/Name"
     ]
   },
   {
-    "Source": "Nur noch Freunde - \u00FCberall",
-    "English": "",
+    "Source": "Nur noch Freunde - überall",
+    "English": "Nothing but friends—everywhere.",
     "Contexts": [
       "Armor|14652E:MariaBase.esm|MariaBanditRing/Description"
     ]
   },
   {
     "Source": "Ok",
-    "English": "",
+    "English": "Ok",
     "Contexts": [
       "Message|251DEF:MariaBase.esm|MariaStartupLockedMessageBox/MenuButtons[0]/Text"
     ]
   },
   {
     "Source": "Opfer Pfahl",
-    "English": "",
+    "English": "Sacrificial Stake",
     "Contexts": [
       "Furniture|52BD60:MariaBase.esm|MariaFurnSacrificePillars/Name"
     ]
   },
   {
     "Source": "Oral Sex Qualifikation",
-    "English": "",
+    "English": "Oral Sex Qualification",
     "Contexts": [
       "Faction|60A9D1:MariaBase.esm|MariaFaction_FuckedOral/Name"
     ]
   },
   {
     "Source": "Outfit Setup",
-    "English": "",
+    "English": "Outfit Setup",
     "Contexts": [
       "Quest|3AF391:MariaBase.esm|MariaOutfitSetup/Name"
     ]
   },
   {
     "Source": "Peitschen Opfer",
-    "English": "",
+    "English": "Whipping Victim",
     "Contexts": [
       "Faction|285E62:MariaBase.esm|MariaFaction_WhippingVictims/Name"
     ]
   },
   {
     "Source": "Peitschenmale Front",
-    "English": "",
+    "English": "Front Whip Marks",
     "Contexts": [
       "MagicEffect|614C3D:MariaBase.esm|MariaEffectWhipMarksFront/Name"
     ]
   },
   {
     "Source": "Peitschenmale Hinten",
-    "English": "",
+    "English": "Rear Whip Marks",
     "Contexts": [
       "MagicEffect|614C3C:MariaBase.esm|MariaEffectWhipMarksBack/Name"
     ]
   },
   {
     "Source": "People who buy and sell slaves",
-    "English": "",
+    "English": "People who buy and sell slaves",
     "Contexts": [
       "Faction|629046:MariaBase.esm|MariaFaction_SlaveTaders/Name"
     ]
   },
   {
     "Source": "Pimp Assistants",
-    "English": "",
+    "English": "Pimp Assistants",
     "Contexts": [
       "Faction|5FB6C6:MariaBase.esm|MariaFaction_PimpHelper/Name"
     ]
   },
   {
     "Source": "Piss in meinen Mund",
-    "English": "",
+    "English": "Piss in My Mouth",
     "Contexts": [
       "MagicEffect|3C3086:MariaBase.esm|MariaPosePissInMouthEffect/Name",
       "Spell|3C3088:MariaBase.esm|MariaPissInMyMouthSpell/Name"
@@ -1390,177 +1390,177 @@
   },
   {
     "Source": "Pissen",
-    "English": "",
+    "English": "Pissing",
     "Contexts": [
       "MagicEffect|614C38:MariaBase.esm|MariaEffectConstantPissing/Name"
     ]
   },
   {
     "Source": "Pisstropfen",
-    "English": "",
+    "English": "Piss Drips",
     "Contexts": [
       "MagicEffect|614C39:MariaBase.esm|MariaEffectConstantPussyDripping/Name"
     ]
   },
   {
     "Source": "Playhouse Owner",
-    "English": "",
+    "English": "Playhouse Owner",
     "Contexts": [
       "Faction|6BBD9E:MariaBase.esm|MariaFaction_PlayhouseBoss/Name"
     ]
   },
   {
     "Source": "Ponygirl Kleider",
-    "English": "",
+    "English": "Ponygirl Clothes",
     "Contexts": [
       "Armor|03F9C2:MariaBase.esm|MariasOutfitPony/Name"
     ]
   },
   {
     "Source": "Pranger",
-    "English": "",
+    "English": "Pillory",
     "Contexts": [
       "Furniture|52BD71:MariaBase.esm|MariaFurnPillory/Name"
     ]
   },
   {
     "Source": "Puppe",
-    "English": "",
+    "English": "Doll",
     "Contexts": [
       "Npc|66FE67:MariaBase.esm|MariaFemaleManakin/Name"
     ]
   },
   {
     "Source": "Pussy drips",
-    "English": "",
+    "English": "Pussy drips",
     "Contexts": [
       "MagicEffect|614C39:MariaBase.esm|MariaEffectConstantPussyDripping/Description"
     ]
   },
   {
     "Source": "Racemenu Button",
-    "English": "",
+    "English": "RaceMenu Button",
     "Contexts": [
       "Activator|251DF6:MariaBase.esm|MariaRaceMenuButton/Name"
     ]
   },
   {
     "Source": "Random Voicetype",
-    "English": "",
+    "English": "Random Voicetype",
     "Contexts": [
       "MagicEffect|24CE65:MariaBase.esm|MariaRandomVoiceTypeEffect/Name"
     ]
   },
   {
-    "Source": "Rote N\u00E4gel",
-    "English": "",
+    "Source": "Rote Nägel",
+    "English": "Red Nails",
     "Contexts": [
       "Armor|7304F9:MariaBase.esm|MariaTatProxy_NailsLightRed/Name"
     ]
   },
   {
-    "Source": "R\u00F6cke",
-    "English": "",
+    "Source": "Röcke",
+    "English": "Skirts",
     "Contexts": [
       "Message|66AD5B:MariaBase.esm|MariaOFNSkirtsMessage/Description",
       "Message|66AD5B:MariaBase.esm|MariaOFNSkirtsMessage/Name"
     ]
   },
   {
-    "Source": "Schie\u00C3\u0178kunst",
-    "English": "",
+    "Source": "SchieÃŸkunst",
+    "English": "Archery",
     "Contexts": [
       "ActorValueInformation|00044E:Skyrim.esm|AVMarksman/Name"
     ]
   },
   {
     "Source": "Schmuck",
-    "English": "",
+    "English": "Jewelry",
     "Contexts": [
       "Message|66AD5A:MariaBase.esm|MariaOFNJewelryHeelsMessage/Description",
       "Message|66AD5A:MariaBase.esm|MariaOFNJewelryHeelsMessage/Name"
     ]
   },
   {
-    "Source": "Schwarze N\u00E4gel",
-    "English": "",
+    "Source": "Schwarze Nägel",
+    "English": "Black Nails",
     "Contexts": [
       "Armor|72B3EC:MariaBase.esm|MariaTatProxy_NailsBlack/Name"
     ]
   },
   {
     "Source": "Sex Spielzeug Benutzer",
-    "English": "",
+    "English": "Sex Toy User",
     "Contexts": [
       "Faction|2A12D1:MariaBase.esm|MariaFaction_PlayerRapist/Name"
     ]
   },
   {
     "Source": "Sexy aber langsam",
-    "English": "",
+    "English": "Sexy but Slow",
     "Contexts": [
       "MagicEffect|B9A00F:MariaBase.esm|MariaHighHeelEffect/Description"
     ]
   },
   {
     "Source": "Sicher?",
-    "English": "",
+    "English": "Are you sure?",
     "Contexts": [
       "Message|4D9194:MariaBase.esm|MariaMsgYesNo/Description"
     ]
   },
   {
     "Source": "Sitting in a cage",
-    "English": "",
+    "English": "Sitting in a cage",
     "Contexts": [
       "Faction|6BBD9F:MariaBase.esm|MariaFaction_Caged/Name"
     ]
   },
   {
     "Source": "Sklave",
-    "English": "",
+    "English": "Slave",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/MenuButtons[5]/Text"
     ]
   },
   {
     "Source": "Sklaven Altar",
-    "English": "",
+    "English": "Slave Altar",
     "Contexts": [
       "Furniture|52BD63:MariaBase.esm|MariaFurnSacrificeAltar/Name"
     ]
   },
   {
     "Source": "Sklaven Bett",
-    "English": "",
+    "English": "Slave Bed",
     "Contexts": [
       "Furniture|52BD62:MariaBase.esm|MariaFurnSlaveBondageBed/Name"
     ]
   },
   {
     "Source": "Sklavenbank",
-    "English": "",
+    "English": "Slave Bench",
     "Contexts": [
       "Furniture|52BD74:MariaBase.esm|MariaFurnRack/Name"
     ]
   },
   {
     "Source": "Sklavenkleidung",
-    "English": "",
+    "English": "Slave Clothing",
     "Contexts": [
       "Armor|90979F:MariaBase.esm|MariasOutfitFemaleSlave/Name"
     ]
   },
   {
-    "Source": "Sklavenkleidung f\u00FCr M\u00E4nner",
-    "English": "",
+    "Source": "Sklavenkleidung für Männer",
+    "English": "Slave Clothing for Men",
     "Contexts": [
       "Armor|758D32:MariaBase.esm|MariasOutfitMaleSlave/Name"
     ]
   },
   {
     "Source": "Sklavenkreuz",
-    "English": "",
+    "English": "Slave Cross",
     "Contexts": [
       "Furniture|52BD72:MariaBase.esm|MariaFurnWhipFrontXCross/Name",
       "Furniture|52BD73:MariaBase.esm|MariaFurnWhipBackXCross/Name"
@@ -1568,133 +1568,133 @@
   },
   {
     "Source": "Sklavin",
-    "English": "",
+    "English": "Female Slave",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/MenuButtons[6]/Text"
     ]
   },
   {
     "Source": "Slave",
-    "English": "",
+    "English": "Slave",
     "Contexts": [
       "Faction|5FB6BF:MariaBase.esm|MariaFaction_Slave/Name"
     ]
   },
   {
     "Source": "Slave Guards",
-    "English": "",
+    "English": "Slave Guards",
     "Contexts": [
       "Faction|5FB6C9:MariaBase.esm|MariaFaction_SlaveGuard/Name"
     ]
   },
   {
     "Source": "Slave Trainers",
-    "English": "",
+    "English": "Slave Trainers",
     "Contexts": [
       "Faction|5FB6C8:MariaBase.esm|MariaFaction_SlaveTrainer/Name"
     ]
   },
   {
     "Source": "Slave transporter",
-    "English": "",
+    "English": "Slave transporter",
     "Contexts": [
       "Faction|5FB6C7:MariaBase.esm|MariaFaction_SlaveTransporter/Name"
     ]
   },
   {
     "Source": "Slaver",
-    "English": "",
+    "English": "Slaver",
     "Contexts": [
       "Faction|5FB6C5:MariaBase.esm|MariaFaction_Slaver/Name"
     ]
   },
   {
     "Source": "Speichern",
-    "English": "",
+    "English": "Save",
     "Contexts": [
       "Message|881471:MariaBase.esm|MariaMsgClotingMenu/MenuButtons[1]/Text"
     ]
   },
   {
     "Source": "Spielmarker",
-    "English": "",
+    "English": "Play Marker",
     "Contexts": [
       "Message|231A9F:MariaBase.esm|MariaSelectMarkerTypeMenu/MenuButtons[2]/Text"
     ]
   },
   {
     "Source": "Startposition",
-    "English": "",
+    "English": "Starting Position",
     "Contexts": [
       "Message|231A9F:MariaBase.esm|MariaSelectMarkerTypeMenu/MenuButtons[1]/Text"
     ]
   },
   {
     "Source": "Startup Hilfe",
-    "English": "",
+    "English": "Startup Supplies",
     "Contexts": [
       "Container|251DF4:MariaBase.esm|MariaStartupChest/Name"
     ]
   },
   {
     "Source": "Streckbank",
-    "English": "",
+    "English": "Rack",
     "Contexts": [
       "Furniture|52BD6F:MariaBase.esm|MariaFurnStretchRack/Name"
     ]
   },
   {
     "Source": "Streckbank Rad",
-    "English": "",
+    "English": "Rack Wheel",
     "Contexts": [
       "Activator|52BD70:MariaBase.esm|MariaActivatorStretchRack/Name"
     ]
   },
   {
     "Source": "Strumpfhose 1",
-    "English": "",
+    "English": "Pantyhose 1",
     "Contexts": [
       "Armor|72B3F6:MariaBase.esm|MariaTatProxy_Pantyhose01/Name"
     ]
   },
   {
     "Source": "Strumpfhose 2",
-    "English": "",
+    "English": "Pantyhose 2",
     "Contexts": [
       "Armor|72B3F7:MariaBase.esm|MariaTatProxy_Pantyhose02/Name"
     ]
   },
   {
     "Source": "Strumpfhose 3",
-    "English": "",
+    "English": "Pantyhose 3",
     "Contexts": [
       "Armor|7304FD:MariaBase.esm|MariaTatProxy_Pantyhose03/Name"
     ]
   },
   {
     "Source": "Strumpfhose 4",
-    "English": "",
+    "English": "Pantyhose 4",
     "Contexts": [
       "Armor|7304FE:MariaBase.esm|MariaTatProxy_Pantyhose04/Name"
     ]
   },
   {
     "Source": "Strumpfhose 5",
-    "English": "",
+    "English": "Pantyhose 5",
     "Contexts": [
       "Armor|73560F:MariaBase.esm|MariaTatProxy_Pantyhose05/Name"
     ]
   },
   {
     "Source": "Strumpfhose 6",
-    "English": "",
+    "English": "Pantyhose 6",
     "Contexts": [
       "Armor|735610:MariaBase.esm|MariaTatProxy_Pantyhose06/Name"
     ]
   },
   {
     "Source": "Strumpfhosen",
-    "English": "",
+    "English": "Pantyhose",
     "Contexts": [
       "Message|730507:MariaBase.esm|MariaOFNPantyhoseMessage/Description",
       "Message|730507:MariaBase.esm|MariaOFNPantyhoseMessage/Name"
@@ -1702,28 +1702,28 @@
   },
   {
     "Source": "Succubus Kleider",
-    "English": "",
+    "English": "Succubus Attire",
     "Contexts": [
       "Armor|758D2E:MariaBase.esm|MariasOutfitSuccubus/Name"
     ]
   },
   {
     "Source": "Suppentopf",
-    "English": "",
+    "English": "Soup Pot",
     "Contexts": [
       "MiscItem|3A5527:MariaBase.esm|MariaSoupPot/Name"
     ]
   },
   {
     "Source": "Tablett",
-    "English": "",
+    "English": "Tray",
     "Contexts": [
       "MiscItem|3A5526:MariaBase.esm|MariaPlate/Name"
     ]
   },
   {
     "Source": "Tasche",
-    "English": "",
+    "English": "Satchel",
     "Contexts": [
       "Message|66AD64:MariaBase.esm|MariaOFNOpenSatchel/Name",
       "Message|66FE6E:MariaBase.esm|MariaOFNEquipOrStoreMessage/Name"
@@ -1731,63 +1731,63 @@
   },
   {
     "Source": "Tattoo 1",
-    "English": "",
+    "English": "Tattoo 1",
     "Contexts": [
       "Armor|730501:MariaBase.esm|MariaTatProxy_Tattoo01/Name"
     ]
   },
   {
     "Source": "Tattoo 2",
-    "English": "",
+    "English": "Tattoo 2",
     "Contexts": [
       "Armor|730503:MariaBase.esm|MariaTatProxy_Tattoo02/Name"
     ]
   },
   {
     "Source": "Tattoo 3",
-    "English": "",
+    "English": "Tattoo 3",
     "Contexts": [
       "Armor|730504:MariaBase.esm|MariaTatProxy_Tattoo03/Name"
     ]
   },
   {
     "Source": "Tattoo 4",
-    "English": "",
+    "English": "Tattoo 4",
     "Contexts": [
       "Armor|730505:MariaBase.esm|MariaTatProxy_Tattoo04/Name"
     ]
   },
   {
     "Source": "Tattoo 5",
-    "English": "",
+    "English": "Tattoo 5",
     "Contexts": [
       "Armor|73560B:MariaBase.esm|MariaTatProxy_Tattoo05/Name"
     ]
   },
   {
     "Source": "Tattoo 6",
-    "English": "",
+    "English": "Tattoo 6",
     "Contexts": [
       "Armor|73560D:MariaBase.esm|MariaTatProxy_Tattoo06/Name"
     ]
   },
   {
     "Source": "Tattoo 7",
-    "English": "",
+    "English": "Tattoo 7",
     "Contexts": [
       "Armor|73560C:MariaBase.esm|MariaTatProxy_Tattoo07/Name"
     ]
   },
   {
     "Source": "Tattoo 8",
-    "English": "",
+    "English": "Tattoo 8",
     "Contexts": [
       "Armor|73560E:MariaBase.esm|MariaTatProxy_Tattoo08/Name"
     ]
   },
   {
     "Source": "Tattoos",
-    "English": "",
+    "English": "Tattoos",
     "Contexts": [
       "Message|730508:MariaBase.esm|MariaOFNTattoosMessage/Description",
       "Message|730508:MariaBase.esm|MariaOFNTattoosMessage/Name"
@@ -1795,71 +1795,71 @@
   },
   {
     "Source": "Tempelhuren Kleider",
-    "English": "",
+    "English": "Temple Whore Attire",
     "Contexts": [
       "Armor|758D1E:MariaBase.esm|MariasOutfitPriestess/Name"
     ]
   },
   {
-    "Source": "Tempor\u00E4re Personen",
-    "English": "",
+    "Source": "Temporäre Personen",
+    "English": "Temporary Actors",
     "Contexts": [
       "Faction|28FD29:MariaBase.esm|MariaFaction_TemporaryActor/Name"
     ]
   },
   {
     "Source": "Tierfreunde",
-    "English": "",
+    "English": "Friends of Animals",
     "Contexts": [
       "Faction|27984D:MariaBase.esm|MariaFaction_AnimalFriend/Name"
     ]
   },
   {
     "Source": "Tornister",
-    "English": "",
+    "English": "Satchel",
     "Contexts": [
       "Container|D24C6F:MariaBase.esm|MariasSatchel/Name"
     ]
   },
   {
     "Source": "Torturers",
-    "English": "",
+    "English": "Torturers",
     "Contexts": [
       "Faction|5FB6CB:MariaBase.esm|MariaFaction_Torturer/Name"
     ]
   },
   {
-    "Source": "Tr\u00E4gt keine Kleidung",
-    "English": "",
+    "Source": "Trägt keine Kleidung",
+    "English": "Wears no clothing",
     "Contexts": [
       "MagicEffect|1300A3:MariaBase.esm|MariaClothesHelperEffect/Description"
     ]
   },
   {
-    "Source": "T\u00E4nzer Kleidung",
-    "English": "",
+    "Source": "Tänzer Kleidung",
+    "English": "Dancer's Attire",
     "Contexts": [
       "Armor|9097A0:MariaBase.esm|MariasOutfitDancer/Name"
     ]
   },
   {
-    "Source": "T\u00FCr ins Abenteuer",
-    "English": "",
+    "Source": "Tür ins Abenteuer",
+    "English": "Door to Adventure",
     "Contexts": [
       "Activator|41F826:MariaBase.esm|MariaFakeExitDoor/Name",
       "Door|251DF5:MariaBase.esm|MariaStartupExitDoor/Name"
     ]
   },
   {
-    "Source": "T\u00FCr \u00D6ffner",
-    "English": "",
+    "Source": "Tür Öffner",
+    "English": "Door Openers",
     "Contexts": [
       "Faction|2682CA:MariaBase.esm|MariaFaction_JailDoorOwners/Name"
     ]
   },
   {
-    "Source": "Unterw\u00E4sche",
-    "English": "",
+    "Source": "Unterwäsche",
+    "English": "Underwear",
     "Contexts": [
       "Message|66AD5D:MariaBase.esm|MariaOFNLingerieMessage/Description",
       "Message|66AD5D:MariaBase.esm|MariaOFNLingerieMessage/Name"
@@ -1867,56 +1867,56 @@
   },
   {
     "Source": "Using a bondage furniture",
-    "English": "",
+    "English": "Using a bondage furniture",
     "Contexts": [
       "Faction|5FB6CC:MariaBase.esm|MariaFaction_FurnitureUsers/Name"
     ]
   },
   {
     "Source": "Vaginal gefickte Frauen",
-    "English": "",
+    "English": "Women Fucked Vaginally",
     "Contexts": [
       "Faction|5B99AA:MariaBase.esm|MariaFaction_FuckedVaginal/Name"
     ]
   },
   {
     "Source": "Victim is pissing",
-    "English": "",
+    "English": "Victim is pissing",
     "Contexts": [
       "MagicEffect|614C38:MariaBase.esm|MariaEffectConstantPissing/Description"
     ]
   },
   {
     "Source": "Was bin ich",
-    "English": "",
+    "English": "What am I",
     "Contexts": [
       "Message|251DF2:MariaBase.esm|MariaStartupSelectJobMessageBox/Name"
     ]
   },
   {
     "Source": "Was tun mit den Kategorien?",
-    "English": "",
+    "English": "What do you want to do with the categories?",
     "Contexts": [
       "Message|231A9C:MariaBase.esm|MariaCategoryMenu/Description"
     ]
   },
   {
     "Source": "Was willst du mit dieser Location tun?",
-    "English": "",
+    "English": "What do you want to do with this location?",
     "Contexts": [
       "Message|231A9E:MariaBase.esm|MariaLocationMenu/Description"
     ]
   },
   {
     "Source": "Was willst du tun?",
-    "English": "",
+    "English": "What do you want to do?",
     "Contexts": [
       "Message|881471:MariaBase.esm|MariaMsgClotingMenu/Description"
     ]
   },
   {
     "Source": "Was willst du?",
-    "English": "",
+    "English": "What do you want?",
     "Contexts": [
       "Message|66AD64:MariaBase.esm|MariaOFNOpenSatchel/Description",
       "Message|66FE6E:MariaBase.esm|MariaOFNEquipOrStoreMessage/Description"
@@ -1924,148 +1924,148 @@
   },
   {
     "Source": "Weist der anvisierten Person eine Rolle zu",
-    "English": "",
+    "English": "Assigns a role to the targeted person",
     "Contexts": [
       "MagicEffect|8863A7:MariaBase.esm|MariaNPCCheaterEffect/Description"
     ]
   },
   {
-    "Source": "Wei\u00DFe N\u00E4gel",
-    "English": "",
+    "Source": "Weiße Nägel",
+    "English": "White Nails",
     "Contexts": [
       "Armor|72B3F2:MariaBase.esm|MariaTatProxy_NailsWhite/Name"
     ]
   },
   {
     "Source": "Whip marks on back",
-    "English": "",
+    "English": "Whip marks on back",
     "Contexts": [
       "Spell|614C36:MariaBase.esm|MariaWhipmarksBackSpell/Name"
     ]
   },
   {
     "Source": "Whip marks on tits",
-    "English": "",
+    "English": "Whip marks on tits",
     "Contexts": [
       "Spell|614C37:MariaBase.esm|MariaWhipmarksFrontSpell/Name"
     ]
   },
   {
     "Source": "Whore",
-    "English": "",
+    "English": "Whore",
     "Contexts": [
       "Faction|5FB6C0:MariaBase.esm|MariaFaction_Whore/Name"
     ]
   },
   {
     "Source": "Wozu soll dieser Marker verwendet werden?",
-    "English": "",
+    "English": "What is this marker used for?",
     "Contexts": [
       "Message|231A9F:MariaBase.esm|MariaSelectMarkerTypeMenu/Description"
     ]
   },
   {
-    "Source": "W\u00E4chter Kleider",
-    "English": "",
+    "Source": "Wächter Kleider",
+    "English": "Guard's Clothes",
     "Contexts": [
       "Armor|758D2B:MariaBase.esm|MariasOutfitMaleGuard/Name"
     ]
   },
   {
-    "Source": "W\u00E4chterin Kleider",
-    "English": "",
+    "Source": "Wächterin Kleider",
+    "English": "Female Guard's Clothes",
     "Contexts": [
       "Armor|758D29:MariaBase.esm|MariasOutfitFemaleGuard/Name"
     ]
   },
   {
-    "Source": "W\u00FCrgeseil",
-    "English": "",
+    "Source": "Würgeseil",
+    "English": "Strangling Rope",
     "Contexts": [
       "Furniture|52BD5A:MariaBase.esm|MariaFurnStruggleRope/Name",
       "Furniture|54F487:MariaBase.esm|MariaFurnStruggleRopeLong/Name"
     ]
   },
   {
-    "Source": "Zaumzeug f\u00FCr ein Pony",
-    "English": "",
+    "Source": "Zaumzeug für ein Pony",
+    "English": "Bridle for a pony",
     "Contexts": [
       "Armor|03F9C2:MariaBase.esm|MariasOutfitPony/Description"
     ]
   },
   {
     "Source": "Zaz SFX",
-    "English": "",
+    "English": "Zaz SFX",
     "Contexts": [
       "SoundCategory|614C12:MariaBase.esm|MariaAudioSFX/Name"
     ]
   },
   {
     "Source": "Zufalls Stimme",
-    "English": "",
+    "English": "Random Voice",
     "Contexts": [
       "Spell|24CE6F:MariaBase.esm|MariaRandomVoiceTypeSpell/Name"
     ]
   },
   {
-    "Source": "Zuh\u00E4lter",
-    "English": "",
+    "Source": "Zuhälter",
+    "English": "Pimp",
     "Contexts": [
       "Faction|5FB6C1:MariaBase.esm|MariaFaction_Pimp/Name"
     ]
   },
   {
-    "Source": "Zuh\u00E4lter Kleider",
-    "English": "",
+    "Source": "Zuhälter Kleider",
+    "English": "Pimp's Clothes",
     "Contexts": [
       "Armor|758D30:MariaBase.esm|MariasOutfitMalePimp/Name"
     ]
   },
   {
-    "Source": "Zuh\u00E4lterin Kleider",
-    "English": "",
+    "Source": "Zuhälterin Kleider",
+    "English": "Female Pimp's Clothes",
     "Contexts": [
       "Armor|758D27:MariaBase.esm|MariasOutfitFemalePimp/Name"
     ]
   },
   {
-    "Source": "[pagebreak]\r\n\u003Cp align=\u0022center\u0022\u003E\r\nAnmerkungen zu Maria Eden\r\n\r\nvon zaira@loverslab.com\r\n\u003C/p\u003E\r\n[pagebreak]\r\n\u003Cp align=\u0022left\u0022\u003E\r\nIn Maria Eden gibt es kein MCM Men\u00FC. Wenn ihr Dinge unbedingt konfigurieren wollt, m\u00FC\u00DFt ihr Konfigurations Dateien anpassen.\r\n\r\nEs gibt folgende Dateien unter\r\nData/SKSE/Plugins/StorageUtilData\r\n\r\n\u003Cb\u003EMariaHotkeys.json\u003C/b\u003E\r\nHier findet ihr die wichtigsten Hotkeys. Die Namen sind selbst erkl\u00E4rend. Die passenden Codes findet ihr unter\r\nhttps://www.creationkit.com/index.php?title=Input_Script#DXScanCodes\r\n\r\nF\u00FCr alle anderen Konfiguations-Dateien gibt es In-Game Men\u00FCs.\r\n[pagebreak]\r\n\u003Cb\u003EOutfits\u003C/b\u003E\r\nAlle Maria Mods basieren stark auf Outfits. Maria Eden bringt einen Outfit Manager mit. Es gibt einige feste Kategorien f\u00FCr Outfits.\r\nOutfits k\u00F6nnen \u00FCber den Outfit Manager erzeugt, kopiert, ge\u00E4ndert und gel\u00F6scht werden.\r\nSlaveTats werden als Teil der Outfits behandelt.\r\nWenn ihr den Outfit Manager gestartet habt, passt ihr euer Outfit an und dr\u00FCck dann Escape zum beenden des Outfit Managers oder Return und das akuelle Outfit zu speichern.\r\n[pagebreak]\r\n\u003Cb\u003EPosen\u003C/b\u003E\r\nViele Maria Mods verwenden Posen. Es gibt einen gro\u00DFen Satz von vordefinierten Posen. Einige davon setzen ZAP 8 vorraus.\r\nIhr k\u00F6nne eigene Posen einsetzen oder Posen mit einem Hotkey verkn\u00FCpfen. Einzelheiten dazu findet ihr unter\r\nData/SKSE/Plugins/StorageUtilData\r\nint MariaIdleIDs.txt.\r\nAnhand der IDs identifizieren die Maria Mods die aktuelle Spieler Pose - so gilt zb. ID 1 als \u0022Auf die Knie\u0022 Pose.\r\nWenn ihr mehr als eine Animation f\u00FCr eine ID eintragt, wird jeweils eine zuf\u00E4llig ausgew\u00E4hlt.\r\n[pagebreak]\r\n\u003Cb\u003ELocations\u003C/b\u003E\r\nMaria Even Quests basieren h\u00E4ufig auf Locations. Es gibt viele vordefinierte Locations aber ihr k\u00F6nnt auch eigene Locations definieren\r\n[pagebreak]\r\n\u003Cb\u003ENPC Management\u003C/b\u003E\r\nMaria Eden bietet ein umfangreiches Arsenal an Werkzeugen um NPCs im laufenden Spiel anzupassen. Wenn ihr einem NPC ein Outfit dauerhaft zuweisen wollt, nehmt ihr in die Gruppe der Managed NPCs auf. Diese Zuordnungen sind dauerhaft, also auch wenn ihr ein Spiel neu startet, bleiben die Outfits erhalten.\r\n\u003C/p\u003E",
-    "English": "",
+    "Source": "[pagebreak]\r\n<p align=\"center\">\r\nAnmerkungen zu Maria Eden\r\n\r\nvon zaira@loverslab.com\r\n</p>\r\n[pagebreak]\r\n<p align=\"left\">\r\nIn Maria Eden gibt es kein MCM Menü. Wenn ihr Dinge unbedingt konfigurieren wollt, müßt ihr Konfigurations Dateien anpassen.\r\n\r\nEs gibt folgende Dateien unter\r\nData/SKSE/Plugins/StorageUtilData\r\n\r\n<b>MariaHotkeys.json</b>\r\nHier findet ihr die wichtigsten Hotkeys. Die Namen sind selbst erklärend. Die passenden Codes findet ihr unter\r\nhttps://www.creationkit.com/index.php?title=Input_Script#DXScanCodes\r\n\r\nFür alle anderen Konfiguations-Dateien gibt es In-Game Menüs.\r\n[pagebreak]\r\n<b>Outfits</b>\r\nAlle Maria Mods basieren stark auf Outfits. Maria Eden bringt einen Outfit Manager mit. Es gibt einige feste Kategorien für Outfits.\r\nOutfits können über den Outfit Manager erzeugt, kopiert, geändert und gelöscht werden.\r\nSlaveTats werden als Teil der Outfits behandelt.\r\nWenn ihr den Outfit Manager gestartet habt, passt ihr euer Outfit an und drück dann Escape zum beenden des Outfit Managers oder Return und das akuelle Outfit zu speichern.\r\n[pagebreak]\r\n<b>Posen</b>\r\nViele Maria Mods verwenden Posen. Es gibt einen großen Satz von vordefinierten Posen. Einige davon setzen ZAP 8 vorraus.\r\nIhr könne eigene Posen einsetzen oder Posen mit einem Hotkey verknüpfen. Einzelheiten dazu findet ihr unter\r\nData/SKSE/Plugins/StorageUtilData\r\nint MariaIdleIDs.txt.\r\nAnhand der IDs identifizieren die Maria Mods die aktuelle Spieler Pose - so gilt zb. ID 1 als \"Auf die Knie\" Pose.\r\nWenn ihr mehr als eine Animation für eine ID eintragt, wird jeweils eine zufällig ausgewählt.\r\n[pagebreak]\r\n<b>Locations</b>\r\nMaria Even Quests basieren häufig auf Locations. Es gibt viele vordefinierte Locations aber ihr könnt auch eigene Locations definieren\r\n[pagebreak]\r\n<b>NPC Management</b>\r\nMaria Eden bietet ein umfangreiches Arsenal an Werkzeugen um NPCs im laufenden Spiel anzupassen. Wenn ihr einem NPC ein Outfit dauerhaft zuweisen wollt, nehmt ihr in die Gruppe der Managed NPCs auf. Diese Zuordnungen sind dauerhaft, also auch wenn ihr ein Spiel neu startet, bleiben die Outfits erhalten.\r\n</p>",
+    "English": "[pagebreak]\r\n<p align=\"center\">\r\nNotes on Maria Eden\r\n\r\nby zaira@loverslab.com\r\n</p>\r\n[pagebreak]\r\n<p align=\"left\">\r\nMaria Eden has no MCM menu. If you absolutely must configure anything, you will have to edit the configuration files.\r\n\r\nThe following files can be found under\r\nData/SKSE/Plugins/StorageUtilData\r\n\r\n<b>MariaHotkeys.json</b>\r\nThis contains the most important hotkeys. Their names are self-explanatory. You can find the corresponding codes at\r\nhttps://www.creationkit.com/index.php?title=Input_Script#DXScanCodes\r\n\r\nThere are in-game menus for all other configuration files.\r\n[pagebreak]\r\n<b>Outfits</b>\r\nAll Maria mods rely heavily on outfits. Maria Eden includes an outfit manager. Outfits are divided into several fixed categories.\r\nOutfits can be created, copied, modified, and deleted through the outfit manager.\r\nSlaveTats are treated as part of an outfit.\r\nOnce you have opened the outfit manager, adjust your outfit and then press Escape to close the outfit manager, or Return to save the current outfit.\r\n[pagebreak]\r\n<b>Poses</b>\r\nMany Maria mods use poses. A large set of predefined poses is available. Some of them require ZAP 8.\r\nYou can add your own poses or assign poses to a hotkey. Details can be found in\r\nData/SKSE/Plugins/StorageUtilData\r\nint MariaIdleIDs.txt.\r\nMaria mods use these IDs to identify the player's current pose—for example, ID 1 is considered the \"Kneeling\" pose.\r\nIf you assign more than one animation to an ID, one will be selected at random each time.\r\n[pagebreak]\r\n<b>Locations</b>\r\nMaria Eden quests are often based on locations. Many locations are predefined, but you can also define your own.\r\n[pagebreak]\r\n<b>NPC Management</b>\r\nMaria Eden provides an extensive set of tools for modifying NPCs during a running game. If you want to assign an outfit to an NPC permanently, add that NPC to the Managed NPCs group. These assignments persist even when you start a new game, so the outfits will remain assigned.\r\n</p>",
     "Contexts": [
       "Book|251DF8:MariaBase.esm|MariaStartupBook/BookText"
     ]
   },
   {
     "Source": "anziehen",
-    "English": "",
+    "English": "Equip",
     "Contexts": [
       "Message|66FE6E:MariaBase.esm|MariaOFNEquipOrStoreMessage/MenuButtons[1]/Text"
     ]
   },
   {
     "Source": "besuchen",
-    "English": "",
+    "English": "Visit",
     "Contexts": [
       "Message|231A9E:MariaBase.esm|MariaLocationMenu/MenuButtons[3]/Text"
     ]
   },
   {
-    "Source": "hinzuf\u00FCgen",
-    "English": "",
+    "Source": "hinzufügen",
+    "English": "Add",
     "Contexts": [
       "Message|66FE6E:MariaBase.esm|MariaOFNEquipOrStoreMessage/MenuButtons[0]/Text"
     ]
   },
   {
     "Source": "keine Lust auf Sex",
-    "English": "",
+    "English": "No Interest in Sex",
     "Contexts": [
       "MagicEffect|24CE66:MariaBase.esm|MariaNoSexEffect/Name"
     ]
   },
   {
-    "Source": "l\u00F6schen",
-    "English": "",
+    "Source": "löschen",
+    "English": "delete",
     "Contexts": [
       "Message|231A9C:MariaBase.esm|MariaCategoryMenu/MenuButtons[2]/Text",
       "Message|231A9D:MariaBase.esm|MariaBrokenLocationMenu/MenuButtons[1]/Text",
@@ -2074,21 +2074,21 @@
   },
   {
     "Source": "managen",
-    "English": "",
+    "English": "manage",
     "Contexts": [
       "Message|231A9C:MariaBase.esm|MariaCategoryMenu/MenuButtons[3]/Text"
     ]
   },
   {
     "Source": "neu laden",
-    "English": "",
+    "English": "Reload",
     "Contexts": [
       "Message|66AD64:MariaBase.esm|MariaOFNOpenSatchel/MenuButtons[1]/Text"
     ]
   },
   {
     "Source": "nichts",
-    "English": "",
+    "English": "Nothing",
     "Contexts": [
       "Message|231A9C:MariaBase.esm|MariaCategoryMenu/MenuButtons[0]/Text",
       "Message|231A9D:MariaBase.esm|MariaBrokenLocationMenu/MenuButtons[0]/Text",
@@ -2098,7 +2098,7 @@
   },
   {
     "Source": "nix",
-    "English": "",
+    "English": "Nothing",
     "Contexts": [
       "Message|66AD64:MariaBase.esm|MariaOFNOpenSatchel/MenuButtons[3]/Text",
       "Message|66FE6E:MariaBase.esm|MariaOFNEquipOrStoreMessage/MenuButtons[2]/Text"
@@ -2106,29 +2106,29 @@
   },
   {
     "Source": "speichern",
-    "English": "",
+    "English": "Save",
     "Contexts": [
       "Message|66AD64:MariaBase.esm|MariaOFNOpenSatchel/MenuButtons[2]/Text"
     ]
   },
   {
     "Source": "umbenennen",
-    "English": "",
+    "English": "Rename",
     "Contexts": [
       "Message|231A9C:MariaBase.esm|MariaCategoryMenu/MenuButtons[1]/Text",
       "Message|231A9E:MariaBase.esm|MariaLocationMenu/MenuButtons[1]/Text"
     ]
   },
   {
-    "Source": "\u00D6ffne Racemenu",
-    "English": "",
+    "Source": "Öffne Racemenu",
+    "English": "Open RaceMenu",
     "Contexts": [
       "Activator|251DF6:MariaBase.esm|MariaRaceMenuButton/ActivateTextOverride"
     ]
   },
   {
-    "Source": "\u00F6ffnen",
-    "English": "",
+    "Source": "öffnen",
+    "English": "Open",
     "Contexts": [
       "Message|66AD64:MariaBase.esm|MariaOFNOpenSatchel/MenuButtons[0]/Text"
     ]
