@@ -1,0 +1,31 @@
+{
+    "int":  {
+                "id":  4,
+                "hotkey":  5,
+                "nohh":  1
+            },
+    "string":  {
+                   "name":  "All fours",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "MariaLickFeet"
+                                ],
+                       "female":  [
+                                      "MariaLickFeet"
+                                  ],
+                       "fullboundmale":  [
+                                             "ZapWriPose08"
+                                         ],
+                       "fullboundfemale":  [
+                                               "ZapWriPose08"
+                                           ],
+                       "boundmale":  [
+                                         "ZapWriPose08"
+                                     ],
+                       "boundfemale":  [
+                                           "ZapWriPose08"
+                                       ]
+                   }
+}

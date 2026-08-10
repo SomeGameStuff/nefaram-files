@@ -1,0 +1,42 @@
+{
+    "float":  {
+                  "playerscale":  0.89999997615814209,
+                  "succubushealrate":  0.10000000000000001,
+                  "succubushealratehuman":  0.10000000000000001,
+                  "succubusstaminaaratehuman":  0.10000000000000001,
+                  "succubusstaminarate":  0.10000000000000001
+              },
+    "int":  {
+                "autoslavery":  0,
+                "hair_armpit":  6,
+                "hair_back":  0,
+                "hair_butt":  0,
+                "hair_curly":  0,
+                "hair_navel":  0,
+                "hair_pubic":  6,
+                "hair_shave_keycode":  49,
+                "hair_update_timer":  2,
+                "simplepimpcooldowndays":  1,
+                "simplepimpmaxdept":  50,
+                "simplepimpmoneytrigger":  10,
+                "simplepimpwaitdays":  1,
+                "succubusdamagecycle":  10,
+                "succubushealthdamage":  1,
+                "succubushealthdamagehuman":  2,
+                "succubusskincolor":  7368959,
+                "succubusspeed":  200,
+                "succubusstaminaadamagehuman":  2,
+                "succubusstaminadamage":  1
+            },
+    "string":  {
+                   "defaultoutfit":  "slave\\Devious.json",
+                   "playername":  "Slave Zaira",
+                   "presetname2":  "000",
+                   "side":  "imperial",
+                   "sounddevice":  "Lautsprecher (Realtek(R) Audio)",
+                   "soundmapping":  "SKSE\\Plugins\\MariaSoundMapping.txt",
+                   "soundserver":  "127.0.0.1:333",
+                   "parent_bone":  "NPC Spine2 [Spn2]",
+                   "bone_match":  "Leash1_1"
+               }
+}

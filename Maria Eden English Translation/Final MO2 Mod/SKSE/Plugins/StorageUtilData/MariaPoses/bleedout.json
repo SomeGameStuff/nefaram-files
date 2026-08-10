@@ -1,0 +1,29 @@
+{
+    "int":  {
+                "id":  60
+            },
+    "string":  {
+                   "name":  "Wounded",
+                   "group":  "Miscellaneous"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "BleedOutStart"
+                                ],
+                       "female":  [
+                                      "IdleCowering"
+                                  ],
+                       "fullboundmale":  [
+                                             "ZapWriBleedoutIdle"
+                                         ],
+                       "fullboundfemale":  [
+                                               "ZapWriBleedoutIdle"
+                                           ],
+                       "boundmale":  [
+                                         "ZapWriBleedoutIdle"
+                                     ],
+                       "boundfemale":  [
+                                           "ZapWriBleedoutIdle"
+                                       ]
+                   }
+}

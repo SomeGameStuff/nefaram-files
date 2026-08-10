@@ -1,0 +1,14 @@
+{
+    "int":  {
+                "id":  42
+            },
+    "string":  {
+                   "name":  "Mining, wall",
+                   "group":  "Actions"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "IdlePickaxeEnter"
+                               ]
+                   }
+}

@@ -1,0 +1,15 @@
+{
+    "int":  {
+                "id":  52,
+                "lock":  0
+            },
+    "string":  {
+                   "name":  "Serve food",
+                   "group":  "Actions"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "OffsetCarryPotStart"
+                               ]
+                   }
+}

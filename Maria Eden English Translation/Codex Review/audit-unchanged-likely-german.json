@@ -1,0 +1,22 @@
+[
+  {
+    "id": "s07089",
+    "source": "Ildrid Grünwald",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Npc|3BEEF7:MariaWhoreLocations.esp|MarkathBrothelPimp/Name"
+    ],
+    "english": "Ildrid Grünwald",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s11377",
+    "source": "Verona Blaufuß",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Npc|1D39B4:MariaWhoreLocations.esp|WinterfesteBrothelHelper/Name"
+    ],
+    "english": "Verona Blaufuß",
+    "classification": "technical_or_name"
+  }
+]

@@ -1,0 +1,29 @@
+{
+    "int":  {
+                "id":  7
+            },
+    "string":  {
+                   "name":  "Urinate, crouching",
+                   "group":  "Urination"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "ZazF20TF01"
+                                ],
+                       "female":  [
+                                      "ZazF20TF01"
+                                  ],
+                       "fullboundmale":  [
+                                             "ZazF20TF06"
+                                         ],
+                       "fullboundfemale":  [
+                                               "ZazF20TF06"
+                                           ],
+                       "boundmale":  [
+                                         "ZazF20TF06"
+                                     ],
+                       "boundfemale":  [
+                                           "ZazF20TF06"
+                                       ]
+                   }
+}

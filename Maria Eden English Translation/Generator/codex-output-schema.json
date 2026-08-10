@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "batch_id": { "type": "string" },
+    "translations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "english": { "type": "string" },
+          "classification": {
+            "type": "string",
+            "enum": ["translated", "already_english", "technical_or_name"]
+          }
+        },
+        "required": ["id", "english", "classification"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["batch_id", "translations"],
+  "additionalProperties": false
+}

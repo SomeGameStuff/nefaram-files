@@ -1,0 +1,29 @@
+{
+    "int":  {
+                "id":  5000,
+                "select":  1
+            },
+    "string":  {
+                   "name":  "Wrist",
+                   "group":  "Zap"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "ZapWriPose01",
+                                   "ZapWriPose02",
+                                   "ZapWriPose03",
+                                   "ZapWriPose04",
+                                   "ZapWriPose05",
+                                   "ZapWriPose06",
+                                   "ZapWriPose07",
+                                   "ZapWriPose08",
+                                   "ZapWriPose09",
+                                   "ZapWriPose10",
+                                   "ZapWriPose11",
+                                   "ZapWriPose12",
+                                   "ZapWriPose13",
+                                   "ZapWriPose14",
+                                   "ZapWriPose15"
+                               ]
+                   }
+}

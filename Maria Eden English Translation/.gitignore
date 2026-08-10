@@ -1,0 +1,11 @@
+# Local tooling and model caches (large and reproducible)
+build-tools/
+build-pex/
+verify-pex/
+Generator/bin/
+Generator/obj/
+
+# Obsolete intermediate translation builds
+Partial MO2 Mod/
+Snapshots/
+translation-draft.json

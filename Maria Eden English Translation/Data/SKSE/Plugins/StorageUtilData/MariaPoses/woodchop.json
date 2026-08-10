@@ -1,0 +1,14 @@
+{
+    "int":  {
+                "id":  43
+            },
+    "string":  {
+                   "name":  "Chop wood",
+                   "group":  "Actions"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "IdleWoodChopStart"
+                               ]
+                   }
+}

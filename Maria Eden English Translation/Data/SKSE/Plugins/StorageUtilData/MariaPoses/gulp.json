@@ -1,0 +1,34 @@
+{
+    "int":  {
+                "id":  61,
+                "hotkey":  34,
+                "timer":  10,
+                "force":  1
+            },
+    "string":  {
+                   "name":  "Gulp or cough",
+                   "group":  "Miscellaneous",
+                   "sound_female_entry":  ":MariaSoundDrink",
+                   "sound_female":  ":MariaSoundCough"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "IdleUncontrollableCough"
+                                ],
+                       "female":  [
+                                      "IdleUncontrollableCough"
+                                  ],
+                       "fullboundmale":  [
+                                             "IdleUncontrollableCough"
+                                         ],
+                       "fullboundfemale":  [
+                                               "IdleUncontrollableCough"
+                                           ],
+                       "boundmale":  [
+                                         "IdleUncontrollableCough"
+                                     ],
+                       "boundfemale":  [
+                                           "IdleUncontrollableCough"
+                                       ]
+                   }
+}

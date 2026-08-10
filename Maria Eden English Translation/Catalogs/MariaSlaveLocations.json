@@ -1,0 +1,456 @@
+[
+  {
+    "Source": "Adolf",
+    "English": "",
+    "Contexts": [
+      "Npc|0CFCB5:MariaSlaveLocations.esp|00aHORRat2/Name"
+    ]
+  },
+  {
+    "Source": "Ariel",
+    "English": "",
+    "Contexts": [
+      "Npc|380996:MariaSlaveLocations.esp|SolitudeAuctionGuard/Name"
+    ]
+  },
+  {
+    "Source": "Balthazar",
+    "English": "",
+    "Contexts": [
+      "Npc|0DEFAD:MariaSlaveLocations.esp|00aTodeshund/Name"
+    ]
+  },
+  {
+    "Source": "Barnabas",
+    "English": "",
+    "Contexts": [
+      "Npc|027564:MariaSlaveLocations.esp|ZEPWhiterunAuctionator/Name"
+    ]
+  },
+  {
+    "Source": "Belrand",
+    "English": "",
+    "Contexts": [
+      "Npc|01CC50:MariaSlaveLocations.esp|ZEPRiftenAuctionator/Name"
+    ]
+  },
+  {
+    "Source": "Boss",
+    "English": "",
+    "Contexts": [
+      "Npc|01B049:MariaSlaveLocations.esp|RiftenTrainer/Name"
+    ]
+  },
+  {
+    "Source": "Brutus",
+    "English": "",
+    "Contexts": [
+      "Npc|033505:MariaSlaveLocations.esp|SolitudeTrainer/Name"
+    ]
+  },
+  {
+    "Source": "Claudia",
+    "English": "",
+    "Contexts": [
+      "Npc|27E5A0:MariaSlaveLocations.esp|00aFalkSlaveTrain/Name",
+      "Npc|27E5A0:MariaSlaveLocations.esp|00aFalkSlaveTrain/ShortName"
+    ]
+  },
+  {
+    "Source": "Drogan",
+    "English": "",
+    "Contexts": [
+      "Npc|03D2F4:MariaSlaveLocations.esp|WHTorturer/Name",
+      "Npc|03D2F4:MariaSlaveLocations.esp|WHTorturer/ShortName"
+    ]
+  },
+  {
+    "Source": "Einsamkeit",
+    "English": "",
+    "Contexts": [
+      "Worldspace|037EDF:Skyrim.esm|SolitudeWorld/Name"
+    ]
+  },
+  {
+    "Source": "Einsamkeit Sklavenauktion",
+    "English": "",
+    "Contexts": [
+      "Cell|052CBA:MariaSlaveLocations.esp|SolitudeSlaveAuction/Name",
+      "Location|053D45:MariaSlaveLocations.esp|SolitudeAuctionLocation/Name"
+    ]
+  },
+  {
+    "Source": "Einsamkeit Sklavenschule",
+    "English": "",
+    "Contexts": [
+      "Cell|02C174:MariaSlaveLocations.esp|SolitudeSlaveSchool/Name",
+      "Location|033504:MariaSlaveLocations.esp|SolitudeSlaveSchoolLocation/Name"
+    ]
+  },
+  {
+    "Source": "ElfenHure",
+    "English": "",
+    "Contexts": [
+      "Npc|03C29B:MariaSlaveLocations.esp|WindhelmSlavegirl01/Name"
+    ]
+  },
+  {
+    "Source": "Falkenring Sklavenschule",
+    "English": "",
+    "Contexts": [
+      "Cell|24BA7B:MariaSlaveLocations.esp|FalkenringSlaveSchool/Name"
+    ]
+  },
+  {
+    "Source": "Falkenring Spielhaus",
+    "English": "",
+    "Contexts": [
+      "Location|1537F3:MariaSlaveLocations.esp|FalkreathPlayhouseLocation/Name"
+    ]
+  },
+  {
+    "Source": "FalkenringTrainer",
+    "English": "",
+    "Contexts": [
+      "Location|27E5A2:MariaSlaveLocations.esp|00aFalkenringTrainerLocation/Name"
+    ]
+  },
+  {
+    "Source": "Gast",
+    "English": "",
+    "Contexts": [
+      "Npc|31B55C:MariaSlaveLocations.esp|00aTrainerguest01/Name"
+    ]
+  },
+  {
+    "Source": "Gustav",
+    "English": "",
+    "Contexts": [
+      "Npc|054D99:MariaSlaveLocations.esp|ZEPSolitudeAuctionator/Name"
+    ]
+  },
+  {
+    "Source": "Henker",
+    "English": "",
+    "Contexts": [
+      "Npc|1351BB:MariaSlaveLocations.esp|00aHORTorturer/Name"
+    ]
+  },
+  {
+    "Source": "Himmelsrand",
+    "English": "",
+    "Contexts": [
+      "Worldspace|00003C:Skyrim.esm|Tamriel/Name"
+    ]
+  },
+  {
+    "Source": "Jessica",
+    "English": "",
+    "Contexts": [
+      "Npc|033FEB:MariaSlaveLocations.esp|SolitudeSlavegirl/Name",
+      "Npc|033FEB:MariaSlaveLocations.esp|SolitudeSlavegirl/ShortName"
+    ]
+  },
+  {
+    "Source": "Lord",
+    "English": "",
+    "Contexts": [
+      "Npc|111A64:MariaSlaveLocations.esp|00aHORRichter/ShortName"
+    ]
+  },
+  {
+    "Source": "Lord of Horror",
+    "English": "",
+    "Contexts": [
+      "Npc|111A64:MariaSlaveLocations.esp|00aHORRichter/Name"
+    ]
+  },
+  {
+    "Source": "Lucas",
+    "English": "",
+    "Contexts": [
+      "Npc|024989:MariaSlaveLocations.esp|WhiterunTrainer/Name",
+      "Npc|024989:MariaSlaveLocations.esp|WhiterunTrainer/ShortName",
+      "Npc|0419B3:MariaSlaveLocations.esp|ZEPWindhelmAuctionator/Name",
+      "Npc|162B23:MariaSlaveLocations.esp|00aHORTorturHelper/Name"
+    ]
+  },
+  {
+    "Source": "Luna",
+    "English": "",
+    "Contexts": [
+      "Npc|041F18:MariaSlaveLocations.esp|WindhelmAuctionHelper/Name"
+    ]
+  },
+  {
+    "Source": "Lust Hund",
+    "English": "",
+    "Contexts": [
+      "Npc|28FD2E:MariaBase.esm|MariaFuckDog/Name"
+    ]
+  },
+  {
+    "Source": "Narina",
+    "English": "",
+    "Contexts": [
+      "Npc|020D5E:MariaSlaveLocations.esp|RiftenAuctionHelper/Name"
+    ]
+  },
+  {
+    "Source": "Nina",
+    "English": "",
+    "Contexts": [
+      "Npc|04B080:MariaSlaveLocations.esp|SolitudeSchoolGuard/Name",
+      "Npc|394D9D:MariaSlaveLocations.esp|WindhelmSchoolGuard/Name"
+    ]
+  },
+  {
+    "Source": "Oskar",
+    "English": "",
+    "Contexts": [
+      "Npc|0AC4F0:MariaSlaveLocations.esp|00aHORRat/Name"
+    ]
+  },
+  {
+    "Source": "RiftenAuction",
+    "English": "",
+    "Contexts": [
+      "Cell|016BE0:Skyrim.esm|(no EDID)/Persistent[5]/MapMarker/Name",
+      "PlacedObject|01DC81:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "Worldspace|016BB4:Skyrim.esm|RiftenWorld/TopCell/Persistent[5]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "RiftenTraining",
+    "English": "",
+    "Contexts": [
+      "Cell|016BE0:Skyrim.esm|(no EDID)/Persistent[4]/MapMarker/Name",
+      "PlacedObject|01DC8E:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "Worldspace|016BB4:Skyrim.esm|RiftenWorld/TopCell/Persistent[4]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "Rifton",
+    "English": "",
+    "Contexts": [
+      "Worldspace|016BB4:Skyrim.esm|RiftenWorld/Name"
+    ]
+  },
+  {
+    "Source": "Rifton Sklavenauktion",
+    "English": "",
+    "Contexts": [
+      "Cell|01B5AD:MariaSlaveLocations.esp|RiftenSlaveAuction/Name",
+      "Location|01C6E1:MariaSlaveLocations.esp|RiftenAuctionLocation/Name"
+    ]
+  },
+  {
+    "Source": "Rifton Sklavenschule",
+    "English": "",
+    "Contexts": [
+      "Cell|00182D:MariaSlaveLocations.esp|RiftenSlaveSchool/Name",
+      "Location|017F78:MariaSlaveLocations.esp|RiftenTrainerLocation/Name"
+    ]
+  },
+  {
+    "Source": "Schl\u00FCssel zu den Sklavenzellen",
+    "English": "",
+    "Contexts": [
+      "Key|2C02F2:MariaSlaveLocations.esp|AngasMillAeriHouseKeyDUPLICATE001/Name"
+    ]
+  },
+  {
+    "Source": "Schmied",
+    "English": "",
+    "Contexts": [
+      "Npc|320660:MariaSlaveLocations.esp|00aFalktrainsmith/Name"
+    ]
+  },
+  {
+    "Source": "Sklave",
+    "English": "",
+    "Contexts": [
+      "Npc|04B5E5:MariaSlaveLocations.esp|DefaultMaleSlave/Name"
+    ]
+  },
+  {
+    "Source": "Sklavenaufseher",
+    "English": "",
+    "Contexts": [
+      "Npc|2D981A:MariaSlaveLocations.esp|00aFalkSlaveGuard/Name"
+    ]
+  },
+  {
+    "Source": "Sklavin",
+    "English": "",
+    "Contexts": [
+      "Npc|041F1F:MariaSlaveLocations.esp|WHSlave1/Name",
+      "Npc|041F1F:MariaSlaveLocations.esp|WHSlave1/ShortName",
+      "Npc|041F22:MariaSlaveLocations.esp|WHSlavegirl2/Name",
+      "Npc|041F22:MariaSlaveLocations.esp|WHSlavegirl2/ShortName",
+      "Npc|04856E:MariaSlaveLocations.esp|RiftenSlavegirl/Name",
+      "Npc|04D65D:MariaSlaveLocations.esp|SolitudeSchoolSlaveGirl/Name",
+      "Npc|125E9C:MariaSlaveLocations.esp|DeathSlave2/Name",
+      "Npc|125E9E:MariaSlaveLocations.esp|DeathSlave1/Name",
+      "Npc|1300B3:MariaSlaveLocations.esp|HouseOfHorrorSlave1/Name",
+      "Npc|1495D4:MariaSlaveLocations.esp|HouseofHorrorSlave2/Name",
+      "Npc|1495D6:MariaSlaveLocations.esp|HouseofHorrorSlave3/Name",
+      "Npc|2BB1ED:MariaSlaveLocations.esp|00aFalkSlave02/Name"
+    ]
+  },
+  {
+    "Source": "Slavechest",
+    "English": "",
+    "Contexts": [
+      "Container|010DD2:MariaSlaveLocations.esp|Slavechest/Name"
+    ]
+  },
+  {
+    "Source": "Solitude Auction",
+    "English": "",
+    "Contexts": [
+      "Cell|037EE6:Skyrim.esm|(no EDID)/Persistent[2]/MapMarker/Name",
+      "PlacedObject|054D95:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "Worldspace|037EDF:Skyrim.esm|SolitudeWorld/TopCell/Persistent[2]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "SolitudeTrainer",
+    "English": "",
+    "Contexts": [
+      "Cell|037EE6:Skyrim.esm|(no EDID)/Persistent[4]/MapMarker/Name",
+      "PlacedObject|032A2C:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "Worldspace|037EDF:Skyrim.esm|SolitudeWorld/TopCell/Persistent[4]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "Spielhaus",
+    "English": "",
+    "Contexts": [
+      "Cell|0604F6:MariaSlaveLocations.esp|playhouse/Name"
+    ]
+  },
+  {
+    "Source": "Spielzeugkiste",
+    "English": "",
+    "Contexts": [
+      "Container|209C7A:MariaSlaveLocations.esp|zepHorrorChest/Name"
+    ]
+  },
+  {
+    "Source": "Stephanie",
+    "English": "",
+    "Contexts": [
+      "Npc|120D67:MariaSlaveLocations.esp|HouseofHorrorHelper/Name"
+    ]
+  },
+  {
+    "Source": "Todeskammer",
+    "English": "",
+    "Contexts": [
+      "Cell|0B15FA:MariaSlaveLocations.esp|KillHouse/Name",
+      "Location|120D7F:MariaSlaveLocations.esp|00aHORTodeskammerLocation/Name"
+    ]
+  },
+  {
+    "Source": "Vanessa",
+    "English": "",
+    "Contexts": [
+      "Npc|027568:MariaSlaveLocations.esp|WhiterunAuctionHelper/Name"
+    ]
+  },
+  {
+    "Source": "Vlad",
+    "English": "",
+    "Contexts": [
+      "Npc|0CAB99:MariaSlaveLocations.esp|HouseOfHorrorBoss/Name"
+    ]
+  },
+  {
+    "Source": "Wache",
+    "English": "",
+    "Contexts": [
+      "Npc|14E6FC:MariaSlaveLocations.esp|00aHORGuard/Name"
+    ]
+  },
+  {
+    "Source": "Wei\u00DFlauf",
+    "English": "",
+    "Contexts": [
+      "Worldspace|01A26F:Skyrim.esm|WhiterunWorld/Name"
+    ]
+  },
+  {
+    "Source": "Wei\u00DFlauf Sklavenauktion",
+    "English": "",
+    "Contexts": [
+      "Cell|026A1D:MariaSlaveLocations.esp|WhiterunSlaveAuction/Name",
+      "Location|027553:MariaSlaveLocations.esp|WhiterunAuctionLocation/Name"
+    ]
+  },
+  {
+    "Source": "Wei\u00DFlauf Sklavenschule",
+    "English": "",
+    "Contexts": [
+      "Cell|02286C:MariaSlaveLocations.esp|WhiterunSlaveSchool/Name",
+      "Location|02498C:MariaSlaveLocations.esp|00aWhiteruntrainerLocation/Name"
+    ]
+  },
+  {
+    "Source": "WhiterunAuction",
+    "English": "",
+    "Contexts": [
+      "Cell|000D74:Skyrim.esm|(no EDID)/Persistent[3]/MapMarker/Name",
+      "PlacedObject|027ADF:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[3]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "WhiterunTrainer",
+    "English": "",
+    "Contexts": [
+      "Cell|000D74:Skyrim.esm|(no EDID)/Persistent[5]/MapMarker/Name",
+      "PlacedObject|0259CD:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[5]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "Windhelm",
+    "English": "",
+    "Contexts": [
+      "Worldspace|01691D:Skyrim.esm|WindhelmWorld/Name"
+    ]
+  },
+  {
+    "Source": "Windhelm Sklavenauktion",
+    "English": "",
+    "Contexts": [
+      "Cell|03EE0E:MariaSlaveLocations.esp|WindhelmSlaveAuction/Name",
+      "Location|042488:MariaSlaveLocations.esp|WindhelmAuctionLocation/Name"
+    ]
+  },
+  {
+    "Source": "Windhelm Sklavenschule",
+    "English": "",
+    "Contexts": [
+      "Cell|0370AE:MariaSlaveLocations.esp|WindhelmSlaveSchool/Name",
+      "Location|03D2F8:MariaSlaveLocations.esp|WHTrainerLocation/Name"
+    ]
+  },
+  {
+    "Source": "WindhelmSlaveLocations",
+    "English": "",
+    "Contexts": [
+      "Cell|01691F:Skyrim.esm|(no EDID)/Persistent[0]/MapMarker/Name",
+      "PlacedObject|13F2AF:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "Worldspace|01691D:Skyrim.esm|WindhelmWorld/TopCell/Persistent[0]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "zbfOrcDresser",
+    "English": "",
+    "Contexts": [
+      "Container|0C5A93:MariaSlaveLocations.esp|zbfOrcDresser/Name"
+    ]
+  }
+]

@@ -1,0 +1,107 @@
+{
+    "name":  "Women\u0027s outfits",
+    "outfits":  [
+                    "MariaClothingSlave",
+                    "MariaClothingWhore",
+                    "MariaClothingDancer",
+                    "MariaClothingMaster",
+                    "MariaClothingFarmer",
+                    "MariaClothingFetish",
+                    "MariaClothingKitty",
+                    "MariaClothingPony",
+                    "MariaClothingGuard",
+                    "MariaClothingHighPriestess",
+                    "MariaClothingPimp",
+                    "MariaClothingPriestess",
+                    "MariaClothingPrisoner",
+                    "MariaClothingStaff",
+                    "MariaClothingSuccubus",
+                    "MariaClothingWedding",
+                    "MariaClothingWench"
+                ],
+    "MariaClothingDancer":  {
+                                "name":  "Dancer",
+                                "faction":  "MariaFaction_Dancer",
+                                "template":  "MariasOutfitDancer"
+                            },
+    "MariaClothingFarmer":  {
+                                "name":  "Farm slave",
+                                "faction":  "MariaFaction_Slave",
+                                "template":  "MariasOutfitFarmer"
+                            },
+    "MariaClothingFetish":  {
+                                "name":  "Fetish",
+                                "faction":  "MariaFaction_Slave",
+                                "template":  "MariasOutfitFetish"
+                            },
+    "MariaClothingGuard":  {
+                               "name":  "Slave guard",
+                               "faction":  "MariaFaction_Slave",
+                               "template":  "MariasOutfitFemaleGuard"
+                           },
+    "MariaClothingHighPriestess":  {
+                                       "name":  "High priestess",
+                                       "faction":  "JobPriestFaction",
+                                       "template":  "MariasOutfitHighPriestess"
+                                   },
+    "MariaClothingKitty":  {
+                               "name":  "Kitten",
+                               "faction":  "MariaFaction_Slave",
+                               "template":  "MariasOutfitKitty"
+                           },
+    "MariaClothingMaster":  {
+                                "name":  "Mistress",
+                                "faction":  "MariaFaction_Master",
+                                "template":  "MariasOutfitFemdom"
+                            },
+    "MariaClothingPimp":  {
+                              "name":  "Pimp",
+                              "faction":  "MariaFaction_Pimp",
+                              "template":  "MariasOutfitFemalePimp"
+                          },
+    "MariaClothingPony":  {
+                              "name":  "Ponygirl",
+                              "faction":  "MariaFaction_Slave",
+                              "template":  "MariasOutfitPony"
+                          },
+    "MariaClothingPriest":  {
+                                "name":  "Temple prostitute",
+                                "faction":  "JobPriestFaction",
+                                "template":  "MariasOutfitPriest"
+                            },
+    "MariaClothingPrisoner":  {
+                                  "name":  "Prisoner",
+                                  "faction":  "dunPrisonerFaction",
+                                  "template":  "MariasOutfitFemalePrisoner"
+                              },
+    "MariaClothingSlave":  {
+                               "name":  "Slave",
+                               "faction":  "MariaFaction_Slave",
+                               "template":  "MariasOutfitFemaleSlave"
+                           },
+    "MariaClothingStaff":  {
+                               "name":  "Assistant",
+                               "faction":  "MariaFaction_PimpHelper",
+                               "template":  "MariasOutfitFemaleStaff"
+                           },
+    "MariaClothingSuccubus":  {
+                                  "name":  "Succubus",
+                                  "faction":  "MariaFaction_Slave",
+                                  "template":  "MariasOutfitSuccubus"
+                              },
+    "MariaClothingWedding":  {
+                                 "name":  "Bride",
+                                 "faction":  "PlayerMarriedFaction",
+                                 "template":  "MariasOutfitWedding"
+                             },
+    "MariaClothingWench":  {
+                               "name":  "Wench",
+                               "faction":  "MariaFaction_JobInnServer",
+                               "template":  "MariasOutfitWench"
+                           },
+    "MariaClothingWhore":  {
+                               "name":  "Prostitute",
+                               "faction":  "MariaFaction_Whore",
+                               "template":  "MariasOutfitWhore"
+                           }
+}

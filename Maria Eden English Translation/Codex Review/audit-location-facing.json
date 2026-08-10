@@ -1,0 +1,1495 @@
+[
+  {
+    "id": "s00342",
+    "source": "Aktiviere den Block",
+    "existing_draft": "Activate the Block",
+    "contexts": [
+      "MariaDevices.json:Activator|2E5CFA:MariaDevices.esp|MEDHeadChopEnabler/ActivateTextOverride"
+    ],
+    "english": "Activate the Chopping Block",
+    "classification": "translated"
+  },
+  {
+    "id": "s00343",
+    "source": "Aktiviere den Galgen",
+    "existing_draft": "Activate the Gallows",
+    "contexts": [
+      "MariaDevices.json:Activator|2D69E6:MariaDevices.esp|MEDGallowsEnabler/ActivateTextOverride"
+    ],
+    "english": "Activate the Gallows",
+    "classification": "translated"
+  },
+  {
+    "id": "s00345",
+    "source": "Aktiviere Pranger",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Activator|2D69E7:MariaDevices.esp|MEDWhippingEnabler/ActivateTextOverride"
+    ],
+    "english": "Activate the Pillory",
+    "classification": "translated"
+  },
+  {
+    "id": "s00375",
+    "source": "Allerheiligstes",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|03EA9D:Skyrim.esm|MarkarthTempleInnerSanctum/Name",
+      "MariaProstitution.json:Cell|03EA9D:Skyrim.esm|MarkarthTempleInnerSanctum/Name"
+    ],
+    "english": "Inner Sanctum",
+    "classification": "translated"
+  },
+  {
+    "id": "s00722",
+    "source": "Auflecken",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|CD2BB7:MariaProstitution.esp|MEPCumSplash/ActivateTextOverride"
+    ],
+    "english": "Lick Up",
+    "classification": "translated"
+  },
+  {
+    "id": "s00742",
+    "source": "Auslecken",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|E86AAC:MariaProstitution.esp|MEPCumSoupBowl/ActivateTextOverride"
+    ],
+    "english": "Lick Clean",
+    "classification": "translated"
+  },
+  {
+    "id": "s00754",
+    "source": "Auswahl Objekt",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|B8957E:MariaProstitution.esp|MEPSelectionActivator/Name"
+    ],
+    "english": "Selection Object",
+    "classification": "translated"
+  },
+  {
+    "id": "s00760",
+    "source": "Automatischer Tür Trigger",
+    "existing_draft": "Automatic Door Trigger",
+    "contexts": [
+      "MariaDevices.json:Activator|2A3FB5:MariaDevices.esp|MEPDoorCloseTrigger/Name"
+    ],
+    "english": "Automatic Door Trigger",
+    "classification": "translated"
+  },
+  {
+    "id": "s00793",
+    "source": "Beginne dein Abenteuer",
+    "existing_draft": "Begin your adventure",
+    "contexts": [
+      "MariaBase.json:Activator|41F826:MariaBase.esm|MariaFakeExitDoor/ActivateTextOverride"
+    ],
+    "english": "Begin Your Adventure",
+    "classification": "translated"
+  },
+  {
+    "id": "s00867",
+    "source": "Benutzen",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|05157A:Skyrim.esm|HorseTrough01/ActivateTextOverride"
+    ],
+    "english": "Use",
+    "classification": "translated"
+  },
+  {
+    "id": "s00916",
+    "source": "Bettlerecke",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|089D51:Skyrim.esm|RiftenBeggarsRow/Name",
+      "MariaDevices.json:Location|05E0FC:Skyrim.esm|RiftenBeggarsRowLocation/Name"
+    ],
+    "english": "Beggar's Row",
+    "classification": "translated"
+  },
+  {
+    "id": "s00946",
+    "source": "Bienenstich",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016BDF:Skyrim.esm|RiftenBeeandBarb/Name",
+      "MariaDevices.json:Location|02247E:Skyrim.esm|RiftenBeeandBarbLocation/Name"
+    ],
+    "english": "The Bee and Barb",
+    "classification": "translated"
+  },
+  {
+    "id": "s01096",
+    "source": "Blauer Palast",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016A04:Skyrim.esm|SolitudeBluePalace/Name"
+    ],
+    "english": "Blue Palace",
+    "classification": "translated"
+  },
+  {
+    "id": "s01104",
+    "source": "Block Aktivator",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Activator|2E5CFA:MariaDevices.esp|MEDHeadChopEnabler/Name"
+    ],
+    "english": "Block Activator",
+    "classification": "translated"
+  },
+  {
+    "id": "s01127",
+    "source": "Brisenheim",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|0165A8:Skyrim.esm|WhiterunBreezehome/Name",
+      "MariaDevices.json:Location|01F86F:Skyrim.esm|WhiterunBreezehomeLocation/Name"
+    ],
+    "english": "Breezehome",
+    "classification": "translated"
+  },
+  {
+    "id": "s01129",
+    "source": "Bruchbeinpass",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|081DEC:Skyrim.esm|BrittleShinPass01/Name"
+    ],
+    "english": "Brittleshin Pass",
+    "classification": "translated"
+  },
+  {
+    "id": "s01130",
+    "source": "BruchzahnhÃ¶hle",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|0152B1:Skyrim.esm|BrokenFangCave01/Name"
+    ],
+    "english": "Broken Fang Cave",
+    "classification": "translated"
+  },
+  {
+    "id": "s01144",
+    "source": "Burg Volkihar",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Location|00357E:Dawnguard.esm|DLC1VampireCastleDungeonLocation/Name",
+      "MariaProstitution.json:Location|004C20:Dawnguard.esm|DLC1VampireCastleLocation/Name"
+    ],
+    "english": "Castle Volkihar",
+    "classification": "translated"
+  },
+  {
+    "id": "s01156",
+    "source": "Cidhna-Mine",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Location|018C91:Skyrim.esm|CidhnaMineLocation/Name"
+    ],
+    "english": "Cidhna Mine",
+    "classification": "translated"
+  },
+  {
+    "id": "s01157",
+    "source": "Cidhnamine",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016203:Skyrim.esm|CidhnaMine01/Name"
+    ],
+    "english": "Cidhna Mine",
+    "classification": "translated"
+  },
+  {
+    "id": "s01159",
+    "source": "COCMarkerHeading",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|7930BF:MariaProstitution.esp|MEPMarkerCOCHeading/Name"
+    ],
+    "english": "COCMarkerHeading",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s02109",
+    "source": "Dengeirs Haus",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|013A78:Skyrim.esm|FalkreathDengeirsHall/Name"
+    ],
+    "english": "Dengeir's House",
+    "classification": "translated"
+  },
+  {
+    "id": "s02248",
+    "source": "Dibellas Heaven",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|308822:MariaWhoreLocations.esp|00MarkathBrothel/Name",
+      "MariaWhoreLocations.json:Location|3BEEF0:MariaWhoreLocations.esp|MarkathBrothelLocation/Name"
+    ],
+    "english": "Dibella's Heaven",
+    "classification": "translated"
+  },
+  {
+    "id": "s02266",
+    "source": "Die Beflaggte MÃ¤hre",
+    "existing_draft": "The Flagged Mare",
+    "contexts": [
+      "MariaDevices.json:Cell|01605E:Skyrim.esm|WhiterunBanneredMare/Name",
+      "MariaDevices.json:Location|01F86D:Skyrim.esm|WhiterunBanneredMareLocation/Name",
+      "MariaWhoreLocations.json:Cell|01605E:Skyrim.esm|WhiterunBanneredMare/Name",
+      "MariaWhoreLocations.json:Location|01F86D:Skyrim.esm|WhiterunBanneredMareLocation/Name"
+    ],
+    "english": "The Bannered Mare",
+    "classification": "translated"
+  },
+  {
+    "id": "s02419",
+    "source": "Die Zersplitterte Flasche",
+    "existing_draft": "The Shattered Flask",
+    "contexts": [
+      "MariaDevices.json:Cell|016BCF:Skyrim.esm|RiftenRaggedFlagon/Name",
+      "MariaProstitution.json:Cell|016BCF:Skyrim.esm|RiftenRaggedFlagon/Name",
+      "MariaProstitution.json:Location|02264A:Skyrim.esm|RiftenRaggedFlagonLocation/Name"
+    ],
+    "english": "The Ragged Flagon",
+    "classification": "translated"
+  },
+  {
+    "id": "s02420",
+    "source": "Die Zersplitterte Flasche: Zisterne",
+    "existing_draft": "The Shattered Flask: Cistern",
+    "contexts": [
+      "MariaDevices.json:Cell|016BD0:Skyrim.esm|RiftenThievesGuildHeadquarters/Name"
+    ],
+    "english": "The Ragged Flagon - Cistern",
+    "classification": "translated"
+  },
+  {
+    "id": "s02570",
+    "source": "Doll House Bordell",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[0]/MapMarker/Name",
+      "MariaWhoreLocations.json:PlacedObject|0C7394:MariaWhoreLocations.esp|DollHouseMapMarker/MapMarker/Name",
+      "MariaWhoreLocations.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[0]/MapMarker/Name"
+    ],
+    "english": "Doll House Brothel",
+    "classification": "translated"
+  },
+  {
+    "id": "s02571",
+    "source": "Dollhaus",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Location|08F81C:MariaWhoreLocations.esp|WhiterunBrothelLocation/Name"
+    ],
+    "english": "Dollhouse",
+    "classification": "translated"
+  },
+  {
+    "id": "s02572",
+    "source": "DollHouse",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|052976:MariaWhoreLocations.esp|00WhiterunBrothel/Name"
+    ],
+    "english": "Dollhouse",
+    "classification": "translated"
+  },
+  {
+    "id": "s02591",
+    "source": "Drachenfeste: Kerker",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|04A376:Skyrim.esm|WhiterunDragonsreachBasement/Name"
+    ],
+    "english": "Dragonsreach Dungeon",
+    "classification": "translated"
+  },
+  {
+    "id": "s02599",
+    "source": "Drunken Sailor",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|00F09A:MariaWhoreLocations.esp|00WindhelmBrothel/Name",
+      "MariaWhoreLocations.json:Location|0175F7:MariaWhoreLocations.esp|WindhelmBrothelLocation/Name"
+    ],
+    "english": "Drunken Sailor",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s02600",
+    "source": "Drunken Sailor Bordell",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[6]/MapMarker/Name",
+      "MariaWhoreLocations.json:PlacedObject|01BCA0:MariaWhoreLocations.esp|DrunkenSailorMapMarker/MapMarker/Name",
+      "MariaWhoreLocations.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[6]/MapMarker/Name"
+    ],
+    "english": "Drunken Sailor Brothel",
+    "classification": "translated"
+  },
+  {
+    "id": "s03749",
+    "source": "Einsamkeit",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Location|018A5A:Skyrim.esm|SolitudeLocation/Name",
+      "MariaDevices.json:Worldspace|037EDF:Skyrim.esm|SolitudeWorld/Name",
+      "MariaProstitutionMarkers.json:Worldspace|037EDF:Skyrim.esm|SolitudeWorld/Name",
+      "MariaSlaveLocations.json:Worldspace|037EDF:Skyrim.esm|SolitudeWorld/Name"
+    ],
+    "english": "Solitude",
+    "classification": "translated"
+  },
+  {
+    "id": "s03751",
+    "source": "Einsamkeit Sklavenauktion",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|052CBA:MariaSlaveLocations.esp|SolitudeSlaveAuction/Name",
+      "MariaSlaveLocations.json:Location|053D45:MariaSlaveLocations.esp|SolitudeAuctionLocation/Name"
+    ],
+    "english": "Solitude Slave Auction",
+    "classification": "translated"
+  },
+  {
+    "id": "s03752",
+    "source": "Einsamkeit Sklavenschule",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|02C174:MariaSlaveLocations.esp|SolitudeSlaveSchool/Name",
+      "MariaSlaveLocations.json:Location|033504:MariaSlaveLocations.esp|SolitudeSlaveSchoolLocation/Name"
+    ],
+    "english": "Solitude Slave School",
+    "classification": "translated"
+  },
+  {
+    "id": "s04203",
+    "source": "Faldars Zahn",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|015286:Skyrim.esm|FaldarsTooth01/Name"
+    ],
+    "english": "Faldar's Tooth",
+    "classification": "translated"
+  },
+  {
+    "id": "s04204",
+    "source": "Falkenring Sklavenschule",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|24BA7B:MariaSlaveLocations.esp|FalkenringSlaveSchool/Name"
+    ],
+    "english": "Falkreath Slave School",
+    "classification": "translated"
+  },
+  {
+    "id": "s04205",
+    "source": "Falkenring Spielhaus",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Location|1537F3:MariaSlaveLocations.esp|FalkreathPlayhouseLocation/Name"
+    ],
+    "english": "Falkreath Playhouse",
+    "classification": "translated"
+  },
+  {
+    "id": "s04206",
+    "source": "Falkenring: Gefängnis",
+    "existing_draft": "Falkenring: Prison",
+    "contexts": [
+      "MariaDevices.json:Cell|0EF324:Skyrim.esm|FalkreathBarracksJail/Name"
+    ],
+    "english": "Falkreath Jail",
+    "classification": "translated"
+  },
+  {
+    "id": "s04207",
+    "source": "FalkenringTrainer",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Location|27E5A2:MariaSlaveLocations.esp|00aFalkenringTrainerLocation/Name"
+    ],
+    "english": "Falkreath Trainer",
+    "classification": "translated"
+  },
+  {
+    "id": "s04280",
+    "source": "Festung DÃ¤mmerwacht",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Location|0128FE:Dawnguard.esm|DLC1HunterHQLocationInterior/Name"
+    ],
+    "english": "Fort Dawnguard",
+    "classification": "translated"
+  },
+  {
+    "id": "s04281",
+    "source": "Festung Dämmerlicht: Kerker",
+    "existing_draft": "Festung Dämmerlicht: Kerker",
+    "contexts": [
+      "MariaDevices.json:Cell|015283:Skyrim.esm|FellglowKeep01/Name"
+    ],
+    "english": "Fellglow Keep Dungeons",
+    "classification": "translated"
+  },
+  {
+    "id": "s04282",
+    "source": "Festung Dämmerwacht",
+    "existing_draft": "Festung Dämmerwacht",
+    "contexts": [
+      "MariaDevices.json:Cell|001DBA:Dawnguard.esm|DLC1DawnguardHQ01/Name"
+    ],
+    "english": "Fort Dawnguard",
+    "classification": "translated"
+  },
+  {
+    "id": "s04283",
+    "source": "Festung Nebelschleier in Rifton",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Location|022646:Skyrim.esm|RiftenMistveilKeepLocation/Name"
+    ],
+    "english": "Mistveil Keep in Riften",
+    "classification": "translated"
+  },
+  {
+    "id": "s04284",
+    "source": "Festung Volkihar",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|000803:Dawnguard.esm|DLC1VampireCastleGuildhall/Name",
+      "MariaDevices.json:Location|00357D:Dawnguard.esm|DLC1VampireCastleGuildhallLocation/Name",
+      "MariaProstitution.json:Cell|000803:Dawnguard.esm|DLC1VampireCastleGuildhall/Name",
+      "MariaProstitution.json:Location|00357D:Dawnguard.esm|DLC1VampireCastleGuildhallLocation/Name"
+    ],
+    "english": "Castle Volkihar",
+    "classification": "translated"
+  },
+  {
+    "id": "s04332",
+    "source": "Folterbank Rad",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Activator|52BD6D:MariaBase.esm|MariaActivatorTortureRack/Name"
+    ],
+    "english": "Torture Wheel",
+    "classification": "translated"
+  },
+  {
+    "id": "s04460",
+    "source": "Galgen Aktivator",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Activator|2D69E6:MariaDevices.esp|MEDGallowsEnabler/Name"
+    ],
+    "english": "Gallows Activator",
+    "classification": "translated"
+  },
+  {
+    "id": "s04461",
+    "source": "Galgen Balken",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Activator|6CB0A8:MariaBase.esm|MariaGallowsPole/Name"
+    ],
+    "english": "Gallows Beam",
+    "classification": "translated"
+  },
+  {
+    "id": "s04462",
+    "source": "Galgen Stuhl",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Activator|6CB0A6:MariaBase.esm|MariaGallowsStool/Name"
+    ],
+    "english": "Gallows Stool",
+    "classification": "translated"
+  },
+  {
+    "id": "s04463",
+    "source": "Galgen Tisch",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Activator|6CB0A7:MariaBase.esm|MariaGallowsTable/Name"
+    ],
+    "english": "Gallows Table",
+    "classification": "translated"
+  },
+  {
+    "id": "s04467",
+    "source": "Galgenstrick",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Activator|526C58:MariaBase.esm|MariaActivatorNoose/Name",
+      "MariaDevices.json:Activator|2D18D9:MariaDevices.esp|MEDGallowsNoose/Name"
+    ],
+    "english": "Noose",
+    "classification": "translated"
+  },
+  {
+    "id": "s04468",
+    "source": "Galgentisch",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Activator|2D69E1:MariaDevices.esp|MEDGallowsTable/Name"
+    ],
+    "english": "Gallows Table",
+    "classification": "translated"
+  },
+  {
+    "id": "s04516",
+    "source": "Garottenrad",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Activator|52BD6C:MariaBase.esm|MariaActivatorGarotte/Name"
+    ],
+    "english": "Garrote Wheel",
+    "classification": "translated"
+  },
+  {
+    "id": "s04526",
+    "source": "GefÃ¤ngnis von Einsamkeit",
+    "existing_draft": "Gefängnis von Einsamkeit",
+    "contexts": [
+      "MariaDevices.json:Location|0BED97:Skyrim.esm|SolitudeJailLocation/Name"
+    ],
+    "english": "Solitude Jail",
+    "classification": "translated"
+  },
+  {
+    "id": "s04527",
+    "source": "GefÃ¤ngnis von Rifton",
+    "existing_draft": "Gefängnis von Rifton",
+    "contexts": [
+      "MariaDevices.json:Location|0A8C86:Skyrim.esm|RiftenJailLocation/Name"
+    ],
+    "english": "Riften Jail",
+    "classification": "translated"
+  },
+  {
+    "id": "s04528",
+    "source": "GefÃ¤ngnis von WeiÃŸlauf",
+    "existing_draft": "Gefängnis von Whiterun",
+    "contexts": [
+      "MariaDevices.json:Location|0C0BA0:Skyrim.esm|WhiterunDragonsreachBasementLocation/Name"
+    ],
+    "english": "Whiterun Jail",
+    "classification": "translated"
+  },
+  {
+    "id": "s04541",
+    "source": "Gefängnis",
+    "existing_draft": "Gefängnis",
+    "contexts": [
+      "MariaDevices.json:Cell|0A8B23:Skyrim.esm|RiftenJail01/Name"
+    ],
+    "english": "Jail",
+    "classification": "translated"
+  },
+  {
+    "id": "s04735",
+    "source": "GlÃ¤nzende GewÃ¤nder",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Cell|016A0F:Skyrim.esm|SolitudeRadiantRaiment/Name"
+    ],
+    "english": "Radiant Raiment",
+    "classification": "translated"
+  },
+  {
+    "id": "s04857",
+    "source": "Gut Stolzspitze",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016A06:Skyrim.esm|SolitudeProudspireManor/Name",
+      "MariaDevices.json:Location|020098:Skyrim.esm|SolitudeProudspireManorLocation/Name"
+    ],
+    "english": "Proudspire Manor",
+    "classification": "translated"
+  },
+  {
+    "id": "s04899",
+    "source": "HÃ¶hle der Druadachschanze",
+    "existing_draft": "Höhle der Druadachschanze",
+    "contexts": [
+      "MariaDevices.json:Cell|04401B:Skyrim.esm|DruadachRedoubt01/Name"
+    ],
+    "english": "Druadach Redoubt Cave",
+    "classification": "translated"
+  },
+  {
+    "id": "s04941",
+    "source": "Haelgas Herberge",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016BD4:Skyrim.esm|RiftenHaelgasBunkhouse/Name",
+      "MariaDevices.json:Location|02263D:Skyrim.esm|RiftenHaelgasBunkhouseLocation/Name",
+      "MariaProstitution.json:Cell|016BD4:Skyrim.esm|RiftenHaelgasBunkhouse/Name"
+    ],
+    "english": "Haelga's Bunkhouse",
+    "classification": "translated"
+  },
+  {
+    "id": "s05052",
+    "source": "Häng dich auf",
+    "existing_draft": "Hang up",
+    "contexts": [
+      "MariaBase.json:Activator|526C58:MariaBase.esm|MariaActivatorNoose/ActivateTextOverride",
+      "MariaBase.json:Activator|6CB0A6:MariaBase.esm|MariaGallowsStool/ActivateTextOverride",
+      "MariaBase.json:Activator|6CB0A7:MariaBase.esm|MariaGallowsTable/ActivateTextOverride",
+      "MariaBase.json:Activator|6CB0A8:MariaBase.esm|MariaGallowsPole/ActivateTextOverride"
+    ],
+    "english": "Hang Yourself",
+    "classification": "translated"
+  },
+  {
+    "id": "s05108",
+    "source": "Hauptquartier der Diebesgilde",
+    "existing_draft": "Hauptquartier der Diebesgilde",
+    "contexts": [
+      "MariaDevices.json:Location|022650:Skyrim.esm|RiftenThievesGuildHeadquartersLocation/Name"
+    ],
+    "english": "Thieves Guild Headquarters",
+    "classification": "translated"
+  },
+  {
+    "id": "s05112",
+    "source": "Haus Kerzenschein",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016789:Skyrim.esm|WindhelmCandlehearthHall/Name",
+      "MariaDevices.json:Location|0209EA:Skyrim.esm|WindhelmCandlehearthHallLocation/Name"
+    ],
+    "english": "Candlehearth Hall",
+    "classification": "translated"
+  },
+  {
+    "id": "s05113",
+    "source": "Haus Vlindrel",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016DFA:Skyrim.esm|MarkarthVlindrelHall/Name"
+    ],
+    "english": "Vlindrel Hall",
+    "classification": "translated"
+  },
+  {
+    "id": "s05390",
+    "source": "Himmelsrand",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Worldspace|00003C:Skyrim.esm|Tamriel/Name",
+      "MariaProstitution.json:Worldspace|00003C:Skyrim.esm|Tamriel/Name",
+      "MariaProstitutionMarkers.json:Worldspace|00003C:Skyrim.esm|Tamriel/Name",
+      "MariaSlaveLocations.json:Worldspace|00003C:Skyrim.esm|Tamriel/Name"
+    ],
+    "english": "Skyrim",
+    "classification": "translated"
+  },
+  {
+    "id": "s05400",
+    "source": "Hjerim",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016778:Skyrim.esm|WindhelmHjerim/Name"
+    ],
+    "english": "Hjerim",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s05401",
+    "source": "Hoch-Hrothgar",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|087764:Skyrim.esm|HighHrothgar/Name"
+    ],
+    "english": "High Hrothgar",
+    "classification": "translated"
+  },
+  {
+    "id": "s05428",
+    "source": "Honigheim",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016BDD:Skyrim.esm|RiftenHoneyside/Name"
+    ],
+    "english": "Honeyside",
+    "classification": "translated"
+  },
+  {
+    "id": "s07659",
+    "source": "Katlas Hof",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Location|018E38:Skyrim.esm|KatlasFarmLocation/Name"
+    ],
+    "english": "Katla's Farm",
+    "classification": "translated"
+  },
+  {
+    "id": "s07736",
+    "source": "Kerker",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|05D010:Skyrim.esm|MorthalGuardhouseJail/Name"
+    ],
+    "english": "Jail",
+    "classification": "translated"
+  },
+  {
+    "id": "s07737",
+    "source": "Kerker von Schloss Elend",
+    "existing_draft": "Kerker von Schloss Elend",
+    "contexts": [
+      "MariaDevices.json:Cell|056E88:Skyrim.esm|SolitudeJail01/Name",
+      "MariaProstitution.json:Cell|056E88:Skyrim.esm|SolitudeJail01/Name"
+    ],
+    "english": "Castle Dour Dungeon",
+    "classification": "translated"
+  },
+  {
+    "id": "s07922",
+    "source": "Kopf in Schlinge stecken",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Activator|2D18D9:MariaDevices.esp|MEDGallowsNoose/ActivateTextOverride"
+    ],
+    "english": "Put Head in Noose",
+    "classification": "translated"
+  },
+  {
+    "id": "s08216",
+    "source": "Love Inn Bordell",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[7]/MapMarker/Name",
+      "MariaWhoreLocations.json:PlacedObject|02B19E:MariaWhoreLocations.esp|LoveInnMapMarker/MapMarker/Name",
+      "MariaWhoreLocations.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[7]/MapMarker/Name"
+    ],
+    "english": "Love Inn Brothel",
+    "classification": "translated"
+  },
+  {
+    "id": "s08217",
+    "source": "Love-Inn",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|187A25:MariaWhoreLocations.esp|00WinterfesteBrothel/Name",
+      "MariaWhoreLocations.json:Location|18CB4E:MariaWhoreLocations.esp|WinterfesteBrothelLocation/Name"
+    ],
+    "english": "Love Inn",
+    "classification": "translated"
+  },
+  {
+    "id": "s08349",
+    "source": "MapMarker",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|7930BE:MariaProstitution.esp|MEPMapMarker/Name"
+    ],
+    "english": "MapMarker",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s08356",
+    "source": "Maria Eden Start",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Cell|24F641:MariaBase.esm|MariaStartupCell/Name",
+      "MariaDevices.json:Cell|24F641:MariaBase.esm|MariaStartupCell/Name",
+      "MariaProstitution.json:Cell|24F641:MariaProstitution.esp|MariaStartupCellDUPLICATE001/Name"
+    ],
+    "english": "Maria Eden Start",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s08362",
+    "source": "Markarth",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Location|018A59:Skyrim.esm|MarkarthLocation/Name",
+      "MariaWhoreLocations.json:Worldspace|016D71:Skyrim.esm|MarkarthWorld/Name"
+    ],
+    "english": "Markarth",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s08980",
+    "source": "Nebelwacht",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Location|01927B:Skyrim.esm|MistwatchLocation/Name"
+    ],
+    "english": "Mistwatch",
+    "classification": "translated"
+  },
+  {
+    "id": "s08981",
+    "source": "Nebelwacht: Ostturm",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|042BEC:Skyrim.esm|Mistwatch03/Name"
+    ],
+    "english": "Mistwatch: East Tower",
+    "classification": "translated"
+  },
+  {
+    "id": "s08982",
+    "source": "Nebelwacht: Westturm",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|042BED:Skyrim.esm|Mistwatch02/Name"
+    ],
+    "english": "Mistwatch: West Tower",
+    "classification": "translated"
+  },
+  {
+    "id": "s09121",
+    "source": "Neu-Gnisis-Club",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|01677F:Skyrim.esm|WindhelmNewGnisisCornerclub/Name",
+      "MariaDevices.json:Location|0209F0:Skyrim.esm|WindhelmNewGnisisCornerclubLocation/Name"
+    ],
+    "english": "New Gnisis Cornerclub",
+    "classification": "translated"
+  },
+  {
+    "id": "s09371",
+    "source": "Öffne Racemenu",
+    "existing_draft": "Open Racemenu",
+    "contexts": [
+      "MariaBase.json:Activator|251DF6:MariaBase.esm|MariaRaceMenuButton/ActivateTextOverride"
+    ],
+    "english": "Open RaceMenu",
+    "classification": "translated"
+  },
+  {
+    "id": "s09374",
+    "source": "Ogmunds Haus",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016DFC:Skyrim.esm|MarkarthOgmundsHouse/Name"
+    ],
+    "english": "Ogmund's House",
+    "classification": "translated"
+  },
+  {
+    "id": "s09573",
+    "source": "Peitschen Aktivator",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Activator|2D69E7:MariaDevices.esp|MEDWhippingEnabler/Name"
+    ],
+    "english": "Whipping Activator",
+    "classification": "translated"
+  },
+  {
+    "id": "s09585",
+    "source": "Pelagiahof",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Location|018E3F:Skyrim.esm|PelagiaFarmLocation/Name"
+    ],
+    "english": "Pelagia Farm",
+    "classification": "translated"
+  },
+  {
+    "id": "s09633",
+    "source": "Quecksilbermine",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|02C779:Skyrim.esm|DawnstarQuicksilverMine/Name"
+    ],
+    "english": "Quicksilver Mine",
+    "classification": "translated"
+  },
+  {
+    "id": "s09636",
+    "source": "Racemenu Button",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Activator|251DF6:MariaBase.esm|MariaRaceMenuButton/Name"
+    ],
+    "english": "RaceMenu Button",
+    "classification": "translated"
+  },
+  {
+    "id": "s09677",
+    "source": "RiftenAuction",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|016BE0:Skyrim.esm|(no EDID)/Persistent[5]/MapMarker/Name",
+      "MariaSlaveLocations.json:PlacedObject|01DC81:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "MariaSlaveLocations.json:Worldspace|016BB4:Skyrim.esm|RiftenWorld/TopCell/Persistent[5]/MapMarker/Name"
+    ],
+    "english": "Riften Auction",
+    "classification": "translated"
+  },
+  {
+    "id": "s09678",
+    "source": "RiftenTraining",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|016BE0:Skyrim.esm|(no EDID)/Persistent[4]/MapMarker/Name",
+      "MariaSlaveLocations.json:PlacedObject|01DC8E:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "MariaSlaveLocations.json:Worldspace|016BB4:Skyrim.esm|RiftenWorld/TopCell/Persistent[4]/MapMarker/Name"
+    ],
+    "english": "Riften Training",
+    "classification": "translated"
+  },
+  {
+    "id": "s09679",
+    "source": "Rifton",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Worldspace|016BB4:Skyrim.esm|RiftenWorld/Name",
+      "MariaProstitution.json:Location|018A58:Skyrim.esm|RiftenLocation/Name",
+      "MariaProstitutionMarkers.json:Worldspace|016BB4:Skyrim.esm|RiftenWorld/Name",
+      "MariaSlaveLocations.json:Worldspace|016BB4:Skyrim.esm|RiftenWorld/Name"
+    ],
+    "english": "Riften",
+    "classification": "translated"
+  },
+  {
+    "id": "s09680",
+    "source": "Rifton Club",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|000D62:MariaWhoreLocations.esp|00RiftenBrothel/Name",
+      "MariaWhoreLocations.json:Location|01622F:MariaWhoreLocations.esp|RiftenBrothelLocation/Name"
+    ],
+    "english": "Riften Club",
+    "classification": "translated"
+  },
+  {
+    "id": "s09681",
+    "source": "Rifton Club Bordell",
+    "existing_draft": null,
+    "contexts": [
+      "MariaWhoreLocations.json:Cell|016BE0:Skyrim.esm|(no EDID)/Persistent[1]/MapMarker/Name",
+      "MariaWhoreLocations.json:PlacedObject|016230:MariaWhoreLocations.esp|RiftenBrothelMapMarker/MapMarker/Name",
+      "MariaWhoreLocations.json:Worldspace|016BB4:Skyrim.esm|RiftenWorld/TopCell/Persistent[1]/MapMarker/Name"
+    ],
+    "english": "Riften Club Brothel",
+    "classification": "translated"
+  },
+  {
+    "id": "s09682",
+    "source": "Rifton Sklavenauktion",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|01B5AD:MariaSlaveLocations.esp|RiftenSlaveAuction/Name",
+      "MariaSlaveLocations.json:Location|01C6E1:MariaSlaveLocations.esp|RiftenAuctionLocation/Name"
+    ],
+    "english": "Riften Slave Auction",
+    "classification": "translated"
+  },
+  {
+    "id": "s09683",
+    "source": "Rifton Sklavenschule",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|00182D:MariaSlaveLocations.esp|RiftenSlaveSchool/Name",
+      "MariaSlaveLocations.json:Location|017F78:MariaSlaveLocations.esp|RiftenTrainerLocation/Name"
+    ],
+    "english": "Riften Slave School",
+    "classification": "translated"
+  },
+  {
+    "id": "s09690",
+    "source": "Rotwassergrotte",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|005EAB:Dawnguard.esm|DLC1RedwaterDen01/Name",
+      "MariaDevices.json:Location|004D6F:Dawnguard.esm|DLC1RedwaterDenLocation/Name",
+      "MariaProstitution.json:Location|004D6F:Dawnguard.esm|DLC1RedwaterDenLocation/Name"
+    ],
+    "english": "Redwater Den",
+    "classification": "translated"
+  },
+  {
+    "id": "s09852",
+    "source": "Schlafender Riese",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|0133C6:Skyrim.esm|RiverwoodSleepingGiantInn/Name",
+      "MariaDevices.json:Location|01CB8C:Skyrim.esm|RiverwoodSleepingGiantInnLocation/Name"
+    ],
+    "english": "Sleeping Giant Inn",
+    "classification": "translated"
+  },
+  {
+    "id": "s09868",
+    "source": "Schloss Elend",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Location|02008A:Skyrim.esm|SolitudeCastleDourLocation/Name"
+    ],
+    "english": "Castle Dour",
+    "classification": "translated"
+  },
+  {
+    "id": "s09973",
+    "source": "Seelengrab",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Worldspace|001408:Dawnguard.esm|DLC01SoulCairn/Name",
+      "MariaProstitution.json:Location|003B8F:Dawnguard.esm|DLC1SoulCairnLocation/Name",
+      "MariaProstitution.json:Worldspace|001408:Dawnguard.esm|DLC01SoulCairn/Name"
+    ],
+    "english": "Soul Cairn",
+    "classification": "translated"
+  },
+  {
+    "id": "s10094",
+    "source": "Show Info",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|7930BB:MariaProstitution.esp|MEPXMarkerHeading/ActivateTextOverride",
+      "MariaProstitution.json:Activator|7930BD:MariaProstitution.esp|MEPXMarker/ActivateTextOverride",
+      "MariaProstitution.json:Activator|7930BE:MariaProstitution.esp|MEPMapMarker/ActivateTextOverride",
+      "MariaProstitution.json:Activator|7930BF:MariaProstitution.esp|MEPMarkerCOCHeading/ActivateTextOverride"
+    ],
+    "english": "Show Info",
+    "classification": "already_english"
+  },
+  {
+    "id": "s10495",
+    "source": "Solitude Auction",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|037EE6:Skyrim.esm|(no EDID)/Persistent[2]/MapMarker/Name",
+      "MariaSlaveLocations.json:PlacedObject|054D95:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "MariaSlaveLocations.json:Worldspace|037EDF:Skyrim.esm|SolitudeWorld/TopCell/Persistent[2]/MapMarker/Name"
+    ],
+    "english": "Solitude Auction",
+    "classification": "already_english"
+  },
+  {
+    "id": "s10497",
+    "source": "SolitudeTrainer",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|037EE6:Skyrim.esm|(no EDID)/Persistent[4]/MapMarker/Name",
+      "MariaSlaveLocations.json:PlacedObject|032A2C:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "MariaSlaveLocations.json:Worldspace|037EDF:Skyrim.esm|SolitudeWorld/TopCell/Persistent[4]/MapMarker/Name"
+    ],
+    "english": "Solitude Trainer",
+    "classification": "translated"
+  },
+  {
+    "id": "s10554",
+    "source": "Sperma Suppe",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|E86AAC:MariaProstitution.esp|MEPCumSoupBowl/Name",
+      "MariaProstitution.json:Ingestible|E7C895:MariaProstitution.esp|MEPCumSoup/Name"
+    ],
+    "english": "Semen Soup",
+    "classification": "translated"
+  },
+  {
+    "id": "s10556",
+    "source": "Spermapfütze",
+    "existing_draft": "Semen puddle",
+    "contexts": [
+      "MariaProstitution.json:Activator|CD2BB7:MariaProstitution.esp|MEPCumSplash/Name"
+    ],
+    "english": "Semen Puddle",
+    "classification": "translated"
+  },
+  {
+    "id": "s10564",
+    "source": "Spielhaus",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Quest|89FCD0:MariaProstitution.esp|MEPPlayHouse/Name",
+      "MariaSlaveLocations.json:Cell|0604F6:MariaSlaveLocations.esp|playhouse/Name"
+    ],
+    "english": "Playhouse",
+    "classification": "translated"
+  },
+  {
+    "id": "s10594",
+    "source": "StÃ¤lle von Einsamkeit",
+    "existing_draft": "Stables of Solitude",
+    "contexts": [
+      "MariaProstitution.json:Location|07046A:Skyrim.esm|SolitudeStablesLocation/Name"
+    ],
+    "english": "Solitude Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10595",
+    "source": "StÃ¤lle von Markarth",
+    "existing_draft": "Stables of Markarth",
+    "contexts": [
+      "MariaProstitution.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[4]/MapMarker/Name",
+      "MariaProstitution.json:Location|0C6C2A:Skyrim.esm|MarkarthStablesLocation/Name",
+      "MariaProstitution.json:PlacedObject|0E962F:Skyrim.esm|MarkarthStablesMapMarker/MapMarker/Name",
+      "MariaProstitution.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[4]/MapMarker/Name"
+    ],
+    "english": "Markarth Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10596",
+    "source": "StÃ¤lle von Rifton",
+    "existing_draft": "Stables of Riften",
+    "contexts": [
+      "MariaProstitution.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[1]/MapMarker/Name",
+      "MariaProstitution.json:PlacedObject|096A46:Skyrim.esm|RiftenStablesMapMarker/MapMarker/Name",
+      "MariaProstitution.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[1]/MapMarker/Name"
+    ],
+    "english": "Riften Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10597",
+    "source": "StÃ¤lle von WeiÃŸlauf",
+    "existing_draft": "Stables of Whiterun",
+    "contexts": [
+      "MariaProstitution.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[7]/MapMarker/Name",
+      "MariaProstitution.json:Location|01F87C:Skyrim.esm|WhiterunStablesLocation/Name",
+      "MariaProstitution.json:PlacedObject|072879:Skyrim.esm|WhiterunStablesMapMarker/MapMarker/Name",
+      "MariaProstitution.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[7]/MapMarker/Name"
+    ],
+    "english": "Whiterun Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10598",
+    "source": "StÃ¤lle von Windhelm",
+    "existing_draft": "Stables of Windhelm",
+    "contexts": [
+      "MariaProstitution.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[5]/MapMarker/Name",
+      "MariaProstitution.json:PlacedObject|09846F:Skyrim.esm|(no EDID)/MapMarker/Name",
+      "MariaProstitution.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[5]/MapMarker/Name"
+    ],
+    "english": "Windhelm Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10603",
+    "source": "Ställe von Markath",
+    "existing_draft": "Stables in Markarth",
+    "contexts": [
+      "MariaProstitution.json:Location|459FF8:MariaProstitution.esp|MEPMarkarthStables/Name"
+    ],
+    "english": "Markarth Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10604",
+    "source": "Ställe von Rifton",
+    "existing_draft": "Stables in Riften",
+    "contexts": [
+      "MariaProstitution.json:Location|454EF7:MariaProstitution.esp|MEPRiftenStables/Name"
+    ],
+    "english": "Riften Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10605",
+    "source": "Ställe von Weißlauf",
+    "existing_draft": "Stables in Whiterun",
+    "contexts": [
+      "MariaProstitution.json:Location|30CF0A:MariaProstitution.esp|MEPWhiterunStables/Name"
+    ],
+    "english": "Whiterun Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10606",
+    "source": "Ställe von Windhelm",
+    "existing_draft": "Stables in Windhelm",
+    "contexts": [
+      "MariaProstitution.json:Location|F926D9:MariaProstitution.esp|MEPWindhelmStables/Name"
+    ],
+    "english": "Windhelm Stables",
+    "classification": "translated"
+  },
+  {
+    "id": "s10668",
+    "source": "Streckbank Rad",
+    "existing_draft": null,
+    "contexts": [
+      "MariaBase.json:Activator|52BD70:MariaBase.esm|MariaActivatorStretchRack/Name"
+    ],
+    "english": "Rack Wheel",
+    "classification": "translated"
+  },
+  {
+    "id": "s10735",
+    "source": "Tempel von Dibella",
+    "existing_draft": "Tempel von Dibella",
+    "contexts": [
+      "MariaDevices.json:Cell|016DF3:Skyrim.esm|MarkarthTempleofDibella/Name",
+      "MariaProstitution.json:Cell|016DF3:Skyrim.esm|MarkarthTempleofDibella/Name"
+    ],
+    "english": "Temple of Dibella",
+    "classification": "translated"
+  },
+  {
+    "id": "s10736",
+    "source": "Tempel von Molag Bal",
+    "existing_draft": "Temple of Molag Bal",
+    "contexts": [
+      "MariaProstitution.json:Location|2200C1:MariaProstitution.esp|MEPTempleOfMolagLocation/Name"
+    ],
+    "english": "Temple of Molag Bal",
+    "classification": "translated"
+  },
+  {
+    "id": "s10743",
+    "source": "Thalmorische Botschaft",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|07C98B:Skyrim.esm|ThalmorEmbassy01/Name"
+    ],
+    "english": "Thalmor Embassy",
+    "classification": "translated"
+  },
+  {
+    "id": "s10744",
+    "source": "Thalmorische Botschaft: Kerker",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|0362D8:Skyrim.esm|ThalmorEmbassy03/Name"
+    ],
+    "english": "Thalmor Embassy, Dungeon",
+    "classification": "translated"
+  },
+  {
+    "id": "s10819",
+    "source": "Todeskammer",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|0B15FA:MariaSlaveLocations.esp|KillHouse/Name",
+      "MariaSlaveLocations.json:Location|120D7F:MariaSlaveLocations.esp|00aHORTodeskammerLocation/Name"
+    ],
+    "english": "Death Chamber",
+    "classification": "translated"
+  },
+  {
+    "id": "s10828",
+    "source": "Totmannstrunk",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|03A184:Skyrim.esm|FalkreathDeadMansDrink/Name",
+      "MariaDevices.json:Location|05CA26:Skyrim.esm|FalkreathDeadMansDrinkLocation/Name"
+    ],
+    "english": "Dead Man's Drink",
+    "classification": "translated"
+  },
+  {
+    "id": "s10829",
+    "source": "TrÃ¼bhÃ¶hlengruft",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|000EB8:Dawnguard.esm|DLC1DimHollowCrypt01/Name"
+    ],
+    "english": "Dimhollow Crypt",
+    "classification": "translated"
+  },
+  {
+    "id": "s10865",
+    "source": "Trübhöhlengruft",
+    "existing_draft": "Dark Cavern",
+    "contexts": [
+      "MariaProstitution.json:Location|004EE8:Dawnguard.esm|DLC1DimhollowCryptLocation/Name"
+    ],
+    "english": "Dimhollow Crypt",
+    "classification": "translated"
+  },
+  {
+    "id": "s10871",
+    "source": "Tür ins Abenteuer",
+    "existing_draft": "Door to Adventure",
+    "contexts": [
+      "MariaBase.json:Activator|41F826:MariaBase.esm|MariaFakeExitDoor/Name",
+      "MariaBase.json:Door|251DF5:MariaBase.esm|MariaStartupExitDoor/Name"
+    ],
+    "english": "Door to Adventure",
+    "classification": "translated"
+  },
+  {
+    "id": "s11530",
+    "source": "Wachhaus",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|0138CD:Skyrim.esm|MorthalGuardhouse/Name",
+      "MariaProstitution.json:Location|01EB98:Skyrim.esm|MorthalGuardhouseLocation/Name",
+      "MariaProstitution.json:Location|08B5EC:Skyrim.esm|WhiterunGuardHouseLocation/Name"
+    ],
+    "english": "Guardhouse",
+    "classification": "translated"
+  },
+  {
+    "id": "s11535",
+    "source": "Wachturm von Markarth",
+    "existing_draft": "Markarth Watchtower.",
+    "contexts": [
+      "MariaProstitution.json:Location|01F311:Skyrim.esm|MarkarthGuardTowerLocation/Name"
+    ],
+    "english": "Markarth Guard Tower",
+    "classification": "translated"
+  },
+  {
+    "id": "s11920",
+    "source": "WeiÃŸlauf",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Location|018A56:Skyrim.esm|WhiterunLocation/Name",
+      "MariaProstitution.json:Location|018A56:Skyrim.esm|WhiterunLocation/Name",
+      "MariaProstitutionMarkers.json:Worldspace|01A26F:Skyrim.esm|WhiterunWorld/Name"
+    ],
+    "english": "Whiterun",
+    "classification": "translated"
+  },
+  {
+    "id": "s11933",
+    "source": "Weißlauf",
+    "existing_draft": "Whiterun",
+    "contexts": [
+      "MariaDevices.json:Worldspace|01A26F:Skyrim.esm|WhiterunWorld/Name",
+      "MariaSlaveLocations.json:Worldspace|01A26F:Skyrim.esm|WhiterunWorld/Name"
+    ],
+    "english": "Whiterun",
+    "classification": "translated"
+  },
+  {
+    "id": "s11934",
+    "source": "Weißlauf Sklavenauktion",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|026A1D:MariaSlaveLocations.esp|WhiterunSlaveAuction/Name",
+      "MariaSlaveLocations.json:Location|027553:MariaSlaveLocations.esp|WhiterunAuctionLocation/Name"
+    ],
+    "english": "Whiterun Slave Auction",
+    "classification": "translated"
+  },
+  {
+    "id": "s11935",
+    "source": "Weißlauf Sklavenschule",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|02286C:MariaSlaveLocations.esp|WhiterunSlaveSchool/Name",
+      "MariaSlaveLocations.json:Location|02498C:MariaSlaveLocations.esp|00aWhiteruntrainerLocation/Name"
+    ],
+    "english": "Whiterun Slave School",
+    "classification": "translated"
+  },
+  {
+    "id": "s12276",
+    "source": "WhiterunAuction",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[3]/MapMarker/Name",
+      "MariaSlaveLocations.json:PlacedObject|027ADF:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "MariaSlaveLocations.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[3]/MapMarker/Name"
+    ],
+    "english": "Whiterun Auction",
+    "classification": "translated"
+  },
+  {
+    "id": "s12277",
+    "source": "WhiterunTrainer",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|000D74:Skyrim.esm|(no EDID)/Persistent[5]/MapMarker/Name",
+      "MariaSlaveLocations.json:PlacedObject|0259CD:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "MariaSlaveLocations.json:Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[5]/MapMarker/Name"
+    ],
+    "english": "Whiterun Trainer",
+    "classification": "translated"
+  },
+  {
+    "id": "s12474",
+    "source": "Windhelm",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Worldspace|01691D:Skyrim.esm|WindhelmWorld/Name",
+      "MariaProstitution.json:Location|018A57:Skyrim.esm|WindhelmLocation/Name",
+      "MariaSlaveLocations.json:Worldspace|01691D:Skyrim.esm|WindhelmWorld/Name"
+    ],
+    "english": "Windhelm",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s12475",
+    "source": "Windhelm Sklavenauktion",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|03EE0E:MariaSlaveLocations.esp|WindhelmSlaveAuction/Name",
+      "MariaSlaveLocations.json:Location|042488:MariaSlaveLocations.esp|WindhelmAuctionLocation/Name"
+    ],
+    "english": "Windhelm Slave Auction",
+    "classification": "translated"
+  },
+  {
+    "id": "s12476",
+    "source": "Windhelm Sklavenschule",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|0370AE:MariaSlaveLocations.esp|WindhelmSlaveSchool/Name",
+      "MariaSlaveLocations.json:Location|03D2F8:MariaSlaveLocations.esp|WHTrainerLocation/Name"
+    ],
+    "english": "Windhelm Slave School",
+    "classification": "translated"
+  },
+  {
+    "id": "s12477",
+    "source": "WindhelmSlaveLocations",
+    "existing_draft": null,
+    "contexts": [
+      "MariaSlaveLocations.json:Cell|01691F:Skyrim.esm|(no EDID)/Persistent[0]/MapMarker/Name",
+      "MariaSlaveLocations.json:PlacedObject|13F2AF:MariaSlaveLocations.esp|(no EDID)/MapMarker/Name",
+      "MariaSlaveLocations.json:Worldspace|01691D:Skyrim.esm|WindhelmWorld/TopCell/Persistent[0]/MapMarker/Name"
+    ],
+    "english": "Windhelm Slave Locations",
+    "classification": "translated"
+  },
+  {
+    "id": "s12771",
+    "source": "XMarker",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|7930BD:MariaProstitution.esp|MEPXMarker/Name"
+    ],
+    "english": "XMarker",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s12772",
+    "source": "XMarkerHeading",
+    "existing_draft": null,
+    "contexts": [
+      "MariaProstitution.json:Activator|7930BB:MariaProstitution.esp|MEPXMarkerHeading/Name"
+    ],
+    "english": "XMarkerHeading",
+    "classification": "technical_or_name"
+  },
+  {
+    "id": "s12910",
+    "source": "Zwinkernder Skeever",
+    "existing_draft": null,
+    "contexts": [
+      "MariaDevices.json:Cell|016A0E:Skyrim.esm|SolitudeWinkingSkeever/Name",
+      "MariaDevices.json:Location|0200A5:Skyrim.esm|SolitudeWinkingSkeeverLocation/Name",
+      "MariaWhoreLocations.json:Cell|016A0E:Skyrim.esm|SolitudeWinkingSkeever/Name",
+      "MariaWhoreLocations.json:Location|0200A5:Skyrim.esm|SolitudeWinkingSkeeverLocation/Name"
+    ],
+    "english": "The Winking Skeever",
+    "classification": "translated"
+  }
+]

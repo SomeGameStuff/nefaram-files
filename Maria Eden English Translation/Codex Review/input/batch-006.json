@@ -1,0 +1,1921 @@
+{
+  "batch_id": "batch-006-f4815315133db780",
+  "items": [
+    {
+      "id": "s01296",
+      "source": "Danke und viel Vergnügen. Ach und wenn ihr die Peitsche benutzt paßt bitte auf die Einrichtung nicht zu beschädigen",
+      "existing_draft": "Thank you, have fun. Oh, and if you use the whip, please be careful not to damage the furnishings",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|5B7909:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|5B7907:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01297",
+      "source": "Danke, das habt ihr gut gemacht. Ich bin schon ganz neugierig auf sie.",
+      "existing_draft": "Thank you, you did a good job. I'm already very curious about her.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|7B680D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7B680C:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01298",
+      "source": "Danke, es freut mich dass ihr Spaß hattet",
+      "existing_draft": "Thank you, I'm glad you had fun",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|1A6531:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|1A6530:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01299",
+      "source": "Danke, es ist immer wieder ein Vergnügen bei euch einzukaufen!",
+      "existing_draft": "Thank you, it's always a pleasure to shop here!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|38DD3A:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|631259:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01300",
+      "source": "Danke, hier das Elixier",
+      "existing_draft": "Thank you, here's the elixir",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|9BBD43:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|9BBD42:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01301",
+      "source": "Danke, ich kann es kaum erwarten!",
+      "existing_draft": "Thank you, I can hardly wait!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|59E3D9:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|59E3D8:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01302",
+      "source": "Danke, ich sage euch bescheid wenn sie für euch bereit ist",
+      "existing_draft": "Thank you, I'll let you know when she's ready for you",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|59E3BD:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|59E3BC:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01303",
+      "source": "Danke, ich wünsche euch eine gute Nacht",
+      "existing_draft": "Thank you, I wish you a good night",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6D8676:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6D8675:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01304",
+      "source": "Danke, ihr seid zu gnädig",
+      "existing_draft": "Thank you, you're too generous",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|AD7B48:MariaProstitution.esp|MEPMainTalkToPHEnslaveStartTopic/Name"
+      ]
+    },
+    {
+      "id": "s01305",
+      "source": "Danke, ihr seid zu gnädig!",
+      "existing_draft": "Thank you, you're too generous!",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|AD7B4E:MariaProstitution.esp|MEPMainSlaverStartSlavery/Name"
+      ]
+    },
+    {
+      "id": "s01306",
+      "source": "Danke, ihr werdet es gewiß nicht bereuen",
+      "existing_draft": "Thank you, you won't regret it",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|99D7E0:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|99D7DF:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01307",
+      "source": "Danke, immer her damit",
+      "existing_draft": null,
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|98E1B9:MariaProstitution.esp|MEPSharedGiveItToMe2/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[983]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01308",
+      "source": "Danke, und eine Sache noch",
+      "existing_draft": "Thank you, one more thing",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|337846:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|337840:MariaProstitution.esp|MEPBarmaidVisitSell/Responses[2]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01309",
+      "source": "Danke, und hier das Mittel",
+      "existing_draft": "Thank you, here's the remedy",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6BA002:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6BA001:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01310",
+      "source": "Danke, werden wir haben!",
+      "existing_draft": "Thank you, we'll have it!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|366CAB:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|366CAA:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01311",
+      "source": "Danke!",
+      "existing_draft": null,
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB3C9:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogResponses|2FB3FF:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogResponses|7DA033:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB3C8:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01312",
+      "source": "Danke! Also dann, viel Spaß mit ihr!",
+      "existing_draft": "Thank you! Well then, have fun with her!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|DDA407:MariaProstitution.esp|MEPSharedThanksAndHaveFunWithHer/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[1385]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01313",
+      "source": "Danke.",
+      "existing_draft": null,
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|937F13:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|937F12:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01314",
+      "source": "Danke. Dann viel Spaß mit ihr und gebt mir bescheid wenn ihr mit ihr fertig seid. Sie wartet unten im Käfig auf euch.",
+      "existing_draft": "Thank you, have fun with her and let me know when you're done. She's waiting below in the cage for you.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6E28B5:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6E28B4:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01315",
+      "source": "Danke. Das freut mich. Empfehlt sie weiter, mein Angebot gilt noch für einige Stunden",
+      "existing_draft": "Thank you, it pleases me. Recommend her further, my offer still stands for a few hours",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|16E884:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|16E883:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01316",
+      "source": "Danke. Das werde ich mir ganz bestimmt nochmal ansehen. Ihr wißt mit Frauen umzugehen",
+      "existing_draft": "Thank you, you know how to handle women",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|42C6A3:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|42C6A2:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01317",
+      "source": "Danke. Es freut mich dass sie euch gefallen hat",
+      "existing_draft": "Thank you, I'm glad she pleased you",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB394:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB391:MariaProstitution.esp|(no EDID)/Responses[2]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01318",
+      "source": "Danke. Ich bevorzuge es zwar dass meine Kunden gleich erkennen welche meiner Stuten Sklavinnen sind aber vielleicht brauch ich ihn doch einmal",
+      "existing_draft": "Thank you, although I prefer that my customers recognize my mares' slaves, I might need it once",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB6D2:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB6D1:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01319",
+      "source": "Danke. Ich verabschiede mich nur noch von ihr und werden dann gehen",
+      "existing_draft": "Thank you, I'm just saying goodbye to her and we'll be off",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B74A31:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B74A30:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01320",
+      "source": "Danke. Ihr seid sehr großzügig. Ich werde dafür sorgen, daß sie ihre Arbeit gut macht!",
+      "existing_draft": "Thank you, you're very generous. I'll make sure she does a good job!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB144:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB143:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01321",
+      "source": "Danke. Sie wird in unserem Bordell gewiß bald die nötigen Fähigkeiten erlernen!",
+      "existing_draft": "Thank you, she'll surely learn the necessary skills in our brothel!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB393:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB391:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01322",
+      "source": "Danke. Sollen wir noch ihr Sklaven Halsband entfernen?",
+      "existing_draft": "Then should we remove her collar?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3BCF3B:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|3BCF3A:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01323",
+      "source": "Dann bist du ihrer nicht würdig",
+      "existing_draft": "Then you're not worthy of her",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB56C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogResponses|A35703:MariaProstitution.esp|MEPSharedYouAreNotWorthForGodess/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[64]/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB56B:MariaProstitution.esp|MEPMainDibellaEntryNo/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01324",
+      "source": "Dann bleibt ja fast nichts für mich übrig",
+      "existing_draft": "Then almost nothing is left for me",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|7D5B07:MariaProstitution.esp|MEPCityMoneyEarnedInnToMuch/Name"
+      ]
+    },
+    {
+      "id": "s01325",
+      "source": "Dann doch lieber nicht",
+      "existing_draft": "Then better not",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|EF56A4:MariaProstitution.esp|MEPTavernGenericReject/Name"
+      ]
+    },
+    {
+      "id": "s01326",
+      "source": "Dann eben nicht, du verschwendest meine Zeit!",
+      "existing_draft": "Then get lost, you're wasting my time!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B1967E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B1967D:MariaProstitution.esp|MEPPimpWannaBeSlaveCancelTopic/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01327",
+      "source": "Dann eben Sex",
+      "existing_draft": null,
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|98E1BF:MariaProstitution.esp|MEPSharedThenPayWithSex/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[987]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01328",
+      "source": "Dann entzündet das Feuer!",
+      "existing_draft": "Then light the fire!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|DEDF48:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|DEDF47:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01329",
+      "source": "Dann erkläre ich dir mal, wie es für ich hier weiter geht",
+      "existing_draft": "Then I'll show you how things proceed here",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|ADCC54:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|891104:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01330",
+      "source": "Dann erledige deine Aufgabe. Ihr Leichnam wird nachher abgeholt",
+      "existing_draft": "Then do your job. Your corpse will be picked up later",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8C85A6:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|8C85A5:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01331",
+      "source": "Dann fang mal an und massiere dabei meine Eichel mit deiner Zunge",
+      "existing_draft": "Then start and use your tongue to massage my shaft",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6823AB:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6823AA:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01332",
+      "source": "Dann fang mal an und schaue dabei dein Publikum an!",
+      "existing_draft": "Then start and look at your audience!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|68C60C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|68C60B:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01333",
+      "source": "Dann gehe ich mal. Kleiner Scherz, natürlich lass ich dich da wieder herunter",
+      "existing_draft": "Then I'll be off. Just a little joke, of course I'll let you down again",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6A0AC2:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6A0AC1:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01334",
+      "source": "Dann habe ich jetzt also tatsächliche eine Hure geheiratet - ich muß verrückt sein!",
+      "existing_draft": "Then I've actually married a prostitute - I must be crazy!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|30309C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|02E118:Skyrim.esm|RelationshipMarriagePostWeddingLoveInterestBlockingTopic/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01335",
+      "source": "Dann habe ich jetzt also tatsächliche eine Sklavin geheiratet - ich muß verrückt sein!",
+      "existing_draft": "Then I've actually married a slave - I must be crazy!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|30309B:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|02E118:Skyrim.esm|RelationshipMarriagePostWeddingLoveInterestBlockingTopic/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01336",
+      "source": "Dann habe ich noch verschließbare Leder Halsbänder. Die kann man nur mit Schlüssel oder einem Messer entfernen",
+      "existing_draft": "Then I have some lockable leather collars. These can only be removed with a key or a knife",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB742:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB741:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01337",
+      "source": "Dann her mit der Axt",
+      "existing_draft": "Then bring the axe",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8302A8:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|8302A7:MariaProstitution.esp|MEPFarmerSlaveryHarvestDone/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01338",
+      "source": "Dann hoffen wir mal dass sie verstanden hat.",
+      "existing_draft": "Then let's hope she understood.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B74A1A:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B74A19:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01339",
+      "source": "Dann ist dies sicher das richtige",
+      "existing_draft": "Then this is surely the right choice",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB82F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB82E:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01340",
+      "source": "Dann kanns los gehen",
+      "existing_draft": null,
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FAF4D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FAEEA:MariaProstitution.esp|(no EDID)/Responses[7]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01341",
+      "source": "Dann kommen wir wohl nicht ins Geschäft",
+      "existing_draft": "Then we won't do business",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FAD5B:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FAD5A:MariaProstitution.esp|MEPJobNoSecondOfferTopic/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01342",
+      "source": "Dann kommt jetzt dein Arsch dran, entspanne dich dann wird das auch nicht so weh tun",
+      "existing_draft": "Then your ass is next, relax, it won't hurt as much",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B051B3:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B051B2:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01343",
+      "source": "Dann laß uns gleich zur Sache kommen!",
+      "existing_draft": "Then let's get to it!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB1FE:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB1FD:MariaProstitution.esp|MEPHomeVisitStart/Responses[2]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01344",
+      "source": "Dann lass uns gleich zur Tat schreiten",
+      "existing_draft": "Then let's get to it",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|98E19F:MariaProstitution.esp|MEPSharedTheLtsDoItNow/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[975]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01345",
+      "source": "Dann laß uns mal gleich deine neuen Fähigkeiten ausprobieren, einige Freier haben schon nach dir gefragt",
+      "existing_draft": "Then let's test your new skills, some clients have already asked about you",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3C2089:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|3C2088:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01346",
+      "source": "Dann laßt sie noch eine Weile dort und schafft ihren Leichnahm später in den Schweinestall zur Fütterung der Schweine",
+      "existing_draft": "Then let her stay there for a while and take her corpse to the pigsty later for the pigs to feed on",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|DCF8E7:MariaProstitution.esp|MEPSharedTurnHerIntoPigFood/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[283]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01347",
+      "source": "Dann laßt uns nach vorne gehen um das Geschäftliche zu besprechen",
+      "existing_draft": "Then let's go to the front to discuss business",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8AF027:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|8AF026:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01348",
+      "source": "Dann laßt uns noch etwas warten",
+      "existing_draft": "Then let's wait a bit",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|DCF8E0:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|DCF8DF:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01349",
+      "source": "Dann laufen sie uns hinterher wie ein Hund",
+      "existing_draft": "Then they'll follow us like a dog",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|A1712D:MariaProstitution.esp|(no EDID)/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|A1712B:MariaProstitution.esp|MEPFollowerWhatAboutMalesTopic/Responses[1]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01350",
+      "source": "Dann mal guten Appetit!",
+      "existing_draft": null,
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|52361D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|52361C:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01351",
+      "source": "Dann mal her mit der Peitsche!",
+      "existing_draft": "Then bring the whip!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|678181:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|678180:MariaProstitution.esp|MEPWhipMeGiveWhipTopic/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01352",
+      "source": "Dann mal viel Spaß mit ihr, sie schluckt Sperma wie ein Teufel",
+      "existing_draft": "Then have fun with her, she swallows cum like a demon",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|AE6B55:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|AE6B50:MariaProstitution.esp|(no EDID)/Responses[4]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01353",
+      "source": "Dann mußt du halt mehr Freier bedienen. Aber ich mache dir einen Vorschlag, wenn du meine Hure wirst werde ich mich um dich kümmern",
+      "existing_draft": "Then you'll have to serve more clients. But I have a suggestion, if you become my prostitute, I'll take care of you",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|7D5B08:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7D5B07:MariaProstitution.esp|MEPCityMoneyEarnedInnToMuch/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01354",
+      "source": "Dann nehmt die stumpfen Pfeile und schießt zuerst auf nicht lebenswichtige Organe, ihr Tod soll langsam und schmerzvoll sein",
+      "existing_draft": "Then take the blunt arrows and shoot first at non-vital organs, her death should be slow and painful",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|DD4A1E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|DD4A1D:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01355",
+      "source": "Dann nehmt euch viel Zeit, denn sie soll schmerzvoll und langsam sterben",
+      "existing_draft": "Then take your time, she should die painfully and slowly",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|DD4A26:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|DD4A25:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01356",
+      "source": "Dann nehmt sie euch jetzt, fickt sie, schlagt sie, alles nur keine körperlichen Verletzungen",
+      "existing_draft": "Then take her, fuck her, beat her, just no physical injuries",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B93173:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B93172:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01357",
+      "source": "Dann nimm halt deine Hände und hol das Sperma zum Essen aus dir heraus",
+      "existing_draft": "Then take your hands and get the cum out of you for eating",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|D1E3ED:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|D1E3EC:MariaProstitution.esp|MEPPimpButIGotFuckedInAss/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01358",
+      "source": "Dann scher dich zum Teufel!",
+      "existing_draft": "Then go to hell!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|F884CA:MariaProstitution.esp|MEPSharedThenGotoDevil/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[378]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01359",
+      "source": "Dann sieh zu dass du hier ganz schnell verschwindest, Sklavin!",
+      "existing_draft": "Then get out of here quickly, slave!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB29D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB29C:MariaProstitution.esp|MEPBrothelSlaveReject/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01360",
+      "source": "Dann soll es so sein, das Haus gehört dir solange du die Hure unseres Hofes bist. Hier sind die Schlüssel.",
+      "existing_draft": "Then it shall be so, the house belongs to you as long as you are the prostitute of our court. Here are the keys.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|C20F01:MariaProstitution.esp|MEPSharedHousePurchasedForSex/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[260]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01361",
+      "source": "Dann soll es so sein!",
+      "existing_draft": "Then it shall be so!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FAEB5:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2763B1:MariaProstitution.esp|MEPFollowerOfferSlaveryYesTopic/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01362",
+      "source": "Dann streng dich halt mehr an. Biete ihnen halt etwas an was sie nicht ablehnen",
+      "existing_draft": "Then try harder. Offer them something they can't refuse",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6823B8:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6823B7:MariaProstitution.esp|MEPWhipMeMasterNo/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01363",
+      "source": "Dann such dir einen anderen Dummen und verschwende nicht meine Zeit!",
+      "existing_draft": "Then find another fool and don't waste my time!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB223:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB222:MariaProstitution.esp|DialogueFavorGenericReject/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01364",
+      "source": "Dann such dir halt mehr Freier oder werde meine Hure, dann kümmere ich mich um dich und dein Auskommen",
+      "existing_draft": "Then find more clients or become my prostitute, then I'll take care of you and your livelihood",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|7D5B0D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7D5B05:MariaProstitution.esp|MEPCityMoneyEarnedInn/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01365",
+      "source": "Dann tun wir einfach mal so als ob nie darüber gesprochen wurde",
+      "existing_draft": "Then let's just pretend it was never discussed",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|9145F9:MariaProstitution.esp|MEPSharedLetsForgetIt1/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[862]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01366",
+      "source": "Dann tun wir einfach so als ob wir nie drüber gesprochen hätten, schön dass du bleibst",
+      "existing_draft": "Then let's just pretend we never talked about it, glad you're staying",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|EEB425:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|DAC139:MariaProstitution.esp|MEPTavernResignCancel/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01367",
+      "source": "Dann tun wir einfach so, als ob nie darüber gesprochen wurde",
+      "existing_draft": "Then let's just act as if it was never discussed",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|71538A:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|715389:MariaProstitution.esp|MEPMainSTSReject/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01368",
+      "source": "Dann übe halt zu Blasen, du bläßt halt nicht gut genug",
+      "existing_draft": "Then practice making bladders, you don't do it well enough",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|88675A:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|D1E3EC:MariaProstitution.esp|MEPPimpButIGotFuckedInAss/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01369",
+      "source": "Dann und erst dann wird Molag Bal über dein Schicksal entscheiden",
+      "existing_draft": "Then and only then will Molag Bal decide your fate",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2069E2:MariaProstitution.esp|(no EDID)/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|D1E427:MariaProstitution.esp|MEPPimpWhatIsPlayhouse3/Responses[0]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01370",
+      "source": "Dann verkauf deinen Arsch woanders!",
+      "existing_draft": null,
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB28C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB28B:MariaProstitution.esp|MEPBrothelToLess/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01371",
+      "source": "Dann verliert keine Zeit, nehmt sie euch. Für nur 50 Septims dürft ihr mit ihr tun was ihr wünscht",
+      "existing_draft": "Then don't waste time, take her. For only 50 septims, you can do with her what you wish",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|923F0D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|923F0C:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01372",
+      "source": "Dann verschwende nicht meine Zeit und verschwinde!",
+      "existing_draft": "Then don't waste my time and get out!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB299:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB298:MariaProstitution.esp|MEPBrothelReject2/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01373",
+      "source": "Dann viel Spaß mit ihr",
+      "existing_draft": "Then have fun with her",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3A8AA9:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|3A8AA8:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01374",
+      "source": "Dann weißt du es jetzt. Die Hälfte Deiner Einnahmen geht an mich oder du wirst aus meinem Revier vertrieben!",
+      "existing_draft": "Then you know it now. Half of your earnings go to me, or you'll be kicked out of my territory!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|7D5B03:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7D5B02:MariaProstitution.esp|MEPCityMoneyEarnedAsk/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01375",
+      "source": "Dann werde ich dich jetzt mal ordentlich durch pflügen",
+      "existing_draft": "Then I'll plow you good",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6DC944:MariaProstitution.esp|MEPSharedGonnaFuck01/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[763]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01376",
+      "source": "Dann werde ich mich mit deinem Körper vergnügen",
+      "existing_draft": "Then I'll indulge myself with your body",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FAF88:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FAF87:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01377",
+      "source": "Dann werden wir deine Würde und deinen Stolz brechen, nichts davon steht einer Sklavin zu",
+      "existing_draft": "Then we'll break your dignity and pride, nothing befits a slave",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|35785C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|35785B:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01378",
+      "source": "Dann wird sie an jemanden verkauft der mit ihr noch irgendwas anfangen kann",
+      "existing_draft": "Then she'll be sold to someone who can still do something with her",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B88EFF:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B88EFE:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01379",
+      "source": "Dann wird sie mir gleich morgen früh zu Diensten sein",
+      "existing_draft": "Then she'll be at my service first thing tomorrow morning",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|9E9786:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|9E9785:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01380",
+      "source": "Dann wollen wir dein neues Herrchen mal gebührend begrüßen",
+      "existing_draft": "Then let's properly welcome your new master",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|69071F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|69071E:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01381",
+      "source": "Dann wollen wir dich mal einreiten",
+      "existing_draft": "Then let's ride you",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|644566:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|644565:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01382",
+      "source": "Dann wollen wir diesen Hunger doch stillen, hmm?",
+      "existing_draft": "Then let's satisfy this hunger, hmm?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|0A963A:Skyrim.esm|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|07F6BB:Skyrim.esm|OfferServicesTopic/Responses[6]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01383",
+      "source": "Dann wünsche ich dir hier mal einen angenehmen Aufenthalt",
+      "existing_draft": "Then I wish you a pleasant stay here",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB64E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB64D:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01384",
+      "source": "Dann zeig mir deine Peitschen Male!",
+      "existing_draft": "Then show me your whip marks!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6823BA:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6823B9:MariaProstitution.esp|MEPWhipMeMasterYes/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01385",
+      "source": "Daran habe ich gar nicht gedacht aber jetzt wo ihr es sagt",
+      "existing_draft": "I hadn't thought of that, but now that you mention it",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|1BFACB:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|1BFACA:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01386",
+      "source": "Darauf könnt ihr Gift nehmen",
+      "existing_draft": "You can take that to the bank",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|16E870:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|16E86F:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01387",
+      "source": "Darauf werde ich bestimmt bald zurück kommen. Diese hübsche Sklavin will ich auf jedenfall noch ficken bevor sie verkauft wurde",
+      "existing_draft": "I'll definitely come back soon. This pretty slave I want to fuck before she's sold",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|361B4E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|361B4D:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01388",
+      "source": "Darf ich bitte meinen Mantel tragen? Es ist so kalt hier",
+      "existing_draft": "May I please wear my cloak? It's so cold here",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|B331B2:MariaProstitution.esp|MEPFollowerAskForCoatTopic/Name"
+      ]
+    },
+    {
+      "id": "s01389",
+      "source": "Darf ich da unten mal anfassen? Wozu sonst trägst du da Schmuck?",
+      "existing_draft": "May I touch it down there? What use is jewelry otherwise?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B3CE11:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FAD61:MariaProstitution.esp|MEPZoneHellos/Responses[22]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01390",
+      "source": "Darf ich das Bordell für eine Weile verlassen?",
+      "existing_draft": "May I leave the brothel for a while?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|2FB377:MariaProstitution.esp|MEPPimpAskLeavingBrothel/Name"
+      ]
+    },
+    {
+      "id": "s01391",
+      "source": "Darf ich deine Titten mal anfassen? Wozu sonst trägst du da Schmuck?",
+      "existing_draft": "May I touch your breasts? What use is jewelry otherwise?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|87C52F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FAD61:MariaProstitution.esp|MEPZoneHellos/Responses[23]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01392",
+      "source": "Darf ich deine Titten melken?",
+      "existing_draft": "May I milk your breasts?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|60C8D0:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104239:MariaProstitution.esp|MEPHellos/Responses[18]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01393",
+      "source": "Darf ich dich noch etwas fragen?",
+      "existing_draft": "May I ask you something?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|AE1D81:MariaProstitution.esp|MEPPimpSlavesTalkToSlaveTopic/Name"
+      ]
+    },
+    {
+      "id": "s01394",
+      "source": "Darf ich die Klammer mal anfassen?",
+      "existing_draft": "May I touch the clamps?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|48CACB:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|48CAC3:MariaProstitution.esp|MEPSlaveTrainingHellos/Responses[12]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01395",
+      "source": "Darf ich dir nach deiner Arbeit mal meinen Schwanz zeigen?",
+      "existing_draft": "May I show you my dick after your work?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|346B8F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|346B8B:MariaProstitution.esp|MEPBarmaidVisitHellos/Responses[3]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01396",
+      "source": "Darf ich euch eine Frage stellen?",
+      "existing_draft": "May I ask you a question?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|AD2A20:MariaProstitution.esp|MEPPimpWhatIsTopic/Name"
+      ]
+    },
+    {
+      "id": "s01397",
+      "source": "Darf ich euch etwas fragen?",
+      "existing_draft": "May I ask you something?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|EEB420:MariaProstitution.esp|(no EDID)/Prompt",
+        "MariaProstitution.json:DialogTopic|26C124:MariaProstitution.esp|MEPMainStaffTopic/Name",
+        "MariaProstitution.json:DialogTopic|EEB41F:MariaProstitution.esp|MEPTavernTalkToBoss/Name",
+        "MariaProstitution.json:DialogTopic|EEB41F:MariaProstitution.esp|MEPTavernTalkToBoss/Responses[0]/Prompt"
+      ]
+    },
+    {
+      "id": "s01398",
+      "source": "Darf ich euch etwas zu Essen anbieten",
+      "existing_draft": "May I offer you something to eat?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|A58E30:MariaProstitution.esp|MEPTavernOfferMeet/Name"
+      ]
+    },
+    {
+      "id": "s01399",
+      "source": "Darf ich euch etwas zu trinken anbieten?",
+      "existing_draft": "May I offer you something to drink?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|337837:MariaProstitution.esp|MEPBarmaidVisitOffer/Name",
+        "MariaProstitution.json:DialogTopic|A58E27:MariaProstitution.esp|MEPTavernOfferDrinksDialog/Name"
+      ]
+    },
+    {
+      "id": "s01400",
+      "source": "Darf ich euch sprechen?",
+      "existing_draft": "May I speak to you?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|313F34:MariaProstitution.esp|MEPFreeBlowjobAskMasterBanchTopic/Name"
+      ]
+    },
+    {
+      "id": "s01401",
+      "source": "Darf ich euch um die Septims bitten?",
+      "existing_draft": "May I ask for my pay?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|62AF09:MariaProstitution.esp|MEPSharedAskForPayment1/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[670]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01402",
+      "source": "Darf ich euch um etwas bitten?",
+      "existing_draft": "May I ask for something?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|928B07:MariaProstitution.esp|(no EDID)/Prompt",
+        "MariaProstitution.json:DialogTopic|928B06:MariaProstitution.esp|MEPFollowerTradeTopic/Responses[0]/Prompt"
+      ]
+    },
+    {
+      "id": "s01403",
+      "source": "Darf ich euch um meinen Lohn bitten?",
+      "existing_draft": "May I ask for my wages?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|62AF0A:MariaProstitution.esp|MEPSharedAskForPayment2/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[671]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01404",
+      "source": "Darf ich fragen was mit ihrem Leichnam passieren wird?",
+      "existing_draft": "May I ask what will happen to her body?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8C85AE:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|8C85AD:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01405",
+      "source": "Darf ich ihr auch ein Messer an die Kehle halten wärend ich sie ficke? Ich liebe den Duft von Angstschweiß",
+      "existing_draft": "I hadn't thought of that, but now that you mention it, I might hold a knife to her throat while I fuck her. I love the scent of fear sweat",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|366C9F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|366C9B:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01406",
+      "source": "Darf ich ihr einmal dabei zuschauen?",
+      "existing_draft": "May I watch?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|1920E8:MariaProstitution.esp|(no EDID)/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|1920E7:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01407",
+      "source": "Darf ich mal anfassen?",
+      "existing_draft": "May I touch you?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|346B97:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|346B8B:MariaProstitution.esp|MEPBarmaidVisitHellos/Responses[11]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01408",
+      "source": "Darf ich mein Sklaven Halsband ablegen? Meine Freier sind so brutal zu mir",
+      "existing_draft": "May I take off my slave collar? My clients are so brutal to me",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|F2301B:MariaProstitution.esp|MEPTavernJobPleaseNoCollar/Name"
+      ]
+    },
+    {
+      "id": "s01409",
+      "source": "Darf ich mir eure Hure einmal genauer ansehen?",
+      "existing_draft": "May I look at your whore more closely?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|565453:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|565451:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01410",
+      "source": "Darf ich mir eure Sklavin einmal genauer ansehen?",
+      "existing_draft": "May I look at your slave more closely?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|565452:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|565451:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01411",
+      "source": "Darf ich mit euch Sprechen, Herr?",
+      "existing_draft": "May I speak to you, mistress?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|83029D:MariaProstitution.esp|MEPFarmerSlaveryHarvestFinishedTopic/Name"
+      ]
+    },
+    {
+      "id": "s01412",
+      "source": "Darf ich mit euch sprechen?",
+      "existing_draft": "May I speak to you?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|2FAEBE:MariaProstitution.esp|MEPPimpDialogTopic/Name",
+        "MariaProstitution.json:DialogTopic|3C20A4:MariaProstitution.esp|MEPGuardDialogTopic/Name",
+        "MariaProstitution.json:DialogTopic|4FC214:MariaProstitution.esp|MEPPimpGotoTavernTalkToPimpTopic/Name"
+      ]
+    },
+    {
+      "id": "s01413",
+      "source": "Darf ich sie auch würgen? Ich mag es den Frauen die Luft zu nehmen während ich in sie eindringe. Ihre Angst beflügelt meine Lust",
+      "existing_draft": "May I choke her? I like it when women can't breathe while I'm fucking them. Their fear fuels my lust",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|366C9C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|366C9B:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01414",
+      "source": "Darf ich zu euch sprechen?",
+      "existing_draft": "May I speak to you?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|099C78:MariaProstitution.esp|MEPCaravanSlaveTalkToGuardTopic/Name",
+        "MariaProstitution.json:DialogTopic|099C7C:MariaProstitution.esp|MEPCaravanSlaveTalkToOthersTopic/Name"
+      ]
+    },
+    {
+      "id": "s01415",
+      "source": "Darfst du auch nur Sperma und Urin zu dir nehmen?",
+      "existing_draft": "May I take in only sperm and urine?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|AE1DBD:MariaProstitution.esp|MEPPimpSlavesCumEatingTopic/Name"
+      ]
+    },
+    {
+      "id": "s01416",
+      "source": "Darüber sprechen wir noch, hoffentlich fängst du dir eine Krankheit bei ihr ein!",
+      "existing_draft": "We'll talk about that, hopefully you'll catch a disease from her!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8F148C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|8F148B:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01417",
+      "source": "Darum habe ich dich in einen Succubus verwandelt",
+      "existing_draft": "I turned you into a succubus",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|7C0A76:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|7C0A75:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01418",
+      "source": "Darum habe ich einen Hund mitgebracht, der sich die Nacht über um dich kümmern wird",
+      "existing_draft": "I brought a dog with me, who will take care of you for the night",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3E9179:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|3E9177:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01419",
+      "source": "Darum habe ich Hector mitgebracht, der sich die Nacht über um dich kümmern wird",
+      "existing_draft": "I brought Hector with me, who will take care of you for the night",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3E9178:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|3E9177:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01420",
+      "source": "Darum überlasse ich fortan dir die Wahl, wann du dich als Sklavin zu erkennen gibst.",
+      "existing_draft": "So that you'll have the choice to decide when to reveal yourself as a slave.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|1BFAE2:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|1BFAE1:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01421",
+      "source": "Darum werde ich deine Möse vorsorglich mit einem Gleitmittel behandeln",
+      "existing_draft": "I'll pre-lubricate your pussy with a lubricant",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|16E84C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|16E84B:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01422",
+      "source": "Darum wird keine unsere Stuten stöhnen wenn sie von hinten genommen wird",
+      "existing_draft": "So that none of our mares will moan when they're taken from behind",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|23E734:MariaProstitution.esp|MEPBrothelSharedTestAnalSex/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|23E731:MariaProstitution.esp|MEPBrothelShared/Responses[2]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01423",
+      "source": "Darum wirst du als Kahjiit verkleidet unter uns dienen",
+      "existing_draft": "So that you'll serve us as a kahjiit",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|0A3E87:MariaProstitution.esp|(no EDID)/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|0A3E86:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01424",
+      "source": "Das Anfangsgebot für diese hübsche Sklavin liegt bei 500 Septims",
+      "existing_draft": "The starting bid for this pretty slave is 500 septims",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|631219:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|631218:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01425",
+      "source": "Das Angebot ist ok, gibt es weitere Bedingungen?",
+      "existing_draft": "The offer is fine, are there any other conditions?",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|EE11C0:MariaProstitution.esp|MEPTavernServJobConditions/Name",
+        "MariaProstitution.json:DialogTopic|EE11C2:MariaProstitution.esp|MEPTavernJobDanceJobConditions/Name",
+        "MariaProstitution.json:DialogTopic|EE11C4:MariaProstitution.esp|MEPTavernJobWhoreJobCondition/Name"
+      ]
+    },
+    {
+      "id": "s01426",
+      "source": "Das Angebot war so gut dass ich nicht ablehnen konnte",
+      "existing_draft": "The offer was so good I couldn't refuse it",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3E9163:MariaProstitution.esp|(no EDID)/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|3E9162:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01427",
+      "source": "Das Auflecken von Sperma gehört zu deinen Aufgaben",
+      "existing_draft": "Sucking sperm is part of your duties",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|CDCDE7:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|CDCDE6:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01428",
+      "source": "Das bekommen unsere Sklaven Schüler sowieso, aber gut dass ihr das nochmal sagt",
+      "existing_draft": "Our slave students always get this, but it's good you're saying it again.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|7A309E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7A309D:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01429",
+      "source": "Das bekommen wir eigentlich nur wenn wir nicht tun was uns gasagt wird",
+      "existing_draft": "We usually only get this if we don't do what we're told.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|AF628A:MariaProstitution.esp|(no EDID)/Responses[3]/Text",
+        "MariaProstitution.json:DialogTopic|AF6289:MariaProstitution.esp|MEPPimpSlavesWhatIsElixirTopic/Responses[0]/Responses[3]/Text"
+      ]
+    },
+    {
+      "id": "s01430",
+      "source": "Das besondere an deiner Arbeit als Sklaven Hure ist, dass dein Freier alles mit dir tun darf was er will.",
+      "existing_draft": "What's special about your job as a slave whore is that your client can do anything with you that he wants.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB2CB:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB2CA:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01431",
+      "source": "Das Besondere an deiner Aufgabe ist dass du nicht nur uns sondern auch allen unseren Tieren dienst",
+      "existing_draft": "The special thing about your task is that you'll serve us and all our animals",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|5CFB97:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|5CFB96:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01432",
+      "source": "Das besondere an dem Zeichen ist die Unumkehrbarkeit.  Für dich wird es kein Weg mehr aus der Sklaverei geben",
+      "existing_draft": "What's special about the mark is its irreversibility. There will be no way out of slavery for you.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|32843E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B88EE8:MariaProstitution.esp|(no EDID)/Responses[5]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01433",
+      "source": "Das Besondere an dieser Arbeit ist, dass du die Gäste nackt oder in aufregender Kleidung bedienen wirst",
+      "existing_draft": "The special thing about this job is that you'll serve our guests naked or in exciting outfits",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|EE11BB:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|EE11BA:MariaProstitution.esp|MEPTavernJobServeJobOffer/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01434",
+      "source": "Das bisschen Sperma wird zum Überleben sicher nicht ausreichen und was anderes bekommst du nicht",
+      "existing_draft": "A little cum won't be enough to survive, and you won't get anything else.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|173A5B:MariaProstitution.esp|(no EDID)/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|173A5A:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01435",
+      "source": "Das bleibt da wo es hin gehört. Vielleicht später.",
+      "existing_draft": "Leave it where it belongs. Maybe later.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|993308:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|993301:MariaProstitution.esp|MEPFollowerAskRemoveCollarTopic/Responses[4]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01436",
+      "source": "Das Blut deiner Freier gehört mir. Du bekommst fortan nur das Blut von niederen Tieren",
+      "existing_draft": "The blood of your clients belongs to me. You'll only get the blood of lower animals from now on",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|597FCD:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|22F3FD:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01437",
+      "source": "Das Blut habe ich an einen speziellen Kunden verkauft, die Schweine Bauern mögen das Fleisch sowieso lieber gut abgehangen",
+      "existing_draft": "I sold the blood to a special customer, the pig farmers prefer well-hanging meat anyway",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8D78CB:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|8D78CA:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01438",
+      "source": "Das Brennen in deiner Möse wird in ein paar Stunden abklingen",
+      "existing_draft": "The burning in your pussy will subside in a few hours",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|A0CEC2:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|A0CEC1:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01439",
+      "source": "Das da drüben ist dein Mann oder?",
+      "existing_draft": "Is that your man over there?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|D516A8:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|D516A7:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01440",
+      "source": "Das da drüben ist deine Frau oder? Eine Lesbe bist du also, sieh mal einer an",
+      "existing_draft": "Is that your woman over there? A lesbian, I see.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|D516A9:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|D516A7:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01441",
+      "source": "Das darf ich nicht haben",
+      "existing_draft": "I can't have that.",
+      "contexts": [
+        "MariaProstitution.json:Quest|9AC91A:MariaProstitution.esp|MEPFetchForbiddenItems/Name"
+      ]
+    },
+    {
+      "id": "s01442",
+      "source": "Das du mich waschen darfst solltest du als Ehre betrachten.",
+      "existing_draft": "The fact that you can wash me should be an honor for you.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|CEC12E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|CEC12A:MariaProstitution.esp|(no EDID)/Responses[2]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01443",
+      "source": "Das Einreiten hat mir keinen Septim eingebracht aber viel Zeit gekostet. Das wirst du wieder gut machen",
+      "existing_draft": "Riding me didn't bring me any septims but a lot of time. You'll make that up",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3E4027:MariaProstitution.esp|(no EDID)/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|3E4026:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01444",
+      "source": "Das einzige von Wert an dir ist dein Herz",
+      "existing_draft": "The only valuable thing about you is your heart.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B289CD:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B289CC:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01445",
+      "source": "Das einzige was du hier darfst ist nackt zu tanzen, Sklavin!",
+      "existing_draft": "The only thing you're allowed to do here is dance naked, slave!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|732D10:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|A58E20:MariaProstitution.esp|MEPTavernHellos/Responses[7]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01446",
+      "source": "Das Einzige was eine Sklavin wie du zu essen bekommt ist Sperma. Geh zu Hector und lutsche seinen Schwanz",
+      "existing_draft": "The only thing a slave like you gets to eat is sperm. Go to Hector and suck his dick",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|C4E83D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|C4E839:MariaProstitution.esp|MEPPimpIAmHungryTopic/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01447",
+      "source": "Das Einzige was eine Sklavin wie du zu essen bekommt ist Sperma. Such dir einen Freier dem du seinen Schwanz lutschen kannst wenn du Hunger hast",
+      "existing_draft": "The only thing a slave like you gets to eat is sperm. Find a client who you can suck his dick when you're hungry",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|C4E83C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|C4E839:MariaProstitution.esp|MEPPimpIAmHungryTopic/Responses[3]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01448",
+      "source": "Das Elixier hat dich so dumm gemacht",
+      "existing_draft": "The elixir has made you so stupid",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|9C5FA7:MariaProstitution.esp|(no EDID)/Responses[2]/Text",
+        "MariaProstitution.json:DialogTopic|9AC960:MariaProstitution.esp|MEPFollowerWhatIsBrainDamagTopic/Responses[2]/Responses[2]/Text"
+      ]
+    },
+    {
+      "id": "s01449",
+      "source": "Das Elixier wird aus dir eine bessere Hure machen",
+      "existing_draft": "The elixir will make you a better whore",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|9BBD26:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|9BBD24:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01450",
+      "source": "Das Elixier wird von den Sklaven-Händler Gilden bereit gestellt. Der eine Septim ist nur symbolisch",
+      "existing_draft": "The elixir is provided by the slave traders' guild. The one septim is only symbolic",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|9BBD3F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|9BBD3E:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01451",
+      "source": "Das erinnert mich daran, dass deine Entjungerfung noch aussteht",
+      "existing_draft": "This reminds me that your initiation is still pending.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|E72658:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|DB1A8D:MariaProstitution.esp|MEPPoseDialogsHellos/Responses[3]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01452",
+      "source": "Das Fett brennt etwas, aber es wird dir helfen es zu ertragen",
+      "existing_draft": "The fat burns a bit, but it will help you endure it",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|AFB3C5:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|AFB3C4:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01453",
+      "source": "Das Fett brennt ziemlich stark wenn es mit deinen Wunden in Kontakt kommt aber es schützt dich vor Infektionen",
+      "existing_draft": "The oil burns quite strongly when it comes into contact with your wounds, but it protects you from infections.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|756456:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FACC8:MariaProstitution.esp|(no EDID)/Responses[5]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01454",
+      "source": "Das freut mich zu hören",
+      "existing_draft": "I'm glad to hear that.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6E28E9:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6E28E8:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01455",
+      "source": "Das freut mich. Bitte empfehlt ihre Dienste weiter",
+      "existing_draft": "I'm glad. Please recommend her services further.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FAE7F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FAE7D:MariaProstitution.esp|(no EDID)/Responses[7]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01456",
+      "source": "Das freut mich. Laßt mich eben schauen, ob sie noch lebt und weiterhin als Lust Sklavin benutzt werden kann!",
+      "existing_draft": "I'm glad. Let me check if she's still alive and can continue to be used as a pleasure slave!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8C8599:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|8C8598:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01457",
+      "source": "Das fühlt sich so geil an, ich glaube du wirst mir gleich auch noch meine Muschi lecken",
+      "existing_draft": "This feels so good, I think you'll be licking my pussy next.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|CE7020:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|CE7019:MariaProstitution.esp|(no EDID)/Responses[6]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01458",
+      "source": "Das fühlt sich so geil an, ich glaube du wirst mir gleich auch noch meinen Schwanz lutschen",
+      "existing_draft": "This feels so good, I think you'll be sucking my cock next.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|CE701F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|CE7019:MariaProstitution.esp|(no EDID)/Responses[5]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01459",
+      "source": "Das gebe ich dir doch gerne, hier",
+      "existing_draft": "I'll give you that here.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|EEB45D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|EEB45C:MariaProstitution.esp|MEPTavernGetSkooma/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01460",
+      "source": "Das gefällt mir, das wollte ich schon immer mal mit Frauen machen",
+      "existing_draft": "I like that, I've always wanted to do it with women.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6BE180:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogResponses|6BE1B4:MariaProstitution.esp|MEPSharedSpectatorBrabble43/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6BE189:MariaProstitution.esp|MEPSpectatorsSharedInfo/Responses[0]/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6BE1B6:MariaProstitution.esp|MEPSpectatorsBrabbleTopic/Responses[56]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01461",
+      "source": "Das gefällt mir!",
+      "existing_draft": "I like that!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|33784D:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogResponses|A0CEE0:MariaProstitution.esp|MEPSharedILikeThis/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[1054]/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|33784C:MariaProstitution.esp|MEPBarmaidVisitPlugAccept/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01462",
+      "source": "Das gehört von nun an mir!",
+      "existing_draft": "This now belongs to me!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8FB0DF:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|8FB0DE:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01463",
+      "source": "Das geht in Ordnung, vielleicht werde ich sie auch einmal bespielen!",
+      "existing_draft": "That's fine, maybe I'll play with her too!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB149:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB140:MariaProstitution.esp|(no EDID)/Responses[2]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01464",
+      "source": "Das geht in Ordnung. Wir haben Handelsverträge mit Nekromanten, die nehmen auch beschädigte Sklavinnen",
+      "existing_draft": "That's fine. We have trade agreements with necromancers, they take damaged slaves too.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3BCF54:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|3BCF53:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01465",
+      "source": "Das geht wenn sie entsprechend oft Sex hat. Mindestens 8 mal am Tag.",
+      "existing_draft": "That's fine if she has sex at least 8 times a day.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|1920F1:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|1920F0:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01466",
+      "source": "Das Geld für ihr Leben bezahlt ihr im Vorraus.",
+      "existing_draft": "The money for her life she pays in advance.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|DDA3D9:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|DD52D5:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01467",
+      "source": "Das Geld gehört mir!",
+      "existing_draft": "The money belongs to me!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|9AC913:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|9AC912:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01468",
+      "source": "Das Geld nehmt ihr doch locker wieder ein",
+      "existing_draft": "You'll take the money back easily.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|AD2A1E:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|2FB3C4:MariaProstitution.esp|(no EDID)/Responses[2]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01469",
+      "source": "Das Geld wirst du wieder rein holen. Heute keine Pause und nur harte Nummern. Verstanden?",
+      "existing_draft": "You'll have to earn the money again. No break today, only hard numbers. Got it?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|7DF198:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|7DF197:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01470",
+      "source": "Das Geschäft bei Orcs läuft anders ab, sie kaufen dich, benutzen dich und wenn sie mit dir fertig sind rufen sich mich und ich kaufe dich zurück",
+      "existing_draft": "The business with Orcs works differently; they buy you, use you, and when they're done with you, they call me and I buy you back.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|B749FF:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B749F7:MariaProstitution.esp|(no EDID)/Responses[2]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01471",
+      "source": "Das Geschlechtsteil einer Tempel Hure muss stets zu sehen sein",
+      "existing_draft": "The genitalia of a Temple Whore must always be visible.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|AA9E8A:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|AA9E89:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01472",
+      "source": "Das gilt natürlich auch für das Sperma von Hector. Wann immer Hector nach dir verlangt werde ich den Stöpsel für ihn heraus nehmen",
+      "existing_draft": "This also applies to Hector's cum. Whenever Hector wants you, I'll take the plug out for him.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|51E504:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|51E503:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01473",
+      "source": "Das ging schnell. Wann kann sie wieder gefickt werden?",
+      "existing_draft": "This was quick. When can she be fucked again?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|328468:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|B88E8F:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01474",
+      "source": "Das glaube ich erst wenn ich es mit meinen eigenen Augen sehe",
+      "existing_draft": "I won't believe it until I see it with my own eyes.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|C81A38:MariaProstitution.esp|MEPSharedIOnlyBelieveIfIWouldSeeIt/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[1337]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01475",
+      "source": "Das gleiche Bett wie letztes Mal?",
+      "existing_draft": "The same bed as last time?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6D866C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6D8663:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01476",
+      "source": "Das Gleitmittel scheint ja noch gut zu wirken, also alles halb so schlimm",
+      "existing_draft": "The lubricant seems to work well, so it's not so bad after all.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3DEF19:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|3D4CDA:MariaProstitution.esp|(no EDID)/Responses[2]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01477",
+      "source": "Das Gute kommt immer zum Schluss",
+      "existing_draft": "The good things always come last.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FAF05:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FAF04:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01478",
+      "source": "Das habe ich gesehen: nicht ausspucken sondern runterschlucken!",
+      "existing_draft": "I saw it: no spitting, only swallowing!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|31BD28:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogResponses|529B84:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|31BD25:MariaProstitution.esp|(no EDID)/Responses[2]/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|529B81:MariaProstitution.esp|(no EDID)/Responses[2]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01479",
+      "source": "Das habe ich jetzt gebraucht!",
+      "existing_draft": "I needed this now!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|FF2A57:MariaProstitution.esp|MEPSharedINeededThat/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[396]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01480",
+      "source": "Das habe ich mir interessanter vorgestellt, naja. Man sieht sich",
+      "existing_draft": "I thought this would be more interesting, well, see you around.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6D2662:MariaProstitution.esp|MEPSharedSpectatorGoodbye03/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6BE189:MariaProstitution.esp|MEPSpectatorsSharedInfo/Responses[85]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01481",
+      "source": "Das habe ich mir schon gedacht",
+      "existing_draft": "I already thought that.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|E25ACB:MariaProstitution.esp|MEPSharedIExpectedThis/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[287]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01482",
+      "source": "Das habe ich mir schon gedacht. Willkommen zurück, Sklavin!",
+      "existing_draft": "I already thought that. Welcome back, slave!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB21E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|0B0EE6:Skyrim.esm|DialogueFavorGenericFollowBranchTopic/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01483",
+      "source": "Das habt ihr gut gemacht, vielen Dank",
+      "existing_draft": "You did a good job, thank you.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|64567A:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|645679:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01484",
+      "source": "Das habt ihr gut gemacht. Ich danke euch!",
+      "existing_draft": "You did a good job. Thank you!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|7BB945:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7BB944:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01485",
+      "source": "Das Halsband ist gut",
+      "existing_draft": "The collar is good.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FB758:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FB757:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01486",
+      "source": "Das halte ich für keine gute Idee, du ganz allein da draußen",
+      "existing_draft": "I don't think that's a good idea, you're all alone out there.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|9145FF:MariaProstitution.esp|MEPSharedBadIdeaToGoAlone/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[864]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01487",
+      "source": "Das Handwerk den Männern, das Bett den Frauen. Wozu sonst schufen euch die Götter mit Mösen?",
+      "existing_draft": "The trade of women for pleasure is what the gods gave you for a reason.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|3D9E08:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|3D9DFB:MariaProstitution.esp|(no EDID)/Responses[7]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01488",
+      "source": "Das hast du davon wenn du meinen Befehlen nicht folgst",
+      "existing_draft": "You get what you don't follow my orders.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|FCA21A:MariaProstitution.esp|MEPSharedThatHappensIfYouDontObey/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[389]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01489",
+      "source": "Das hast du davon wenn du solche Schuhe trägst du dumme Hure!",
+      "existing_draft": "You get what you wear such shoes, you stupid whore!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|956541:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7DA03E:MariaProstitution.esp|MEPDialogsStumblingTopic/Responses[32]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01490",
+      "source": "Das hast du davon wenn du solche Schuhe trägst du dumme Sklavin!",
+      "existing_draft": "You get what you wear such shoes, you stupid slave!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|956540:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7DA03E:MariaProstitution.esp|MEPDialogsStumblingTopic/Responses[31]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01491",
+      "source": "Das hast du dir verdient!",
+      "existing_draft": "You deserve that!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|D92BF0:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|D92BEF:MariaProstitution.esp|MEPTavernOfferSpecialPayment/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01492",
+      "source": "Das hast du fein gemacht",
+      "existing_draft": "You did well.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6E2967:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6E2966:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01493",
+      "source": "Das hast du gut gemacht Hector, braver Hund!",
+      "existing_draft": "You did well, Hector, good boy!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|22F3F8:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|22F3F7:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01494",
+      "source": "Das hast du gut gemacht mein Hengst!",
+      "existing_draft": "You did well, my stallion!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FAF3E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FAF3D:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01495",
+      "source": "Das hast du gut gemacht. Wir werden das einmal pro Woche machen damit du gut in Form bleibst.",
+      "existing_draft": "You did well. We'll do this once a week to keep you in shape.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|16E898:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|16E897:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01496",
+      "source": "Das hast du nun davon, nackt und gefesselt",
+      "existing_draft": "You get what you are now, naked and bound.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2FFA75:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2FFA74:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01497",
+      "source": "Das hat bestimmt weh getan, hier kauf dir Medizin",
+      "existing_draft": "That probably hurt, buy some medicine here.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|D8388C:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|D8388B:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01498",
+      "source": "Das hat bestimmt weh getan, oder?",
+      "existing_draft": "That probably hurt, right?",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|95B64F:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|7DA03E:MariaProstitution.esp|MEPDialogsStumblingTopic/Responses[36]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01499",
+      "source": "Das hat gut getan, du bist wie geschaffen zum Schwänze lutschen",
+      "existing_draft": "That felt good. You're perfect for sucking penises.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|AE6B4E:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|AE6B47:MariaProstitution.esp|(no EDID)/Responses[6]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01500",
+      "source": "Das hat gut getan! Was für eine geile Sklavin du warst, Natascha",
+      "existing_draft": "That felt good! What a slut you were, Natascha.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|8C8591:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|8C8590:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01501",
+      "source": "Das hat gut getan. Jetzt geht es mir gleich viel besser",
+      "existing_draft": "That felt good. Now I feel much better.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|6D77A6:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|6D77A4:MariaProstitution.esp|(no EDID)/Responses[1]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01502",
+      "source": "Das hat leider seinen Preis",
+      "existing_draft": "That has a price.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|5654A4:MariaProstitution.esp|(no EDID)/Responses[1]/Text",
+        "MariaProstitution.json:DialogTopic|5654A3:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[1]/Text"
+      ]
+    },
+    {
+      "id": "s01503",
+      "source": "Das hat mich auf den Geschmack gebracht, nachher will ich dich ficken",
+      "existing_draft": "That got me interested, after this I want to fuck you.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|AB91D3:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|AB91D1:MariaProstitution.esp|(no EDID)/Responses[4]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01504",
+      "source": "Das hat richtig gut getan",
+      "existing_draft": "That felt good. You were a great slut, Natascha.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|2489AF:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|2489AE:MariaProstitution.esp|(no EDID)/Responses[0]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01505",
+      "source": "Das hat Spaß gemacht!",
+      "existing_draft": "That was fun!",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|453832:MariaProstitution.esp|MEPSharedThatWasFun/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|104238:MariaProstitution.esp|MEPShared/Responses[600]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01506",
+      "source": "Das hier endet erst wenn ich meine Septims und deine Zuschauer ihren Spaß hatten",
+      "existing_draft": "This ends only when I've had my septims and my audience has had their fun.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|691776:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|691772:MariaProstitution.esp|(no EDID)/Responses[3]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01507",
+      "source": "Das hier sieht übel aus, keine Ahnung ob das Sperma ist aber du wirst auch das auflecken",
+      "existing_draft": "This looks bad, I don't know if it's semen but you'll have to lick it up.",
+      "contexts": [
+        "MariaProstitution.json:DialogResponses|AE6B63:MariaProstitution.esp|(no EDID)/Responses[0]/Text",
+        "MariaProstitution.json:DialogTopic|AE6B5F:MariaProstitution.esp|(no EDID)/Responses[3]/Responses[0]/Text"
+      ]
+    },
+    {
+      "id": "s01508",
+      "source": "Das hier...",
+      "existing_draft": "This...",
+      "contexts": [
+        "MariaProstitution.json:DialogTopic|A17113:MariaProstitution.esp|MEPFollowerDoFavorTopic/Name"
+      ]
+    }
+  ]
+}

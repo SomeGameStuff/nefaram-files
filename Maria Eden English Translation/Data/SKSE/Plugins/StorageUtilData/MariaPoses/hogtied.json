@@ -1,0 +1,15 @@
+{
+    "int":  {
+                "id":  15,
+                "nohh":  1
+            },
+    "string":  {
+                   "name":  "Hogtied",
+                   "group":  "BDSM"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "ZapWriPose12"
+                               ]
+                   }
+}

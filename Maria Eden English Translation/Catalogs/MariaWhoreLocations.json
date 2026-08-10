@@ -1,0 +1,325 @@
+[
+  {
+    "Source": "Alvina",
+    "English": "",
+    "Contexts": [
+      "Npc|094927:MariaWhoreLocations.esp|WhiterunBrothelHelper/ShortName"
+    ]
+  },
+  {
+    "Source": "Alvina Endring",
+    "English": "",
+    "Contexts": [
+      "Npc|094927:MariaWhoreLocations.esp|WhiterunBrothelHelper/Name"
+    ]
+  },
+  {
+    "Source": "Andrea",
+    "English": "",
+    "Contexts": [
+      "Npc|59AFB3:MariaWhoreLocations.esp|WhitrunBrothelBard/Name"
+    ]
+  },
+  {
+    "Source": "Dibellas Heaven",
+    "English": "",
+    "Contexts": [
+      "Cell|308822:MariaWhoreLocations.esp|00MarkathBrothel/Name",
+      "Location|3BEEF0:MariaWhoreLocations.esp|MarkathBrothelLocation/Name"
+    ]
+  },
+  {
+    "Source": "Die Beflaggte M\u00C3\u00A4hre",
+    "English": "",
+    "Contexts": [
+      "Cell|01605E:Skyrim.esm|WhiterunBanneredMare/Name",
+      "Location|01F86D:Skyrim.esm|WhiterunBanneredMareLocation/Name"
+    ]
+  },
+  {
+    "Source": "Doll House Bordell",
+    "English": "",
+    "Contexts": [
+      "Cell|000D74:Skyrim.esm|(no EDID)/Persistent[0]/MapMarker/Name",
+      "PlacedObject|0C7394:MariaWhoreLocations.esp|DollHouseMapMarker/MapMarker/Name",
+      "Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[0]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "DollHouse",
+    "English": "",
+    "Contexts": [
+      "Cell|052976:MariaWhoreLocations.esp|00WhiterunBrothel/Name"
+    ]
+  },
+  {
+    "Source": "Dollhaus",
+    "English": "",
+    "Contexts": [
+      "Location|08F81C:MariaWhoreLocations.esp|WhiterunBrothelLocation/Name"
+    ]
+  },
+  {
+    "Source": "Drunken Sailor",
+    "English": "",
+    "Contexts": [
+      "Cell|00F09A:MariaWhoreLocations.esp|00WindhelmBrothel/Name",
+      "Location|0175F7:MariaWhoreLocations.esp|WindhelmBrothelLocation/Name"
+    ]
+  },
+  {
+    "Source": "Drunken Sailor Bordell",
+    "English": "",
+    "Contexts": [
+      "Cell|000D74:Skyrim.esm|(no EDID)/Persistent[6]/MapMarker/Name",
+      "PlacedObject|01BCA0:MariaWhoreLocations.esp|DrunkenSailorMapMarker/MapMarker/Name",
+      "Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[6]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "DrunkenSailorFaction",
+    "English": "",
+    "Contexts": [
+      "Faction|01CCD2:MariaWhoreLocations.esp|DrunkenSailorFaction/Name"
+    ]
+  },
+  {
+    "Source": "Eldrid",
+    "English": "",
+    "Contexts": [
+      "Npc|002107:MariaWhoreLocations.esp|RiftenBrothelPimp/ShortName"
+    ]
+  },
+  {
+    "Source": "Eldrid Reichenberg",
+    "English": "",
+    "Contexts": [
+      "Npc|002107:MariaWhoreLocations.esp|RiftenBrothelPimp/Name"
+    ]
+  },
+  {
+    "Source": "Himmelsrand",
+    "English": "",
+    "Contexts": [
+      "Worldspace|00003C:Skyrim.esm|Tamriel/Name"
+    ]
+  },
+  {
+    "Source": "Hure",
+    "English": "",
+    "Contexts": [
+      "Npc|029142:MariaWhoreLocations.esp|MarkathBrothelWhore/Name",
+      "Npc|57278F:MariaWhoreLocations.esp|WindhelmBrothelWhore/Name",
+      "Npc|572792:MariaWhoreLocations.esp|WhiterunBrothelWhore1/Name",
+      "Npc|572793:MariaWhoreLocations.esp|WhiterunBrothelWhore2/Name",
+      "Npc|572796:MariaWhoreLocations.esp|RiftenBrothelWhore1/Name",
+      "Npc|572797:MariaWhoreLocations.esp|RiftenBrothelWhore2/Name",
+      "Npc|572799:MariaWhoreLocations.esp|WinterfesteBrothelWhore/Name"
+    ]
+  },
+  {
+    "Source": "Ildrid",
+    "English": "",
+    "Contexts": [
+      "Npc|3BEEF7:MariaWhoreLocations.esp|MarkathBrothelPimp/ShortName"
+    ]
+  },
+  {
+    "Source": "Ildrid Gr\u00FCnwald",
+    "English": "",
+    "Contexts": [
+      "Npc|3BEEF7:MariaWhoreLocations.esp|MarkathBrothelPimp/Name"
+    ]
+  },
+  {
+    "Source": "Julia",
+    "English": "",
+    "Contexts": [
+      "Npc|581AA3:MariaWhoreLocations.esp|WindhelmBrothelBard/Name"
+    ]
+  },
+  {
+    "Source": "Katjana",
+    "English": "",
+    "Contexts": [
+      "Npc|59AFB6:MariaWhoreLocations.esp|RiftenBrothelBard/Name"
+    ]
+  },
+  {
+    "Source": "Lisa",
+    "English": "",
+    "Contexts": [
+      "Npc|01AC4E:MariaWhoreLocations.esp|WindhelmBrothelHelper/ShortName"
+    ]
+  },
+  {
+    "Source": "Lisa Brodwin",
+    "English": "",
+    "Contexts": [
+      "Npc|01AC4E:MariaWhoreLocations.esp|WindhelmBrothelHelper/Name"
+    ]
+  },
+  {
+    "Source": "Love Inn Bordell",
+    "English": "",
+    "Contexts": [
+      "Cell|000D74:Skyrim.esm|(no EDID)/Persistent[7]/MapMarker/Name",
+      "PlacedObject|02B19E:MariaWhoreLocations.esp|LoveInnMapMarker/MapMarker/Name",
+      "Worldspace|00003C:Skyrim.esm|Tamriel/TopCell/Persistent[7]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "Love-Inn",
+    "English": "",
+    "Contexts": [
+      "Cell|187A25:MariaWhoreLocations.esp|00WinterfesteBrothel/Name",
+      "Location|18CB4E:MariaWhoreLocations.esp|WinterfesteBrothelLocation/Name"
+    ]
+  },
+  {
+    "Source": "Lust Hund",
+    "English": "",
+    "Contexts": [
+      "Npc|029146:MariaWhoreLocations.esp|BrothelDog/Name"
+    ]
+  },
+  {
+    "Source": "Marina",
+    "English": "",
+    "Contexts": [
+      "Npc|1BA4AA:MariaWhoreLocations.esp|WinterfesteBrothelPimp/ShortName"
+    ]
+  },
+  {
+    "Source": "Marina Grauschmiede",
+    "English": "",
+    "Contexts": [
+      "Npc|1BA4AA:MariaWhoreLocations.esp|WinterfesteBrothelPimp/Name"
+    ]
+  },
+  {
+    "Source": "Markarth",
+    "English": "",
+    "Contexts": [
+      "Worldspace|016D71:Skyrim.esm|MarkarthWorld/Name"
+    ]
+  },
+  {
+    "Source": "Marta",
+    "English": "",
+    "Contexts": [
+      "Npc|08F819:MariaWhoreLocations.esp|WhiterunBrothelPimp/ShortName"
+    ]
+  },
+  {
+    "Source": "Marta Anderlinger",
+    "English": "",
+    "Contexts": [
+      "Npc|08F819:MariaWhoreLocations.esp|WhiterunBrothelPimp/Name"
+    ]
+  },
+  {
+    "Source": "Natalia",
+    "English": "",
+    "Contexts": [
+      "Npc|002102:MariaWhoreLocations.esp|RiftenBrothelHelper/ShortName"
+    ]
+  },
+  {
+    "Source": "Natalia Kunigschneider",
+    "English": "",
+    "Contexts": [
+      "Npc|002102:MariaWhoreLocations.esp|RiftenBrothelHelper/Name"
+    ]
+  },
+  {
+    "Source": "Nina",
+    "English": "",
+    "Contexts": [
+      "Npc|01A6E1:MariaWhoreLocations.esp|WindhelmBrothelPimp/ShortName"
+    ]
+  },
+  {
+    "Source": "Nina die Kaltherzige",
+    "English": "",
+    "Contexts": [
+      "Npc|01A6E1:MariaWhoreLocations.esp|WindhelmBrothelPimp/Name"
+    ]
+  },
+  {
+    "Source": "Rifton",
+    "English": "",
+    "Contexts": [
+      "Worldspace|016BB4:Skyrim.esm|RiftenWorld/Name"
+    ]
+  },
+  {
+    "Source": "Rifton Club",
+    "English": "",
+    "Contexts": [
+      "Cell|000D62:MariaWhoreLocations.esp|00RiftenBrothel/Name",
+      "Location|01622F:MariaWhoreLocations.esp|RiftenBrothelLocation/Name"
+    ]
+  },
+  {
+    "Source": "Rifton Club Bordell",
+    "English": "",
+    "Contexts": [
+      "Cell|016BE0:Skyrim.esm|(no EDID)/Persistent[1]/MapMarker/Name",
+      "PlacedObject|016230:MariaWhoreLocations.esp|RiftenBrothelMapMarker/MapMarker/Name",
+      "Worldspace|016BB4:Skyrim.esm|RiftenWorld/TopCell/Persistent[1]/MapMarker/Name"
+    ]
+  },
+  {
+    "Source": "Sabrina",
+    "English": "",
+    "Contexts": [
+      "Npc|3BEEF9:MariaWhoreLocations.esp|MarkathBrothelHelper/ShortName"
+    ]
+  },
+  {
+    "Source": "Sabrina Wudran",
+    "English": "",
+    "Contexts": [
+      "Npc|3BEEF9:MariaWhoreLocations.esp|MarkathBrothelHelper/Name"
+    ]
+  },
+  {
+    "Source": "Sex Spielzeuge",
+    "English": "",
+    "Contexts": [
+      "Container|028BDA:MariaWhoreLocations.esp|ZbfDresser/Name"
+    ]
+  },
+  {
+    "Source": "T\u00E4nzerin",
+    "English": "",
+    "Contexts": [
+      "Npc|02913F:MariaWhoreLocations.esp|MarkathBrothelDancer/Name",
+      "Npc|572794:MariaWhoreLocations.esp|WhiterunBrothelDancer/Name",
+      "Npc|572798:MariaWhoreLocations.esp|RiftenBrothelDancer/Name"
+    ]
+  },
+  {
+    "Source": "Verona",
+    "English": "",
+    "Contexts": [
+      "Npc|1D39B4:MariaWhoreLocations.esp|WinterfesteBrothelHelper/ShortName"
+    ]
+  },
+  {
+    "Source": "Verona Blaufu\u00DF",
+    "English": "",
+    "Contexts": [
+      "Npc|1D39B4:MariaWhoreLocations.esp|WinterfesteBrothelHelper/Name"
+    ]
+  },
+  {
+    "Source": "Zwinkernder Skeever",
+    "English": "",
+    "Contexts": [
+      "Cell|016A0E:Skyrim.esm|SolitudeWinkingSkeever/Name",
+      "Location|0200A5:Skyrim.esm|SolitudeWinkingSkeeverLocation/Name"
+    ]
+  }
+]

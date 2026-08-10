@@ -1,0 +1,15 @@
+{
+    "int":  {
+                "id":  50,
+                "lock":  0
+            },
+    "string":  {
+                   "name":  "Sweep",
+                   "group":  "Actions"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "idleLooseSweepingStart"
+                               ]
+                   }
+}

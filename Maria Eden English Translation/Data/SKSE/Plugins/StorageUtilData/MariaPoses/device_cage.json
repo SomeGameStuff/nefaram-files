@@ -1,0 +1,33 @@
+{
+    "int":  {
+                "id":  101
+            },
+    "string":  {
+                   "name":  "Pole cage",
+                   "group":  "BDSM",
+                   "sound_female_entry":  "zbfxSoundCageClose",
+                   "sound_female_exit":  "zbfxSoundCageOpen",
+                   "sound_male_entry":  "zbfxSoundCageClose",
+                   "sound_male_exit":  "zbfxSoundCageOpen"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "ZazAPCAO002"
+                                ],
+                       "female":  [
+                                      "ZazAPCAO002"
+                                  ],
+                       "fullboundmale":  [
+                                             "ZazAPCAO001"
+                                         ],
+                       "fullboundfemale":  [
+                                               "ZazAPCAO001"
+                                           ],
+                       "boundmale":  [
+                                         "ZazAPCAO001"
+                                     ],
+                       "boundfemale":  [
+                                           "ZazAPCAO001"
+                                       ]
+                   }
+}

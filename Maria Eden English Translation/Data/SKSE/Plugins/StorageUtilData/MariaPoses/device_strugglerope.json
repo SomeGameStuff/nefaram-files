@@ -1,0 +1,19 @@
+{
+    "int":  {
+                "id":  200
+            },
+    "string":  {
+                   "name":  "Strangling rope",
+                   "group":  "BDSM",
+                   "sound_device":  "zbfxSoundFastCreak",
+                   "sound_female":  "MariaSoundStruggleRope",
+                   "sound_female_exit":  "zbfxSoundFemaleBreathing",
+                   "sound_male":  "zbfxSoundMaleChoking",
+                   "sound_male_exit":  "zbfxSoundMaleBreathing"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "MariaLongRope_Struggle"
+                               ]
+                   }
+}

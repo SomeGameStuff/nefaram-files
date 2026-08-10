@@ -1,0 +1,41 @@
+{
+    "name":  "Men\u0027s outfits",
+    "outfits":  [
+                    "MariaClothingMaster",
+                    "MariaClothingSlave",
+                    "MariaClothingGuard",
+                    "MariaClothingPimp",
+                    "MariaClothingPrisoner",
+                    "MariaClothingStaff"
+                ],
+    "MariaClothingGuard":  {
+                               "name":  "Slave guard",
+                               "faction":  "MariaFaction_Slave",
+                               "template":  "MariasOutfitMaleGuard"
+                           },
+    "MariaClothingMaster":  {
+                                "name":  "Master",
+                                "faction":  "MariaFaction_Master",
+                                "template":  "MariasOutfitMaledom"
+                            },
+    "MariaClothingPimp":  {
+                              "name":  "Pimp",
+                              "faction":  "MariaFaction_Pimp",
+                              "template":  "MariasOutfitMalePimp"
+                          },
+    "MariaClothingPrisoner":  {
+                                  "name":  "Prisoner",
+                                  "faction":  "dunPrisonerFaction",
+                                  "template":  "MariasOutfitMalePrisoner"
+                              },
+    "MariaClothingSlave":  {
+                               "name":  "Slave",
+                               "faction":  "MariaFaction_Slave",
+                               "template":  "MariasOutfitMaleSlave"
+                           },
+    "MariaClothingStaff":  {
+                               "name":  "Assistant",
+                               "faction":  "MariaFaction_PimpHelper",
+                               "template":  "MariasOutfitMaleStaff"
+                           }
+}

@@ -1,0 +1,19 @@
+{
+    "int":  {
+                "id":  2020,
+                "nohh":  1,
+                "npc_distance":  1,
+                "npc_angle":  180
+            },
+    "string":  {
+                   "name":  "Foot on face",
+                   "group":  "Paired",
+                   "npc":  "anub_feetface_A1_S1",
+                   "player":  "anub_feetface_A2_S1"
+               },
+    "intlist":  {
+                    "strip_npc_slot":  [
+                                           37
+                                       ]
+                }
+}

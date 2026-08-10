@@ -1,0 +1,15 @@
+{
+    "int":  {
+                "id":  53,
+                "nohh":  1
+            },
+    "string":  {
+                   "name":  "Serve as table",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "xTableSmallEnter"
+                               ]
+                   }
+}

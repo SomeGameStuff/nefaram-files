@@ -1,0 +1,311 @@
+{
+  "unique_strings": 12911,
+  "batch_count": 61,
+  "batches": [
+    {
+      "file": "batch-000.json",
+      "batch_id": "batch-000-544928f25133e3d7",
+      "count": 176
+    },
+    {
+      "file": "batch-001.json",
+      "batch_id": "batch-001-545fccd624c27c4d",
+      "count": 214
+    },
+    {
+      "file": "batch-002.json",
+      "batch_id": "batch-002-28896855bd842176",
+      "count": 211
+    },
+    {
+      "file": "batch-003.json",
+      "batch_id": "batch-003-64508bccf40f8279",
+      "count": 238
+    },
+    {
+      "file": "batch-004.json",
+      "batch_id": "batch-004-862f7be604fe4f16",
+      "count": 230
+    },
+    {
+      "file": "batch-005.json",
+      "batch_id": "batch-005-294f053e64aec626",
+      "count": 227
+    },
+    {
+      "file": "batch-006.json",
+      "batch_id": "batch-006-f4815315133db780",
+      "count": 213
+    },
+    {
+      "file": "batch-007.json",
+      "batch_id": "batch-007-543845adc9de3d25",
+      "count": 203
+    },
+    {
+      "file": "batch-008.json",
+      "batch_id": "batch-008-cea34594f5216908",
+      "count": 204
+    },
+    {
+      "file": "batch-009.json",
+      "batch_id": "batch-009-501144a880bbd9ba",
+      "count": 195
+    },
+    {
+      "file": "batch-010.json",
+      "batch_id": "batch-010-1e165e5eef16a3d9",
+      "count": 206
+    },
+    {
+      "file": "batch-011.json",
+      "batch_id": "batch-011-c519315f2ff537f6",
+      "count": 200
+    },
+    {
+      "file": "batch-012.json",
+      "batch_id": "batch-012-179a2cdae8dd6227",
+      "count": 204
+    },
+    {
+      "file": "batch-013.json",
+      "batch_id": "batch-013-9879ac5641f086df",
+      "count": 204
+    },
+    {
+      "file": "batch-014.json",
+      "batch_id": "batch-014-33965bf08d1a4513",
+      "count": 196
+    },
+    {
+      "file": "batch-015.json",
+      "batch_id": "batch-015-333ee52d435ac614",
+      "count": 199
+    },
+    {
+      "file": "batch-016.json",
+      "batch_id": "batch-016-dadc2f38fa2f4bbd",
+      "count": 211
+    },
+    {
+      "file": "batch-017.json",
+      "batch_id": "batch-017-ecf4b0e92dd39c53",
+      "count": 194
+    },
+    {
+      "file": "batch-018.json",
+      "batch_id": "batch-018-8bfdc68eb4ad24dd",
+      "count": 207
+    },
+    {
+      "file": "batch-019.json",
+      "batch_id": "batch-019-20bcb9499370d57b",
+      "count": 191
+    },
+    {
+      "file": "batch-020.json",
+      "batch_id": "batch-020-3f138c2660cb56c5",
+      "count": 226
+    },
+    {
+      "file": "batch-021.json",
+      "batch_id": "batch-021-5d955b7b71693097",
+      "count": 228
+    },
+    {
+      "file": "batch-022.json",
+      "batch_id": "batch-022-0aaffd501157fc07",
+      "count": 223
+    },
+    {
+      "file": "batch-023.json",
+      "batch_id": "batch-023-f102621b3825a948",
+      "count": 218
+    },
+    {
+      "file": "batch-024.json",
+      "batch_id": "batch-024-9bb174acc411c572",
+      "count": 217
+    },
+    {
+      "file": "batch-025.json",
+      "batch_id": "batch-025-338c4036fed77e59",
+      "count": 219
+    },
+    {
+      "file": "batch-026.json",
+      "batch_id": "batch-026-e0c5d2b233a82218",
+      "count": 214
+    },
+    {
+      "file": "batch-027.json",
+      "batch_id": "batch-027-c034c29cd9a28055",
+      "count": 196
+    },
+    {
+      "file": "batch-028.json",
+      "batch_id": "batch-028-76a2c6a8066ac19d",
+      "count": 199
+    },
+    {
+      "file": "batch-029.json",
+      "batch_id": "batch-029-9b9cc2dc55492f2e",
+      "count": 194
+    },
+    {
+      "file": "batch-030.json",
+      "batch_id": "batch-030-a0fa333c6ab1a267",
+      "count": 205
+    },
+    {
+      "file": "batch-031.json",
+      "batch_id": "batch-031-0ecfdcdd1f16a7da",
+      "count": 196
+    },
+    {
+      "file": "batch-032.json",
+      "batch_id": "batch-032-a873d14253a5b18a",
+      "count": 205
+    },
+    {
+      "file": "batch-033.json",
+      "batch_id": "batch-033-ee5d45722b204d60",
+      "count": 200
+    },
+    {
+      "file": "batch-034.json",
+      "batch_id": "batch-034-ddbbf4dec0101ccc",
+      "count": 198
+    },
+    {
+      "file": "batch-035.json",
+      "batch_id": "batch-035-73f87e085375449a",
+      "count": 210
+    },
+    {
+      "file": "batch-036.json",
+      "batch_id": "batch-036-45e35a63a34269f5",
+      "count": 216
+    },
+    {
+      "file": "batch-037.json",
+      "batch_id": "batch-037-b6203662630e04bc",
+      "count": 230
+    },
+    {
+      "file": "batch-038.json",
+      "batch_id": "batch-038-fe94c30d190378a0",
+      "count": 235
+    },
+    {
+      "file": "batch-039.json",
+      "batch_id": "batch-039-db6e721ef9314882",
+      "count": 227
+    },
+    {
+      "file": "batch-040.json",
+      "batch_id": "batch-040-eb31a49386874d38",
+      "count": 202
+    },
+    {
+      "file": "batch-041.json",
+      "batch_id": "batch-041-a62a2110d9261550",
+      "count": 208
+    },
+    {
+      "file": "batch-042.json",
+      "batch_id": "batch-042-3625d4ed16e7f65d",
+      "count": 209
+    },
+    {
+      "file": "batch-043.json",
+      "batch_id": "batch-043-5b1377a29d772a8c",
+      "count": 211
+    },
+    {
+      "file": "batch-044.json",
+      "batch_id": "batch-044-de47d55fb12a7270",
+      "count": 208
+    },
+    {
+      "file": "batch-045.json",
+      "batch_id": "batch-045-9a04d05d960acf66",
+      "count": 236
+    },
+    {
+      "file": "batch-046.json",
+      "batch_id": "batch-046-b682acdf05b29a98",
+      "count": 223
+    },
+    {
+      "file": "batch-047.json",
+      "batch_id": "batch-047-b45962e1326d2d93",
+      "count": 220
+    },
+    {
+      "file": "batch-048.json",
+      "batch_id": "batch-048-050b3985ceb941b4",
+      "count": 195
+    },
+    {
+      "file": "batch-049.json",
+      "batch_id": "batch-049-ded847e94ad3439f",
+      "count": 229
+    },
+    {
+      "file": "batch-050.json",
+      "batch_id": "batch-050-06c2078b725ad5ae",
+      "count": 250
+    },
+    {
+      "file": "batch-051.json",
+      "batch_id": "batch-051-84032f5bf7a816c7",
+      "count": 218
+    },
+    {
+      "file": "batch-052.json",
+      "batch_id": "batch-052-980bbf8ff9f3f06c",
+      "count": 205
+    },
+    {
+      "file": "batch-053.json",
+      "batch_id": "batch-053-138d820e4fc87601",
+      "count": 230
+    },
+    {
+      "file": "batch-054.json",
+      "batch_id": "batch-054-0a336dc3cf91fdeb",
+      "count": 224
+    },
+    {
+      "file": "batch-055.json",
+      "batch_id": "batch-055-aabc1977b479dac2",
+      "count": 238
+    },
+    {
+      "file": "batch-056.json",
+      "batch_id": "batch-056-5eb9f8b26cc46be9",
+      "count": 225
+    },
+    {
+      "file": "batch-057.json",
+      "batch_id": "batch-057-bf2092bb6f1824f0",
+      "count": 231
+    },
+    {
+      "file": "batch-058.json",
+      "batch_id": "batch-058-8475b68c8b4f7672",
+      "count": 237
+    },
+    {
+      "file": "batch-059.json",
+      "batch_id": "batch-059-83b6867dd1df758f",
+      "count": 250
+    },
+    {
+      "file": "batch-060.json",
+      "batch_id": "batch-060-9c16decfed816694",
+      "count": 83
+    }
+  ]
+}

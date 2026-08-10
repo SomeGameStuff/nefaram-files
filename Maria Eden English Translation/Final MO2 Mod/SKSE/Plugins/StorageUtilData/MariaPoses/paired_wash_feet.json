@@ -1,0 +1,19 @@
+{
+    "int":  {
+                "id":  1991,
+                "nohh":  1,
+                "npc_distance":  1,
+                "npc_angle":  0
+            },
+    "string":  {
+                   "name":  "Wash feet",
+                   "group":  "Paired",
+                   "npc":  "WashFeet1_A1_S1",
+                   "player":  "WashFeet1_A2_S1"
+               },
+    "intlist":  {
+                    "strip_npc_slot":  [
+                                           37
+                                       ]
+                }
+}
