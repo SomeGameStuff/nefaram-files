@@ -1,28 +1,28 @@
 [
   {
     "Source": "Einsamkeit",
-    "English": "",
+    "English": "Solitude",
     "Contexts": [
       "Worldspace|037EDF:Skyrim.esm|SolitudeWorld/Name"
     ]
   },
   {
     "Source": "Himmelsrand",
-    "English": "",
+    "English": "Skyrim",
     "Contexts": [
       "Worldspace|00003C:Skyrim.esm|Tamriel/Name"
     ]
   },
   {
     "Source": "Rifton",
-    "English": "",
+    "English": "Riften",
     "Contexts": [
       "Worldspace|016BB4:Skyrim.esm|RiftenWorld/Name"
     ]
   },
   {
-    "Source": "Wei\u00C3\u0178lauf",
-    "English": "",
+    "Source": "WeiÃŸlauf",
+    "English": "Whiterun",
     "Contexts": [
       "Worldspace|01A26F:Skyrim.esm|WhiterunWorld/Name"
     ]

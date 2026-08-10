@@ -1,42 +1,42 @@
 [
   {
     "Source": "Aktiviere Pranger",
-    "English": "",
+    "English": "Activate the Pillory",
     "Contexts": [
       "Activator|2D69E7:MariaDevices.esp|MEDWhippingEnabler/ActivateTextOverride"
     ]
   },
   {
     "Source": "Aktiviere den Block",
-    "English": "",
+    "English": "Activate the Chopping Block",
     "Contexts": [
       "Activator|2E5CFA:MariaDevices.esp|MEDHeadChopEnabler/ActivateTextOverride"
     ]
   },
   {
     "Source": "Aktiviere den Galgen",
-    "English": "",
+    "English": "Activate the Gallows",
     "Contexts": [
       "Activator|2D69E6:MariaDevices.esp|MEDGallowsEnabler/ActivateTextOverride"
     ]
   },
   {
     "Source": "Allerheiligstes",
-    "English": "",
+    "English": "Inner Sanctum",
     "Contexts": [
       "Cell|03EA9D:Skyrim.esm|MarkarthTempleInnerSanctum/Name"
     ]
   },
   {
-    "Source": "Automatischer T\u00FCr Trigger",
-    "English": "",
+    "Source": "Automatischer Tür Trigger",
+    "English": "Automatic Door Trigger",
     "Contexts": [
       "Activator|2A3FB5:MariaDevices.esp|MEPDoorCloseTrigger/Name"
     ]
   },
   {
     "Source": "Bettlerecke",
-    "English": "",
+    "English": "Beggar's Row",
     "Contexts": [
       "Cell|089D51:Skyrim.esm|RiftenBeggarsRow/Name",
       "Location|05E0FC:Skyrim.esm|RiftenBeggarsRowLocation/Name"
@@ -44,7 +44,7 @@
   },
   {
     "Source": "Bienenstich",
-    "English": "",
+    "English": "The Bee and Barb",
     "Contexts": [
       "Cell|016BDF:Skyrim.esm|RiftenBeeandBarb/Name",
       "Location|02247E:Skyrim.esm|RiftenBeeandBarbLocation/Name"
@@ -52,21 +52,21 @@
   },
   {
     "Source": "Blauer Palast",
-    "English": "",
+    "English": "Blue Palace",
     "Contexts": [
       "Cell|016A04:Skyrim.esm|SolitudeBluePalace/Name"
     ]
   },
   {
     "Source": "Block Aktivator",
-    "English": "",
+    "English": "Block Activator",
     "Contexts": [
       "Activator|2E5CFA:MariaDevices.esp|MEDHeadChopEnabler/Name"
     ]
   },
   {
     "Source": "Brisenheim",
-    "English": "",
+    "English": "Breezehome",
     "Contexts": [
       "Cell|0165A8:Skyrim.esm|WhiterunBreezehome/Name",
       "Location|01F86F:Skyrim.esm|WhiterunBreezehomeLocation/Name"
@@ -74,42 +74,42 @@
   },
   {
     "Source": "Bruchbeinpass",
-    "English": "",
+    "English": "Brittleshin Pass",
     "Contexts": [
       "Cell|081DEC:Skyrim.esm|BrittleShinPass01/Name"
     ]
   },
   {
-    "Source": "Bruchzahnh\u00C3\u00B6hle",
-    "English": "",
+    "Source": "BruchzahnhÃ¶hle",
+    "English": "Broken Fang Cave",
     "Contexts": [
       "Cell|0152B1:Skyrim.esm|BrokenFangCave01/Name"
     ]
   },
   {
     "Source": "Cidhna-Mine",
-    "English": "",
+    "English": "Cidhna Mine",
     "Contexts": [
       "Location|018C91:Skyrim.esm|CidhnaMineLocation/Name"
     ]
   },
   {
     "Source": "Cidhnamine",
-    "English": "",
+    "English": "Cidhna Mine",
     "Contexts": [
       "Cell|016203:Skyrim.esm|CidhnaMine01/Name"
     ]
   },
   {
     "Source": "Dengeirs Haus",
-    "English": "",
+    "English": "Dengeir's House",
     "Contexts": [
       "Cell|013A78:Skyrim.esm|FalkreathDengeirsHall/Name"
     ]
   },
   {
-    "Source": "Die Beflaggte M\u00C3\u00A4hre",
-    "English": "",
+    "Source": "Die Beflaggte MÃ¤hre",
+    "English": "The Bannered Mare",
     "Contexts": [
       "Cell|01605E:Skyrim.esm|WhiterunBanneredMare/Name",
       "Location|01F86D:Skyrim.esm|WhiterunBanneredMareLocation/Name"
@@ -117,28 +117,28 @@
   },
   {
     "Source": "Die Zersplitterte Flasche",
-    "English": "",
+    "English": "The Ragged Flagon",
     "Contexts": [
       "Cell|016BCF:Skyrim.esm|RiftenRaggedFlagon/Name"
     ]
   },
   {
     "Source": "Die Zersplitterte Flasche: Zisterne",
-    "English": "",
+    "English": "The Ragged Flagon - Cistern",
     "Contexts": [
       "Cell|016BD0:Skyrim.esm|RiftenThievesGuildHeadquarters/Name"
     ]
   },
   {
     "Source": "Drachenfeste: Kerker",
-    "English": "",
+    "English": "Dragonsreach Dungeon",
     "Contexts": [
       "Cell|04A376:Skyrim.esm|WhiterunDragonsreachBasement/Name"
     ]
   },
   {
     "Source": "Einsamkeit",
-    "English": "",
+    "English": "Solitude",
     "Contexts": [
       "Location|018A5A:Skyrim.esm|SolitudeLocation/Name",
       "Worldspace|037EDF:Skyrim.esm|SolitudeWorld/Name"
@@ -146,35 +146,35 @@
   },
   {
     "Source": "Faldars Zahn",
-    "English": "",
+    "English": "Faldar's Tooth",
     "Contexts": [
       "Cell|015286:Skyrim.esm|FaldarsTooth01/Name"
     ]
   },
   {
-    "Source": "Falkenring: Gef\u00E4ngnis",
-    "English": "",
+    "Source": "Falkenring: Gefängnis",
+    "English": "Falkreath Jail",
     "Contexts": [
       "Cell|0EF324:Skyrim.esm|FalkreathBarracksJail/Name"
     ]
   },
   {
-    "Source": "Festung D\u00E4mmerlicht: Kerker",
-    "English": "",
+    "Source": "Festung Dämmerlicht: Kerker",
+    "English": "Fellglow Keep Dungeons",
     "Contexts": [
       "Cell|015283:Skyrim.esm|FellglowKeep01/Name"
     ]
   },
   {
-    "Source": "Festung D\u00E4mmerwacht",
-    "English": "",
+    "Source": "Festung Dämmerwacht",
+    "English": "Fort Dawnguard",
     "Contexts": [
       "Cell|001DBA:Dawnguard.esm|DLC1DawnguardHQ01/Name"
     ]
   },
   {
     "Source": "Festung Volkihar",
-    "English": "",
+    "English": "Castle Volkihar",
     "Contexts": [
       "Cell|000803:Dawnguard.esm|DLC1VampireCastleGuildhall/Name",
       "Location|00357D:Dawnguard.esm|DLC1VampireCastleGuildhallLocation/Name"
@@ -182,56 +182,56 @@
   },
   {
     "Source": "Galgen Aktivator",
-    "English": "",
+    "English": "Gallows Activator",
     "Contexts": [
       "Activator|2D69E6:MariaDevices.esp|MEDGallowsEnabler/Name"
     ]
   },
   {
     "Source": "Galgenstrick",
-    "English": "",
+    "English": "Noose",
     "Contexts": [
       "Activator|2D18D9:MariaDevices.esp|MEDGallowsNoose/Name"
     ]
   },
   {
     "Source": "Galgentisch",
-    "English": "",
+    "English": "Gallows Table",
     "Contexts": [
       "Activator|2D69E1:MariaDevices.esp|MEDGallowsTable/Name"
     ]
   },
   {
-    "Source": "Gef\u00C3\u00A4ngnis von Einsamkeit",
-    "English": "",
+    "Source": "GefÃ¤ngnis von Einsamkeit",
+    "English": "Solitude Jail",
     "Contexts": [
       "Location|0BED97:Skyrim.esm|SolitudeJailLocation/Name"
     ]
   },
   {
-    "Source": "Gef\u00C3\u00A4ngnis von Rifton",
-    "English": "",
+    "Source": "GefÃ¤ngnis von Rifton",
+    "English": "Riften Jail",
     "Contexts": [
       "Location|0A8C86:Skyrim.esm|RiftenJailLocation/Name"
     ]
   },
   {
-    "Source": "Gef\u00C3\u00A4ngnis von Wei\u00C3\u0178lauf",
-    "English": "",
+    "Source": "GefÃ¤ngnis von WeiÃŸlauf",
+    "English": "Whiterun Jail",
     "Contexts": [
       "Location|0C0BA0:Skyrim.esm|WhiterunDragonsreachBasementLocation/Name"
     ]
   },
   {
-    "Source": "Gef\u00E4ngnis",
-    "English": "",
+    "Source": "Gefängnis",
+    "English": "Jail",
     "Contexts": [
       "Cell|0A8B23:Skyrim.esm|RiftenJail01/Name"
     ]
   },
   {
     "Source": "Gut Stolzspitze",
-    "English": "",
+    "English": "Proudspire Manor",
     "Contexts": [
       "Cell|016A06:Skyrim.esm|SolitudeProudspireManor/Name",
       "Location|020098:Skyrim.esm|SolitudeProudspireManorLocation/Name"
@@ -239,7 +239,7 @@
   },
   {
     "Source": "Haelgas Herberge",
-    "English": "",
+    "English": "Haelga's Bunkhouse",
     "Contexts": [
       "Cell|016BD4:Skyrim.esm|RiftenHaelgasBunkhouse/Name",
       "Location|02263D:Skyrim.esm|RiftenHaelgasBunkhouseLocation/Name"
@@ -247,14 +247,14 @@
   },
   {
     "Source": "Hauptquartier der Diebesgilde",
-    "English": "",
+    "English": "Thieves Guild Headquarters",
     "Contexts": [
       "Location|022650:Skyrim.esm|RiftenThievesGuildHeadquartersLocation/Name"
     ]
   },
   {
     "Source": "Haus Kerzenschein",
-    "English": "",
+    "English": "Candlehearth Hall",
     "Contexts": [
       "Cell|016789:Skyrim.esm|WindhelmCandlehearthHall/Name",
       "Location|0209EA:Skyrim.esm|WindhelmCandlehearthHallLocation/Name"
@@ -262,105 +262,105 @@
   },
   {
     "Source": "Haus Vlindrel",
-    "English": "",
+    "English": "Vlindrel Hall",
     "Contexts": [
       "Cell|016DFA:Skyrim.esm|MarkarthVlindrelHall/Name"
     ]
   },
   {
     "Source": "Himmelsrand",
-    "English": "",
+    "English": "Skyrim",
     "Contexts": [
       "Worldspace|00003C:Skyrim.esm|Tamriel/Name"
     ]
   },
   {
     "Source": "Hjerim",
-    "English": "",
+    "English": "Hjerim",
     "Contexts": [
       "Cell|016778:Skyrim.esm|WindhelmHjerim/Name"
     ]
   },
   {
     "Source": "Hoch-Hrothgar",
-    "English": "",
+    "English": "High Hrothgar",
     "Contexts": [
       "Cell|087764:Skyrim.esm|HighHrothgar/Name"
     ]
   },
   {
     "Source": "Honigheim",
-    "English": "",
+    "English": "Honeyside",
     "Contexts": [
       "Cell|016BDD:Skyrim.esm|RiftenHoneyside/Name"
     ]
   },
   {
-    "Source": "H\u00C3\u00B6hle der Druadachschanze",
-    "English": "",
+    "Source": "HÃ¶hle der Druadachschanze",
+    "English": "Druadach Redoubt Cave",
     "Contexts": [
       "Cell|04401B:Skyrim.esm|DruadachRedoubt01/Name"
     ]
   },
   {
     "Source": "Kerker",
-    "English": "",
+    "English": "Jail",
     "Contexts": [
       "Cell|05D010:Skyrim.esm|MorthalGuardhouseJail/Name"
     ]
   },
   {
     "Source": "Kerker von Schloss Elend",
-    "English": "",
+    "English": "Castle Dour Dungeon",
     "Contexts": [
       "Cell|056E88:Skyrim.esm|SolitudeJail01/Name"
     ]
   },
   {
     "Source": "Kommode mit Sklaven Spielzeug",
-    "English": "",
+    "English": "Dresser with Slave Toys",
     "Contexts": [
       "Container|34B179:MariaDevices.esp|MEPSlaveToysDresser/Name"
     ]
   },
   {
     "Source": "Kopf in Schlinge stecken",
-    "English": "",
+    "English": "Put Head in Noose",
     "Contexts": [
       "Activator|2D18D9:MariaDevices.esp|MEDGallowsNoose/ActivateTextOverride"
     ]
   },
   {
     "Source": "Maria Eden Start",
-    "English": "",
+    "English": "Maria Eden Start",
     "Contexts": [
       "Cell|24F641:MariaBase.esm|MariaStartupCell/Name"
     ]
   },
   {
     "Source": "Nebelwacht",
-    "English": "",
+    "English": "Mistwatch",
     "Contexts": [
       "Location|01927B:Skyrim.esm|MistwatchLocation/Name"
     ]
   },
   {
     "Source": "Nebelwacht: Ostturm",
-    "English": "",
+    "English": "Mistwatch: East Tower",
     "Contexts": [
       "Cell|042BEC:Skyrim.esm|Mistwatch03/Name"
     ]
   },
   {
     "Source": "Nebelwacht: Westturm",
-    "English": "",
+    "English": "Mistwatch: West Tower",
     "Contexts": [
       "Cell|042BED:Skyrim.esm|Mistwatch02/Name"
     ]
   },
   {
     "Source": "Neu-Gnisis-Club",
-    "English": "",
+    "English": "New Gnisis Cornerclub",
     "Contexts": [
       "Cell|01677F:Skyrim.esm|WindhelmNewGnisisCornerclub/Name",
       "Location|0209F0:Skyrim.esm|WindhelmNewGnisisCornerclubLocation/Name"
@@ -368,42 +368,42 @@
   },
   {
     "Source": "Ogmunds Haus",
-    "English": "",
+    "English": "Ogmund's House",
     "Contexts": [
       "Cell|016DFC:Skyrim.esm|MarkarthOgmundsHouse/Name"
     ]
   },
   {
     "Source": "Peitschen Aktivator",
-    "English": "",
+    "English": "Whipping Activator",
     "Contexts": [
       "Activator|2D69E7:MariaDevices.esp|MEDWhippingEnabler/Name"
     ]
   },
   {
     "Source": "Pelagiahof",
-    "English": "",
+    "English": "Pelagia Farm",
     "Contexts": [
       "Location|018E3F:Skyrim.esm|PelagiaFarmLocation/Name"
     ]
   },
   {
     "Source": "Quecksilbermine",
-    "English": "",
+    "English": "Quicksilver Mine",
     "Contexts": [
       "Cell|02C779:Skyrim.esm|DawnstarQuicksilverMine/Name"
     ]
   },
   {
     "Source": "Rifton",
-    "English": "",
+    "English": "Riften",
     "Contexts": [
       "Worldspace|016BB4:Skyrim.esm|RiftenWorld/Name"
     ]
   },
   {
     "Source": "Rotwassergrotte",
-    "English": "",
+    "English": "Redwater Den",
     "Contexts": [
       "Cell|005EAB:Dawnguard.esm|DLC1RedwaterDen01/Name",
       "Location|004D6F:Dawnguard.esm|DLC1RedwaterDenLocation/Name"
@@ -411,7 +411,7 @@
   },
   {
     "Source": "Schlafender Riese",
-    "English": "",
+    "English": "Sleeping Giant Inn",
     "Contexts": [
       "Cell|0133C6:Skyrim.esm|RiverwoodSleepingGiantInn/Name",
       "Location|01CB8C:Skyrim.esm|RiverwoodSleepingGiantInnLocation/Name"
@@ -419,78 +419,78 @@
   },
   {
     "Source": "Seelengrab",
-    "English": "",
+    "English": "Soul Cairn",
     "Contexts": [
       "Worldspace|001408:Dawnguard.esm|DLC01SoulCairn/Name"
     ]
   },
   {
     "Source": "Tempel von Dibella",
-    "English": "",
+    "English": "Temple of Dibella",
     "Contexts": [
       "Cell|016DF3:Skyrim.esm|MarkarthTempleofDibella/Name"
     ]
   },
   {
     "Source": "Thalmorische Botschaft",
-    "English": "",
+    "English": "Thalmor Embassy",
     "Contexts": [
       "Cell|07C98B:Skyrim.esm|ThalmorEmbassy01/Name"
     ]
   },
   {
     "Source": "Thalmorische Botschaft: Kerker",
-    "English": "",
+    "English": "Thalmor Embassy, Dungeon",
     "Contexts": [
       "Cell|0362D8:Skyrim.esm|ThalmorEmbassy03/Name"
     ]
   },
   {
     "Source": "Totmannstrunk",
-    "English": "",
+    "English": "Dead Man's Drink",
     "Contexts": [
       "Cell|03A184:Skyrim.esm|FalkreathDeadMansDrink/Name",
       "Location|05CA26:Skyrim.esm|FalkreathDeadMansDrinkLocation/Name"
     ]
   },
   {
-    "Source": "Tr\u00C3\u00BCbh\u00C3\u00B6hlengruft",
-    "English": "",
+    "Source": "TrÃ¼bhÃ¶hlengruft",
+    "English": "Dimhollow Crypt",
     "Contexts": [
       "Cell|000EB8:Dawnguard.esm|DLC1DimHollowCrypt01/Name"
     ]
   },
   {
     "Source": "Wachhaus",
-    "English": "",
+    "English": "Guardhouse",
     "Contexts": [
       "Cell|0138CD:Skyrim.esm|MorthalGuardhouse/Name"
     ]
   },
   {
-    "Source": "Wei\u00C3\u0178lauf",
-    "English": "",
+    "Source": "WeiÃŸlauf",
+    "English": "Whiterun",
     "Contexts": [
       "Location|018A56:Skyrim.esm|WhiterunLocation/Name"
     ]
   },
   {
-    "Source": "Wei\u00DFlauf",
-    "English": "",
+    "Source": "Weißlauf",
+    "English": "Whiterun",
     "Contexts": [
       "Worldspace|01A26F:Skyrim.esm|WhiterunWorld/Name"
     ]
   },
   {
     "Source": "Windhelm",
-    "English": "",
+    "English": "Windhelm",
     "Contexts": [
       "Worldspace|01691D:Skyrim.esm|WindhelmWorld/Name"
     ]
   },
   {
     "Source": "Zwinkernder Skeever",
-    "English": "",
+    "English": "The Winking Skeever",
     "Contexts": [
       "Cell|016A0E:Skyrim.esm|SolitudeWinkingSkeever/Name",
       "Location|0200A5:Skyrim.esm|SolitudeWinkingSkeeverLocation/Name"

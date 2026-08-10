@@ -21,7 +21,7 @@ If Maria Eden Key Configuration is installed, keep that patch at higher MO2 prio
 
 - `Final MO2 Mod` — ready-to-install override.
 - `translation-codex-final.json` — final source-to-English translation map.
-- `Catalogs` — extracted strings with plugin and record context.
+- `Catalogs` — completed source/English pairs with plugin and record context. No `English` field is left empty.
 - `Codex Review` — review batches, outputs, manual overrides, and residue audits.
 - `Generator` — Mutagen extraction/writing and translation audit utilities.
 - `Data` — translated JSON and interface source files.

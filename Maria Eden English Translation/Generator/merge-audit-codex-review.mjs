@@ -48,6 +48,21 @@ const unchangedLocationLikelyGerman = locationFacing.filter(item => item.source 
 
 const orderedMap = Object.fromEntries(Object.entries(finalMap).sort(([a], [b]) => a.localeCompare(b, "de")));
 fs.writeFileSync(path.join(projectRoot, "translation-codex-final.json"), JSON.stringify(orderedMap, null, 2) + "\n", "utf8");
+
+const catalogsDir = path.join(projectRoot, "Catalogs");
+for (const file of fs.readdirSync(catalogsDir).filter(file => file.endsWith(".json"))) {
+  const catalogPath = path.join(catalogsDir, file);
+  const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf8"));
+  for (const entry of catalog) {
+    if (!Object.hasOwn(finalMap, entry.Source))
+      throw new Error(`Catalog source is absent from final map: ${file}: ${entry.Source}`);
+    if (!String(finalMap[entry.Source]).trim())
+      throw new Error(`Catalog source has an empty final translation: ${file}: ${entry.Source}`);
+    entry.English = finalMap[entry.Source];
+  }
+  fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2) + "\n", "utf8");
+}
+
 fs.writeFileSync(path.join(reviewRoot, "audit-unchanged-likely-german.json"), JSON.stringify(unchangedLikelyGerman, null, 2) + "\n", "utf8");
 fs.writeFileSync(path.join(reviewRoot, "audit-translated-german-residue.json"), JSON.stringify(translatedWithGermanResidue, null, 2) + "\n", "utf8");
 fs.writeFileSync(path.join(reviewRoot, "audit-location-facing.json"), JSON.stringify(locationFacing, null, 2) + "\n", "utf8");
