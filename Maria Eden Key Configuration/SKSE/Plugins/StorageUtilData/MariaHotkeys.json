@@ -1,0 +1,18 @@
+{
+	"int": {
+		"controller_actionmenu": 268,
+		"controller_posemenu": 269,
+		"controller_holdplug": 42,
+		"keyboard_actionmenu": 156,
+		"keyboard_posemenu": 83,
+		"keyboard_holdplug": 42,
+		"keyboard_debug": 87,
+		"keyboard_escape": 1,
+		"keyboard_escape2": 68,
+		"keyboard_openmouth": 24,
+		"keyboard_closeeyes": 18,
+		"keyboard_togglecam": 44,
+		"keyboard_defaultpose": 36,
+		"keyboard_body_control": 51
+	}
+}

@@ -187,13 +187,11 @@ foreach ($fileName in $uiFixes.Keys) {
             $lines.Add($entry.Key + "`t" + $entry.Value)
         }
     }
-    $sourceBytes = [IO.File]::ReadAllBytes($source)
-    $encoding = if ($sourceBytes.Length -ge 2 -and $sourceBytes[0] -eq 0xFF -and $sourceBytes[1] -eq 0xFE) {
-        [Text.UnicodeEncoding]::new($false, $true)
-    } else {
-        [Text.UTF8Encoding]::new($false)
-    }
-    [IO.File]::WriteAllLines((Join-Path $translationOut $fileName), $lines, $encoding)
+    # Skyrim's translation loader expects UTF-16 LE with a BOM. The upstream
+    # MariaBase English table is UTF-8, so preserving its source encoding makes
+    # every $ME_* lookup appear literally in UIExtensions menus.
+    $translationEncoding = [Text.UnicodeEncoding]::new($false, $true)
+    [IO.File]::WriteAllLines((Join-Path $translationOut $fileName), $lines, $translationEncoding)
 }
 
 $orderedCache = [ordered]@{}

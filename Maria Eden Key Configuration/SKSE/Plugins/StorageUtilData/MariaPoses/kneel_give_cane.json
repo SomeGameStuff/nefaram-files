@@ -1,0 +1,17 @@
+{
+    "int":  {
+                "id":  18,
+                "hotkey":  0,
+                "nohh":  1
+            },
+    "string":  {
+                   "name":  "Offer cane",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "MariaGiveCaneLow",
+                                   "MariaGiveCaneHigh"
+                               ]
+                   }
+}

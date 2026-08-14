@@ -1,0 +1,10 @@
+{
+    "int":  {
+                "id":  250,
+                "hotkey":  0
+            },
+    "string":  {
+                   "name":  "Crawl",
+                   "group":  "Slave Poses"
+               }
+}

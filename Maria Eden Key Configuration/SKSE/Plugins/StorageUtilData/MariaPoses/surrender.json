@@ -1,0 +1,15 @@
+{
+    "int":  {
+                "id":  8,
+                "hotkey":  0
+            },
+    "string":  {
+                   "name":  "Surrender",
+                   "group":  "Gestures"
+               },
+    "stringList":  {
+                       "all":  [
+                                   "MariaSurrender"
+                               ]
+                   }
+}

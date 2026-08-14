@@ -24,7 +24,12 @@ foreach ($required in @('MariaIdles.json','MariaOutfits\female\outfits.json','Ma
     if (-not (Test-Path -LiteralPath (Join-Path $dataRoot "SKSE\Plugins\StorageUtilData\$required"))) { throw "Missing $required" }
 }
 foreach ($required in @('MariaBase_english.txt','MariaProstitution_english.txt')) {
-    if (-not (Test-Path -LiteralPath (Join-Path $dataRoot "interface\translations\$required"))) { throw "Missing $required" }
+    $translationPath = Join-Path $dataRoot "interface\translations\$required"
+    if (-not (Test-Path -LiteralPath $translationPath)) { throw "Missing $required" }
+    $translationBytes = [IO.File]::ReadAllBytes($translationPath)
+    if ($translationBytes.Length -lt 2 -or $translationBytes[0] -ne 0xFF -or $translationBytes[1] -ne 0xFE) {
+        throw "$required must be UTF-16 LE with a BOM for Skyrim translation lookup."
+    }
 }
 Write-Host 'English data translation validation succeeded.'
 

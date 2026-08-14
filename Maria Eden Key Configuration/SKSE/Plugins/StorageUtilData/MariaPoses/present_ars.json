@@ -1,0 +1,30 @@
+{
+    "int":  {
+                "id":  6,
+                "hotkey":  0
+            },
+    "string":  {
+                   "name":  "Present rear",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "MariaPresentArs"
+                                ],
+                       "female":  [
+                                      "MariaPresentArs"
+                                  ],
+                       "fullboundmale":  [
+                                             "ZapWriPose04"
+                                         ],
+                       "fullboundfemale":  [
+                                               "ZapWriPose04"
+                                           ],
+                       "boundmale":  [
+                                         "ZapWriPose04"
+                                     ],
+                       "boundfemale":  [
+                                           "ZapWriPose04"
+                                       ]
+                   }
+}

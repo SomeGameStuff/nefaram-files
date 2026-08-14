@@ -1,0 +1,31 @@
+{
+    "int":  {
+                "id":  9,
+                "hotkey":  0,
+                "nohh":  1
+            },
+    "string":  {
+                   "name":  "Lie down",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "ZazAPC054"
+                                ],
+                       "female":  [
+                                      "ZazAPC054"
+                                  ],
+                       "fullboundmale":  [
+                                             "ZazAPC013"
+                                         ],
+                       "fullboundfemale":  [
+                                               "ZazAPC013"
+                                           ],
+                       "boundmale":  [
+                                         "ZazAPC013"
+                                     ],
+                       "boundfemale":  [
+                                           "ZazAPC013"
+                                       ]
+                   }
+}
