@@ -7,6 +7,7 @@ A reversible English override for the 2026-08-04/2026-08-09 Maria Eden build use
 - All 12,911 unique embedded plugin strings were reviewed with Codex using record type, FormID, EditorID, and field-path context.
 - Dialogue, quest text, messages, books, menus, NPC labels, cells, locations, worldspaces, map markers, activators, and door-facing destination names are included.
 - All 50 JSON/UI translation files are included.
+- Skyrim UI translation tables are emitted as UTF-16 LE with a BOM so `$ME_*` and `$MEP_*` menu keys resolve correctly.
 - Four loose PEX overrides translate seven remaining hardcoded notifications.
 - Existing English and technical identifiers are preserved where appropriate.
 - `Ildrid Grünwald` and `Verona Blaufuß` intentionally remain unchanged because they are NPC surnames.

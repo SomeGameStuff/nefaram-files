@@ -1,0 +1,38 @@
+{
+    "int":  {
+                "id":  1,
+                "hotkey":  0,
+                "controller":  267,
+                "nohh":  1
+            },
+    "string":  {
+                   "name":  "Kneel",
+                   "group":  "Slave Poses"
+               },
+    "stringList":  {
+                       "male":  [
+                                    "MariaKneelHandHead"
+                                ],
+                       "female":  [
+                                      "MariaKneelHandHead"
+                                  ],
+                       "fullboundmale":  [
+                                             "ZapWriPose07",
+                                             "ZapWriPose06"
+                                         ],
+                       "fullboundfemale":  [
+                                               "ZapWriPose07",
+                                               "ZapWriPose06"
+                                           ],
+                       "boundmale":  [
+                                         "ZazAPC017",
+                                         "ZapWriPose07",
+                                         "ZapWriPose06"
+                                     ],
+                       "boundfemale":  [
+                                           "ZazAPC017",
+                                           "ZapWriPose07",
+                                           "ZapWriPose06"
+                                       ]
+                   }
+}
