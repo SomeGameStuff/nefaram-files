@@ -1,0 +1,7 @@
+Scriptname MESKSEUtils Hidden
+
+ObjectReference function GetLocationMapMarker(Location targetLocation) global
+endfunction
+
+ObjectReference function GetLocationHorseMarker(Location targetLocation) global
+endfunction
