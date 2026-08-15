@@ -1,0 +1,4 @@
+Scriptname MEP_EscortQuest Hidden
+
+function SetNextDestination(ObjectReference destination) global
+endfunction
