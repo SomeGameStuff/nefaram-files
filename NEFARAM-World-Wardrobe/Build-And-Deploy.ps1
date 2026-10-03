@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$RuntimeModPath = $(if ($env:NEFARAM_MO2_ROOT) { Join-Path $env:NEFARAM_MO2_ROOT 'mods\[NoDelete] NEFARAM - World Wardrobe - Load Order Fix' })
+    [string]$RuntimeModPath = $(if ($env:NEFARAM_MO2_ROOT) { Join-Path $env:NEFARAM_MO2_ROOT 'mods\[NoDelete] NEFARAM - World Wardrobe' })
 )
 
 $ErrorActionPreference = 'Stop'

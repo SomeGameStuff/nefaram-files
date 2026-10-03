@@ -40,7 +40,7 @@ The outer SkyPatcher router has another 50% chance-none. CID category routers us
 .\Build-And-Deploy.ps1
 ```
 
-The script runs the .NET 9 / Mutagen generator, validates every generated plugin and required config, and copies the runtime files to `<mo2-root>\mods\[NoDelete] NEFARAM - World Wardrobe - Load Order Fix`.
+The script runs the .NET 9 / Mutagen generator, validates every generated plugin and required config, and copies the runtime files to `<mo2-root>\mods\[NoDelete] NEFARAM - World Wardrobe`.
 
 To inspect the exact vanilla list and merchant-container records recognized by this installation:
 

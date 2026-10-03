@@ -782,7 +782,7 @@ static void ValidateProfileActivation(GeneratorRules rules, (string Name, int In
 {
     var enabledMods = File.ReadLines(Path.Combine(rules.ProfilePath, "modlist.txt"))
         .Where(x => x.StartsWith('+')).Select(x => x[1..]).ToHashSet(StringComparer.OrdinalIgnoreCase);
-    foreach (var requiredMod in new[] { "[NoDelete] NEFARAM - World Wardrobe - Load Order Fix", "[NoDelete] 000 SkyPatcher - SE (unsure if needed)", "Address Library for SKSE Plugins" })
+    foreach (var requiredMod in new[] { "[NoDelete] NEFARAM - World Wardrobe", "[NoDelete] 000 SkyPatcher - SE (unsure if needed)", "Address Library for SKSE Plugins" })
         if (!enabledMods.Contains(requiredMod)) throw new InvalidDataException($"Required MO2 mod is not enabled in the active profile: {requiredMod}");
 
     var order = activePlugins.ToDictionary(x => x.Name, x => x.Index, StringComparer.OrdinalIgnoreCase);
@@ -801,7 +801,7 @@ static void ValidateProfileActivation(GeneratorRules rules, (string Name, int In
         }
     }
 
-    var runtimeRoot = Path.Combine(rules.ModsRoot, "[NoDelete] NEFARAM - World Wardrobe - Load Order Fix");
+    var runtimeRoot = Path.Combine(rules.ModsRoot, "[NoDelete] NEFARAM - World Wardrobe");
     foreach (var source in Directory.EnumerateFiles(rules.OutputPath, "*", SearchOption.AllDirectories))
     {
         var relative = Path.GetRelativePath(rules.OutputPath, source);
