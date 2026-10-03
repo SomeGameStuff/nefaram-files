@@ -14,7 +14,7 @@ No vanilla records, installed armor mods, NPC records, cells, or leveled lists a
 ## Where items appear
 
 - **Friendly acquisition:** selected merchants receive category-appropriate stock through their actual merchant chests. This is inventory for sale; the mod does not directly dress friendly NPCs, followers, guards, or citizens.
-- **Enemy loot:** selected vanilla leveled lists feed added clothing and armor into bandit, Imperial, Stormcloak, Forsworn, vampire, Thalmor, warlock, and related boss/merchant routes. Enemies can therefore carry the items as loot, subject to the level gates and rarity settings.
+- **Enemy loot:** selected vanilla leveled lists feed added clothing and armor into bandit, Imperial, Stormcloak, Forsworn, vampire, Thalmor, and warlock loot lists, including faction and boss chest routes. Enemies can therefore carry the items as loot, subject to the level gates and rarity settings.
 - **Enemy outfits:** six explicitly approved complete outfits are distributed to generic, non-unique bandit or Thalmor actors at 1% per outfit. This is the only direct NPC outfit distribution in the generated build.
 
 The same item may have more than one route, but high-value items are intentionally uncommon. There is no blanket distribution to every NPC or every container.
