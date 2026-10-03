@@ -7,7 +7,8 @@ $markerPath = Join-Path $projectRoot 'SKSE\Plugins\Feral\SexIntegration.json'
 $pluginPath = Join-Path $projectRoot 'FeralCreatureKinship.esp'
 $seqPath = Join-Path $projectRoot 'SEQ\FeralCreatureKinship.seq'
 $builderProject = Join-Path $projectRoot 'build\FeralKinshipBuilder.csproj'
-$upstreamRoot = '<mo2-root>\mods\Sex Grants Experience'
+$mo2Root = $env:NEFARAM_MO2_ROOT
+$upstreamRoot = Join-Path $mo2Root 'mods\Sex Grants Experience'
 $expected = @{
     'SexLabExperience.psc' = '28828B90595DB4B3DEDD0579CFF10395BC27FD1BCB6CFBF61E8874F043308579'
     'OStimExperience.psc' = 'C4C992F74A29D8B46BA9DC47C5878D7CA2A133E732A1A49665817A459483C5F8'
@@ -35,15 +36,18 @@ if ($seqBytes.Length -ne 4 -or [BitConverter]::ToUInt32($seqBytes, 0) -ne 0x803)
     throw 'Feral Creature Kinship SEQ generation failed.'
 }
 
-$compiler = '<game-install>\Papyrus Compiler\PapyrusCompiler.exe'
-$vanillaSource = '<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts'
+$compiler = $env:NEFARAM_PAPYRUS_COMPILER
+$vanillaSource = $env:NEFARAM_VANILLA_SOURCE
+if ([string]::IsNullOrWhiteSpace($mo2Root) -or [string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanillaSource)) {
+    throw 'Set NEFARAM_MO2_ROOT, NEFARAM_PAPYRUS_COMPILER, and NEFARAM_VANILLA_SOURCE before building.'
+}
 $flags = '-f=' + (Join-Path $vanillaSource 'TESV_Papyrus_Flags.flg')
 $includePaths = @(
     $sourceRoot,
     (Join-Path $projectRoot 'build-stubs'),
-    '<mo2-root>\mods\SKSE\Scripts\Source',
-    '<mo2-root>\mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts',
-    "<mo2-root>\mods\powerofthree's Papyrus Extender\Source\scripts",
+    (Join-Path $mo2Root 'mods\SKSE\Scripts\Source'),
+    (Join-Path $mo2Root 'mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts'),
+    (Join-Path $mo2Root "mods\powerofthree's Papyrus Extender\Source\scripts"),
     $vanillaSource
 )
 $includes = '-i=' + ($includePaths -join ';')

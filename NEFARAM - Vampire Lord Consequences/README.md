@@ -83,13 +83,13 @@ Because this mod uses an always-running quest, prefer testing on a new save or a
 Compile Papyrus:
 
 ```powershell
-& '<user-home>\nefaram-files\NEFARAM - Vampire Lord Consequences\Build-CompilePapyrus.ps1'
+& '<repo-root>\NEFARAM - Vampire Lord Consequences\Build-CompilePapyrus.ps1'
 ```
 
 Generate the ESP:
 
 ```powershell
-dotnet run --project '<user-home>\nefaram-files\NEFARAM - Vampire Lord Consequences\MutagenGenerator\MutagenGenerator.csproj'
+dotnet run --project '<repo-root>\NEFARAM - Vampire Lord Consequences\MutagenGenerator\MutagenGenerator.csproj'
 ```
 
 The generator writes directly to:

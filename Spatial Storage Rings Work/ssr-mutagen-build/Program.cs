@@ -4,10 +4,14 @@ using Mutagen.Bethesda.Plugins.Records;
 using Mutagen.Bethesda.Skyrim;
 using Noggog;
 
-const string outPath = @"<temporary>\Spatial Storage Rings.esp";
+var outPath = args.Length > 0
+    ? args[0]
+    : Path.Combine(Directory.GetCurrentDirectory(), "Spatial Storage Rings.esp");
 var modKey = ModKey.FromNameAndExtension("Spatial Storage Rings.esp");
 var skyrim = ModKey.FromNameAndExtension("Skyrim.esm");
-var skyrimPath = ModPath.FromPath(@"<mo2-root>\Game Root\Data\Skyrim.esm");
+var gameData = Environment.GetEnvironmentVariable("NEFARAM_GAME_DATA")
+    ?? throw new InvalidOperationException("Set NEFARAM_GAME_DATA before building.");
+var skyrimPath = ModPath.FromPath(Path.Combine(gameData, "Skyrim.esm"));
 var skyrimMod = ModInstantiator<ISkyrimModGetter>.Importer(skyrimPath, GameRelease.SkyrimSE);
 
 var mod = new SkyrimMod(modKey, SkyrimRelease.SkyrimSE);

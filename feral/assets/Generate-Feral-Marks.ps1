@@ -1,5 +1,6 @@
 param(
-    [switch]$PreviewMask
+    [switch]$PreviewMask,
+    [string]$Texconv = $env:NEFARAM_TEXCONV
 )
 
 $ErrorActionPreference = 'Stop'
@@ -113,7 +114,8 @@ $atlasPath = Join-Path $PSScriptRoot 'FeralPatternAtlas-v5.png'
 $pngRoot = Join-Path $projectRoot 'build-output\Textures\Actors\Character\slavetats\Feral\png-source'
 $ddsRoot = Join-Path $projectRoot 'build-output\Textures\Actors\Character\slavetats\Feral'
 $previewRoot = Join-Path $projectRoot 'build-output\texture-inspect'
-$texconv = '<mo2-root>\mods\VRAMr\VRAMr\tools\texconv.exe'
+if ([string]::IsNullOrWhiteSpace($Texconv)) { throw 'Pass -Texconv or set NEFARAM_TEXCONV before generating textures.' }
+$texconv = $Texconv
 New-Item -ItemType Directory -Path $pngRoot,$ddsRoot,$previewRoot -Force | Out-Null
 
 if ($PreviewMask) {

@@ -1,5 +1,9 @@
 [CmdletBinding()]
-param()
+param(
+    [string]$Mo2Root = $env:NEFARAM_MO2_ROOT,
+    [string]$Compiler = $env:NEFARAM_PAPYRUS_COMPILER,
+    [string]$VanillaSource = $env:NEFARAM_VANILLA_SOURCE
+)
 
 $ErrorActionPreference = 'Stop'
 
@@ -7,13 +11,16 @@ $projectRoot = $PSScriptRoot
 $source = Join-Path $projectRoot 'Source\Scripts\MariaLocationManager.psc'
 $stubs = Join-Path $projectRoot 'build-stubs'
 $projectScripts = Join-Path $projectRoot 'Scripts'
-$runtime = '<mo2-root>\mods\[NoDelete] Maria Eden Location Menu Freeze Fix'
+$runtime = Join-Path $Mo2Root 'mods\[NoDelete] Maria Eden Location Menu Freeze Fix'
 $runtimeScripts = Join-Path $runtime 'Scripts'
 
-$compiler = '<game-install>\Papyrus Compiler\PapyrusCompiler.exe'
-$vanilla = '<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts'
-$skse = '<mo2-root>\mods\SKSE\Scripts\Source'
-$papyrusUtil = '<mo2-root>\mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts'
+$compiler = $Compiler
+$vanilla = $VanillaSource
+$skse = Join-Path $Mo2Root 'mods\SKSE\Scripts\Source'
+$papyrusUtil = Join-Path $Mo2Root 'mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts'
+if ([string]::IsNullOrWhiteSpace($Mo2Root) -or [string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanilla)) {
+    throw 'Set NEFARAM_MO2_ROOT, NEFARAM_PAPYRUS_COMPILER, and NEFARAM_VANILLA_SOURCE before building.'
+}
 
 foreach ($required in @($source, $stubs, $compiler, $vanilla, $skse, $papyrusUtil)) {
     if (!(Test-Path -LiteralPath $required)) {

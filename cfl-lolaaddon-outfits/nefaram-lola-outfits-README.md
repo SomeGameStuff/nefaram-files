@@ -133,7 +133,7 @@ To apply these files, copy the packaged `Outfits\Default\*.json` files into:
 The originals from before this edit were backed up in the Codex workspace:
 
 ```text
-<user-home>\Documents\Codex\2026-06-06\in-e-modlists-n-y-a\backup-original-cfe-lola-outfits
+<user-documents>\Codex\2026-06-06\in-e-modlists-n-y-a\backup-original-cfe-lola-outfits
 ```
 
 In an existing save, Lola may have already cached selected outfit IDs. Use the Lola add-on MCM or in-game configurator to request new outfit sets or force-start/request a new outfit task if the old choices persist.

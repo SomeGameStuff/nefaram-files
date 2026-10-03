@@ -1,8 +1,8 @@
 {
-  "profilePath": "<mo2-root>\\profiles\\NEFARAM",
-  "modsRoot": "<mo2-root>\\mods",
-  "gameDataPath": "<game-install>\\Data",
-  "outputPath": "<repo-root>\\NEFARAM-World-Wardrobe\\build-output",
+  "profilePath": "%NEFARAM_MO2_ROOT%\\profiles\\NEFARAM",
+  "modsRoot": "%NEFARAM_MO2_ROOT%\\mods",
+  "gameDataPath": "%NEFARAM_GAME_DATA%",
+  "outputPath": "build-output",
   "leafSize": 80,
   "maximumSourceMastersPerShard": 120,
   "maximumNewRecordsPerShard": 1900,

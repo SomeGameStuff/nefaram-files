@@ -3,9 +3,13 @@ using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Plugins.Records;
 using Mutagen.Bethesda.Skyrim;
 
-const string ModsRoot = @"<mo2-root>\mods";
-const string GameData = @"<game-install>\Data";
-const string OutputRoot = @"<mo2-root>\mods\NEFARAM - Flawed Wardrobe";
+var mo2Root = Environment.GetEnvironmentVariable("NEFARAM_MO2_ROOT")
+    ?? throw new InvalidOperationException("Set NEFARAM_MO2_ROOT before building.");
+var ModsRoot = Path.Combine(mo2Root, "mods");
+var GameData = Environment.GetEnvironmentVariable("NEFARAM_GAME_DATA")
+    ?? throw new InvalidOperationException("Set NEFARAM_GAME_DATA before building.");
+var OutputRoot = Environment.GetEnvironmentVariable("NEFARAM_FLAWED_WARDROBE_OUTPUT")
+    ?? Path.Combine(Directory.GetCurrentDirectory(), "build-output");
 const int TargetCount = 75;
 const int TotalSourceCount = 300;
 

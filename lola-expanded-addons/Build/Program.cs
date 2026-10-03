@@ -5,14 +5,16 @@ using Mutagen.Bethesda.Skyrim;
 
 const string PatchName = "LolaExpandedAddons.esp";
 const string SourcePluginName = "cfl_LolaAddon.esp";
-const string SourcePluginPath = @"<mo2-root>\mods\[NoDelete] cfl_LolaAddon_\cfl_LolaAddon.esp";
 
 var projectRoot = FindProjectRoot();
 var projectOutput = Path.Combine(projectRoot, PatchName);
-var runtimeOutput = @"<mo2-root>\mods\[NoDelete] 360 Lola Expanded Addons\LolaExpandedAddons.esp";
+var mo2Root = Environment.GetEnvironmentVariable("NEFARAM_MO2_ROOT")
+    ?? throw new InvalidOperationException("Set NEFARAM_MO2_ROOT before building.");
+var sourcePluginPath = Path.Combine(mo2Root, "mods", "[NoDelete] cfl_LolaAddon_", SourcePluginName);
+var runtimeOutput = Path.Combine(mo2Root, "mods", "[NoDelete] 360 Lola Expanded Addons", PatchName);
 
 var source = ModInstantiator<ISkyrimModGetter>.Importer(
-    ModPath.FromPath(SourcePluginPath),
+    ModPath.FromPath(sourcePluginPath),
     GameRelease.SkyrimSE);
 
 var patch = new SkyrimMod(ModKey.FromNameAndExtension(PatchName), SkyrimRelease.SkyrimSE);

@@ -10,7 +10,7 @@ public sealed class Settings
     public double TargetCraftingMarkupRatio { get; set; } = 2.0;
     public int MinimumGoldDifference { get; set; } = 100;
     public int MaximumMasters { get; set; } = 240;
-    public string ReportDirectory { get; set; } = @"<user-home>\nefaram-files\artifacts";
+    public string ReportDirectory { get; set; } = "artifacts";
     public List<string> ExcludedPlugins { get; set; } = [];
     public List<string> ExcludedFormKeys { get; set; } = [];
     public List<string> ApplyOnlyFormKeys { get; set; } = [];

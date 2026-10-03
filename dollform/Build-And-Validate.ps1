@@ -1,19 +1,24 @@
 $ErrorActionPreference = 'Stop'
 
 $projectRoot = $PSScriptRoot
+$repoRoot = (Resolve-Path -LiteralPath (Join-Path $projectRoot '..')).Path
+$mo2Root = $env:NEFARAM_MO2_ROOT
 $sourceRoot = Join-Path $projectRoot 'Source\Scripts'
 $outputRoot = Join-Path $projectRoot 'Scripts'
-$compiler = '<game-install>\Papyrus Compiler\PapyrusCompiler.exe'
-$vanilla = '<temporary>\skyrim-scripts-source\Source\Scripts'
+$compiler = $env:NEFARAM_PAPYRUS_COMPILER
+$vanilla = $env:NEFARAM_VANILLA_SOURCE
+if ([string]::IsNullOrWhiteSpace($mo2Root) -or [string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanilla)) {
+    throw 'Set NEFARAM_MO2_ROOT, NEFARAM_PAPYRUS_COMPILER, and NEFARAM_VANILLA_SOURCE before building.'
+}
 $includes = @(
     $sourceRoot
     (Join-Path $projectRoot 'build-stubs')
-    '<user-home>\nefaram-files\feral\build-stubs'
-    '<mo2-root>\mods\SKSE\Scripts\Source'
+    (Join-Path $repoRoot 'feral\build-stubs')
+    (Join-Path $mo2Root 'mods\SKSE\Scripts\Source')
     $vanilla
-    '<mo2-root>\mods\MCM Recorder\Source\scripts'
-    "<mo2-root>\mods\powerofthree's Papyrus Extender\Source\scripts"
-    '<mo2-root>\mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts'
+    (Join-Path $mo2Root 'mods\MCM Recorder\Source\scripts')
+    (Join-Path $mo2Root "mods\powerofthree's Papyrus Extender\Source\scripts")
+    (Join-Path $mo2Root 'mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts')
 ) -join ';'
 $scripts = @(
     'cfl_DollformEffect.psc'

@@ -1,13 +1,15 @@
 $ErrorActionPreference = 'Stop'
 
-$compiler = '<game-install>\Papyrus Compiler\PapyrusCompiler.exe'
-$source = '<user-home>\nefaram-files\NEFARAM - Vampire Lord Consequences\Source\Scripts'
-$output = '<mo2-root>\mods\NEFARAM - Vampire Lord Consequences\Scripts'
-$vanilla = '<temporary>\skyrim-scripts-source\Source\Scripts'
-$skse = '<mo2-root>\mods\SKSE\Scripts\Source'
-$flags = '<game-install>\Data\Scripts\Source\TESV_Papyrus_Flags.flg'
-if (!(Test-Path -LiteralPath $flags)) {
-  $flags = '<temporary>\skyrim-scripts-source\Source\Scripts\TESV_Papyrus_Flags.flg'
+$projectRoot = $PSScriptRoot
+$mo2Root = $env:NEFARAM_MO2_ROOT
+$compiler = $env:NEFARAM_PAPYRUS_COMPILER
+$vanilla = $env:NEFARAM_VANILLA_SOURCE
+$source = Join-Path $projectRoot 'Source\Scripts'
+$output = Join-Path $mo2Root 'mods\NEFARAM - Vampire Lord Consequences\Scripts'
+$skse = Join-Path $mo2Root 'mods\SKSE\Scripts\Source'
+$flags = Join-Path $vanilla 'TESV_Papyrus_Flags.flg'
+if ([string]::IsNullOrWhiteSpace($mo2Root) -or [string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanilla)) {
+  throw 'Set NEFARAM_MO2_ROOT, NEFARAM_PAPYRUS_COMPILER, and NEFARAM_VANILLA_SOURCE before building.'
 }
 
 New-Item -ItemType Directory -Force -Path $output | Out-Null

@@ -1,6 +1,6 @@
 # Feral v13 implementation status
 
-Updated 2026-07-19. Project source is `<user-home>\nefaram-files\feral`; MO2 runtime is `<mo2-root>\mods\Feral - Bodymorph Addon`.
+Updated 2026-07-19. Project source is `<repo-root>\feral`; MO2 runtime is `<mo2-root>\mods\Feral - Bodymorph Addon`.
 
 ## Implemented
 

@@ -30,7 +30,7 @@
 ## Papyrus
 
 - Vanilla source canonical copy: `nefaram-files\tools\vanilla-source\Source\Scripts`
-  (with `TESV_Papyrus_Flags.flg`). `<temporary>\skyrim-scripts-source` is a legacy copy —
+  (with `TESV_Papyrus_Flags.flg`). `<temporary-vanilla-source>` is a legacy copy —
   `<temporary>` gets cleaned; never make it the only copy.
 - `Game.GetFormFromFile`: strip the load-order byte from xEdit FormIDs
   (`0x05000806` → `0x000806`) or use `Game.GetModByName` + light-plugin rules.

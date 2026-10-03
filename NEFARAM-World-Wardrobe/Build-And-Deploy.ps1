@@ -1,9 +1,10 @@
 [CmdletBinding()]
 param(
-    [string]$RuntimeModPath = '<mo2-root>\mods\[NoDelete] NEFARAM - World Wardrobe - Load Order Fix'
+    [string]$RuntimeModPath = $(if ($env:NEFARAM_MO2_ROOT) { Join-Path $env:NEFARAM_MO2_ROOT 'mods\[NoDelete] NEFARAM - World Wardrobe - Load Order Fix' })
 )
 
 $ErrorActionPreference = 'Stop'
+if ([string]::IsNullOrWhiteSpace($RuntimeModPath)) { throw 'Pass -RuntimeModPath or set NEFARAM_MO2_ROOT.' }
 if (Get-Process -Name ModOrganizer,SkyrimSE -ErrorAction SilentlyContinue) { throw 'Close MO2 and Skyrim before deployment.' }
 $projectRoot = $PSScriptRoot
 $generator = Join-Path $projectRoot 'Generator\WorldWardrobeGenerator.csproj'

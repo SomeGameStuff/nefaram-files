@@ -48,7 +48,7 @@ Run the install:
 ## Manifest
 
 ```text
-+ local path="<local-mods>\Example.zip" install="Example Mod"
++ local path="<local-mods>/Example.zip" install="Example Mod"
 + manual url="https://example.com/Example.zip" install="Manual Mod" sha256="..."
 + discord url="https://cdn.discordapp.com/..." install="Discord-hosted Mod" sha256="..."
 + nexus skyrimspecialedition 16495 file_id=123456 install="JContainers SE"

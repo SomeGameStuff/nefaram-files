@@ -2,6 +2,7 @@
 import argparse
 import csv
 import difflib
+import os
 import re
 from collections import defaultdict
 from dataclasses import dataclass
@@ -12,7 +13,6 @@ from pathlib import Path
 ARCHIVE_EXTENSIONS = {".zip", ".7z", ".rar", ".fomod"}
 DEFAULT_DOWNLOAD_DIRS = [
     Path.home() / "Downloads",
-    Path(r"<other-install>\Downloads"),
 ]
 LOW_VALUE_TOKENS = {
     "skyrim", "special", "edition", "mod", "mods", "patch", "fix", "fixed", "update", "updated",
@@ -322,7 +322,7 @@ def write_outputs(results: list[MatchResult], out_dir: Path, manifest_archive_th
 def main() -> int:
     parser = argparse.ArgumentParser(description="Compare an external MO2 modlist against a local MO2 install.")
     parser.add_argument("--source-modlist", default=str(Path.home() / "Downloads" / "modlist.txt"))
-    parser.add_argument("--mo2-root", default=r"<mo2-root>")
+    parser.add_argument("--mo2-root", default=os.environ.get("NEFARAM_MO2_ROOT"))
     parser.add_argument("--profile", default=None)
     parser.add_argument("--out", default=str(Path(__file__).resolve().parent / "out"))
     parser.add_argument("--match-threshold", type=float, default=0.86)
@@ -330,6 +330,8 @@ def main() -> int:
     parser.add_argument("--manifest-archive-threshold", type=float, default=0.95)
     parser.add_argument("--download-dir", action="append", default=[])
     args = parser.parse_args()
+    if not args.mo2_root:
+        parser.error("--mo2-root is required (or set NEFARAM_MO2_ROOT).")
 
     source_entries = parse_source_entries(Path(args.source_modlist))
     local_names = local_names_from_mo2(Path(args.mo2_root), args.profile)

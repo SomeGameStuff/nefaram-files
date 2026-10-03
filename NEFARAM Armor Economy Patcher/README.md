@@ -4,8 +4,8 @@ Local Synthesis/Mutagen patcher for finding armor and clothing whose base gold v
 
 The default is deliberately safe: **audit only**. An audit run writes:
 
-- `<user-home>\nefaram-files\artifacts\armor-economy-audit.csv`
-- `<user-home>\nefaram-files\artifacts\armor-economy-audit.json`
+- `<repo-root>\artifacts\armor-economy-audit.csv`
+- `<repo-root>\artifacts\armor-economy-audit.json`
 
 ## Behavior
 

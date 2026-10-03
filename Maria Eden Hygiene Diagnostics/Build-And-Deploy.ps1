@@ -1,17 +1,24 @@
 [CmdletBinding()]
-param()
+param(
+    [string]$Mo2Root = $env:NEFARAM_MO2_ROOT,
+    [string]$Compiler = $env:NEFARAM_PAPYRUS_COMPILER,
+    [string]$VanillaSource = $env:NEFARAM_VANILLA_SOURCE
+)
 
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
 $runtimeName = '[NoDelete] Maria Eden Hygiene Diagnostics'
-$runtimePath = Join-Path '<mo2-root>\mods' $runtimeName
+$runtimePath = Join-Path (Join-Path $Mo2Root 'mods') $runtimeName
 $sourcePath = Join-Path $projectRoot 'Source\Scripts\MEP_PimpHygieneQuest.psc'
 $buildStubs = Join-Path $projectRoot 'build-stubs'
 $projectScripts = Join-Path $projectRoot 'Runtime\Scripts'
 $runtimeScripts = Join-Path $runtimePath 'Scripts'
-$compiler = '<game-install>\Papyrus Compiler\PapyrusCompiler.exe'
-$vanilla = '<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts'
-$skseSource = '<mo2-root>\mods\SKSE\Scripts\Source'
+$compiler = $Compiler
+$vanilla = $VanillaSource
+$skseSource = Join-Path $Mo2Root 'mods\SKSE\Scripts\Source'
+if ([string]::IsNullOrWhiteSpace($Mo2Root) -or [string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanilla)) {
+    throw 'Set NEFARAM_MO2_ROOT, NEFARAM_PAPYRUS_COMPILER, and NEFARAM_VANILLA_SOURCE before building.'
+}
 
 foreach ($required in @($sourcePath, $buildStubs, $compiler, $skseSource, (Join-Path $vanilla 'TESV_Papyrus_Flags.flg'))) {
     if (-not (Test-Path -LiteralPath $required)) { throw "Required path not found: $required" }

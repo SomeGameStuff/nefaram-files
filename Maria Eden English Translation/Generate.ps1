@@ -1,9 +1,12 @@
 [CmdletBinding()]
-param()
+param(
+    [string]$BaseMod = $env:NEFARAM_MARIA_MOD
+)
 
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
-$baseMod = '<mo2-root>\mods\MariaEdenProstitution'
+if ([string]::IsNullOrWhiteSpace($BaseMod)) { throw 'Set NEFARAM_MARIA_MOD before generating the translation.' }
+$baseMod = $BaseMod
 $dataRoot = Join-Path $projectRoot 'Data'
 $cachePath = Join-Path $projectRoot 'translation-cache.json'
 $resolvedProject = [IO.Path]::GetFullPath($projectRoot)

@@ -28,5 +28,5 @@ tools\NexusFileResolver\bin\Release\net9.0\NexusFileResolver.exe `
   --comparison tools\ModListCompare\out_ultimate_overhaul\comparison.csv `
   --bucket armor-clothing `
   --out tools\ModListCompare\out_ultimate_overhaul\manifests\armor-clothing.resolved.mods.txt `
-  --wabbajack <wabbajack-root>\wabbajack-cli.bat
+  --wabbajack <wabbajack-cli>
 ```

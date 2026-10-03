@@ -1,12 +1,17 @@
 [CmdletBinding()]
 param(
-    [switch]$Package
+    [switch]$Package,
+    [string]$Compiler = $env:NEFARAM_PAPYRUS_COMPILER,
+    [string]$VanillaSource = $env:NEFARAM_VANILLA_SOURCE
 )
 
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
-$compiler = '<game-install>\Papyrus Compiler\PapyrusCompiler.exe'
-$vanilla = '<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts'
+$compiler = $Compiler
+$vanilla = $VanillaSource
+if ([string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanilla)) {
+    throw 'Set NEFARAM_PAPYRUS_COMPILER and NEFARAM_VANILLA_SOURCE before building.'
+}
 $source = Join-Path $projectRoot 'Source\Scripts'
 $stubs = Join-Path $projectRoot 'build-stubs'
 $scripts = Join-Path $projectRoot 'Scripts'
@@ -67,7 +72,7 @@ if (-not (Test-Path -LiteralPath (Join-Path $scripts 'MEPK_MCM.pex'))) {
 Write-Host 'Build and validation succeeded.'
 
 if ($Package) {
-    $artifacts = '<user-home>\nefaram-files\artifacts'
+    $artifacts = Join-Path $projectRoot 'artifacts'
     $stageRoot = Join-Path $projectRoot 'build-output\Maria Eden Key Configuration'
     $resolvedProject = [IO.Path]::GetFullPath($projectRoot)
     $resolvedStage = [IO.Path]::GetFullPath($stageRoot)

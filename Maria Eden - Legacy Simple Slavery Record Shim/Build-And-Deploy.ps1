@@ -1,10 +1,11 @@
 [CmdletBinding()]
 param(
-    [string]$Mo2Root = '<mo2-root>',
-    [string]$RepoRoot = '<user-home>\nefaram-files'
+    [string]$Mo2Root = $env:NEFARAM_MO2_ROOT,
+    [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 )
 
 $ErrorActionPreference = 'Stop'
+if ([string]::IsNullOrWhiteSpace($Mo2Root)) { throw 'Set NEFARAM_MO2_ROOT or pass -Mo2Root.' }
 
 $projectRoot = Join-Path $RepoRoot 'Maria Eden - Legacy Simple Slavery Record Shim'
 $outputDir = Join-Path $projectRoot 'mod'

@@ -3,7 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 const projectRoot = path.resolve(import.meta.dirname, "..");
-const sourceRoot = "<mo2-root>\\mods\\MariaEdenProstitution\\scripts";
+const sourceRoot = process.env.NEFARAM_MARIA_SCRIPTS;
+if (!sourceRoot) throw new Error("Set NEFARAM_MARIA_SCRIPTS before patching PEX strings.");
 const outputRoot = path.join(projectRoot, "Final MO2 Mod", "Scripts");
 const jobs = {
   "MariasUtils.pex": {

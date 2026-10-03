@@ -50,7 +50,7 @@ Do not package compile stubs, scratch generator projects, logs, or xEdit scripts
 The vanilla source tree used for compilation is:
 
 ```text
-<temporary>\skyrim-scripts-source\Source\Scripts
+<temporary-vanilla-source>\Source\Scripts
 ```
 
 Some installed runtime APIs are present as DLLs/PEX files but do not ship complete compile sources. For this project, compile-only stubs were useful for:
@@ -80,7 +80,7 @@ Compile command pattern:
 ```powershell
 & '<mo2-root>\Game Root\Papyrus Compiler\PapyrusCompiler.exe' '<source.psc>' `
   -f='TESV_Papyrus_Flags.flg' `
-  -i='<mod source>;<mo2-root>\__temp__\dollform-build\stubs;<temporary>\skyrim-scripts-source\Source\Scripts' `
+  -i='<mod source>;<mo2-root>\__temp__\dollform-build\stubs;<temporary-vanilla-source>\Source\Scripts' `
   -o='<mod Scripts folder>'
 ```
 

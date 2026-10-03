@@ -8,13 +8,16 @@ const string PatchName = "Lola DOM Handler Patch.esp";
 var root = FindPatchRoot();
 var outputPath = Path.Combine(root, PatchName);
 var replacementsPath = Path.Combine(root, "Build", "replacements.tsv");
+var mo2Root = Environment.GetEnvironmentVariable("NEFARAM_MO2_ROOT")
+    ?? throw new InvalidOperationException("Set NEFARAM_MO2_ROOT before building.");
+var modsRoot = Path.Combine(mo2Root, "mods");
 
 var sourcePaths = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 {
-    ["DiaryOfMine.esm"] = @"<mo2-root>\mods\PAH Diary Of Mine\DiaryOfMine.esm",
-    ["PAH_AndYouGetASlave.esp"] = @"<mo2-root>\mods\PAH And You Get a Slave!\PAH_AndYouGetASlave.esp",
-    ["PAH_HomeSweetHome.esp"] = @"<mo2-root>\mods\PAH Home Sweet Home\PAH_HomeSweetHome.esp",
-    ["cfl_LolaAddon.esp"] = @"<mo2-root>\mods\[NoDelete] cfl_LolaAddon_\cfl_LolaAddon.esp",
+    ["DiaryOfMine.esm"] = Path.Combine(modsRoot, "PAH Diary Of Mine", "DiaryOfMine.esm"),
+    ["PAH_AndYouGetASlave.esp"] = Path.Combine(modsRoot, "PAH And You Get a Slave!", "PAH_AndYouGetASlave.esp"),
+    ["PAH_HomeSweetHome.esp"] = Path.Combine(modsRoot, "PAH Home Sweet Home", "PAH_HomeSweetHome.esp"),
+    ["cfl_LolaAddon.esp"] = Path.Combine(modsRoot, "[NoDelete] cfl_LolaAddon_", "cfl_LolaAddon.esp"),
 };
 
 var patches = LoadPatches(replacementsPath).ToArray();

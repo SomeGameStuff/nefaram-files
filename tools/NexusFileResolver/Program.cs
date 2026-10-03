@@ -481,7 +481,8 @@ internal static class WabbajackNexusAuth
             candidates.AddRange(Directory.GetDirectories(defaultRoot).Select(path => Path.Combine(path, "Wabbajack.Services.OSIntegrated.dll")));
         }
 
-        var localRoot = Path.Combine(Path.GetPathRoot(Environment.CurrentDirectory) ?? "<drive-root>\\", "Games", "wabbajack");
+            var localRoot = Environment.GetEnvironmentVariable("WABBAJACK_ROOT")
+                ?? Path.Combine(Environment.CurrentDirectory, "wabbajack");
         if (Directory.Exists(localRoot))
         {
             candidates.AddRange(Directory.GetDirectories(localRoot).Select(path => Path.Combine(path, "Wabbajack.Services.OSIntegrated.dll")));

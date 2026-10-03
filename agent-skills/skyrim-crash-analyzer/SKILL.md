@@ -67,7 +67,7 @@ Useful options:
 
 ```powershell
 python (Join-Path $skillDir "scripts\analyze_skyrim_crash.py") --mo2-root <mo2-root> --profile NEFARAM
-python (Join-Path $skillDir "scripts\analyze_skyrim_crash.py") --crash-log "<path>\crash.log" --mo2-root <mo2-root> --profile NEFARAM --json
+python (Join-Path $skillDir "scripts\analyze_skyrim_crash.py") --crash-log "<path>/crash.log" --mo2-root <mo2-root> --profile NEFARAM --json
 ```
 
 If the script cannot resolve paths, manually inspect with `Get-ChildItem` and `Select-String`; then continue the same workflow.

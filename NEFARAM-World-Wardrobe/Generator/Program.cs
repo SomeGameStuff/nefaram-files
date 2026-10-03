@@ -15,6 +15,10 @@ var rules = JsonSerializer.Deserialize<GeneratorRules>(File.ReadAllText(rulesPat
 {
     PropertyNameCaseInsensitive = true
 }) ?? throw new InvalidDataException($"Could not deserialize {rulesPath}.");
+rules.ProfilePath = ExpandConfiguredPath(rules.ProfilePath, rulesPath);
+rules.ModsRoot = ExpandConfiguredPath(rules.ModsRoot, rulesPath);
+rules.GameDataPath = ExpandConfiguredPath(rules.GameDataPath, rulesPath);
+rules.OutputPath = ExpandConfiguredPath(rules.OutputPath, rulesPath);
 ValidateRules(rules, rulesPath);
 
 var inspectTargets = args.Any(x => x.Equals("--inspect-targets", StringComparison.OrdinalIgnoreCase));
@@ -174,6 +178,14 @@ static void ValidateRules(GeneratorRules value, string path)
     if (value.LeafSize is < 1 or > 100) throw new InvalidDataException("leafSize must be between 1 and 100.");
     if (value.MaximumSourceMastersPerShard is < 1 or > 200) throw new InvalidDataException("maximumSourceMastersPerShard must be between 1 and 200.");
     if (value.MaximumNewRecordsPerShard is < 100 or > 2000) throw new InvalidDataException("maximumNewRecordsPerShard must be between 100 and 2000.");
+}
+
+static string ExpandConfiguredPath(string value, string rulesPath)
+{
+    var expanded = Environment.ExpandEnvironmentVariables(value);
+    return Path.IsPathRooted(expanded)
+        ? expanded
+        : Path.GetFullPath(Path.Combine(Path.GetDirectoryName(rulesPath)!, expanded));
 }
 
 static ISkyrimModGetter Import(string path) =>

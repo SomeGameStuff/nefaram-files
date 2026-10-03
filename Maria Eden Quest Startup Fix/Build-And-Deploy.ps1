@@ -1,15 +1,22 @@
 [CmdletBinding()]
-param()
+param(
+    [string]$Mo2Root = $env:NEFARAM_MO2_ROOT,
+    [string]$Compiler = $env:NEFARAM_PAPYRUS_COMPILER,
+    [string]$VanillaSource = $env:NEFARAM_VANILLA_SOURCE
+)
 
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
 $runtimeName = '[NoDelete] Maria Eden Quest Startup Fix'
-$runtimePath = Join-Path '<mo2-root>\mods' $runtimeName
+$runtimePath = Join-Path (Join-Path $Mo2Root 'mods') $runtimeName
 $projectRuntime = Join-Path $projectRoot 'Runtime'
-$sourcePlugin = '<mo2-root>\mods\[NoDelete] Maria Eden Complete English Translation\MariaProstitution.esp'
+$sourcePlugin = Join-Path $Mo2Root 'mods\[NoDelete] Maria Eden Complete English Translation\MariaProstitution.esp'
 $pluginName = 'NEFARAM_MariaEdenQuestStartupFix.esp'
-$compiler = '<game-install>\Papyrus Compiler\PapyrusCompiler.exe'
-$vanilla = '<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts'
+$compiler = $Compiler
+$vanilla = $VanillaSource
+if ([string]::IsNullOrWhiteSpace($Mo2Root) -or [string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanilla)) {
+    throw 'Set NEFARAM_MO2_ROOT, NEFARAM_PAPYRUS_COMPILER, and NEFARAM_VANILLA_SOURCE before building.'
+}
 $sourceScripts = Join-Path $projectRoot 'Source\Scripts'
 $buildStubs = Join-Path $projectRoot 'build-stubs'
 $projectScripts = Join-Path $projectRuntime 'Scripts'

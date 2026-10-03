@@ -31,8 +31,7 @@ function Assert-InAllowedRoot {
     param([string]$Path)
     $resolved = (Resolve-Path -LiteralPath $Path).Path
     $allowed = @(
-        $repoRoot,
-        "<mo2-root>\mods"
+        $repoRoot
     )
     foreach ($root in $allowed) {
         if ($resolved.StartsWith($root, [System.StringComparison]::OrdinalIgnoreCase)) {

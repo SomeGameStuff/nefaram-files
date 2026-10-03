@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const root = process.argv[2] ?? "<mo2-root>";
+const root = process.argv[2] ?? process.env.NEFARAM_MO2_ROOT;
+if (!root) throw new Error("Pass the MO2 root or set NEFARAM_MO2_ROOT.");
 const profile = process.argv[3] ?? "NEFARAM";
 const outPath = process.argv[4] ??
   path.join(root, "mods", "Lola Expanded Addons", "SKSE", "Plugins", "LolaExpandedAddons", "HairPool.json");

@@ -5,7 +5,7 @@
   "TargetCraftingMarkupRatio": 2.0,
   "MinimumGoldDifference": 100,
   "MaximumMasters": 240,
-  "ReportDirectory": "<repo-root>\\artifacts",
+  "ReportDirectory": "artifacts",
   "ExcludedPlugins": [],
   "ExcludedFormKeys": [],
   "ApplyOnlyFormKeys": [],

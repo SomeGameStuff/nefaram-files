@@ -16,7 +16,7 @@ This file preserves implementation and troubleshooting knowledge that should sur
 
 ## Source, build, and deployment
 
-- Authoritative project: `<user-home>\nefaram-files\feral`.
+- Authoritative project: `<repo-root>\feral`.
 - MO2 runtime: `<mo2-root>\mods\Feral - Bodymorph Addon`.
 - Run `build\Build-And-Validate.ps1` from the project. It builds and parses the ESP, regenerates all 24 staged DDS files and 8 hand textures, copies JSON configuration, writes the SEQ, compiles nine Papyrus scripts, and checks required controller/ownership/MCM features.
 - Deploy the complete `build-output` tree plus user documentation. Never update only the ESP: a mismatched PEX, SlaveTats JSON, texture set, SKSE JSON, or SEQ can look like an engine/save problem.

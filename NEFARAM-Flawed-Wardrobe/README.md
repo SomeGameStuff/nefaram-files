@@ -24,7 +24,7 @@ Each catalogue contains 75 source items and 750 variants. Catalogue D also conta
 
 ## Rebuild
 
-Vanilla Papyrus sources are extracted to `<temporary>\skyrim-scripts-source\Source\Scripts`. Compile both project scripts with the installed Papyrus compiler, then run the generator with offsets `0`, `75`, `150`, and `225` in that order. Run `dotnet run -- --validate` afterward.
+Vanilla Papyrus sources are extracted to `<temporary-vanilla-source>\Source\Scripts`. Compile both project scripts with the installed Papyrus compiler, then run the generator with offsets `0`, `75`, `150`, and `225` in that order. Run `dotnet run -- --validate` afterward.
 
 Selection is deterministic: take up to 12 eligible wearable records from each configured source in source order, then fill any remaining slots from additional eligible records in source order. Shields and obvious invisible/dummy/placeholder records are excluded.
 

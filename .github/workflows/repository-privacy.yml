@@ -1,0 +1,19 @@
+name: Repository privacy scan
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject host-specific paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -I -P '(^|[^A-Za-z])[A-Za-z]:[\\/]|\\\\Users\\\\|/Users/|/home/|/mnt/|AppData[\\/]|DESKTOP-[A-Za-z0-9-]+' -- . ':(exclude).github/workflows/repository-privacy.yml'; then
+            echo 'Host-specific paths or machine identifiers found.' >&2
+            exit 1
+          fi

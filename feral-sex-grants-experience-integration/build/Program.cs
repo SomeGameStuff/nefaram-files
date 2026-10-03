@@ -5,7 +5,7 @@ using Mutagen.Bethesda.Skyrim;
 
 var outputPath = args.Length > 0
     ? args[0]
-    : @"<user-home>\nefaram-files\feral-sex-grants-experience-integration\FeralCreatureKinship.esp";
+    : Path.Combine(Directory.GetCurrentDirectory(), "FeralCreatureKinship.esp");
 
 var modKey = ModKey.FromNameAndExtension("FeralCreatureKinship.esp");
 var mod = new SkyrimMod(modKey, SkyrimRelease.SkyrimSE);

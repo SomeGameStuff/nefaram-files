@@ -8,7 +8,8 @@ const inputDir = path.join(reviewRoot, "input");
 const outputDir = path.join(reviewRoot, "output");
 const schemaPath = path.join(import.meta.dirname, "codex-output-schema.json");
 const manifest = JSON.parse(fs.readFileSync(path.join(reviewRoot, "manifest.json"), "utf8"));
-const codexScript = "<user-appdata>\\Roaming\\npm\\node_modules\\@openai\\codex\\bin\\codex.js";
+const codexScript = process.env.CODEX_SCRIPT;
+if (!codexScript) throw new Error("Set CODEX_SCRIPT before running Codex review.");
 const concurrency = 8;
 
 const pending = manifest.batches.filter(batch => !validExistingOutput(batch));

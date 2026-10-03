@@ -56,9 +56,9 @@ The shipped `.pex` scripts are already compiled. To rebuild them, run `Build-Com
 The build script expects:
 
 - Papyrus compiler: `<game-install>\Papyrus Compiler\PapyrusCompiler.exe`
-- Vanilla script sources: `<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts`
+- Vanilla script sources: `<repo-root>\tools\vanilla-source\Source\Scripts`
 - SKSE script sources: `<mo2-root>\mods\SKSE\Scripts\Source`
 
 The ESP was generated with the Mutagen builder kept in:
 
-`<user-home>\nefaram-files\Spatial Storage Rings Work\ssr-mutagen-build`
+`<repo-root>\Spatial Storage Rings Work\ssr-mutagen-build`

@@ -9,3 +9,8 @@ CLAUDE.md
 
 # Local copy of vanilla Papyrus sources (~100 MB, re-extractable from Data/Scripts.zip)
 tools/vanilla-source/
+
+# Generated comparison reports can contain local download/archive paths.
+tools/ModListCompare/out/
+tools/ModListCompare/out_ultimate_overhaul/
+artifacts/

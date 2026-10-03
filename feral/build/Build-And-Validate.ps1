@@ -11,6 +11,12 @@ $markBuilder = Join-Path $projectRoot 'assets\Generate-Feral-Marks.ps1'
 $tattooJsonSource = Join-Path $projectRoot 'assets\feral.json'
 $tattooJsonOutput = Join-Path $outputRoot 'Textures\Actors\Character\slavetats\feral.json'
 $runtimeConfigRoot = Join-Path $outputRoot 'SKSE\Plugins\Feral'
+$mo2Root = $env:NEFARAM_MO2_ROOT
+$compiler = $env:NEFARAM_PAPYRUS_COMPILER
+$vanillaSource = $env:NEFARAM_VANILLA_SOURCE
+if ([string]::IsNullOrWhiteSpace($mo2Root) -or [string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanillaSource)) {
+    throw 'Set NEFARAM_MO2_ROOT, NEFARAM_PAPYRUS_COMPILER, and NEFARAM_VANILLA_SOURCE before building.'
+}
 
 New-Item -ItemType Directory -Path $scriptOutput -Force | Out-Null
 dotnet run --project $builderProject -- $pluginOutput
@@ -40,15 +46,13 @@ if ($seqBytes.Length -ne 4 -or [BitConverter]::ToUInt32($seqBytes, 0) -ne 0x950)
     throw 'Feral SEQ generation failed.'
 }
 
-$compiler = '<game-install>\Papyrus Compiler\PapyrusCompiler.exe'
-$vanillaSource = '<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts'
 $flags = '-f=' + (Join-Path $vanillaSource 'TESV_Papyrus_Flags.flg')
 $includes = '-i=' + ($sourceRoot, (Join-Path $projectRoot 'build-stubs'),
-    '<mo2-root>\mods\SKSE\Scripts\Source',
+    (Join-Path $mo2Root 'mods\SKSE\Scripts\Source'),
     $vanillaSource,
-    '<mo2-root>\mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts',
-    "<mo2-root>\mods\powerofthree's Papyrus Extender\Source\scripts",
-    '<mo2-root>\mods\Experience\Scripts\Source' -join ';')
+    (Join-Path $mo2Root 'mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts'),
+    (Join-Path $mo2Root "mods\powerofthree's Papyrus Extender\Source\scripts"),
+    (Join-Path $mo2Root 'mods\Experience\Scripts\Source') -join ';')
 $output = '-o=' + $scriptOutput
 $scripts = @(
     'cfl_FeralMCM.psc',

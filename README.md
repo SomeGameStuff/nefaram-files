@@ -2,7 +2,7 @@
 
 Source and packaged files for local NEFARAM add-on mods.
 
-Source of record: use this repository at `<user-home>\nefaram-files` for source edits, commits, tags, and GitHub releases. Treat `<mo2-root>` as an installed MO2 runtime/reference tree, not the release source.
+Source of record: use this repository at `<repo-root>` for source edits, commits, tags, and GitHub releases. Treat `<mo2-root>` as an installed MO2 runtime/reference tree, not the release source.
 
 | Mod | Folder | Purpose | Source | Build | Install |
 | --- | --- | --- | --- | --- | --- |
@@ -16,6 +16,6 @@ Source of record: use this repository at `<user-home>\nefaram-files` for source 
 | MCM Recorder Hard Mode | `MCM Recorder Hard Mode` | Documents what the bundled `HARD MODE (FEMALE ONLY)` MCM Recorder preset changes. | Local recorder JSONs under `mods/SKSE Output/McmRecorder/HARD MODE (FEMALE ONLY)`. | No build; documentation only. | Play the preset with MCM Recorder after the normal NEFARAM MCM recorder if you want the harder configuration. |
 | Armor Economy Patcher | `NEFARAM Armor Economy Patcher` | Audits and conservatively fixes extreme gold-value/crafting-cost mismatches in added armor and clothing. | Local C# Synthesis/Mutagen project with separate audit/build JSON settings. | Build the solution with .NET 8; run its `--self-test` mode, then use the direct MO2 launcher. | `NEFARAM Armor Economy Audit` reports only; `NEFARAM Armor Economy Build` regenerates the standalone `[NoDelete] NEFARAM Armor Economy Patch` mod while excluding VIGILANT. |
 | MO2 Mod Group Installer | `tools/ModGroupInstaller` | Windows tool for installing shared mod groups into a portable MO2 instance from a simple manifest. | C#/.NET WinForms app plus example manifests in `examples`. | Run `dotnet build tools/ModGroupInstaller/ModGroupInstaller.csproj -c Release`. | Run the built exe, choose the MO2 root and manifest, or use CLI `--mo2` and `--manifest`. |
-| MO2 Mod List Compare | `tools/ModListCompare` | Compares another MO2 `modlist.txt` against the local NEFARAM install and drafts installer manifests for missing mods. | Python script plus generated comparison output in `out`. | Run `python tools/ModListCompare/compare_modlists.py --source-modlist <user-home>\Downloads\modlist.txt --mo2-root <mo2-root>`. | Review `out/missing.md`, then feed selected `out/manifests/*.mods.txt` files to the Mod Group Installer. |
+| MO2 Mod List Compare | `tools/ModListCompare` | Compares another MO2 `modlist.txt` against the local NEFARAM install and drafts installer manifests for missing mods. | Python script plus generated comparison output in `out`. | Run `python tools/ModListCompare/compare_modlists.py --source-modlist <local-download>\modlist.txt --mo2-root <mo2-root>`. | Review `out/missing.md`, then feed selected `out/manifests/*.mods.txt` files to the Mod Group Installer. |
 
 Each listed folder has a README with purpose, source, build, and install notes.

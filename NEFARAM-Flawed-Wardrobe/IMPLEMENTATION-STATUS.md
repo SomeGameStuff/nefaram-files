@@ -2,7 +2,7 @@
 
 ## Complete
 
-- Vanilla Papyrus sources were extracted from the installed `Scripts.zip` to `<temporary>\skyrim-scripts-source\Source\Scripts`.
+- Vanilla Papyrus sources were extracted from the installed `Scripts.zip` to `<temporary-vanilla-source>\Source\Scripts`.
 - `NFW_CraftResult.psc` and `NFW_RefitController.psc` compile with 0 errors and 0 warnings into the MO2 mod's `Scripts` directory.
 - Four light catalogue plugins contain 300 source pieces split 75 per shard and 3,000 fixed flawed variants total.
 - Every source has one ten-entry result FormList, one scripted MISC work-order token, and one forge COBJ. The former 3,000 direct variant recipes are gone.

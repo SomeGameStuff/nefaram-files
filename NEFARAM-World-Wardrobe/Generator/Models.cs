@@ -5,9 +5,9 @@ namespace WorldWardrobeGenerator;
 
 internal sealed class GeneratorRules
 {
-    public string ProfilePath { get; set; } = @"<mo2-root>\profiles\NEFARAM";
-    public string ModsRoot { get; set; } = @"<mo2-root>\mods";
-    public string GameDataPath { get; set; } = @"<game-install>\Data";
+    public string ProfilePath { get; set; } = @"%NEFARAM_MO2_ROOT%\profiles\NEFARAM";
+    public string ModsRoot { get; set; } = @"%NEFARAM_MO2_ROOT%\mods";
+    public string GameDataPath { get; set; } = @"%NEFARAM_GAME_DATA%";
     public string OutputPath { get; set; } = "build-output";
     public int LeafSize { get; set; } = 80;
     public int MaximumSourceMastersPerShard { get; set; } = 120;

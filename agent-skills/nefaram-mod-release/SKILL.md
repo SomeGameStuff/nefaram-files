@@ -8,8 +8,8 @@ description: Package NEFARAM Skyrim MO2 mod project folders into release ZIPs an
 ## Workflow
 
 1. Identify the project folder and runtime mod folder.
-   - Always treat `<user-home>\nefaram-files` as the source of record for source, commits, tags, and GitHub releases.
-   - Prefer `<user-home>\nefaram-files\<Project Name>` as the project source path.
+   - Always treat `<repo-root>` as the source of record for source, commits, tags, and GitHub releases.
+   - Prefer `<repo-root>\<Project Name>` as the project source path.
    - Use `<mo2-root>\mods\<MO2 Mod Name>` only as an installed runtime reference when the user explicitly wants to inspect or package the installed MO2 mod. Do not publish from `<mo2-root>`.
    - Check git state before packaging. Do not include unrelated dirty changes in commits or release notes.
 
@@ -24,7 +24,7 @@ description: Package NEFARAM Skyrim MO2 mod project folders into release ZIPs an
 ```powershell
 $skillDir = "<directory-containing-this-SKILL.md>"
 & (Join-Path $skillDir "scripts\package-nefaram-mod.ps1") `
-  -ProjectPath "<user-home>\nefaram-files\lola-expanded-addons" `
+  -ProjectPath "<repo-root>\lola-expanded-addons" `
   -Version "1.2.3"
 ```
 
@@ -55,7 +55,7 @@ Useful options:
 
 ## Defaults
 
-- Output directory: `<user-home>\nefaram-files\artifacts`
+- Output directory: `<repo-root>\artifacts`
 - Archive name: `<ProjectFolder>-<Version>.zip`
 - Git tag default: `<ProjectFolder>-v<Version>`
 - Runtime package excludes: `.git`, `.github`, `Source`, `build-stubs`, `vanilla-source`, `tools`, `logs`, `__temp__`, `*.log`, `*.tmp`, `*.bak`, `*.psc`
@@ -67,7 +67,7 @@ If publishing is requested but unavailable:
 ```powershell
 winget install GitHub.cli
 gh auth login
-gh repo create owner/repo --private --source "<user-home>\nefaram-files" --remote origin
+gh repo create owner/repo --private --source "<repo-root>" --remote origin
 ```
 
 Do not create public repos or push releases without explicit user intent.

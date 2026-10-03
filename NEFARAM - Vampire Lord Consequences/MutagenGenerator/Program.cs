@@ -34,7 +34,7 @@ static void AddObjectProperty(ScriptEntry script, string name, IFormLinkGetter<I
 
 var outPath = args.Length > 0
     ? args[0]
-    : @"<mo2-root>\mods\NEFARAM - Vampire Lord Consequences\NEFARAM - Vampire Lord Consequences.esp";
+    : Path.Combine(Directory.GetCurrentDirectory(), "NEFARAM - Vampire Lord Consequences.esp");
 
 var mod = new SkyrimMod(ModKey.FromNameAndExtension("NEFARAM - Vampire Lord Consequences.esp"), SkyrimRelease.SkyrimSE);
 mod.ModHeader.Flags |= SkyrimModHeader.HeaderFlag.Small;

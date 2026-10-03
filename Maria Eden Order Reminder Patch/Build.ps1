@@ -1,8 +1,9 @@
 param(
-    [string]$InputPlugin = '<mo2-root>\mods\[NoDelete] Maria Eden Complete English Translation\MariaProstitution.esp'
+    [string]$InputPlugin = $env:NEFARAM_MARIA_PLUGIN
 )
 
 $ErrorActionPreference = 'Stop'
+if ([string]::IsNullOrWhiteSpace($InputPlugin)) { throw 'Pass -InputPlugin or set NEFARAM_MARIA_PLUGIN.' }
 $root = $PSScriptRoot
 $out = Join-Path $root 'build-output'
 New-Item -ItemType Directory -Path $out -Force | Out-Null

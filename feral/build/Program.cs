@@ -3,11 +3,21 @@ using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Plugins.Records;
 using Mutagen.Bethesda.Skyrim;
 
+static string RequiredEnvironment(string name) =>
+    Environment.GetEnvironmentVariable(name)
+    ?? throw new InvalidOperationException($"Set {name} before building.");
+
+var gameData = RequiredEnvironment("NEFARAM_GAME_DATA");
+var mo2Mods = Path.Combine(RequiredEnvironment("NEFARAM_MO2_ROOT"), "mods");
+var projectRoot = Environment.GetEnvironmentVariable("NEFARAM_FERAL_PROJECT")
+    ?? Directory.GetCurrentDirectory();
+var skyrimPath = Path.Combine(gameData, "Skyrim.esm");
+
 if (args.Length > 1 && args[0] == "--inspect-magics")
 {
     var terms = args.Skip(1).ToArray();
     var inspected = ModFactory<ISkyrimModGetter>.Importer(
-        ModPath.FromPath(@"<mo2-root>\Game Root\Data\Skyrim.esm"), GameRelease.SkyrimSE);
+        ModPath.FromPath(skyrimPath), GameRelease.SkyrimSE);
     foreach (var effect in inspected.MagicEffects.OrderBy(x => x.FormKey.ID))
         if (terms.Any(term => (effect.EditorID ?? "").Contains(term, StringComparison.OrdinalIgnoreCase)))
             Console.WriteLine($"MGEF|{effect.FormKey.ID:X6}|{effect.EditorID}|{effect.Archetype.Type}|{effect.Archetype.ActorValue}|{effect.CastType}|{effect.TargetType}|{effect.Flags}");
@@ -21,7 +31,7 @@ if (args.Length > 1 && args[0] == "--inspect-npcs")
 {
     var terms = args.Skip(1).ToArray();
     var inspected = ModFactory<ISkyrimModGetter>.Importer(
-        ModPath.FromPath(@"<mo2-root>\Game Root\Data\Skyrim.esm"), GameRelease.SkyrimSE);
+        ModPath.FromPath(skyrimPath), GameRelease.SkyrimSE);
     foreach (var npc in inspected.Npcs.OrderBy(x => x.FormKey.ID))
         if (terms.Any(term => (npc.EditorID ?? "").Contains(term, StringComparison.OrdinalIgnoreCase)))
             Console.WriteLine($"NPC_|{npc.FormKey.ID:X6}|{npc.EditorID}|{npc.Name?.String}|{npc.Configuration.Flags}");
@@ -75,9 +85,9 @@ if (args.Length > 0 && args[0] == "--inspect-races")
 {
     var masters = new[]
     {
-        @"<mo2-root>\Game Root\Data\Skyrim.esm",
-        @"<mo2-root>\Game Root\Data\Dawnguard.esm",
-        @"<mo2-root>\Game Root\Data\Dragonborn.esm"
+        Path.Combine(gameData, "Skyrim.esm"),
+        Path.Combine(gameData, "Dawnguard.esm"),
+        Path.Combine(gameData, "Dragonborn.esm")
     };
     foreach (var path in masters)
     {
@@ -94,7 +104,7 @@ if (args.Length > 0 && args[0] == "--inspect-races")
 if (args.Length > 0 && args[0] == "--inspect-dollform-globals")
 {
     var inspected = ModFactory<ISkyrimModGetter>.Importer(
-        ModPath.FromPath(@"<mo2-root>\mods\[NoDelete] Bodymorph Alterations\Dollform.esp"),
+        ModPath.FromPath(Path.Combine(mo2Mods, "[NoDelete] Bodymorph Alterations", "Dollform.esp")),
         GameRelease.SkyrimSE);
     foreach (var global in inspected.Globals.OrderBy(x => x.FormKey.ID))
         Console.WriteLine($"{global.FormKey.ID:X6}|{global.EditorID}");
@@ -104,7 +114,7 @@ if (args.Length > 0 && args[0] == "--inspect-dollform-globals")
 if (args.Length > 0 && args[0] == "--inspect-dollform-effects")
 {
     var inspected = ModFactory<ISkyrimModGetter>.Importer(
-        ModPath.FromPath(@"<mo2-root>\mods\[NoDelete] Bodymorph Alterations\Dollform.esp"),
+        ModPath.FromPath(Path.Combine(mo2Mods, "[NoDelete] Bodymorph Alterations", "Dollform.esp")),
         GameRelease.SkyrimSE);
     foreach (var effect in inspected.MagicEffects.Where(x =>
         (x.EditorID ?? "").Contains("form", StringComparison.OrdinalIgnoreCase)))
@@ -117,7 +127,7 @@ if (args.Length > 0 && args[0] == "--inspect-dollform-effects")
 
 var outputPath = args.Length > 0
     ? args[0]
-    : @"<user-home>\nefaram-files\feral\build-output\Feral.esp";
+    : Path.Combine(projectRoot, "build-output", "Feral.esp");
 
 var modKey = ModKey.FromNameAndExtension("Feral.esp");
 var mod = new SkyrimMod(modKey, SkyrimRelease.SkyrimSE);
@@ -594,11 +604,11 @@ for (var family = 1; family <= 8; family++)
 var officialMasters = new Dictionary<string, ISkyrimModGetter>(StringComparer.OrdinalIgnoreCase)
 {
     ["Skyrim.esm"] = ModFactory<ISkyrimModGetter>.Importer(
-        ModPath.FromPath(@"<mo2-root>\Game Root\Data\Skyrim.esm"), GameRelease.SkyrimSE),
+        ModPath.FromPath(Path.Combine(gameData, "Skyrim.esm")), GameRelease.SkyrimSE),
     ["Dawnguard.esm"] = ModFactory<ISkyrimModGetter>.Importer(
-        ModPath.FromPath(@"<mo2-root>\Game Root\Data\Dawnguard.esm"), GameRelease.SkyrimSE),
+        ModPath.FromPath(Path.Combine(gameData, "Dawnguard.esm")), GameRelease.SkyrimSE),
     ["Dragonborn.esm"] = ModFactory<ISkyrimModGetter>.Importer(
-        ModPath.FromPath(@"<mo2-root>\Game Root\Data\Dragonborn.esm"), GameRelease.SkyrimSE)
+        ModPath.FromPath(Path.Combine(gameData, "Dragonborn.esm")), GameRelease.SkyrimSE)
 };
 var expectedRaces = new (string Plugin, uint Id, string EditorId)[]
 {
@@ -625,7 +635,7 @@ foreach (var expected in expectedRaces)
 }
 
 var dollform = ModFactory<ISkyrimModGetter>.Importer(
-    ModPath.FromPath(@"<mo2-root>\mods\[NoDelete] Bodymorph Alterations\Dollform.esp"),
+    ModPath.FromPath(Path.Combine(mo2Mods, "[NoDelete] Bodymorph Alterations", "Dollform.esp")),
     GameRelease.SkyrimSE);
 var horseTier = dollform.Globals.SingleOrDefault(x => x.FormKey.ID == 0x802);
 var trollTier = dollform.Globals.SingleOrDefault(x => x.FormKey.ID == 0x805);
@@ -633,7 +643,7 @@ if (horseTier?.EditorID != "cfl_HorseformMarkTier" || trollTier?.EditorID != "cf
     throw new InvalidOperationException("Bodymorph tier-global validation failed.");
 
 using (var raceConfig = System.Text.Json.JsonDocument.Parse(File.ReadAllText(
-    @"<user-home>\nefaram-files\feral\config\Races.json")))
+    Path.Combine(projectRoot, "config", "Races.json"))))
 {
     foreach (var familyName in new[] { "Wolf", "SabreCat", "Bear", "Skeever", "Spider", "Mudcrab", "Stag", "Horse", "Troll" })
     {

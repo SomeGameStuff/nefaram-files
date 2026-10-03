@@ -280,7 +280,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--crash-log", help="Specific Crash Logger report to analyze")
     parser.add_argument("--skse-dir", help="SKSE documents log directory")
-    parser.add_argument("--mo2-root", help="MO2 root, e.g. <mo2-root>")
+    parser.add_argument("--mo2-root", help="MO2 root")
     parser.add_argument("--profile", help="MO2 profile name under <mo2-root>\\profiles")
     parser.add_argument("--profile-dir", help="Explicit MO2 profile directory")
     parser.add_argument("--json", action="store_true", help="Emit JSON")

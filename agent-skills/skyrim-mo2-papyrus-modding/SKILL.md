@@ -24,8 +24,8 @@ Prefer reversible add-on mods over editing installed base mods. Keep changes pac
    - Use SKSE/PapyrusUtil JSON config for lightweight settings that do not require MCM records.
 
 3. Package as a separate MO2 mod:
-   - Create `<mo2-root>\mods\<Patch Mod Name>\Scripts\` for compiled `.pex`.
-   - Keep NEFARAM project source files under `<user-home>\nefaram-files\<Project Name>\`, not only inside the MO2 mod folder.
+   - Create `<mo2-root>/mods/<Patch Mod Name>\Scripts\` for compiled `.pex`.
+   - Keep NEFARAM project source files under `<repo-root>\<Project Name>\`, not only inside the MO2 mod folder.
    - For runtime MO2 mods, include compiled `.pex` and user-facing files; only ship `Source\Scripts\` when the user explicitly wants source packaged with the mod.
    - Put PapyrusUtil config at `SKSE\Plugins\<PatchModName>\Config.json`.
    - Include a short project `README.md` for user-facing settings and load-order notes.
@@ -41,11 +41,11 @@ Prefer reversible add-on mods over editing installed base mods. Keep changes pac
 
 - Prefer the installed game's `Papyrus Compiler\PapyrusCompiler.exe`.
 - In this NEFARAM setup, check `<game-install>\Papyrus Compiler\PapyrusCompiler.exe` before assuming the compiler is missing.
-- Keep patch source, build notes, and any reusable compile-only stubs under `<user-home>\nefaram-files\<Project Name>\`; compile output can target the MO2 patch mod's `Scripts\` folder.
-- Include vanilla source scripts, commonly from an extracted `Scripts.zip`, such as `<temporary>\skyrim-scripts-source\Source\Scripts`.
+- Keep patch source, build notes, and any reusable compile-only stubs under `<repo-root>\<Project Name>\`; compile output can target the MO2 patch mod's `Scripts\` folder.
+- Include vanilla source scripts, commonly from an extracted `Scripts.zip`, such as `<temporary-vanilla-source>\Source\Scripts`.
 - Include only the source paths needed for the target script.
 - If compiling against a mod's full source tree pulls in unrelated optional dependencies, create minimal local compile stubs for the external symbols used by the patch.
-- Compile stubs must stay in `<user-home>\nefaram-files\<Project Name>\build-stubs\` or another source/build folder outside the installed runtime mod, and must not be packaged into the installed mod.
+- Compile stubs must stay in `<repo-root>\<Project Name>\build-stubs\` or another source/build folder outside the installed runtime mod, and must not be packaged into the installed mod.
 - Verify compiler output reports `0 error(s), 0 warning(s)` when possible.
 
 ## Form and Plugin Inspection

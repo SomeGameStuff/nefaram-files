@@ -1,6 +1,6 @@
 # Converts the agent-doc hardlinks into true symlinks.
-# Canonical file: <user-home>\nefaram-files\AGENTS.md (git-tracked).
-# Link names:    nefaram-files\CLAUDE.md, <mo2-root>\CLAUDE.md, <mo2-root>\AGENTS.md
+# Canonical file: <repo-root>\AGENTS.md (git-tracked).
+# Link names:    <repo-root>\CLAUDE.md, <mo2-root>\CLAUDE.md, <mo2-root>\AGENTS.md
 #
 # Symlink creation needs EITHER Windows Developer Mode enabled
 # (Settings > System > For developers) OR an elevated shell.
@@ -8,8 +8,14 @@
 # but only until AGENTS.md is rewritten by an editor that saves via delete+recreate,
 # which breaks hardlinks. Re-run this script (or re-hardlink) after that happens.
 
-$repo   = '<user-home>\nefaram-files'
-$mo2    = '<mo2-root>'
+param(
+  [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path,
+  [string]$Mo2Root = $env:NEFARAM_MO2_ROOT
+)
+
+if ([string]::IsNullOrWhiteSpace($Mo2Root)) { throw 'Set NEFARAM_MO2_ROOT or pass -Mo2Root.' }
+$repo = $RepoRoot
+$mo2 = $Mo2Root
 $target = Join-Path $repo 'AGENTS.md'
 
 if (-not (Test-Path $target)) { throw "Canonical file missing: $target" }

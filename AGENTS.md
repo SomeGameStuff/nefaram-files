@@ -4,6 +4,17 @@ Canonical knowledge for AI agents (Claude Code, OpenAI Codex) working on this Sk
 modding setup. `CLAUDE.md` in this repo and in `<mo2-root>` are symlinks to this
 file — edit here, never in the symlink copies.
 
+## Repository privacy and portability
+
+This repository is public. Never commit personal usernames, hostnames, absolute local
+paths, drive layouts, Downloads/archive names, save or log locations, secret filenames,
+or other details specific to one computer. Use `<repo-root>`, `<mo2-root>`,
+`<game-data>`, `<vanilla-source>`, and `<local-download>` placeholders in Markdown and
+examples. Build tools must receive machine-specific locations through parameters,
+environment variables, or ignored local configuration. Keep generated reports and
+comparison output with local paths ignored. Before committing, scan tracked text for
+drive-letter paths and home-directory paths and review the complete diff.
+
 ## What this is
 
 - **NEFARAM**: a Wabbajack-installed Skyrim SE/AE (game build **1.6.1170**, SKSE
@@ -14,9 +25,9 @@ file — edit here, never in the symlink copies.
 | | Path | Role |
 |---|---|---|
 | **Runtime** | `<mo2-root>` | Portable MO2 instance. Installed, runnable state. Reference/packaging inspection only. |
-| **Source of record** | `<user-home>\nefaram-files` | This git repo (GitHub `SomeGameStuff/nefaram-files`). All edits, commits, tags, releases. |
+| **Source of record** | `<repo-root>` | This git repo (GitHub `SomeGameStuff/nefaram-files`). All edits, commits, tags, releases. |
 
-Release artifacts go to `<user-home>\nefaram-files\artifacts`.
+Release artifacts go to `<repo-root>\artifacts`.
 
 ## Golden rules
 
@@ -50,8 +61,8 @@ Release artifacts go to `<user-home>\nefaram-files\artifacts`.
 | Papyrus logs | `Documents\My Games\Skyrim Special Edition\Logs\Script\Papyrus.0.log` |
 | Overwrite | `<mo2-root>\overwrite` — inspect before assuming output is lost |
 
-Secrets at MO2 root: `kimi.bat` (API key), `.github-token`. Never commit, package, or
-paste them. The `.git` dir at MO2 root is an empty shell, not a repo — ignore it.
+Never commit or paste secrets. Keep local secret/config files outside tracked project
+folders or in ignored paths. The runtime's local metadata is not a repository.
 
 ## Tools (`<mo2-root>\tools`)
 
@@ -62,8 +73,8 @@ ModGroupInstaller. Check here before assuming a tool is missing.
 ## Papyrus toolchain
 
 - Compiler: `<game-install>\Papyrus Compiler\PapyrusCompiler.exe`
-- Vanilla script source (canonical, durable): `<user-home>\nefaram-files\tools\vanilla-source\Source\Scripts`
-  (includes `TESV_Papyrus_Flags.flg`). Legacy copy at `<temporary>\skyrim-scripts-source` —
+- Vanilla script source (canonical, durable): `<repo-root>\tools\vanilla-source\Source\Scripts`
+  (includes `TESV_Papyrus_Flags.flg`). Legacy copy at `<temporary-vanilla-source>` —
   `<temporary>` is volatile, do not rely on it.
 - Typical invocation per script:
   `PapyrusCompiler.exe <script>.psc -f="<vanilla>\TESV_Papyrus_Flags.flg" -i="<src>;<vanilla>" -o="<out>"`

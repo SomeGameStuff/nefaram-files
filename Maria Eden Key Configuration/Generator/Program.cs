@@ -4,7 +4,10 @@ using Mutagen.Bethesda.Plugins.Records;
 using Mutagen.Bethesda.Skyrim;
 
 const string PluginName = "MariaEdenKeyConfig.esp";
-const string MariaBasePath = @"<mo2-root>\mods\MariaEdenProstitution\MariaBase.esm";
+var mariaBasePath = args.Length > 1
+    ? args[1]
+    : Environment.GetEnvironmentVariable("NEFARAM_MARIA_BASE")
+        ?? throw new InvalidOperationException("Pass the MariaBase.esm path or set NEFARAM_MARIA_BASE.");
 
 if (args.Length > 1 && args[0].Equals("--validate", StringComparison.OrdinalIgnoreCase))
 {
@@ -38,7 +41,7 @@ mod.ModHeader.Flags |= SkyrimModHeader.HeaderFlag.Small;
 mod.ModHeader.MasterReferences.Add(new MasterReference { Master = ModKey.FromNameAndExtension("Skyrim.esm") });
 mod.ModHeader.MasterReferences.Add(new MasterReference { Master = ModKey.FromNameAndExtension("MariaBase.esm") });
 
-var mariaBase = ModFactory<ISkyrimModGetter>.Importer(ModPath.FromPath(MariaBasePath), GameRelease.SkyrimSE);
+var mariaBase = ModFactory<ISkyrimModGetter>.Importer(ModPath.FromPath(mariaBasePath), GameRelease.SkyrimSE);
 var mariaMain = mariaBase.Quests.SingleOrDefault(x => string.Equals(x.EditorID, "MariaMain", StringComparison.OrdinalIgnoreCase))
     ?? throw new InvalidDataException("Could not find the MariaMain quest in MariaBase.esm.");
 
