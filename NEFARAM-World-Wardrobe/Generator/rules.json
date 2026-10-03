@@ -1,0 +1,74 @@
+{
+  "profilePath": "<mo2-root>\\profiles\\NEFARAM",
+  "modsRoot": "<mo2-root>\\mods",
+  "gameDataPath": "<game-install>\\Data",
+  "outputPath": "<repo-root>\\NEFARAM-World-Wardrobe\\build-output",
+  "leafSize": 80,
+  "maximumSourceMastersPerShard": 120,
+  "maximumNewRecordsPerShard": 1900,
+  "allowPluginParseFailures": true,
+  "excludedPlugins": [
+    "Skyrim.esm",
+    "Update.esm",
+    "Dawnguard.esm",
+    "HearthFires.esm",
+    "Dragonborn.esm",
+    "_ResourcePack.esl"
+  ],
+  "excludedPluginPatterns": [
+    "cc*",
+    "NEFARAM_WorldWardrobe_*",
+    "NEFARAM_FlawedWardrobe_Catalogue*",
+    "Synthesis_*.esp",
+    "DynDOLOD*.esp",
+    "Occlusion.esp"
+  ],
+  "forcedCategories": {},
+  "excludedForms": [],
+  "includedSuspiciousForms": [],
+  "npcApprovedOutfits": [
+    "AzureKnight_Outfit",
+    "ObsidianKnight_Outfit",
+    "ElvenSentry_Ebony_Outfit",
+    "ElvenSentry_Gold_Outfit",
+    "SkinnnyShadowAssasinMask",
+    "SkinnnyShadowAssasinMaskOpen"
+  ],
+  "npcDeniedOutfits": [],
+  "npcOutfitFactions": {
+    "AzureKnight_Outfit": "BanditFaction",
+    "ObsidianKnight_Outfit": "BanditFaction",
+    "ElvenSentry_Ebony_Outfit": "ThalmorFaction",
+    "ElvenSentry_Gold_Outfit": "ThalmorFaction",
+    "SkinnnyShadowAssasinMask": "BanditFaction",
+    "SkinnnyShadowAssasinMaskOpen": "BanditFaction"
+  },
+  "leveledListTargets": {
+    "FineClothing": ["LItemMiscVendorClothing75"],
+    "CommonClothing": ["LItemMiscVendorClothing75"],
+    "MageReligious": ["LItemMiscVendorClothing75", "LootWarlockChestBossBase"],
+    "LightArmor": ["LItemArmorLightAll", "LootBanditArmor25"],
+    "HeavyArmor": ["LItemArmorHeavyAll", "LootBanditArmor25"],
+    "ImperialGear": ["LootCWImperialsChestBossBase"],
+    "StormcloakGear": ["LootCWSonsChestBossBase"],
+    "ForswornGear": ["LootForswornChestBossBase"],
+    "VampireGear": ["LootVampireChestBossBase"],
+    "ThalmorGear": ["LItemArmorAllSpeciall"],
+    "FactionGear": ["LItemArmorAllSpeciall"],
+    "Oddities": ["LItemMiscVendorMiscItems75"]
+  },
+  "merchantContainerTargets": {
+    "FineClothing": ["MerchantSolitudeRadiantRaiments"],
+    "CommonClothing": ["MerchantSolitudeRadiantRaiments", "MerchantWhiterunBelethorsGoodsChest"],
+    "MageReligious": ["MerchantWCollegeTolfdirChest"],
+    "LightArmor": ["MerchantWhiterunWarmaidensBlacksmithChest", "MerchantRiftenGrandPlazaGrelkaChest"],
+    "HeavyArmor": ["MerchantWhiterunWarmaidensBlacksmithChest", "MerchantMarkarthBlacksmithChest"],
+    "ImperialGear": ["MerchantSolitudeBitsAndPieces"],
+    "StormcloakGear": ["MerchantWindhelmBlacksmithChest"],
+    "ForswornGear": ["MerchantMarkarthArnleifandSonsChest"],
+    "VampireGear": ["MerchantSolitudeBitsAndPieces"],
+    "ThalmorGear": ["MerchantSolitudeRadiantRaiments"],
+    "FactionGear": ["MerchantCaravanAChest", "MerchantCaravanBChest", "MerchantCaravanCChest"],
+    "Oddities": ["MerchantSolitudeBitsAndPieces", "MerchantWhiterunBelethorsGoodsChest"]
+  }
+}
