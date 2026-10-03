@@ -11,6 +11,14 @@ Generated distribution for the armor and clothing records added by the active NE
 
 No vanilla records, installed armor mods, NPC records, cells, or leveled lists are overridden in the generated plugins.
 
+## Where items appear
+
+- **Friendly acquisition:** selected merchants receive category-appropriate stock through their actual merchant chests. This is inventory for sale; the mod does not directly dress friendly NPCs, followers, guards, or citizens.
+- **Enemy loot:** selected vanilla leveled lists feed added clothing and armor into bandit, Imperial, Stormcloak, Forsworn, vampire, Thalmor, warlock, and related boss/merchant routes. Enemies can therefore carry the items as loot, subject to the level gates and rarity settings.
+- **Enemy outfits:** six explicitly approved complete outfits are distributed to generic, non-unique bandit or Thalmor actors at 1% per outfit. This is the only direct NPC outfit distribution in the generated build.
+
+The same item may have more than one route, but high-value items are intentionally uncommon. There is no blanket distribution to every NPC or every container.
+
 ## Classification and rarity
 
 The generator scans new `ARMO` records from active non-official plugins. A record is eligible when it is named, playable, has a body template, and has armor-addon links. Quest, scripted, unique, restraint, and transformation items remain eligible by design. Deleted, non-playable, unnamed, model-less, obvious invisible/test/skin records are reported but not distributed.
@@ -32,7 +40,7 @@ The outer SkyPatcher router has another 50% chance-none. CID category routers us
 .\Build-And-Deploy.ps1
 ```
 
-The script runs the .NET 9 / Mutagen generator, validates every generated plugin and required config, and copies the runtime files to `<mo2-root>\mods\[NoDelete] NEFARAM - World Wardrobe`.
+The script runs the .NET 9 / Mutagen generator, validates every generated plugin and required config, and copies the runtime files to `<mo2-root>\mods\[NoDelete] NEFARAM - World Wardrobe - Load Order Fix`.
 
 To inspect the exact vanilla list and merchant-container records recognized by this installation:
 
@@ -52,11 +60,4 @@ The build fails if an eligible record has no acquisition route, a configured van
 
 ## Load order
 
-Enable SkyPatcher and place this MO2 mod after the armor/clothing mods. Load the catalogues after all their masters and the router after both catalogues. A new game or disposable test save is recommended for the first visual and economy pass.
-
-## Load-order format repair (2026-09-06)
-
-Generated plugins now use ESL-flagged .esp files with the master flag clear. They retain light-plugin slot usage and load after their ESP dependencies. Do not rename them back to .esl. Runtime uses the separate [NoDelete] mod ending in - Load Order Fix; the original installed mod remains disabled for rollback.
-
-The migration preserves record IDs and contents but changes plugin filenames. Existing saves may lose items or references from the old plugins; use a new game for guaranteed compatibility. Saves are untouched. Never load old and new catalogues together.
-Catalogue01 requires both Fertility Mode plugins; Catalogue02 requires Skyrim On Skooma. Keep those dependencies enabled for this build. Removing either requires a separately reviewed regeneration.
+Enable SkyPatcher and place this MO2 mod after the armor/clothing mods. The generated catalogues are ESL-flagged `.esp` files; keep their packaged filenames unchanged. Load the catalogues after their masters and the router after both catalogues. A new game or disposable test save is recommended for the first visual and economy pass.
