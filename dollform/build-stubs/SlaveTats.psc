@@ -8,6 +8,7 @@ Bool Function simple_remove_tattoo(Actor akActor, String asSection, String asNam
 	Return false
 EndFunction
 
-Bool Function synchronize_tattoos(Actor akActor, Bool abImmediate) Global
+; Actual installed API's second argument is silent, not immediate.
+Bool Function synchronize_tattoos(Actor akActor, Bool abSilent) Global
 	Return false
 EndFunction

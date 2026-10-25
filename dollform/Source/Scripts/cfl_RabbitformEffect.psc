@@ -21,6 +21,12 @@ Float Property Tier4Seconds = 1800.0 Auto
 
 Bool _running = false
 Bool _ownsForm = false
+; Finish can arrive while a latent appearance operation is in progress.
+Bool _transitioning = false
+Bool _finishRequested = false
+Bool _finished = false
+Bool _elapsedClockReady = false
+Float _lastElapsed = 0.0
 Int _activeToken = 0
 Int _tier = 0
 Int _startupRefreshes = 0
@@ -49,6 +55,12 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
+	If StorageUtil.GetIntValue(PlayerRef, "BodymorphAlterations.Recovering") != 0
+		Debug.Notification("Bodymorph cleanup is still running.")
+		Dispel()
+		Return
+	EndIf
+
 	Int activeForm = ActiveFormId(cfl_BodymorphActiveForm.GetValueInt())
 	If activeForm != 0
 		If activeForm == 4
@@ -61,24 +73,33 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
+	_transitioning = true
 	_running = true
 	_ownsForm = true
-	_startupRefreshes = 2
-	BeginActiveForm(4)
-	_tier = cfl_RabbitformMarkTier.GetValueInt()
+	_startupRefreshes = 0
+	_lastElapsed = GetTimeElapsed()
+	_elapsedClockReady = true
+	If !BeginActiveForm(4)
+		_running = false
+		_ownsForm = false
+		_transitioning = false
+		Dispel()
+		Return
+	EndIf
+	_tier = PapyrusUtil.ClampInt(cfl_RabbitformMarkTier.GetValueInt(), 0, 4)
 
 	EnsureMCMQuestStarted()
 	SaveMorphs(PlayerRef)
 	SaveHairColor(PlayerRef)
 	ApplyRabbitMorphs(PlayerRef)
 	ApplyHairColor(PlayerRef)
+	ApplyActorValueChanges(PlayerRef)
 	ApplyProgressTattoo(PlayerRef)
 	ApplyCosmetics(PlayerRef)
-	ApplyActorValueChanges(PlayerRef)
 	DetectFertilityMode()
 
 	Debug.Notification("Your body quickens into Rabbitform.")
-	RegisterForSingleUpdate(1.0)
+	CompleteTransition(UpdateSeconds)
 EndEvent
 
 Event OnUpdate()
@@ -86,52 +107,89 @@ Event OnUpdate()
 		Return
 	EndIf
 	If !IsActiveInstance(4)
-		_running = false
+		FinishForm()
+		Dispel()
 		Return
 	EndIf
+	If _transitioning
+		Return
+	EndIf
+	_transitioning = true
 
-	If _startupRefreshes > 0
-		RefreshAppearance(PlayerRef)
-		_startupRefreshes -= 1
-		RegisterForSingleUpdate(1.0)
-		Return
-	EndIf
 
 	If cfl_RabbitformUseSeconds
-		cfl_RabbitformUseSeconds.SetValue(cfl_RabbitformUseSeconds.GetValue() + UpdateSeconds)
+		cfl_RabbitformUseSeconds.SetValue(cfl_RabbitformUseSeconds.GetValue() + ElapsedUseSeconds())
 		CheckProgression(PlayerRef)
 	EndIf
 
-	RegisterForSingleUpdate(UpdateSeconds)
+	CompleteTransition(UpdateSeconds)
 EndEvent
 
 Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	_running = false
-	UnregisterForUpdate()
-
-	If akTarget == PlayerRef && _ownsForm
-		Bool ownsActiveInstance = IsActiveInstance(4)
-		If ownsActiveInstance
-			RestoreMorphs(PlayerRef)
-			RestoreHairColor(PlayerRef)
-			RemoveCosmetics(PlayerRef)
-			RestoreActorValueChanges(PlayerRef)
-		EndIf
-		If ownsActiveInstance
-			cfl_BodymorphActiveForm.SetValue(0)
-		EndIf
-		Debug.Notification("Your Rabbitform fades.")
-		_ownsForm = false
+	_finishRequested = true
+	; The native effect can already be unbound here. Do not call its natives.
+	If !_transitioning
+		FinishForm()
 	EndIf
 EndEvent
 
-Function BeginActiveForm(Int aiFormId)
-	_activeToken = StorageUtil.GetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken") + 1
-	If _activeToken > 90000
-		_activeToken = 1
+Function CompleteTransition(Float afDelay)
+	_transitioning = false
+	If _finishRequested || !_running
+		FinishForm()
+	Else
+		RegisterForSingleUpdate(afDelay)
 	EndIf
-	StorageUtil.SetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken", _activeToken)
-	cfl_BodymorphActiveForm.SetValue((aiFormId * 100000) + _activeToken)
+EndFunction
+
+Function FinishForm()
+	If _finished || !_ownsForm
+		Return
+	EndIf
+	_finished = true
+	_running = false
+	_transitioning = true
+	; These deltas belong to this instance even if a debug action changed the lock.
+	RestoreActorValueChanges(PlayerRef)
+	If IsActiveInstance(4)
+		RestoreMorphs(PlayerRef)
+		RestoreHairColor(PlayerRef)
+		RemoveCosmetics(PlayerRef)
+		If IsActiveInstance(4)
+			cfl_BodymorphActiveForm.SetValue(0)
+		EndIf
+	EndIf
+	_ownsForm = false
+	_transitioning = false
+EndFunction
+
+Float Function ElapsedUseSeconds()
+	; The effect clock follows actual effect time, including delayed VM updates,
+	; and does not count time spent paused in menus. It survives save/load.
+	Float elapsed = GetTimeElapsed()
+	Float delta = 0.0
+	If _elapsedClockReady
+		delta = elapsed - _lastElapsed
+	EndIf
+	_lastElapsed = elapsed
+	_elapsedClockReady = true
+	Return PapyrusUtil.ClampFloat(delta, 0.0, 420.0)
+EndFunction
+
+Bool Function BeginActiveForm(Int aiFormId)
+	cfl_DollformMCM controller = Game.GetFormFromFile(0x00081E, "Dollform.esp") as cfl_DollformMCM
+	If !controller
+		Debug.Notification("Bodymorph controller is unavailable.")
+		Return false
+	EndIf
+	Int claimed = controller.ClaimActiveForm(aiFormId)
+	If claimed == 0
+		Debug.Notification("Another bodymorph transition is already in progress.")
+		Return false
+	EndIf
+	_activeToken = ActiveToken(claimed)
+	Return true
 EndFunction
 
 Bool Function IsActiveInstance(Int aiFormId)
@@ -154,13 +212,6 @@ Int Function ActiveToken(Int aiActiveValue)
 EndFunction
 
 Function SaveMorphs(Actor akActor)
-	_breasts = NiOverride.GetMorphValue(akActor, "Breasts")
-	_butt = NiOverride.GetMorphValue(akActor, "Butt")
-	_hips = NiOverride.GetMorphValue(akActor, "Hips")
-	_thighs = NiOverride.GetMorphValue(akActor, "Thighs")
-	_waist = NiOverride.GetMorphValue(akActor, "Waist")
-	_belly = NiOverride.GetMorphValue(akActor, "Belly")
-	_calves = NiOverride.GetMorphValue(akActor, "CalfSize")
 	NiOverride.ClearBodyMorphKeys(akActor, MorphKey)
 	NiOverride.ClearBodyMorphKeys(akActor, VisibleMorphKey)
 EndFunction
@@ -213,23 +264,14 @@ EndFunction
 Function RestoreMorphs(Actor akActor)
 	NiOverride.ClearBodyMorphKeys(akActor, MorphKey)
 	NiOverride.ClearBodyMorphKeys(akActor, VisibleMorphKey)
-	RestoreDirectMorph(akActor, "Breasts", _breasts)
-	RestoreDirectMorph(akActor, "Butt", _butt)
-	RestoreDirectMorph(akActor, "Hips", _hips)
-	RestoreDirectMorph(akActor, "Thighs", _thighs)
-	RestoreDirectMorph(akActor, "Waist", _waist)
-	RestoreDirectMorph(akActor, "Belly", _belly)
-	RestoreDirectMorph(akActor, "CalfSize", _calves)
 	RefreshAppearance(akActor)
 EndFunction
 
 Function SetMorph(Actor akActor, String asMorph, Float afValue)
-	NiOverride.ClearBodyMorph(akActor, asMorph, MorphKey)
 	NiOverride.SetBodyMorph(akActor, asMorph, MorphKey, PapyrusUtil.ClampFloat(afValue, -2.0, 3.0))
 EndFunction
 
 Function SetDirectMorph(Actor akActor, String asMorph, Float afBaseValue, Float afDelta)
-	NiOverride.ClearBodyMorph(akActor, asMorph, VisibleMorphKey)
 	NiOverride.SetBodyMorph(akActor, asMorph, VisibleMorphKey, PapyrusUtil.ClampFloat(afDelta * 1.75, -2.0, 3.0))
 EndFunction
 
@@ -239,7 +281,6 @@ EndFunction
 
 Function RefreshAppearance(Actor akActor)
 	NiOverride.UpdateModelWeight(akActor)
-	akActor.QueueNiNodeUpdate()
 EndFunction
 
 Function EnsureMCMQuestStarted()
@@ -255,13 +296,12 @@ Function CheckProgression(Actor akActor)
 		Return
 	EndIf
 
-	RestoreActorValueChanges(akActor)
 	_tier = newTier
 	cfl_RabbitformMarkTier.SetValue(newTier)
+	ApplyActorValueChanges(akActor)
 	ApplyRabbitMorphs(akActor)
 	ApplyProgressTattoo(akActor)
 	ApplyCosmetics(akActor)
-	ApplyActorValueChanges(akActor)
 	Game.AdvanceSkill("Alteration", 35.0 + (newTier * 20.0))
 	Debug.Notification("Rabbitform deepens to tier " + newTier + ".")
 EndFunction
@@ -286,56 +326,64 @@ Function ApplyProgressTattoo(Actor akActor)
 	EndIf
 
 	Float alpha = PapyrusUtil.ClampFloat(0.35 + (_tier * 0.15), 0.35, 0.95)
-	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform", "Rabbitform Moon Mark", true, false)
-	SlaveTats.simple_add_tattoo(akActor, "Rabbitform", "Rabbitform Moon Mark", 0xFFE8E2F6, true, false, alpha)
+	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform", "Rabbitform Moon Mark", false, true)
+	SlaveTats.simple_add_tattoo(akActor, "Rabbitform", "Rabbitform Moon Mark", 0xFFE8E2F6, false, true, alpha)
 EndFunction
 
 Function ApplyCosmetics(Actor akActor)
 	RemoveCosmetics(akActor, false)
-	SlaveTats.simple_add_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Hip Mark", 0xFFE8E2F6, true, true, 0.45)
+	SlaveTats.simple_add_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Hip Mark", 0xFFE8E2F6, false, true, 0.45)
 	If _tier >= 2
-		SlaveTats.simple_add_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Leap Mark", 0xFFFFFFFF, true, true, 0.40)
+		SlaveTats.simple_add_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Leap Mark", 0xFFFFFFFF, false, true, 0.40)
 	EndIf
 	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
 Function RemoveCosmetics(Actor akActor, Bool abSynchronize = true)
-	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Hip Mark", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Leap Mark", true, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Hip Mark", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Rabbitform Cosmetics", "Rabbit Leap Mark", false, true)
 	If abSynchronize
 		SlaveTats.synchronize_tattoos(akActor, true)
 	EndIf
 EndFunction
 
 Function ApplyActorValueChanges(Actor akActor)
-	_speedMod = 30.0 + (_tier * 7.0)
-	_staminaMod = 25.0 + (_tier * 10.0)
-	_staminaRateMod = 55.0 + (_tier * 15.0)
-	_healthMod = -35.0 - (_tier * 12.0)
-	_carryWeightMod = -35.0 - (_tier * 10.0)
-	_magickaRateMod = -5.0 - (_tier * 2.0)
-	_sneakMod = 15.0 + (_tier * 5.0)
-	_damageResistMod = -25.0 - (_tier * 8.0)
 
-	akActor.ModActorValue("SpeedMult", _speedMod)
-	akActor.ModActorValue("Stamina", _staminaMod)
-	akActor.ModActorValue("StaminaRateMult", _staminaRateMod)
-	akActor.ModActorValue("Health", _healthMod)
-	akActor.ModActorValue("CarryWeight", _carryWeightMod)
-	akActor.ModActorValue("MagickaRateMult", _magickaRateMod)
-	akActor.ModActorValue("Sneak", _sneakMod)
-	akActor.ModActorValue("DamageResist", _damageResistMod)
+	akActor.ModActorValue("SpeedMult", (30.0 + (_tier * 7.0)) - _speedMod)
+	_speedMod = 30.0 + (_tier * 7.0)
+	akActor.ModActorValue("Stamina", (25.0 + (_tier * 10.0)) - _staminaMod)
+	_staminaMod = 25.0 + (_tier * 10.0)
+	akActor.ModActorValue("StaminaRateMult", (55.0 + (_tier * 15.0)) - _staminaRateMod)
+	_staminaRateMod = 55.0 + (_tier * 15.0)
+	akActor.ModActorValue("Health", (-35.0 - (_tier * 12.0)) - _healthMod)
+	_healthMod = -35.0 - (_tier * 12.0)
+	akActor.ModActorValue("CarryWeight", (-35.0 - (_tier * 10.0)) - _carryWeightMod)
+	_carryWeightMod = -35.0 - (_tier * 10.0)
+	akActor.ModActorValue("MagickaRateMult", (-5.0 - (_tier * 2.0)) - _magickaRateMod)
+	_magickaRateMod = -5.0 - (_tier * 2.0)
+	akActor.ModActorValue("Sneak", (15.0 + (_tier * 5.0)) - _sneakMod)
+	_sneakMod = 15.0 + (_tier * 5.0)
+	akActor.ModActorValue("DamageResist", (-25.0 - (_tier * 8.0)) - _damageResistMod)
+	_damageResistMod = -25.0 - (_tier * 8.0)
 EndFunction
 
 Function RestoreActorValueChanges(Actor akActor)
 	akActor.ModActorValue("SpeedMult", -_speedMod)
+	_speedMod = 0.0
 	akActor.ModActorValue("Stamina", -_staminaMod)
+	_staminaMod = 0.0
 	akActor.ModActorValue("StaminaRateMult", -_staminaRateMod)
+	_staminaRateMod = 0.0
 	akActor.ModActorValue("Health", -_healthMod)
+	_healthMod = 0.0
 	akActor.ModActorValue("CarryWeight", -_carryWeightMod)
+	_carryWeightMod = 0.0
 	akActor.ModActorValue("MagickaRateMult", -_magickaRateMod)
+	_magickaRateMod = 0.0
 	akActor.ModActorValue("Sneak", -_sneakMod)
+	_sneakMod = 0.0
 	akActor.ModActorValue("DamageResist", -_damageResistMod)
+	_damageResistMod = 0.0
 EndFunction
 
 Function DetectFertilityMode()

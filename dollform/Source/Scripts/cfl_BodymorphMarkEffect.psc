@@ -17,7 +17,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	EndIf
 
 	If TattooName != ""
-		SlaveTats.simple_add_tattoo(akTarget, TattooSection, TattooName, 0xFFFFFFFF, true, false, 0.85)
+		SlaveTats.simple_add_tattoo(akTarget, TattooSection, TattooName, 0xFFFFFFFF, false, true, 0.85)
 		SlaveTats.synchronize_tattoos(akTarget, true)
 	EndIf
 

@@ -4,11 +4,20 @@ Standalone MO2 add-on for self-cast NSFW Alteration bodymorph transformations.
 
 The MO2 mod folder and user-facing MCM name are `Bodymorph Alterations`. The plugin remains `Dollform.esp` for save compatibility with existing test saves and Papyrus properties.
 
-## Current Development State — 2026-07-19
+## Current Development State — 2026-10-24
+
+The October review fixes interrupted cleanup, repeated tattoo refreshes, unsafe
+MCM recovery, tier-up stat changes, DD stripping, horn ownership, Troll weapon
+speed/fire handling, and progression timing. See [the review](REVIEW-2026-10-24.md)
+for findings, validation, installation, and remaining playtest limits. Build all
+scripts with `Build-And-Validate.ps1`; update the existing mod with
+`build/Deploy.ps1`. Set `NEFARAM_MO2_ROOT` and `NEFARAM_PAPYRUS_COMPILER` locally;
+`NEFARAM_VANILLA_SOURCE` can override the repo's vanilla source tree. No separate
+fix mod is required. Older development notes below are historical.
 
 - RaceMenu body morph calls now work with the installed NiOverride runtime. All five forms visibly apply and clear their mod-owned morph keys.
 - Cowform and Horseform were retuned downward after tier-4 testing; Trollform received additional arm thickness. These values are still development tuning, not final balance.
-- The form lifecycle has been rewritten around per-cast ownership tokens. Updates and finish handlers act only for the instance that owns the shared lock, temporary tattoos are synchronized once per transition, and the MCM has one transactional recovery action. All six changed scripts compile with zero errors/warnings; rapid recast, save/load, and forced-dispel behavior still need the listed in-game regression pass.
+- Each cast owns a shared token. Transitions defer cleanup until application completes; each instance reverses its own statistics, and only the current owner clears shared visuals. Tattoo synchronization is batched. All 12 scripts compile with zero errors/warnings; rapid recast, save/load, and forced-dispel behavior still need the listed in-game regression pass.
 - Rabbitform now has a more compact hip/calf-forward identity, but it still has only Fertility Mode detection rather than gameplay integration.
 - Trollform has functional mark entries, but they use placeholder/reused art. It does not yet have dedicated troll overlay textures.
 - The active Papyrus log also contains extensive unrelated missing-plugin/FNIS errors. They are outside this mod, but the VM load can make notifications and SlaveTats synchronization appear late.
@@ -167,7 +176,7 @@ Progression time: cycles 0.5x, 1.0x, 2.0x, 4.0x
 
 These tuning globals are read by all four form scripts. Lower progression time means faster tiering; higher means slower tiering.
 
-The MCM recovery action is intentionally scoped to this mod's own morph keys, temporary cosmetic names, hair state, and Cowform horns. It dispels known form effects, waits for their normal owner cleanup, then clears any residue and the token. It does not remove permanent initiation marks.
+The MCM recovery action dispels known Bodymorph effects and waits for their owner cleanup before clearing this mod's morph and temporary tattoo residue. It preserves permanent initiation marks, personal equipment, and Feral ownership. If cleanup has not completed within 30 seconds, it preserves the token and reports that recovery is pending.
 
 Base tome distribution is enabled for Tolfdir in `Dollform_CID.ini`. The old initiation tome/spell records are no longer generated in the ESP.
 
@@ -371,7 +380,7 @@ Temporary Horseform Cosmetics:
 ```
 
 Like Dollform cosmetics, Horseform temporary cosmetics are removed on fade and synchronized through SlaveTats.
-Horseform forces a model/node refresh immediately and twice more during the first two seconds after casting, so RaceMenu morphs have more than one chance to become visible if the first update lands during other appearance work.
+Horseform updates the BodyMorph model when its morphs change. It no longer rebuilds the skeleton repeatedly during startup.
 
 ## Cowform
 
@@ -440,7 +449,7 @@ Temporary Cowform Cosmetics:
 ```
 
 Like the other forms, Cowform temporary cosmetics are removed on fade and synchronized through SlaveTats.
-Cow horns use `aaaTDNCowHorns` from `TDNEquipableHorns.esp`, local FormID `0x0012E5`. Cowform tries to equip horns immediately before SlaveTats/MME work, then retries during the two startup refreshes. The horns are removed on fade only if Cowform added them.
+Cow horns use `aaaTDNCowHorns` from `TDNEquipableHorns.esp`, local FormID `0x0012E5`. Cowform checks overlapping equipment slots before equipping and leaves locked devices alone. Previously equipped horns remain equipped on fade; copies added by the form are removed.
 
 ## Rabbitform
 
@@ -489,7 +498,7 @@ Core effects:
 +100 + tier * 15 CarryWeight
 +40 + tier * 10 DamageResist
 -20 - tier * 1 SpeedMult
--15 WeaponSpeedMult
+-0.15 WeaponSpeedMult
 -100 - tier * 10 Magicka
 -80 MagickaRateMult
 -100 FireResist
@@ -514,7 +523,7 @@ Temporary cosmetics: Troll Grayhide Patches, Troll Stone Scars at tier 2+
 
 ## Clothing Restrictions
 
-Dollform checks clothing on start and every 6 seconds while active. It now unequips ordinary body-slot clothing immediately so the tier 0 body morph is visible during testing.
+Dollform checks clothing on start and every 6 seconds while active. It leaves tier-0 clothing and locked Devious Devices alone.
 
 Current rules:
 
