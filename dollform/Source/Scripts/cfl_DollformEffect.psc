@@ -26,6 +26,12 @@ Float Property Tier4Seconds = 1800.0 Auto
 
 Bool _running = false
 Bool _ownsForm = false
+; Finish can arrive while a latent appearance operation is in progress.
+Bool _transitioning = false
+Bool _finishRequested = false
+Bool _finished = false
+Bool _elapsedClockReady = false
+Float _lastElapsed = 0.0
 Int _activeToken = 0
 Int _tier = 0
 Int _startupRefreshes = 0
@@ -58,6 +64,12 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
+	If StorageUtil.GetIntValue(PlayerRef, "BodymorphAlterations.Recovering") != 0
+		Debug.Notification("Bodymorph cleanup is still running.")
+		Dispel()
+		Return
+	EndIf
+
 	Int activeForm = ActiveFormId(cfl_BodymorphActiveForm.GetValueInt())
 	If activeForm != 0
 		If activeForm == 1
@@ -70,12 +82,21 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
+	_transitioning = true
 	_running = true
 	_ownsForm = true
 	_startedAt = Utility.GetCurrentRealTime()
-	_startupRefreshes = 2
-	BeginActiveForm(1)
-	_tier = cfl_DollformMarkTier.GetValueInt()
+	_startupRefreshes = 0
+	_lastElapsed = GetTimeElapsed()
+	_elapsedClockReady = true
+	If !BeginActiveForm(1)
+		_running = false
+		_ownsForm = false
+		_transitioning = false
+		Dispel()
+		Return
+	EndIf
+	_tier = PapyrusUtil.ClampInt(cfl_DollformMarkTier.GetValueInt(), 0, 4)
 	_cooldownActors = New Actor[32]
 	_cooldownTimes = New Float[32]
 
@@ -84,13 +105,13 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	SaveHairColor(PlayerRef)
 	ApplyDollMorphs(PlayerRef)
 	ApplyHairColor(PlayerRef)
+	ApplyActorValueChanges(PlayerRef)
 	ApplyProgressTattoo(PlayerRef)
 	ApplyCosmetics(PlayerRef)
-	ApplyActorValueChanges(PlayerRef)
 	EnforceClothingRules(PlayerRef)
 
 	Debug.Notification("Your body smooths into Dollform.")
-	RegisterForSingleUpdate(1.0)
+	CompleteTransition(UpdateSeconds)
 EndEvent
 
 Event OnUpdate()
@@ -98,54 +119,91 @@ Event OnUpdate()
 		Return
 	EndIf
 	If !IsActiveInstance(1)
-		_running = false
+		FinishForm()
+		Dispel()
 		Return
 	EndIf
+	If _transitioning
+		Return
+	EndIf
+	_transitioning = true
 
 	EnforceClothingRules(PlayerRef)
-	If _startupRefreshes > 0
-		RefreshAppearance(PlayerRef)
-		_startupRefreshes -= 1
-		RegisterForSingleUpdate(1.0)
-		Return
-	EndIf
 
 	If cfl_DollformUseSeconds
-		cfl_DollformUseSeconds.SetValue(cfl_DollformUseSeconds.GetValue() + UpdateSeconds)
+		cfl_DollformUseSeconds.SetValue(cfl_DollformUseSeconds.GetValue() + ElapsedUseSeconds())
 		CheckProgression(PlayerRef)
 	EndIf
 
 	PulseAura()
-	RegisterForSingleUpdate(UpdateSeconds)
+	CompleteTransition(UpdateSeconds)
 EndEvent
 
 Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	_running = false
-	UnregisterForUpdate()
-
-	If akTarget == PlayerRef && _ownsForm
-		Bool ownsActiveInstance = IsActiveInstance(1)
-		If ownsActiveInstance
-			RestoreMorphs(PlayerRef)
-			RestoreHairColor(PlayerRef)
-			RemoveCosmetics(PlayerRef)
-			RestoreActorValueChanges(PlayerRef)
-		EndIf
-		If ownsActiveInstance
-			cfl_BodymorphActiveForm.SetValue(0)
-		EndIf
-		Debug.Notification("Your Dollform fades.")
-		_ownsForm = false
+	_finishRequested = true
+	; The native effect can already be unbound here. Do not call its natives.
+	If !_transitioning
+		FinishForm()
 	EndIf
 EndEvent
 
-Function BeginActiveForm(Int aiFormId)
-	_activeToken = StorageUtil.GetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken") + 1
-	If _activeToken > 90000
-		_activeToken = 1
+Function CompleteTransition(Float afDelay)
+	_transitioning = false
+	If _finishRequested || !_running
+		FinishForm()
+	Else
+		RegisterForSingleUpdate(afDelay)
 	EndIf
-	StorageUtil.SetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken", _activeToken)
-	cfl_BodymorphActiveForm.SetValue((aiFormId * 100000) + _activeToken)
+EndFunction
+
+Function FinishForm()
+	If _finished || !_ownsForm
+		Return
+	EndIf
+	_finished = true
+	_running = false
+	_transitioning = true
+	; These deltas belong to this instance even if a debug action changed the lock.
+	RestoreActorValueChanges(PlayerRef)
+	If IsActiveInstance(1)
+		RestoreMorphs(PlayerRef)
+		RestoreHairColor(PlayerRef)
+		RemoveCosmetics(PlayerRef)
+		If IsActiveInstance(1)
+			cfl_BodymorphActiveForm.SetValue(0)
+		EndIf
+	EndIf
+	_ownsForm = false
+	_transitioning = false
+EndFunction
+
+Float Function ElapsedUseSeconds()
+	; The effect clock follows actual effect time, including delayed VM updates,
+	; and does not count time spent paused in menus. It survives save/load.
+	Float elapsed = GetTimeElapsed()
+	Float delta = 0.0
+	If _elapsedClockReady
+		delta = elapsed - _lastElapsed
+	EndIf
+	_lastElapsed = elapsed
+	_elapsedClockReady = true
+	Return PapyrusUtil.ClampFloat(delta, 0.0, 420.0)
+EndFunction
+
+Bool Function BeginActiveForm(Int aiFormId)
+	cfl_DollformMCM controller = Game.GetFormFromFile(0x00081E, "Dollform.esp") as cfl_DollformMCM
+	If !controller
+		Debug.Notification("Bodymorph controller is unavailable.")
+		Return false
+	EndIf
+	Int claimed = controller.ClaimActiveForm(aiFormId)
+	If claimed == 0
+		Debug.Notification("Another bodymorph transition is already in progress.")
+		Return false
+	EndIf
+	_activeToken = ActiveToken(claimed)
+	Return true
 EndFunction
 
 Bool Function IsActiveInstance(Int aiFormId)
@@ -168,17 +226,6 @@ Int Function ActiveToken(Int aiActiveValue)
 EndFunction
 
 Function SaveMorphs(Actor akActor)
-	_breasts = NiOverride.GetMorphValue(akActor, "Breasts")
-	_butt = NiOverride.GetMorphValue(akActor, "Butt")
-	_hips = NiOverride.GetMorphValue(akActor, "Hips")
-	_thighs = NiOverride.GetMorphValue(akActor, "Thighs")
-	_waist = NiOverride.GetMorphValue(akActor, "Waist")
-	_arms = NiOverride.GetMorphValue(akActor, "Arms")
-	_abs = NiOverride.GetMorphValue(akActor, "MuscleAbs")
-	_muscleArms = NiOverride.GetMorphValue(akActor, "MuscleArms")
-	_muscleLegs = NiOverride.GetMorphValue(akActor, "MuscleLegs")
-	_nippleSize = NiOverride.GetMorphValue(akActor, "NippleSize")
-	_areolaSize = NiOverride.GetMorphValue(akActor, "AreolaSize")
 	NiOverride.ClearBodyMorphKeys(akActor, MorphKey)
 	NiOverride.ClearBodyMorphKeys(akActor, VisibleMorphKey)
 EndFunction
@@ -230,17 +277,6 @@ EndFunction
 Function RestoreMorphs(Actor akActor)
 	NiOverride.ClearBodyMorphKeys(akActor, MorphKey)
 	NiOverride.ClearBodyMorphKeys(akActor, VisibleMorphKey)
-	RestoreDirectMorph(akActor, "Breasts", _breasts)
-	RestoreDirectMorph(akActor, "Butt", _butt)
-	RestoreDirectMorph(akActor, "Hips", _hips)
-	RestoreDirectMorph(akActor, "Thighs", _thighs)
-	RestoreDirectMorph(akActor, "Waist", _waist)
-	RestoreDirectMorph(akActor, "Arms", _arms)
-	RestoreDirectMorph(akActor, "MuscleAbs", _abs)
-	RestoreDirectMorph(akActor, "MuscleArms", _muscleArms)
-	RestoreDirectMorph(akActor, "MuscleLegs", _muscleLegs)
-	RestoreDirectMorph(akActor, "NippleSize", _nippleSize)
-	RestoreDirectMorph(akActor, "AreolaSize", _areolaSize)
 	RefreshAppearance(akActor)
 EndFunction
 
@@ -261,7 +297,6 @@ Function ApplyDirectDollMorphs(Actor akActor, Float afScale)
 EndFunction
 
 Function SetDirectMorph(Actor akActor, String asMorph, Float afBaseValue, Float afDelta)
-	NiOverride.ClearBodyMorph(akActor, asMorph, VisibleMorphKey)
 	NiOverride.SetBodyMorph(akActor, asMorph, VisibleMorphKey, PapyrusUtil.ClampFloat(afDelta * 1.75, -2.0, 3.0))
 EndFunction
 
@@ -270,13 +305,11 @@ Function RestoreDirectMorph(Actor akActor, String asMorph, Float afValue)
 EndFunction
 
 Function SetMorph(Actor akActor, String asMorph, Float afValue)
-	NiOverride.ClearBodyMorph(akActor, asMorph, MorphKey)
 	NiOverride.SetBodyMorph(akActor, asMorph, MorphKey, PapyrusUtil.ClampFloat(afValue, -2.0, 3.0))
 EndFunction
 
 Function RefreshAppearance(Actor akActor)
 	NiOverride.UpdateModelWeight(akActor)
-	akActor.QueueNiNodeUpdate()
 EndFunction
 
 Function EnsureMCMQuestStarted()
@@ -292,13 +325,12 @@ Function CheckProgression(Actor akActor)
 		Return
 	EndIf
 
-	RestoreActorValueChanges(akActor)
 	_tier = newTier
 	cfl_DollformMarkTier.SetValue(newTier)
+	ApplyActorValueChanges(akActor)
 	ApplyDollMorphs(akActor)
 	ApplyProgressTattoo(akActor)
 	ApplyCosmetics(akActor)
-	ApplyActorValueChanges(akActor)
 	EnforceClothingRules(akActor)
 	Game.AdvanceSkill("Alteration", 35.0 + (newTier * 20.0))
 	Debug.Notification("Dollform deepens to tier " + newTier + ".")
@@ -338,58 +370,65 @@ Function ApplyProgressTattoo(Actor akActor)
 	EndIf
 
 	Float alpha = PapyrusUtil.ClampFloat(0.35 + (_tier * 0.15), 0.35, 0.95)
-	SlaveTats.simple_remove_tattoo(akActor, "Dollform", "Dollform Attunement", true, false)
-	SlaveTats.simple_add_tattoo(akActor, "Dollform", "Dollform Attunement", 0xFFFFD6EE, true, false, alpha)
+	SlaveTats.simple_remove_tattoo(akActor, "Dollform", "Dollform Attunement", false, true)
+	SlaveTats.simple_add_tattoo(akActor, "Dollform", "Dollform Attunement", 0xFFFFD6EE, false, true, alpha)
 EndFunction
 
 Function ApplyCosmetics(Actor akActor)
 	; These are Dollform-owned SlaveTats aliases so removal does not target the user's normal makeup entries.
 	RemoveCosmetics(akActor, false)
-	SlaveTats.simple_add_tattoo(akActor, "Dollform Cosmetics", "Doll Foot Polish", 0xFFFF66AA, true, true, 0.85)
+	SlaveTats.simple_add_tattoo(akActor, "Dollform Cosmetics", "Doll Foot Polish", 0xFFFF66AA, false, true, 0.85)
 
 	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
 Function RemoveCosmetics(Actor akActor, Bool abSynchronize = true)
-	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Blush", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Hand Polish", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Foot Polish", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Mascara", true, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Blush", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Hand Polish", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Foot Polish", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Dollform Cosmetics", "Doll Mascara", false, true)
 	If abSynchronize
 		SlaveTats.synchronize_tattoos(akActor, true)
 	EndIf
 EndFunction
 
 Function ApplyActorValueChanges(Actor akActor)
-	_armorMod = 60.0 + (_tier * 12.0)
-	_speechMod = 10.0 + (_tier * 3.0)
-	_speedMod = -12.0 - (_tier * 3.0)
-	_magickaRateMod = -15.0 - (_tier * 4.0)
-	_attackDamageMod = -10.0 - (_tier * 3.0)
 
-	akActor.ModActorValue("DamageResist", _armorMod)
-	akActor.ModActorValue("Speechcraft", _speechMod)
-	akActor.ModActorValue("SpeedMult", _speedMod)
-	akActor.ModActorValue("MagickaRateMult", _magickaRateMod)
-	akActor.ModActorValue("MeleeDamage", _attackDamageMod)
+	akActor.ModActorValue("DamageResist", (60.0 + (_tier * 12.0)) - _armorMod)
+	_armorMod = 60.0 + (_tier * 12.0)
+	akActor.ModActorValue("Speechcraft", (10.0 + (_tier * 3.0)) - _speechMod)
+	_speechMod = 10.0 + (_tier * 3.0)
+	akActor.ModActorValue("SpeedMult", (-12.0 - (_tier * 3.0)) - _speedMod)
+	_speedMod = -12.0 - (_tier * 3.0)
+	akActor.ModActorValue("MagickaRateMult", (-15.0 - (_tier * 4.0)) - _magickaRateMod)
+	_magickaRateMod = -15.0 - (_tier * 4.0)
+	akActor.ModActorValue("MeleeDamage", (-10.0 - (_tier * 3.0)) - _attackDamageMod)
+	_attackDamageMod = -10.0 - (_tier * 3.0)
 EndFunction
 
 Function RestoreActorValueChanges(Actor akActor)
 	akActor.ModActorValue("DamageResist", -_armorMod)
+	_armorMod = 0.0
 	akActor.ModActorValue("Speechcraft", -_speechMod)
+	_speechMod = 0.0
 	akActor.ModActorValue("SpeedMult", -_speedMod)
+	_speedMod = 0.0
 	akActor.ModActorValue("MagickaRateMult", -_magickaRateMod)
+	_magickaRateMod = 0.0
 	akActor.ModActorValue("MeleeDamage", -_attackDamageMod)
+	_attackDamageMod = 0.0
 EndFunction
 
 Function EnforceClothingRules(Actor akActor)
-	akActor.UnequipItemSlot(32)
+	If _tier >= 1
+		SafeUnequipSlot(akActor, 32)
+	EndIf
 
 	If _tier >= 3
-		akActor.UnequipItemSlot(30)
-		akActor.UnequipItemSlot(31)
-		akActor.UnequipItemSlot(33)
-		akActor.UnequipItemSlot(37)
+		SafeUnequipSlot(akActor, 30)
+		SafeUnequipSlot(akActor, 31)
+		SafeUnequipSlot(akActor, 33)
+		SafeUnequipSlot(akActor, 37)
 	EndIf
 EndFunction
 
@@ -450,10 +489,14 @@ Function ApplyAuraEffect(Actor akActor)
 EndFunction
 
 Bool Function IsOnCooldown(Actor akActor)
-	Float now = Utility.GetCurrentRealTime()
+	Float now = GetTimeElapsed()
 	Int i = 0
 	While i < _cooldownActors.Length
 		If _cooldownActors[i] == akActor
+			; Old saves stored application uptime, which resets on restarting Skyrim.
+			If now < _cooldownTimes[i]
+				Return false
+			EndIf
 			If now - _cooldownTimes[i] < CooldownSeconds
 				Return true
 			EndIf
@@ -465,7 +508,7 @@ Bool Function IsOnCooldown(Actor akActor)
 EndFunction
 
 Function MarkCooldown(Actor akActor)
-	Float now = Utility.GetCurrentRealTime()
+	Float now = GetTimeElapsed()
 	Int emptyIndex = -1
 	Int oldestIndex = 0
 	Float oldestTime = now
@@ -496,4 +539,19 @@ Function MarkCooldown(Actor akActor)
 		_cooldownActors[oldestIndex] = akActor
 		_cooldownTimes[oldestIndex] = now
 	EndIf
+EndFunction
+
+Function SafeUnequipSlot(Actor akActor, Int aiSlot)
+	Armor wornArmor = akActor.GetWornForm(Armor.GetMaskForSlot(aiSlot)) as Armor
+	If !wornArmor
+		Return
+	EndIf
+	If IsLockedArmor(wornArmor)
+		Return
+	EndIf
+	akActor.UnequipItem(wornArmor, false, true)
+EndFunction
+
+Bool Function IsLockedArmor(Armor akArmor)
+	Return akArmor.HasKeywordString("zad_Lockable") || akArmor.HasKeywordString("zad_DeviousDevice") || akArmor.HasKeywordString("zad_InventoryDevice")
 EndFunction

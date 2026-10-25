@@ -58,19 +58,54 @@ Int _applyCowMorphTest
 Int _reportCowMorphs
 Int _cycleMorphScale
 Int _cycleProgressionScale
+Bool _recovering = false
+Bool _claimBusy = false
 
-Event OnConfigInit()
+Int Function ClaimActiveForm(Int aiFormId)
+	; All five forms enter through this controller. Acquire the local guard
+	; before any external call can yield to a second startup stack.
+	If _claimBusy || _recovering
+		Return 0
+	EndIf
+	_claimBusy = true
+	If cfl_BodymorphActiveForm.GetValueInt() != 0 || _recovering
+		_claimBusy = false
+		Return 0
+	EndIf
+	; Reserve the legacy ID immediately, so Feral also sees an occupied lock
+	; while the persistent token is being allocated.
+	cfl_BodymorphActiveForm.SetValue(aiFormId)
+	Int token = StorageUtil.GetIntValue(PlayerRef, "BodymorphAlterations.LastFormToken") + 1
+	If token > 90000 || token < 1
+		token = 1
+	EndIf
+	StorageUtil.SetIntValue(PlayerRef, "BodymorphAlterations.LastFormToken", token)
+	Int activeValue = (aiFormId * 100000) + token
+	cfl_BodymorphActiveForm.SetValue(activeValue)
+	_claimBusy = false
+	Return activeValue
+EndFunction
+
+Int Function GetVersion()
+	Return 20261024
+EndFunction
+
+Function OnVersionUpdate(Int aiVersion)
+	OnConfigInit()
+EndFunction
+
+Function OnConfigInit()
 	ModName = "Bodymorph Alterations CURRENT"
 	Pages = New String[4]
 	Pages[0] = "Status"
 	Pages[1] = "Debug"
 	Pages[2] = "Diagnostics"
 	Pages[3] = "Tuning"
-EndEvent
+EndFunction
 
-Event OnPageReset(String a_page)
+Function OnPageReset(String a_page)
 	If a_page == ""
-		Return
+		a_page = Pages[0]
 	EndIf
 
 	SetCursorFillMode(TOP_TO_BOTTOM)
@@ -156,9 +191,21 @@ Event OnPageReset(String a_page)
 		AddTextOption("Morph strength applies to all forms", "", OPTION_FLAG_DISABLED)
 		AddTextOption("Progression time applies to all forms", "", OPTION_FLAG_DISABLED)
 	EndIf
-EndEvent
+EndFunction
 
-Event OnOptionSelect(Int a_option)
+Function OnOptionSelect(Int a_option)
+	; SkyUI option IDs are reused between pages. Dispatch tuning first so an
+	; old Debug-page ID cannot intercept a tuning control and change a tier.
+	If CurrentPage == Pages[3]
+		If a_option == _cycleMorphScale
+			CycleMorphScale()
+		ElseIf a_option == _cycleProgressionScale
+			CycleProgressionScale()
+		EndIf
+		Return
+	ElseIf CurrentPage != Pages[1]
+		Return
+	EndIf
 	If a_option == _cycleDollTier
 		CycleTier(cfl_DollformMarkTier, "Dollform")
 	ElseIf a_option == _cycleHorseTier
@@ -228,13 +275,23 @@ Event OnOptionSelect(Int a_option)
 	ElseIf a_option == _cycleProgressionScale
 		CycleProgressionScale()
 	EndIf
-EndEvent
+EndFunction
 
-Event OnOptionHighlight(Int a_option)
+Function OnOptionHighlight(Int a_option)
+	If CurrentPage == Pages[3]
+		If a_option == _cycleMorphScale
+			SetInfoText("Cycles all forms' morph strength: 0.5x, 1.0x, 1.5x, 2.0x. Applies on the next cast or tier-up.")
+		ElseIf a_option == _cycleProgressionScale
+			SetInfoText("Cycles all forms' tier timing: lower is faster, higher is slower.")
+		EndIf
+		Return
+	ElseIf CurrentPage != Pages[1]
+		Return
+	EndIf
 	If a_option == _clearActive
-		SetInfoText("Resets the shared active-form global if a form got stuck.")
+		SetInfoText("Runs safe form recovery. The lock stays owned until temporary stats and visuals finish reversing.")
 	ElseIf a_option == _runRecovery
-		SetInfoText("Dispels form spells, clears temporary morphs/overlays/items, restores base hair color, and clears the active token.")
+		SetInfoText("Ends Bodymorph forms and waits for their cleanup. Preserves progression marks and Feral transformations.")
 	ElseIf a_option == _clearMorphs
 		SetInfoText("Clears only this mod's RaceMenu BodyMorph key and refreshes the player model.")
 	ElseIf a_option == _applyDollMorphTest
@@ -250,17 +307,20 @@ Event OnOptionHighlight(Int a_option)
 	ElseIf a_option == _testCowHorns
 		SetInfoText("Adds and equips TDN cow horns for testing the horn asset and slot behavior.")
 	ElseIf a_option == _resetUseCounters
-		SetInfoText("Clears the form-use counters used by the planned progression system.")
+		SetInfoText("Resets accumulated use time. Earned tiers remain; end the active form first.")
 	ElseIf a_option == _cycleMorphScale
-		SetInfoText("Cycles Rabbitform morph strength: 0.5x, 1.0x, 1.5x, 2.0x.")
+		SetInfoText("Cycles all forms' morph strength: 0.5x, 1.0x, 1.5x, 2.0x. Applies on the next cast or tier-up.")
 	ElseIf a_option == _cycleProgressionScale
-		SetInfoText("Cycles Rabbitform tier timing: lower is faster, higher is slower.")
+		SetInfoText("Cycles all forms' tier timing: lower is faster, higher is slower.")
 	Else
 		SetInfoText("")
 	EndIf
-EndEvent
+EndFunction
 
 Function SetTier(GlobalVariable akGlobal, Int aiTier, String asName)
+	If !CanRunDebugEdit()
+		Return
+	EndIf
 	akGlobal.SetValue(aiTier)
 	Debug.Notification(asName + " tier set to " + aiTier)
 	ForcePageReset()
@@ -268,13 +328,11 @@ EndFunction
 
 Function CycleTier(GlobalVariable akGlobal, String asName)
 	Int current = akGlobal.GetValueInt()
-	If current < 1
-		SetTier(akGlobal, 1, asName)
-	ElseIf current < 4
-		SetTier(akGlobal, 4, asName)
-	Else
-		SetTier(akGlobal, 0, asName)
+	Int nextTier = current + 1
+	If nextTier > 4
+		nextTier = 0
 	EndIf
+	SetTier(akGlobal, nextTier, asName)
 EndFunction
 
 Function GrantBaseSpells()
@@ -298,16 +356,35 @@ Function GrantBaseSpells()
 EndFunction
 
 Function RunFormRecovery()
-	Debug.Trace("[BodymorphAlterations][MCM] Running transactional recovery; active=" + cfl_BodymorphActiveForm.GetValueInt())
+	If _recovering
+		Return
+	EndIf
+	Int activeForm = ActiveFormId(cfl_BodymorphActiveForm.GetValueInt())
+	If activeForm > 5
+		Debug.Notification("End your Feral transformation in Feral before running Bodymorph recovery.")
+		Return
+	EndIf
+	_recovering = true
+	StorageUtil.SetIntValue(PlayerRef, "BodymorphAlterations.Recovering", 1)
 	DispelBodymorphSpells()
-	Utility.Wait(1.0)
+	; A fixed one-second wait used to invalidate slow finish handlers and strand stats.
+	; WaitMenuMode also works while SkyUI is open. Never steal a live owner's lock.
+	Int attempts = 0
+	While cfl_BodymorphActiveForm.GetValueInt() != 0 && attempts < 120
+		Utility.WaitMenuMode(0.25)
+		attempts += 1
+	EndWhile
+	If cfl_BodymorphActiveForm.GetValueInt() != 0
+		StorageUtil.UnsetIntValue(PlayerRef, "BodymorphAlterations.Recovering")
+		_recovering = false
+		Debug.Notification("Cleanup has not finished. Close MCM, wait, and try recovery again; the lock was preserved.")
+		Return
+	EndIf
 	ClearFormMorphs(false)
 	RemoveTemporaryTattoos(false)
-	RemoveActiveFormTattoos(false)
-	RemoveCowHorns(false)
-	RestoreBaseHairColor()
-	cfl_BodymorphActiveForm.SetValue(0)
 	SlaveTats.synchronize_tattoos(PlayerRef, true)
+	StorageUtil.UnsetIntValue(PlayerRef, "BodymorphAlterations.Recovering")
+	_recovering = false
 	Debug.Notification("Bodymorph Alterations recovery complete.")
 	Debug.Trace("[BodymorphAlterations][MCM] Recovery complete; active=" + cfl_BodymorphActiveForm.GetValueInt())
 	ForcePageReset()
@@ -339,22 +416,33 @@ Function RestoreBaseHairColor()
 EndFunction
 
 Function ClearActiveLock()
-	cfl_BodymorphActiveForm.SetValue(0)
-	Debug.Notification("Bodymorph active-form lock cleared.")
-	ForcePageReset()
+	RunFormRecovery()
+EndFunction
+
+Bool Function CanRunDebugEdit()
+	If _recovering || cfl_BodymorphActiveForm.GetValueInt() != 0
+		Debug.Notification("End the active transformation before editing its debug state.")
+		Return false
+	EndIf
+	Return true
 EndFunction
 
 Function ClearFormMorphs(Bool abNotify = true)
+	If abNotify && !CanRunDebugEdit()
+		Return
+	EndIf
 	NiOverride.ClearBodyMorphKeys(PlayerRef, MorphKey)
 	NiOverride.ClearBodyMorphKeys(PlayerRef, VisibleMorphKey)
 	NiOverride.UpdateModelWeight(PlayerRef)
-	PlayerRef.QueueNiNodeUpdate()
 	If abNotify
 		Debug.Notification("Bodymorph Alteration morphs cleared.")
 	EndIf
 EndFunction
 
 Function ApplyDollformMorphTest()
+	If !CanRunDebugEdit()
+		Return
+	EndIf
 	Debug.Notification("Applying CURRENT Dollform morph test.")
 	ClearFormMorphs(false)
 	SetMorph("Breasts", 1.75)
@@ -372,6 +460,9 @@ Function ApplyDollformMorphTest()
 EndFunction
 
 Function ApplyCowformMorphTest()
+	If !CanRunDebugEdit()
+		Return
+	EndIf
 	Debug.Notification("Applying CURRENT Cowform morph test.")
 	ClearFormMorphs(false)
 	SetMorph("Breasts", 2.50)
@@ -412,24 +503,27 @@ Function SetMorph(String asMorph, Float afValue)
 EndFunction
 
 Function RemoveTemporaryTattoos(Bool abSynchronize = true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Blush", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Hand Polish", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Foot Polish", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Mascara", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform Cosmetics", "Horse Hand Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform Cosmetics", "Horse Hoof Tint", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform Cosmetics", "Horse Body Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform Cosmetics", "Horse Stride Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Body Spots", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Udder Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Face Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Hand Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Hoof Tint", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Heavy Spots", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Rabbitform Cosmetics", "Rabbit Hip Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Rabbitform Cosmetics", "Rabbit Leap Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform Cosmetics", "Troll Grayhide Patches", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform Cosmetics", "Troll Stone Scars", true, true)
+	If abSynchronize && !CanRunDebugEdit()
+		Return
+	EndIf
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Blush", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Hand Polish", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Foot Polish", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform Cosmetics", "Doll Mascara", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform Cosmetics", "Horse Hand Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform Cosmetics", "Horse Hoof Tint", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform Cosmetics", "Horse Body Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform Cosmetics", "Horse Stride Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Body Spots", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Udder Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Face Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Hand Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Hoof Tint", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform Cosmetics", "Cow Heavy Spots", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Rabbitform Cosmetics", "Rabbit Hip Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Rabbitform Cosmetics", "Rabbit Leap Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform Cosmetics", "Troll Grayhide Patches", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform Cosmetics", "Troll Stone Scars", false, true)
 	If abSynchronize
 		SlaveTats.synchronize_tattoos(PlayerRef, true)
 		Debug.Notification("Temporary form tattoos removed.")
@@ -437,35 +531,41 @@ Function RemoveTemporaryTattoos(Bool abSynchronize = true)
 EndFunction
 
 Function RemoveActiveFormTattoos(Bool abSynchronize = true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Dollform Attunement", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Horseform Seed Brand", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Cowform Milk Drops", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Rabbitform", "Rabbitform Moon Mark", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform", "Trollform Grayhide Brand", true, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Dollform Attunement", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Horseform Seed Brand", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Cowform Milk Drops", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Rabbitform", "Rabbitform Moon Mark", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Trollform", "Trollform Grayhide Brand", false, true)
 	If abSynchronize
 		SlaveTats.synchronize_tattoos(PlayerRef, true)
 	EndIf
 EndFunction
 
 Function RemoveProgressionTattoos()
+	If !CanRunDebugEdit()
+		Return
+	EndIf
 	RemoveActiveFormTattoos(false)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Porcelain Lines", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Joint Seals", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Display Sigil", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Perfect Doll Brand", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Strong Legs", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Burdened Hands", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Hoofbound Stride", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Perfect Courser", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "First Letdown", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Full Udder", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Barn Brand", true, true)
-	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Perfect Dairy Cow", true, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Porcelain Lines", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Joint Seals", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Display Sigil", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Dollform", "Perfect Doll Brand", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Strong Legs", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Burdened Hands", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Hoofbound Stride", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Horseform", "Perfect Courser", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "First Letdown", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Full Udder", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Barn Brand", false, true)
+	SlaveTats.simple_remove_tattoo(PlayerRef, "Cowform", "Perfect Dairy Cow", false, true)
 	SlaveTats.synchronize_tattoos(PlayerRef, true)
 	Debug.Notification("Bodymorph progression tattoos removed.")
 EndFunction
 
 Function TestCowHorns()
+	If !CanRunDebugEdit()
+		Return
+	EndIf
 	Armor horns = GetCowHorns()
 	If !horns
 		Debug.Notification("TDN cow horns were not found.")
@@ -480,6 +580,9 @@ Function TestCowHorns()
 EndFunction
 
 Function RemoveCowHorns(Bool abNotify = true)
+	If !CanRunDebugEdit()
+		Return
+	EndIf
 	Armor horns = GetCowHorns()
 	If !horns
 		If abNotify
@@ -496,6 +599,9 @@ Function RemoveCowHorns(Bool abNotify = true)
 EndFunction
 
 Function ResetUseCounters()
+	If !CanRunDebugEdit()
+		Return
+	EndIf
 	cfl_DollformUseSeconds.SetValue(0.0)
 	cfl_HorseformUseSeconds.SetValue(0.0)
 	cfl_CowformUseSeconds.SetValue(0.0)
@@ -615,9 +721,6 @@ String Function RecoveryStatus()
 	If HasMorphResidue()
 		Return "morph residue"
 	EndIf
-	If IsCowHornsEquipped()
-		Return "horns equipped"
-	EndIf
 	Return "clean"
 EndFunction
 
@@ -688,8 +791,12 @@ String Function FormatFloat(Float afValue)
 	If frac < 0
 		frac = -frac
 	EndIf
-	If frac < 10
-		Return (whole as String) + ".0" + (frac as String)
+	String signText = ""
+	If scaled < 0 && whole == 0
+		signText = "-"
 	EndIf
-	Return (whole as String) + "." + (frac as String)
+	If frac < 10
+		Return signText + (whole as String) + ".0" + (frac as String)
+	EndIf
+	Return signText + (whole as String) + "." + (frac as String)
 EndFunction

@@ -1,33 +1,27 @@
 $ErrorActionPreference = 'Stop'
 
 $projectRoot = $PSScriptRoot
-$repoRoot = (Resolve-Path -LiteralPath (Join-Path $projectRoot '..')).Path
-$mo2Root = $env:NEFARAM_MO2_ROOT
 $sourceRoot = Join-Path $projectRoot 'Source\Scripts'
 $outputRoot = Join-Path $projectRoot 'Scripts'
+$mo2Root = $env:NEFARAM_MO2_ROOT
 $compiler = $env:NEFARAM_PAPYRUS_COMPILER
 $vanilla = $env:NEFARAM_VANILLA_SOURCE
-if ([string]::IsNullOrWhiteSpace($mo2Root) -or [string]::IsNullOrWhiteSpace($compiler) -or [string]::IsNullOrWhiteSpace($vanilla)) {
-    throw 'Set NEFARAM_MO2_ROOT, NEFARAM_PAPYRUS_COMPILER, and NEFARAM_VANILLA_SOURCE before building.'
+if ([string]::IsNullOrWhiteSpace($vanilla)) {
+    $vanilla = Join-Path (Split-Path $projectRoot) 'tools\vanilla-source\Source\Scripts'
+}
+if ([string]::IsNullOrWhiteSpace($mo2Root) -or [string]::IsNullOrWhiteSpace($compiler)) {
+    throw 'Set NEFARAM_MO2_ROOT and NEFARAM_PAPYRUS_COMPILER before building. NEFARAM_VANILLA_SOURCE optionally overrides the repo vanilla sources.'
 }
 $includes = @(
     $sourceRoot
     (Join-Path $projectRoot 'build-stubs')
-    (Join-Path $repoRoot 'feral\build-stubs')
     (Join-Path $mo2Root 'mods\SKSE\Scripts\Source')
     $vanilla
     (Join-Path $mo2Root 'mods\MCM Recorder\Source\scripts')
     (Join-Path $mo2Root "mods\powerofthree's Papyrus Extender\Source\scripts")
     (Join-Path $mo2Root 'mods\PapyrusUtil SE - Modders Scripting Utility Functions\Source\Scripts')
 ) -join ';'
-$scripts = @(
-    'cfl_DollformEffect.psc'
-    'cfl_HorseformEffect.psc'
-    'cfl_CowformEffect.psc'
-    'cfl_RabbitformEffect.psc'
-    'cfl_TrollformEffect.psc'
-    'cfl_DollformMCM.psc'
-)
+$scripts = @(Get-ChildItem -LiteralPath $sourceRoot -Filter '*.psc' | Select-Object -ExpandProperty Name)
 
 if (!(Test-Path -LiteralPath $compiler)) { throw "Papyrus compiler missing: $compiler" }
 New-Item -ItemType Directory -Path $outputRoot -Force | Out-Null
@@ -35,8 +29,12 @@ New-Item -ItemType Directory -Path $outputRoot -Force | Out-Null
 Push-Location $sourceRoot
 try {
     foreach ($script in $scripts) {
-        & $compiler $script "-f=$vanilla\TESV_Papyrus_Flags.flg" "-i=$includes" "-o=$outputRoot"
+        $compilerOutput = & $compiler $script "-f=$vanilla\TESV_Papyrus_Flags.flg" "-i=$includes" "-o=$outputRoot" 2>&1
+        $compilerOutput | Write-Output
         if ($LASTEXITCODE -ne 0) { throw "Papyrus compilation failed for $script." }
+        if (($compilerOutput -join "`n") -match '(?im)^.*(?:[1-9][0-9]* warning\(s\)|[1-9][0-9]* error\(s\)|: warning)') {
+            throw "Papyrus compiler reported warnings/errors for $script."
+        }
     }
 }
 finally {
@@ -48,12 +46,6 @@ foreach ($script in $scripts) {
     if (!(Test-Path -LiteralPath $pex)) { throw "Missing compiled output: $pex" }
 }
 
-$sources = $scripts | ForEach-Object { Get-Content -Raw -LiteralPath (Join-Path $sourceRoot $_) }
-$effectSources = $sources[0..4] -join "`n"
-foreach ($required in @('BeginActiveForm', 'IsActiveInstance', 'ActiveFormId', 'ActiveToken',
-    'BodymorphAlterations.LastFormToken')) {
-    if ($effectSources -notmatch [regex]::Escape($required)) { throw "Missing tokenized lifecycle feature: $required" }
-}
-if ($sources[5] -notmatch 'RunFormRecovery') { throw 'Missing transactional MCM recovery.' }
-
-Write-Output 'Bodymorph Alterations validation passed: 6 zero-warning scripts, tokenized ownership, and transactional recovery.'
+& (Join-Path $projectRoot 'build\Remove-PexBuildIdentity.ps1') -ScriptsRoot $outputRoot
+& (Join-Path $projectRoot 'build\Test-Review.ps1')
+Write-Output "Bodymorph Alterations validation passed: $($scripts.Count) compiled scripts and review regression checks."

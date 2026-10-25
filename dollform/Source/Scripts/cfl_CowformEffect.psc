@@ -22,6 +22,12 @@ Float Property Tier4Seconds = 1800.0 Auto
 
 Bool _running = false
 Bool _ownsForm = false
+; Finish can arrive while a latent appearance operation is in progress.
+Bool _transitioning = false
+Bool _finishRequested = false
+Bool _finished = false
+Bool _elapsedClockReady = false
+Float _lastElapsed = 0.0
 Int _activeToken = 0
 Int _tier = 0
 Int _milkPulseCounter = 0
@@ -48,11 +54,20 @@ Float _startedAt
 MilkQUEST _milkQuest
 Armor _cowHorns
 Bool _addedCowHorns = false
+Bool _hornOwnershipRecorded = false
+Bool _hornsWereEquipped = false
+Bool _equippedCowHorns = false
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 	Debug.Trace("[BodymorphAlterations][Cowform] Start target=" + akTarget + " caster=" + akCaster + " active=" + cfl_BodymorphActiveForm.GetValueInt())
 	If akTarget != PlayerRef
 		Debug.Trace("[BodymorphAlterations][Cowform] Rejected non-player target.")
+		Dispel()
+		Return
+	EndIf
+
+	If StorageUtil.GetIntValue(PlayerRef, "BodymorphAlterations.Recovering") != 0
+		Debug.Notification("Bodymorph cleanup is still running.")
 		Dispel()
 		Return
 	EndIf
@@ -71,12 +86,21 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Return
 	EndIf
 
+	_transitioning = true
 	_running = true
 	_ownsForm = true
 	_startedAt = Utility.GetCurrentRealTime()
-	_startupRefreshes = 2
-	BeginActiveForm(3)
-	_tier = cfl_CowformMarkTier.GetValueInt()
+	_startupRefreshes = 0
+	_lastElapsed = GetTimeElapsed()
+	_elapsedClockReady = true
+	If !BeginActiveForm(3)
+		_running = false
+		_ownsForm = false
+		_transitioning = false
+		Dispel()
+		Return
+	EndIf
+	_tier = PapyrusUtil.ClampInt(cfl_CowformMarkTier.GetValueInt(), 0, 4)
 
 	EnsureMCMQuestStarted()
 	SaveMorphs(PlayerRef)
@@ -84,14 +108,14 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	ApplyCowMorphs(PlayerRef)
 	ApplyHairColor(PlayerRef)
 	ApplyHorns(PlayerRef)
-	ApplyProgressTattoo(PlayerRef)
 	ApplyActorValueChanges(PlayerRef)
+	ApplyProgressTattoo(PlayerRef)
 	ApplyCosmetics(PlayerRef)
 	SetupMilkMod(PlayerRef)
 	EnforceRestrictions(PlayerRef)
 	TraceMorphState("Applied")
 
-	RegisterForSingleUpdate(1.0)
+	CompleteTransition(UpdateSeconds)
 EndEvent
 
 Event OnUpdate()
@@ -99,22 +123,19 @@ Event OnUpdate()
 		Return
 	EndIf
 	If !IsActiveInstance(3)
-		_running = false
+		FinishForm()
+		Dispel()
 		Return
 	EndIf
+	If _transitioning
+		Return
+	EndIf
+	_transitioning = true
 
 	EnforceRestrictions(PlayerRef)
-	If _startupRefreshes > 0
-		RefreshAppearance(PlayerRef)
-		ApplyHorns(PlayerRef)
-		Debug.Trace("[BodymorphAlterations][Cowform] Startup refresh remaining=" + _startupRefreshes)
-		_startupRefreshes -= 1
-		RegisterForSingleUpdate(1.0)
-		Return
-	EndIf
 
 	If cfl_CowformUseSeconds
-		cfl_CowformUseSeconds.SetValue(cfl_CowformUseSeconds.GetValue() + UpdateSeconds)
+		cfl_CowformUseSeconds.SetValue(cfl_CowformUseSeconds.GetValue() + ElapsedUseSeconds())
 		CheckProgression(PlayerRef)
 	EndIf
 
@@ -125,39 +146,75 @@ Event OnUpdate()
 		PulseMilkMod(PlayerRef)
 	EndIf
 
-	RegisterForSingleUpdate(UpdateSeconds)
+	CompleteTransition(UpdateSeconds)
 EndEvent
 
 Event OnEffectFinish(Actor akTarget, Actor akCaster)
 	_running = false
-	UnregisterForUpdate()
-	Debug.Trace("[BodymorphAlterations][Cowform] Finish target=" + akTarget + " elapsed=" + (Utility.GetCurrentRealTime() - _startedAt))
-
-	If akTarget == PlayerRef && _ownsForm
-		Bool ownsActiveInstance = IsActiveInstance(3)
-		If ownsActiveInstance
-			RestoreMorphs(PlayerRef)
-			RestoreHairColor(PlayerRef)
-			RemoveHorns(PlayerRef)
-			RemoveCosmetics(PlayerRef)
-			RestoreActorValueChanges(PlayerRef)
-		EndIf
-		If ownsActiveInstance
-			cfl_BodymorphActiveForm.SetValue(0)
-		EndIf
-		TraceMorphState("Restored")
-		Debug.Trace("[BodymorphAlterations][Cowform] Cleanup complete; active=" + cfl_BodymorphActiveForm.GetValueInt())
-		_ownsForm = false
+	_finishRequested = true
+	; The native effect can already be unbound here. Do not call its natives.
+	If !_transitioning
+		FinishForm()
 	EndIf
 EndEvent
 
-Function BeginActiveForm(Int aiFormId)
-	_activeToken = StorageUtil.GetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken") + 1
-	If _activeToken > 90000
-		_activeToken = 1
+Function CompleteTransition(Float afDelay)
+	_transitioning = false
+	If _finishRequested || !_running
+		FinishForm()
+	Else
+		RegisterForSingleUpdate(afDelay)
 	EndIf
-	StorageUtil.SetIntValue(Game.GetPlayer(), "BodymorphAlterations.LastFormToken", _activeToken)
-	cfl_BodymorphActiveForm.SetValue((aiFormId * 100000) + _activeToken)
+EndFunction
+
+Function FinishForm()
+	If _finished || !_ownsForm
+		Return
+	EndIf
+	_finished = true
+	_running = false
+	_transitioning = true
+	; These deltas belong to this instance even if a debug action changed the lock.
+	RestoreActorValueChanges(PlayerRef)
+	If IsActiveInstance(3)
+		RestoreMorphs(PlayerRef)
+		RestoreHairColor(PlayerRef)
+		RemoveHorns(PlayerRef)
+		RemoveCosmetics(PlayerRef)
+		If IsActiveInstance(3)
+			cfl_BodymorphActiveForm.SetValue(0)
+		EndIf
+	EndIf
+	_ownsForm = false
+	_transitioning = false
+EndFunction
+
+Float Function ElapsedUseSeconds()
+	; The effect clock follows actual effect time, including delayed VM updates,
+	; and does not count time spent paused in menus. It survives save/load.
+	Float elapsed = GetTimeElapsed()
+	Float delta = 0.0
+	If _elapsedClockReady
+		delta = elapsed - _lastElapsed
+	EndIf
+	_lastElapsed = elapsed
+	_elapsedClockReady = true
+	Return PapyrusUtil.ClampFloat(delta, 0.0, 420.0)
+EndFunction
+
+Bool Function BeginActiveForm(Int aiFormId)
+	cfl_DollformMCM controller = Game.GetFormFromFile(0x00081E, "Dollform.esp") as cfl_DollformMCM
+	If !controller
+		Debug.Notification("Bodymorph controller is unavailable.")
+		Return false
+	EndIf
+	Int claimed = controller.ClaimActiveForm(aiFormId)
+	If claimed == 0
+		Debug.Notification("Another bodymorph transition is already in progress.")
+		Return false
+	EndIf
+	_activeToken = ActiveToken(claimed)
+	Return true
 EndFunction
 
 Bool Function IsActiveInstance(Int aiFormId)
@@ -180,15 +237,6 @@ Int Function ActiveToken(Int aiActiveValue)
 EndFunction
 
 Function SaveMorphs(Actor akActor)
-	_breasts = NiOverride.GetMorphValue(akActor, "Breasts")
-	_butt = NiOverride.GetMorphValue(akActor, "Butt")
-	_hips = NiOverride.GetMorphValue(akActor, "Hips")
-	_thighs = NiOverride.GetMorphValue(akActor, "Thighs")
-	_waist = NiOverride.GetMorphValue(akActor, "Waist")
-	_arms = NiOverride.GetMorphValue(akActor, "Arms")
-	_belly = NiOverride.GetMorphValue(akActor, "Belly")
-	_nippleSize = NiOverride.GetMorphValue(akActor, "NippleSize")
-	_areolaSize = NiOverride.GetMorphValue(akActor, "AreolaSize")
 	NiOverride.ClearBodyMorphKeys(akActor, MorphKey)
 	NiOverride.ClearBodyMorphKeys(akActor, VisibleMorphKey)
 EndFunction
@@ -258,15 +306,6 @@ EndFunction
 Function RestoreMorphs(Actor akActor)
 	NiOverride.ClearBodyMorphKeys(akActor, MorphKey)
 	NiOverride.ClearBodyMorphKeys(akActor, VisibleMorphKey)
-	RestoreDirectMorph(akActor, "Breasts", _breasts)
-	RestoreDirectMorph(akActor, "Butt", _butt)
-	RestoreDirectMorph(akActor, "Hips", _hips)
-	RestoreDirectMorph(akActor, "Thighs", _thighs)
-	RestoreDirectMorph(akActor, "Waist", _waist)
-	RestoreDirectMorph(akActor, "Arms", _arms)
-	RestoreDirectMorph(akActor, "Belly", _belly)
-	RestoreDirectMorph(akActor, "NippleSize", _nippleSize)
-	RestoreDirectMorph(akActor, "AreolaSize", _areolaSize)
 	RefreshAppearance(akActor)
 EndFunction
 
@@ -297,7 +336,6 @@ Function ApplyDirectCowMorphs(Actor akActor, Float afScale)
 EndFunction
 
 Function SetDirectMorph(Actor akActor, String asMorph, Float afBaseValue, Float afDelta)
-	NiOverride.ClearBodyMorph(akActor, asMorph, VisibleMorphKey)
 	NiOverride.SetBodyMorph(akActor, asMorph, VisibleMorphKey, PapyrusUtil.ClampFloat(afDelta * 1.75, -2.0, 3.0))
 EndFunction
 
@@ -306,13 +344,11 @@ Function RestoreDirectMorph(Actor akActor, String asMorph, Float afValue)
 EndFunction
 
 Function SetMorph(Actor akActor, String asMorph, Float afValue)
-	NiOverride.ClearBodyMorph(akActor, asMorph, MorphKey)
 	NiOverride.SetBodyMorph(akActor, asMorph, MorphKey, PapyrusUtil.ClampFloat(afValue, -2.0, 3.0))
 EndFunction
 
 Function RefreshAppearance(Actor akActor)
 	NiOverride.UpdateModelWeight(akActor)
-	akActor.QueueNiNodeUpdate()
 EndFunction
 
 Function EnsureMCMQuestStarted()
@@ -328,14 +364,13 @@ Function CheckProgression(Actor akActor)
 		Return
 	EndIf
 
-	RestoreActorValueChanges(akActor)
 	_tier = newTier
 	cfl_CowformMarkTier.SetValue(newTier)
+	ApplyActorValueChanges(akActor)
 	ApplyCowMorphs(akActor)
 	ApplyHorns(akActor)
 	ApplyProgressTattoo(akActor)
 	ApplyCosmetics(akActor)
-	ApplyActorValueChanges(akActor)
 	EnforceRestrictions(akActor)
 	Game.AdvanceSkill("Alteration", 35.0 + (newTier * 20.0))
 	Debug.Notification("Cowform deepens to tier " + newTier + ".")
@@ -375,29 +410,29 @@ Function ApplyProgressTattoo(Actor akActor)
 	EndIf
 
 	Float alpha = PapyrusUtil.ClampFloat(0.35 + (_tier * 0.15), 0.35, 0.95)
-	SlaveTats.simple_remove_tattoo(akActor, "Cowform", "Cowform Milk Drops", true, false)
-	SlaveTats.simple_add_tattoo(akActor, "Cowform", "Cowform Milk Drops", 0xFFFFF2E2, true, false, alpha)
+	SlaveTats.simple_remove_tattoo(akActor, "Cowform", "Cowform Milk Drops", false, true)
+	SlaveTats.simple_add_tattoo(akActor, "Cowform", "Cowform Milk Drops", 0xFFFFF2E2, false, true, alpha)
 EndFunction
 
 Function ApplyCosmetics(Actor akActor)
 	RemoveCosmetics(akActor, false)
-	SlaveTats.simple_add_tattoo(akActor, "Cowform Cosmetics", "Cow Body Spots", 0xFFFFFFFF, true, true, 0.55)
+	SlaveTats.simple_add_tattoo(akActor, "Cowform Cosmetics", "Cow Body Spots", 0xFFFFFFFF, false, true, 0.55)
 	If _tier >= 2
-		SlaveTats.simple_add_tattoo(akActor, "Cowform Cosmetics", "Cow Hoof Tint", 0xFF1D120D, true, true, 0.50)
+		SlaveTats.simple_add_tattoo(akActor, "Cowform Cosmetics", "Cow Hoof Tint", 0xFF1D120D, false, true, 0.50)
 	EndIf
 	If _tier >= 3
-		SlaveTats.simple_add_tattoo(akActor, "Cowform Cosmetics", "Cow Heavy Spots", 0xFF1B120D, true, true, 0.40)
+		SlaveTats.simple_add_tattoo(akActor, "Cowform Cosmetics", "Cow Heavy Spots", 0xFF1B120D, false, true, 0.40)
 	EndIf
 	SlaveTats.synchronize_tattoos(akActor, true)
 EndFunction
 
 Function RemoveCosmetics(Actor akActor, Bool abSynchronize = true)
-	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Body Spots", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Udder Mark", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Face Mark", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Hand Mark", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Hoof Tint", true, true)
-	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Heavy Spots", true, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Body Spots", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Udder Mark", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Face Mark", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Hand Mark", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Hoof Tint", false, true)
+	SlaveTats.simple_remove_tattoo(akActor, "Cowform Cosmetics", "Cow Heavy Spots", false, true)
 	If abSynchronize
 		SlaveTats.synchronize_tattoos(akActor, true)
 	EndIf
@@ -412,12 +447,31 @@ Function ApplyHorns(Actor akActor)
 	If !_cowHorns
 		Return
 	EndIf
+	If !_hornOwnershipRecorded
+		_hornsWereEquipped = akActor.IsEquipped(_cowHorns)
+		_hornOwnershipRecorded = true
+	EndIf
+	; Never replace locked equipment sharing any horn slot.
+	Int slot = 30
+	While slot <= 61
+		Int slotMask = Armor.GetMaskForSlot(slot)
+		If Math.LogicalAnd(_cowHorns.GetSlotMask(), slotMask) != 0
+			Armor conflict = akActor.GetWornForm(slotMask) as Armor
+			If conflict && conflict != _cowHorns && IsLockedArmor(conflict)
+				Return
+			EndIf
+		EndIf
+		slot += 1
+	EndWhile
 
 	If akActor.GetItemCount(_cowHorns) <= 0
 		akActor.AddItem(_cowHorns, 1, true)
 		_addedCowHorns = true
 	EndIf
-	akActor.EquipItem(_cowHorns, false, true)
+	If !akActor.IsEquipped(_cowHorns)
+		akActor.EquipItem(_cowHorns, false, true)
+		_equippedCowHorns = true
+	EndIf
 EndFunction
 
 Function RemoveHorns(Actor akActor)
@@ -425,7 +479,7 @@ Function RemoveHorns(Actor akActor)
 		Return
 	EndIf
 
-	If akActor.IsEquipped(_cowHorns)
+	If akActor.IsEquipped(_cowHorns) && !_hornsWereEquipped
 		akActor.UnequipItem(_cowHorns, false, true)
 	EndIf
 	If _addedCowHorns
@@ -435,25 +489,30 @@ Function RemoveHorns(Actor akActor)
 EndFunction
 
 Function ApplyActorValueChanges(Actor akActor)
-	_healthMod = 25.0 + (_tier * 15.0)
-	_staminaMod = 25.0 + (_tier * 10.0)
-	_carryWeightMod = 30.0 + (_tier * 20.0)
-	_speedMod = -8.0 - (_tier * 2.0)
-	_magickaRateMod = -10.0 - (_tier * 4.0)
 
-	akActor.ModActorValue("Health", _healthMod)
-	akActor.ModActorValue("Stamina", _staminaMod)
-	akActor.ModActorValue("CarryWeight", _carryWeightMod)
-	akActor.ModActorValue("SpeedMult", _speedMod)
-	akActor.ModActorValue("MagickaRateMult", _magickaRateMod)
+	akActor.ModActorValue("Health", (25.0 + (_tier * 15.0)) - _healthMod)
+	_healthMod = 25.0 + (_tier * 15.0)
+	akActor.ModActorValue("Stamina", (25.0 + (_tier * 10.0)) - _staminaMod)
+	_staminaMod = 25.0 + (_tier * 10.0)
+	akActor.ModActorValue("CarryWeight", (30.0 + (_tier * 20.0)) - _carryWeightMod)
+	_carryWeightMod = 30.0 + (_tier * 20.0)
+	akActor.ModActorValue("SpeedMult", (-8.0 - (_tier * 2.0)) - _speedMod)
+	_speedMod = -8.0 - (_tier * 2.0)
+	akActor.ModActorValue("MagickaRateMult", (-10.0 - (_tier * 4.0)) - _magickaRateMod)
+	_magickaRateMod = -10.0 - (_tier * 4.0)
 EndFunction
 
 Function RestoreActorValueChanges(Actor akActor)
 	akActor.ModActorValue("Health", -_healthMod)
+	_healthMod = 0.0
 	akActor.ModActorValue("Stamina", -_staminaMod)
+	_staminaMod = 0.0
 	akActor.ModActorValue("CarryWeight", -_carryWeightMod)
+	_carryWeightMod = 0.0
 	akActor.ModActorValue("SpeedMult", -_speedMod)
+	_speedMod = 0.0
 	akActor.ModActorValue("MagickaRateMult", -_magickaRateMod)
+	_magickaRateMod = 0.0
 EndFunction
 
 Function SetupMilkMod(Actor akActor)
@@ -466,7 +525,8 @@ Function SetupMilkMod(Actor akActor)
 		_milkQuest.AssignSlot(akActor)
 	EndIf
 
-	PulseMilkMod(akActor)
+	; First production pulse comes after the normal interval. Repeatedly toggling
+	; the power must not grant an instant milk/lactacid pulse on every cast.
 EndFunction
 
 Function PulseMilkMod(Actor akActor)
@@ -498,21 +558,16 @@ Function EnforceRestrictions(Actor akActor)
 EndFunction
 
 Function SafeUnequipSlot(Actor akActor, Int aiSlot)
-	If IsDeviousLockedSlot(akActor, aiSlot)
-		Return
-	EndIf
-	akActor.UnequipItemSlot(aiSlot)
-EndFunction
-
-Bool Function IsDeviousLockedSlot(Actor akActor, Int aiSlot)
 	Armor wornArmor = akActor.GetWornForm(Armor.GetMaskForSlot(aiSlot)) as Armor
 	If !wornArmor
-		Return false
+		Return
 	EndIf
+	If IsLockedArmor(wornArmor)
+		Return
+	EndIf
+	akActor.UnequipItem(wornArmor, false, true)
+EndFunction
 
-	Keyword lockable = Game.GetFormFromFile(0x003894, "Devious Devices - Assets.esm") as Keyword
-	If lockable && wornArmor.HasKeyword(lockable)
-		Return true
-	EndIf
-	Return false
+Bool Function IsLockedArmor(Armor akArmor)
+	Return akArmor.HasKeywordString("zad_Lockable") || akArmor.HasKeywordString("zad_DeviousDevice") || akArmor.HasKeywordString("zad_InventoryDevice")
 EndFunction
