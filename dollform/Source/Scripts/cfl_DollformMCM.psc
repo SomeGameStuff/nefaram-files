@@ -288,7 +288,9 @@ Function OnOptionHighlight(Int a_option)
 	ElseIf CurrentPage != Pages[1]
 		Return
 	EndIf
-	If a_option == _clearActive
+	If a_option == _cycleDollTier || a_option == _cycleHorseTier || a_option == _cycleCowTier || a_option == _cycleRabbitTier || a_option == _cycleTrollTier
+		SetInfoText("Sets a test tier and resets that form's use timer to its minimum for that tier. End the active form first.")
+	ElseIf a_option == _clearActive
 		SetInfoText("Runs safe form recovery. The lock stays owned until temporary stats and visuals finish reversing.")
 	ElseIf a_option == _runRecovery
 		SetInfoText("Ends Bodymorph forms and waits for their cleanup. Preserves progression marks and Feral transformations.")
@@ -321,9 +323,49 @@ Function SetTier(GlobalVariable akGlobal, Int aiTier, String asName)
 	If !CanRunDebugEdit()
 		Return
 	EndIf
+	aiTier = PapyrusUtil.ClampInt(aiTier, 0, 4)
+	GlobalVariable useCounter = UseCounterForTier(akGlobal)
+	If useCounter
+		; Otherwise lowering a test tier immediately jumps back to the tier
+		; implied by the previous playthrough's accumulated use time.
+		useCounter.SetValue(UseSecondsForTier(aiTier))
+	EndIf
 	akGlobal.SetValue(aiTier)
 	Debug.Notification(asName + " tier set to " + aiTier)
 	ForcePageReset()
+EndFunction
+
+GlobalVariable Function UseCounterForTier(GlobalVariable akTier)
+	If akTier == cfl_DollformMarkTier
+		Return cfl_DollformUseSeconds
+	ElseIf akTier == cfl_HorseformMarkTier
+		Return cfl_HorseformUseSeconds
+	ElseIf akTier == cfl_CowformMarkTier
+		Return cfl_CowformUseSeconds
+	ElseIf akTier == cfl_RabbitformMarkTier
+		Return cfl_RabbitformUseSeconds
+	ElseIf akTier == cfl_TrollformMarkTier
+		Return cfl_TrollformUseSeconds
+	EndIf
+	Return None
+EndFunction
+
+Float Function UseSecondsForTier(Int aiTier)
+	Float seconds = 0.0
+	If aiTier >= 4
+		seconds = 1800.0
+	ElseIf aiTier == 3
+		seconds = 900.0
+	ElseIf aiTier == 2
+		seconds = 360.0
+	ElseIf aiTier == 1
+		seconds = 120.0
+	EndIf
+	Float scale = 1.0
+	If cfl_BodymorphProgressionScale
+		scale = PapyrusUtil.ClampFloat(cfl_BodymorphProgressionScale.GetValue(), 0.25, 4.0)
+	EndIf
+	Return seconds * scale
 EndFunction
 
 Function CycleTier(GlobalVariable akGlobal, String asName)

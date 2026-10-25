@@ -15,12 +15,19 @@ if ((Get-Content -LiteralPath (Join-Path $profile 'plugins.txt')) -notcontains '
 $before = [IO.File]::ReadAllLines($modlist)
 if ($before -notcontains "+$modName") { throw 'The existing Bodymorph mod is not enabled.' }
 if (!(Test-Path -LiteralPath (Join-Path $runtime 'Dollform.esp'))) { throw 'The existing mod installation was not found.' }
+if ((Get-FileHash -LiteralPath (Join-Path $runtime 'Dollform.esp')).Hash -ne
+    (Get-FileHash -LiteralPath (Join-Path $projectRoot 'Dollform.esp')).Hash) {
+    throw 'The installed ESP differs from this project. This script-only update cannot safely replace it.'
+}
 $originalHash = (Get-FileHash -LiteralPath $modlist).Hash
 $files = [Collections.Generic.List[string]]::new()
-foreach ($compiled in Get-ChildItem -LiteralPath (Join-Path $projectRoot 'Scripts') -Filter '*.pex') {
-    $files.Add("Scripts\$($compiled.Name)")
+$sourceScripts = @(Get-ChildItem -LiteralPath (Join-Path $projectRoot 'Source\Scripts') -Filter '*.psc')
+if ($sourceScripts.Count -eq 0) { throw 'No source scripts found; refusing to deploy an incomplete project.' }
+foreach ($sourceScript in $sourceScripts) {
+    $compiledName = [IO.Path]::ChangeExtension($sourceScript.Name, '.pex')
+    $files.Add("Scripts\$compiledName")
     # Keep already-installed source copies consistent without adding a source tree.
-    $source = 'Source\Scripts\' + [IO.Path]::ChangeExtension($compiled.Name, '.psc')
+    $source = 'Source\Scripts\' + $sourceScript.Name
     if (Test-Path -LiteralPath (Join-Path $runtime $source)) { $files.Add($source) }
 }
 $files.Add('README.md')
