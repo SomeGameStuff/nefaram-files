@@ -59,6 +59,7 @@ Float _carryWeightMod
 Float _damageResistMod
 Float _speedMod
 Float _weaponSpeedMod
+Float _leftWeaponSpeedMod
 Float _magickaMod
 Float _magickaRateMod
 Float _fireResistMod
@@ -137,7 +138,6 @@ Event OnUpdate()
 	_transitioning = true
 
 	EnforceRestrictions(PlayerRef)
-	UpdateRegenSuppression(PlayerRef)
 
 	If cfl_TrollformUseSeconds
 		cfl_TrollformUseSeconds.SetValue(cfl_TrollformUseSeconds.GetValue() + ElapsedUseSeconds())
@@ -156,16 +156,14 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 	EndIf
 
 	If IsFireSource(akSource)
-		_pendingFire = true
-		_fireUntilElapsed = GetTimeElapsed() + 10.0
+		QueueFireSuppression()
 	EndIf
 EndEvent
 
 Event OnMagicEffectApply(ObjectReference akCaster, MagicEffect akEffect)
 	If _running && IsActiveInstance(5) && akEffect
 		If akEffect.HasKeywordString("MagicDamageFire")
-			_pendingFire = true
-			_fireUntilElapsed = GetTimeElapsed() + 10.0
+			QueueFireSuppression()
 		EndIf
 	EndIf
 EndEvent
@@ -180,6 +178,16 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 EndEvent
 
 Function CompleteTransition(Float afDelay)
+	; A hit received during startup/tier-up is applied before releasing the
+	; transition; an idle hit takes this same path immediately.
+	If !_finishRequested && _running
+		UpdateRegenSuppression(PlayerRef)
+		If _regenSuppressed && !_finishRequested
+			; Wake at the remaining fire deadline rather than rounding a ten
+			; second suppression up to the next five-second poll.
+			afDelay = PapyrusUtil.ClampFloat(_fireUntilElapsed - GetTimeElapsed(), 0.1, afDelay)
+		EndIf
+	EndIf
 	_transitioning = false
 	If _finishRequested || !_running
 		FinishForm()
@@ -443,6 +451,8 @@ Function ApplyActorValueChanges(Actor akActor)
 	_speedMod = -20.0 - (_tier * 1.0)
 	akActor.ModActorValue("WeaponSpeedMult", (-0.15) - _weaponSpeedMod)
 	_weaponSpeedMod = -0.15
+	akActor.ModActorValue("LeftWeaponSpeedMult", (-0.15) - _leftWeaponSpeedMod)
+	_leftWeaponSpeedMod = -0.15
 	akActor.ModActorValue("Magicka", (-100.0 - (_tier * 10.0)) - _magickaMod)
 	_magickaMod = -100.0 - (_tier * 10.0)
 	akActor.ModActorValue("MagickaRateMult", (-80.0) - _magickaRateMod)
@@ -487,6 +497,8 @@ Function RestoreActorValueChanges(Actor akActor)
 	_speedMod = 0.0
 	akActor.ModActorValue("WeaponSpeedMult", -_weaponSpeedMod)
 	_weaponSpeedMod = 0.0
+	akActor.ModActorValue("LeftWeaponSpeedMult", -_leftWeaponSpeedMod)
+	_leftWeaponSpeedMod = 0.0
 	akActor.ModActorValue("Magicka", -_magickaMod)
 	_magickaMod = 0.0
 	akActor.ModActorValue("MagickaRateMult", -_magickaRateMod)
@@ -505,6 +517,25 @@ Function RestoreActorValueChanges(Actor akActor)
 	_marksmanMod = 0.0
 EndFunction
 
+Function QueueFireSuppression()
+	If !_running || _finishRequested
+		Return
+	EndIf
+	_fireUntilElapsed = GetTimeElapsed() + 10.0
+	_pendingFire = true
+	If _transitioning
+		Return
+	EndIf
+	_transitioning = true
+	UpdateRegenSuppression(PlayerRef)
+	_transitioning = false
+	; Keep the existing polling timer. Repeated flame hits must not keep
+	; postponing progression updates or create additional update registrations.
+	If _finishRequested || !_running
+		FinishForm()
+	EndIf
+EndFunction
+
 Function SuppressRegeneration(Actor akActor)
 	If _regenSuppressed
 		Return
@@ -518,7 +549,10 @@ EndFunction
 Function UpdateRegenSuppression(Actor akActor)
 	If _pendingFire
 		_pendingFire = false
-		SuppressRegeneration(akActor)
+		; A very late startup callback should not apply an already-expired hit.
+		If GetTimeElapsed() < _fireUntilElapsed
+			SuppressRegeneration(akActor)
+		EndIf
 	EndIf
 	If !_regenSuppressed
 		Return

@@ -479,13 +479,19 @@ Function RemoveHorns(Actor akActor)
 		Return
 	EndIf
 
-	If akActor.IsEquipped(_cowHorns) && !_hornsWereEquipped
+	; A blocked equip can leave our horn reference populated even though the
+	; player later equipped their own horns manually. Only undo our equip.
+	; Older saves predate ownership bookkeeping, so retain their cleanup path.
+	Bool managedHorns = _equippedCowHorns || _addedCowHorns || !_hornOwnershipRecorded
+	If managedHorns && akActor.IsEquipped(_cowHorns) && !_hornsWereEquipped
 		akActor.UnequipItem(_cowHorns, false, true)
 	EndIf
 	If _addedCowHorns
 		akActor.RemoveItem(_cowHorns, 1, true)
 	EndIf
 	_addedCowHorns = false
+	_equippedCowHorns = false
+	_hornOwnershipRecorded = true
 EndFunction
 
 Function ApplyActorValueChanges(Actor akActor)

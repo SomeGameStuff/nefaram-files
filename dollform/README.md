@@ -142,7 +142,7 @@ Whether the player knows each base form power
 Debug page:
 
 ```text
-Cycle each form tier through 0, 1, and 4
+Cycle each form tier through 0, 1, 2, 3, and 4
 Grant all base form powers
 Clear the shared active-form lock
 Clear this mod's RaceMenu BodyMorph key
@@ -174,7 +174,7 @@ Morph strength: cycles 0.5x, 1.0x, 1.5x, 2.0x
 Progression time: cycles 0.5x, 1.0x, 2.0x, 4.0x
 ```
 
-These tuning globals are read by all four form scripts. Lower progression time means faster tiering; higher means slower tiering.
+These tuning globals are read by all five form scripts. Lower progression time means faster tiering; higher means slower tiering. Setting a debug tier resets only that form's use timer to the minimum for the selected tier, so lowering a test tier does not immediately jump back to its old tier on the next update.
 
 The MCM recovery action dispels known Bodymorph effects and waits for their owner cleanup before clearing this mod's morph and temporary tattoo residue. It preserves permanent initiation marks, personal equipment, and Feral ownership. If cleanup has not completed within 30 seconds, it preserves the token and reports that recovery is pending.
 
@@ -498,7 +498,7 @@ Core effects:
 +100 + tier * 15 CarryWeight
 +40 + tier * 10 DamageResist
 -20 - tier * 1 SpeedMult
--0.15 WeaponSpeedMult
+-0.15 WeaponSpeedMult and LeftWeaponSpeedMult
 -100 - tier * 10 Magicka
 -80 MagickaRateMult
 -100 FireResist
@@ -511,7 +511,7 @@ Core effects:
 
 Trollform scales the player to `1.22x + tier * 0.03`, clamped to `1.45x` after the player's original scale. It also applies bulky arm, leg, shoulder, waist, and muscle morphs.
 
-Fire hits with Skyrim's `MagicDamageFire` keyword suppress Trollform's regeneration for roughly 10 seconds. The form still carries the full fire-resistance penalty while active.
+Fire hits with Skyrim's `MagicDamageFire` keyword suppress Trollform's regeneration as soon as the current transition permits. The ten-second suppression renews from the latest hit and its final update is scheduled at that deadline. Repeated hits keep the regular progression timer intact. The form still carries the full fire-resistance penalty while active.
 
 Cosmetics:
 

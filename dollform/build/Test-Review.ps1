@@ -6,7 +6,7 @@ function Assert-Review($condition, [string]$message) {
     if (!$condition) { throw "Review regression: $message" }
 }
 function Function-Body([string]$source, [string]$name) {
-    $match = [regex]::Match($source, "(?ims)^\s*(?:Bool |Int |Float |String )?Function $name\([^\r\n]*\)\r?\n(.*?)^EndFunction")
+    $match = [regex]::Match($source, "(?ims)^\s*(?:(?:Bool|Int|Float|String|GlobalVariable) )?Function $name\([^\r\n]*\)\r?\n(.*?)^EndFunction")
     Assert-Review $match.Success "Missing function $name"
     return $match.Groups[1].Value
 }
@@ -72,6 +72,65 @@ Assert-Review ($recovery -match 'WaitMenuMode' -and $recovery -match 'activeForm
 Assert-Review ((Function-Body $mcm 'ClearActiveLock') -match 'RunFormRecovery') 'Unsafe raw lock-clear action remains'
 Assert-Review ($mcm -match 'Function OnVersionUpdate' -and $mcm -match 'Return 20261024') 'MCM update migration is missing'
 
+# A lowered debug tier must survive the next progression update at every scale.
+$setTier = Function-Body $mcm 'SetTier'
+$counterMap = Function-Body $mcm 'UseCounterForTier'
+$tierTime = Function-Body $mcm 'UseSecondsForTier'
+Assert-Review ($setTier -match 'useCounter.SetValue\(UseSecondsForTier\(aiTier\)\)') 'Debug tier edits leave the old timer in place'
+$tierTimes = @{0=0.0}
+foreach ($match in [regex]::Matches($tierTime, '(?:If|ElseIf) aiTier (?:==|>=) ([1-4])\r?\n\s*seconds = ([0-9.]+)')) {
+    $tierTimes[[int]$match.Groups[1].Value] = [double]::Parse($match.Groups[2].Value,[Globalization.CultureInfo]::InvariantCulture)
+}
+Assert-Review ($tierTimes.Count -eq 5) 'Debug tier timing table is incomplete'
+foreach ($name in @('Doll','Horse','Cow','Rabbit','Troll')) {
+    Assert-Review ($counterMap -match "akTier == cfl_${name}formMarkTier\r?\n\s*Return cfl_${name}formUseSeconds") "$name debug edit targets the wrong timer"
+    $formSource = Get-Content -Raw -LiteralPath (Join-Path $root "Source\Scripts\cfl_${name}formEffect.psc")
+    $poll = [double]([regex]::Match($formSource, 'Property UpdateSeconds = ([0-9.]+)').Groups[1].Value)
+    $thresholds = @{}
+    foreach ($match in [regex]::Matches($formSource, 'Property Tier([1-4])Seconds = ([0-9.]+)')) { $thresholds[[int]$match.Groups[1].Value] = [double]$match.Groups[2].Value }
+    foreach ($scale in @(0.25,0.5,1.0,2.0,4.0)) {
+        foreach ($selectedTier in 0..4) {
+            $afterNextUpdate = ($tierTimes[$selectedTier] * $scale) + $poll
+            $resultTier = 0
+            foreach ($candidateTier in 1..4) { if ($afterNextUpdate -ge $thresholds[$candidateTier] * $scale) { $resultTier = $candidateTier } }
+            Assert-Review ($resultTier -eq $selectedTier) "$name debug tier $selectedTier immediately changes to $resultTier at scale $scale"
+        }
+    }
+}
+
+# Execute the actual source's boolean horn-ownership guards with representative saves.
+$cow = Get-Content -Raw -LiteralPath (Join-Path $root 'Source\Scripts\cfl_CowformEffect.psc')
+$hornCleanup = Function-Body $cow 'RemoveHorns'
+$managedExpression = [regex]::Match($hornCleanup, 'Bool managedHorns = ([^\r\n]+)').Groups[1].Value
+$removeExpression = [regex]::Match($hornCleanup, 'If (managedHorns[^\r\n]+)').Groups[1].Value
+Assert-Review ($managedExpression -ne '' -and $removeExpression -ne '') 'Horn cleanup has no ownership guard'
+function Eval-HornGuard([bool]$_hornOwnershipRecorded,[bool]$_equippedCowHorns,[bool]$_addedCowHorns,[bool]$_hornsWereEquipped,[bool]$isEquipped) {
+    $managedCode = [regex]::Replace($managedExpression, '(_\w+)', '$$$1').Replace('||','-or').Replace('!','-not ')
+    $managedHorns = & ([scriptblock]::Create($managedCode))
+    $removeCode = $removeExpression.Replace('akActor.IsEquipped(_cowHorns)', '$isEquipped').Replace('managedHorns', '$managedHorns')
+    $removeCode = [regex]::Replace($removeCode, '(_\w+)', '$$$1').Replace('&&','-and').Replace('!','-not ')
+    return & ([scriptblock]::Create($removeCode))
+}
+Assert-Review (!(Eval-HornGuard $true $false $false $false $true)) 'Blocked auto-equip strips manually equipped horns on fade'
+Assert-Review (!(Eval-HornGuard $true $false $false $true $true)) 'Pre-equipped horns are stripped on fade'
+Assert-Review (Eval-HornGuard $true $true $false $false $true) 'Auto-equipped borrowed horns are not cleaned up'
+Assert-Review (Eval-HornGuard $true $true $true $false $true) 'Form-created horns are not cleaned up'
+Assert-Review (!(Eval-HornGuard $true $true $true $false $false)) 'Cleanup unequips horns that are not equipped'
+Assert-Review (Eval-HornGuard $false $false $false $false $true) 'Legacy saves lose their horn cleanup path'
+Assert-Review ($hornCleanup -match '_equippedCowHorns = false' -and $hornCleanup -match '_hornOwnershipRecorded = true') 'Repeated horn cleanup can claim player equipment'
+
+# Fire handling must be immediate without rescheduling polling on every flame hit.
+$fireQueue = Function-Body $troll 'QueueFireSuppression'
+$trollComplete = Function-Body $troll 'CompleteTransition'
+Assert-Review ($fireQueue -match 'UpdateRegenSuppression\(PlayerRef\)' -and $fireQueue -notmatch 'RegisterForSingleUpdate|CompleteTransition\(') 'Fire hits defer suppression or disturb the progression timer'
+Assert-Review ($fireQueue.IndexOf('_transitioning = true') -lt $fireQueue.IndexOf('UpdateRegenSuppression')) 'Fire stat changes bypass transition exclusion'
+Assert-Review ($trollComplete -match 'ClampFloat\(_fireUntilElapsed - GetTimeElapsed\(\), 0.1, afDelay\)') 'Fire expiry is rounded to the polling interval'
+Assert-Review ($troll -match '_leftWeaponSpeedMod = -0.15' -and $troll -match 'ModActorValue\("LeftWeaponSpeedMult", -_leftWeaponSpeedMod\)') 'Offhand weapons bypass the Troll attack-speed penalty or fail to restore'
+$duration = [double]([regex]::Match($fireQueue, '_fireUntilElapsed = GetTimeElapsed\(\) \+ ([0-9.]+)').Groups[1].Value)
+$deadline = 3.25 + $duration
+$now = 5.0
+while ($now -lt $deadline) { $now += [Math]::Min(5.0,[Math]::Max(0.1,$deadline - $now)) }
+Assert-Review ([Math]::Abs($now - 13.25) -lt 0.001) 'A hit between polls keeps suppression past its ten-second deadline'
 # Parse the small plugin directly, including VMAD object properties. No writes.
 $bytes = [IO.File]::ReadAllBytes((Join-Path $root 'Dollform.esp'))
 $records = [Collections.Generic.List[object]]::new()
